@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '../pages/login.vue';
 
 import Home from '../pages/home.vue';
+import Lobby from '../pages/lobby.vue';
 
 import NotFound from '../pages/NotFound.vue';
 import axios from 'axios';
@@ -19,6 +20,14 @@ const routes = [
         name: 'home',
         meta: {
             requiresAuth: true
+        }
+    },
+    {
+        path: '/lobby',
+        component: Lobby,
+        name: 'lobby',
+        meta: {
+            // requiresAuth: true
         }
     },
     {
