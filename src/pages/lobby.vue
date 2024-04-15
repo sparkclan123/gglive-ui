@@ -1,5 +1,6 @@
 <template>
     <div class="container mx-auto p-4 mt-2">
+        <!-- <img src="/public/assets/loading.svg" alt="Loading" /> -->
         <!-- Top row for buttons -->
         <div class="flex justify-start gap-2 mb-5">
             <button
