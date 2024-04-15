@@ -1,11 +1,98 @@
 <template>
-    <div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
-        <div>
-            <div class="text-xl font-medium text-black">Check Tailwind</div>
-            <p class="text-gray-500">You should see this text styled with Tailwind CSS utilities.</p>
+    <div class="container mx-auto p-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            <div class="card relative bg-white shadow-lg rounded-lg overflow-hidden" v-for="card in cards"
+                :key="card.id">
+                <!-- Red tag and heart icon -->
+                <div class="absolute top-0 left-0 bg-red-500 text-white text-xs uppercase font-semibold px-2 py-1">
+                    New!
+                </div>
+                <div class="absolute top-2 right-2 flex flex-col items-center">
+                    <i class="fa fa-heart text-white text-lg shadow-md"></i>
+                    <span class="text-white text-xs ">{{ card.likes }}</span>
+                </div>
+
+                <!-- Image with rounded corners -->
+                <img class="w-full h-48 object-cover rounded-lg" :src="card.image" alt="Card image">
+
+                <!-- Button with reduced font weight -->
+                <button class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-white bg-opacity-30 hover:bg-opacity-50 text-white py-2 px-2 border border-white border-opacity-20 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
+                    เล่นทันที
+                </button>
+            </div>
         </div>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Click me
-        </button>
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            cards: [
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                {
+                    id: 1,
+                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    likes: 152
+                },
+                // ... add more card objects here
+            ]
+        }
+    }
+}
+</script>
+<style></style>
