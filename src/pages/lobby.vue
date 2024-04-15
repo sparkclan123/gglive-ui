@@ -49,12 +49,12 @@ export default {
             cards: [
                 {
                     id: 1,
-                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    image: '/public/assets/plinko.webp',
                     likes: 152
                 },
                 {
                     id: 1,
-                    image: 'https://public.aty7j.com/pages/static/image/en/NewWebGameBg/mahjong-ways/WGBG-1d97f008.jpg',
+                    image: '/public/assets/mine1.webp',
                     likes: 152
                 },
                 {
