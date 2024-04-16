@@ -5,7 +5,7 @@
     <!-- Top row for buttons -->
     <!-- Existing card grid -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        <div class="card relative bg-white rounded-lg overflow-hidden" v-for="card in cards" :key="card.id">
+        <div class="card relative bg-white rounded-lg overflow-hidden shadow-xl" v-for="card in cards" :key="card.id">
             <!-- Red tag and heart icon -->
             <div class="absolute top-0 left-0 bg-red-500 text-white text-xs uppercase font-semibold px-2 py-1">
                 New!
@@ -38,13 +38,13 @@ export default {
             cards: [
                 {
                     id: 1,
-                    image: '/public/assets/plinko.webp',
-                    likes: 152
+                    image: '/assets/plinko.webp',
+                    likes: 1093
                 },
                 {
                     id: 1,
-                    image: '/public/assets/mine1.webp',
-                    likes: 152
+                    image: '/assets/mine1.webp',
+                    likes: 2122
                 },
                 {
                     id: 1,
