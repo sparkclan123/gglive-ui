@@ -11,10 +11,24 @@
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div> -->
-  <div>
-    <router-view />
+
+  <div class="container mx-auto p-4 mt-2">
+    <MenuScreen />
+    <div v-if="getLoading" class="loading-overlay">
+      <LodingSceen style="display: flex;justify-content: space-around;" />
+    </div>
+    <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'"/>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters('loading', ['getLoading'])
+  }
+}
+</script>
 
 <style scoped>
 /* .logo {

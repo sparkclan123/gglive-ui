@@ -2,6 +2,7 @@
 
 import { createStore } from "vuex";
 import auth from "./modules/auth";
+import loading from "./modules/loading";
 
 export default createStore({
   state: {},
@@ -9,6 +10,7 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {
-    auth: auth
+    auth: auth,
+    loading: loading
   },
 });

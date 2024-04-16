@@ -4,6 +4,7 @@ import LoginPage from '../pages/login.vue';
 
 import Home from '../pages/home.vue';
 import Lobby from '../pages/lobby.vue';
+import History from '../pages/history.vue';
 
 import NotFound from '../pages/NotFound.vue';
 import axios from 'axios';
@@ -26,6 +27,14 @@ const routes = [
         path: '/lobby',
         component: Lobby,
         name: 'lobby',
+        meta: {
+            // requiresAuth: true
+        }
+    },
+    {
+        path: '/history',
+        component: History,
+        name: 'history',
         meta: {
             // requiresAuth: true
         }
