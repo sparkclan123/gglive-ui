@@ -28,7 +28,7 @@ const routes = [
         component: Lobby,
         name: 'lobby',
         meta: {
-            // requiresAuth: true
+            requiresAuth: true
         }
     },
     {
@@ -36,7 +36,7 @@ const routes = [
         component: History,
         name: 'history',
         meta: {
-            // requiresAuth: true
+            requiresAuth: true
         }
     },
     {
@@ -66,7 +66,7 @@ let params = {};
     if (to.matched.some(record => record.meta.requiresAuth)) {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
-            axios.get('/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
+            axios.get('/user/m/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
                 .then(response => {
                     next();
                 })
