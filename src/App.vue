@@ -17,15 +17,23 @@
     <div v-if="getLoading" class="loading-overlay">
       <LodingSceen style="display: flex;justify-content: space-around;" />
     </div>
-    <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'"/>
+    <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
+  methods: {
+    ...mapActions('loading', ['updateLoading']),
+    ...mapActions('balance', ['facthBalance']),
+  },
   computed: {
     ...mapGetters('loading', ['getLoading'])
+  },
+  mounted() {
+    this.updateLoading(true)
+    this.facthBalance()
   }
 }
 </script>
