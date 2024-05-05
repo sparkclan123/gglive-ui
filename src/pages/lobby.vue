@@ -33,7 +33,7 @@
 <script>
 
 import { mapGetters, mapActions } from 'vuex'
-import { api } from '@axios_inst';
+import { api, apiMine } from '@axios_inst';
 export default {
     data() {
         return {
@@ -43,7 +43,7 @@ export default {
         }
     },
     computed: {
-
+        ...mapGetters('balance', ['getUsername'])
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
@@ -73,19 +73,71 @@ export default {
                 this.updateLoading(false);
             }
         },
-        openGame(game) {
+        async openGame(game) {
+            if (this.startGame) {
+                return;
+            }
+            this.startGame = true;
+
+            let data = {
+                game_id: game.id
+            }
+            let gameUrl = null;
             const access_token = localStorage.getItem('access_token');
             if (access_token) {
-                if (this.startGame) {
-                    return;
+                switch (game.name_en) {
+                    case 'mine':
+
+                        await apiMine.post('/mine/create-validate-token', data, {
+                            headers: { 'Authorization': `Bearer ${access_token}` },
+                        })
+                            .then(response => {
+                                if (response.data.status === 'ok') {
+                                    gameUrl = `${game.url}?username=${this.getUsername}&uuid=${response.data.uuid}`;
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching open game:' + game.name_en, error);
+
+                            });
+                        break;
+                    case 'fish':
+                        apicall = apiMine;
+                        break;
+                    default:
+                        apicall = apiMine;
+                        break;
                 }
-                this.startGame = true;
-                window.open(game.url, '_blank');
-                setTimeout(() => {
+
+                if (gameUrl) {
+
+                    window.open(gameUrl, '_blank');
+                    setTimeout(() => {
+                        this.startGame = false;
+                    }, 2000);
+                }else{
                     this.startGame = false;
-                }, 2000);
+                }
+
+
+            } else {
+
             }
+
+            // if (this.startGame) {
+            //     return;
+            // }
+            // this.startGame = true;
+
+            // const gameUrl = `${game.url}?token=${encodeURIComponent(access_token)}`;
+
+            // window.open(gameUrl, '_blank');
+            // setTimeout(() => {
+            //     this.startGame = false;
+            // }, 2000);
+
         }
+
     },
     created() {
         this.updateLoading(true);
