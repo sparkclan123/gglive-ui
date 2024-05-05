@@ -93,7 +93,7 @@ export default {
                         })
                             .then(response => {
                                 if (response.data.status === 'ok') {
-                                    gameUrl = `${game.url}?username=${this.getUsername}&uuid=${response.data.uuid}`;
+                                    gameUrl = `${game.url}?uu=${response.data.user_id}&uuid=${response.data.uuid}`;
                                 }
                             })
                             .catch(error => {
