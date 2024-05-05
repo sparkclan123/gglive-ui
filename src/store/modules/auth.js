@@ -1,5 +1,5 @@
 
-import axios from 'axios';
+import { api, apiMine } from '@axios_inst';
 
 const auth = {
   namespaced: true,
@@ -42,7 +42,7 @@ const auth = {
       try {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
-          await axios.get('/user-info', {
+          await api.get('/user-info', {
             headers: { 'Authorization': `Bearer ${access_token}` },
           })
             .then(response => {

@@ -5,4 +5,9 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   publicDir: 'public',
+  resolve: {
+    alias: {
+      '@axios_inst': '/src/axios.js',
+    }
+  }
 })

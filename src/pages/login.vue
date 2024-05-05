@@ -33,7 +33,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import axios from 'axios';
+import { api, apiMine } from '@axios_inst';
 export default {
     data() {
         return {
@@ -54,7 +54,7 @@ export default {
         let access_token = localStorage.getItem('access_token');
         if (access_token) {
             console.log('access_token', localStorage.getItem('access_token'));
-            axios.get('/user/m/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
+            api.get('/user/m/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
                 .then(response => {
                     window.location.href = '/lobby';
                 })
