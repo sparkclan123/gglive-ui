@@ -21,7 +21,7 @@
 
             <!-- Button with reduced font weight -->
             <button @click="openGame(game)"
-                class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-white bg-opacity-30 hover:bg-opacity-50 text-white py-2 px-2 border border-white border-opacity-20 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
+                class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-white bg-opacity-30 text-white py-2 px-2 border border-white border-opacity-20 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
                 เล่นทันที
             </button>
         </div>
@@ -81,61 +81,51 @@ export default {
 
             let data = {
                 game_id: game.id
-            }
+            };
             let gameUrl = null;
             const access_token = localStorage.getItem('access_token');
             if (access_token) {
+                let windowReference = window.open(); // เปิดหน้าต่างทันทีที่มีการคลิก
                 switch (game.name_en) {
                     case 'mine':
-
-                        await apiMine.post('/mine/create-validate-token', data, {
-                            headers: { 'Authorization': `Bearer ${access_token}` },
-                        })
-                            .then(response => {
-                                if (response.data.status === 'ok') {
-                                    gameUrl = `${game.url}?uu=${response.data.user_id}&uuid=${response.data.uuid}`;
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error fetching open game:' + game.name_en, error);
-
+                        try {
+                            let response = await apiMine.post('/mine/create-validate-token', data, {
+                                headers: { 'Authorization': `Bearer ${access_token}` },
                             });
+                            if (response.data.status === 'ok') {
+                                gameUrl = `${game.url}?uu=${response.data.user_id}&uuid=${response.data.uuid}`;
+                                windowReference.location = gameUrl;
+                            } else {
+                                windowReference.close();
+                            }
+                        } catch (error) {
+                            console.error('Error fetching open game:' + game.name_en, error);
+                            windowReference.close();
+                        }
                         break;
-                    case 'fish':
-                        apicall = apiMine;
+                    case 'plinko':
+                        gameUrl = game.url;
+                        windowReference.location = gameUrl;
                         break;
                     default:
-                        apicall = apiMine;
+                        gameUrl = game.url;
+                        windowReference.location = gameUrl;
                         break;
                 }
-
-                if (gameUrl) {
-
-                    window.open(gameUrl, '_blank');
-                    setTimeout(() => {
-                        this.startGame = false;
-                    }, 2000);
-                }else{
-                    this.startGame = false;
-                }
-
-
             } else {
-
+               
             }
-
-            // if (this.startGame) {
-            //     return;
-            // }
-            // this.startGame = true;
-
-            // const gameUrl = `${game.url}?token=${encodeURIComponent(access_token)}`;
-
-            // window.open(gameUrl, '_blank');
-            // setTimeout(() => {
-            //     this.startGame = false;
-            // }, 2000);
-
+            this.startGame = false;
+        },
+        openWindow(gameUrl, name) {
+            const openWindow = () => {
+                window.open(gameUrl, name);
+            };
+            document.body.addEventListener('click', function handler(event) {
+                openWindow();
+                document.body.removeEventListener('click', handler);
+                event.preventDefault();
+            }, { once: true });
         }
 
     },
