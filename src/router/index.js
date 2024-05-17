@@ -5,6 +5,7 @@ import LoginPage from '../pages/login.vue';
 import Home from '../pages/home.vue';
 import Lobby from '../pages/lobby.vue';
 import History from '../pages/history.vue';
+import GgLive from '../pages/gglive/index.vue';
 
 import NotFound from '../pages/NotFound.vue';
 import axios from 'axios';
@@ -22,6 +23,12 @@ const routes = [
         meta: {
             requiresAuth: true
         }
+    },
+    {
+        path: '/pitch',
+        component: GgLive,
+        name: 'pitch',
+
     },
     {
         path: '/lobby',
