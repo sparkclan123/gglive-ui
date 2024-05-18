@@ -5,7 +5,7 @@
             <!-- page 1 -->
             <div class="elHRfu ">
                 <span @click="toggleClass">click</span>
-                <div class="dsbthN custom-btn">
+                <div class="dsbthN custom-btn shadow-xl">
                     <div class="eVUsqz">
                         <button
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="imodPj custom-btn">
+                <div class="imodPj custom-btn shadow-xl">
                     <div class="iA-dheQ">
                         <div class="gRFNix">
                             <div class="hWtxro">
