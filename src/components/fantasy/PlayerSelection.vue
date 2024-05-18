@@ -1,5 +1,5 @@
 <template>
-    <div class="player-selection bg-white p-4 shadow-lg h-full overflow-y-auto lg:w-1/4">
+    <div class="player-selection bg-white p-4 shadow-lg h-full overflow-y-auto">
         <h2 class="text-xl font-bold mb-4">Player Selection</h2>
         <div class="mb-4">
             <input type="text" placeholder="Search for player..." class="p-2 border rounded w-full">
