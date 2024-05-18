@@ -12,12 +12,12 @@
     </a>
   </div> -->
 
-  <div class="container mx-auto p-4 mt-2">
+  <div class="container mx-auto p-4 mt-2 ">
     <MenuScreen />
     <div v-if="getLoading" class="loading-overlay">
       <LodingSceen style="display: flex;justify-content: space-around;" />
     </div>
-    <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" />
+    <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'"  class="bg-color-1"/>
   </div>
 </template>
 
@@ -51,4 +51,8 @@ export default {
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 } */
+.bg-color-1 {
+  background-color: #1a2c38;
+  border-radius: 0.5rem;
+}
 </style>

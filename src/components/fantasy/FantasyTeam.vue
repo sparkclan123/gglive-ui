@@ -1,45 +1,54 @@
 <template>
     <div class="dxRBog">
+
         <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
-            <div class="dsbthN">
-                <span @click="toggleClass">click</span>
-            </div>
             <!-- page 1 -->
-            <div class="elHRfu">
-                <div class="dsbthN">
-                    <div class="sc-eAQwYs eVUsqz">
-                        <button type="button" class="sc-eTNRI khqgum">Reset</button>
-                        <button type="button" class="sc-eTNRI khqgum">Auto pick</button>
-                        <button type="button" disabled="" class="sc-eTNRI dceCpZ">Save team</button>
+            <div class="elHRfu ">
+                <span @click="toggleClass">click</span>
+                <div class="dsbthN custom-btn">
+                    <div class="eVUsqz">
+                        <button
+                            class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                            รีเซ็ต
+                        </button>
+                        <button
+                            class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                            เลือกอัตโนมัติ
+                        </button>
+                        <button
+                            class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                            บันทึกทีม
+                        </button>
                     </div>
-                    <div class="sc-kyeWiB kznjgV">
-                        <div class="sc-vIyEI sc-iiqfCt jrXxIw cgwdFl">
-                            <div class="sc-bPrlCs ceLkmB">
-                                <label for="formation" class="sc-eIPYkq kISBiI">
-                                    <div><span class="sc-yRUbj jeDXjk">Choose formation</span></div>
+                    <div class="kznjgV">
+                        <div class="jrXxIw cgwdFl">
+                            <div
+                                class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs ceLkmB">
+                                <label for="formation" class="kISBiI">
+                                    <div><span class=" jeDXjk">เลือกรูปแบบ</span></div>
                                 </label>
-                                <select id="formation" class="sc-GkLId eiPequ">
-                                    <option value="1-3-4-3" aria-selected="true" class="sc-jYnQyy jAisTV">3-4-3</option>
-                                    <option value="1-3-5-2" aria-selected="false" class="sc-jYnQyy jAisTV">3-5-2
+                                <select id="formation" class=" eiPequ text-xs">
+                                    <option value="1-3-4-3" aria-selected="true" class="">3-4-3</option>
+                                    <option value="1-3-5-2" aria-selected="false" class="">3-5-2
                                     </option>
-                                    <option value="1-4-3-3" aria-selected="false" class="sc-jYnQyy jAisTV">4-3-3
+                                    <option value="1-4-3-3" aria-selected="false" class="">4-3-3
                                     </option>
-                                    <option value="1-4-4-2" aria-selected="false" class="sc-jYnQyy jAisTV">4-4-2
+                                    <option value="1-4-4-2" aria-selected="false" class="">4-4-2
                                     </option>
-                                    <option value="1-4-5-1" aria-selected="false" class="sc-jYnQyy jAisTV">4-5-1
+                                    <option value="1-4-5-1" aria-selected="false" class="">4-5-1
                                     </option>
-                                    <option value="1-5-2-3" aria-selected="false" class="sc-jYnQyy jAisTV">5-2-3
+                                    <option value="1-5-2-3" aria-selected="false" class="">5-2-3
                                     </option>
-                                    <option value="1-5-3-2" aria-selected="false" class="sc-jYnQyy jAisTV">5-3-2
+                                    <option value="1-5-3-2" aria-selected="false" class="">5-3-2
                                     </option>
-                                    <option value="1-5-4-1" aria-selected="false" class="sc-jYnQyy jAisTV">5-4-1
+                                    <option value="1-5-4-1" aria-selected="false" class="">5-4-1
                                     </option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="imodPj">
+                <div class="imodPj custom-btn">
                     <div class="iA-dheQ">
                         <div class="gRFNix">
                             <div class="hWtxro">
@@ -200,13 +209,14 @@ export default {
 <style scoped>
 @media (min-width: 64em) {
     .elHRfu {
-        padding-top: 3.2rem;
+        padding: 0.5rem;
         width: calc(66.6667%);
     }
 }
 
 .elHRfu {
-    padding-top: 2.4rem;
+    padding: 0.5rem;
+
 }
 
 .ism *,
@@ -300,13 +310,13 @@ export default {
 
 @media (min-width: 25em) {
     .hWtxro {
-        min-height: 6.2rem;
+        min-height: 5.8rem;
     }
 }
 
 @media (min-width: 38.125em) {
     .hWtxro {
-        min-height: 6rem;
+        min-height: 5.8rem;
     }
 }
 
@@ -350,14 +360,14 @@ export default {
 }
 
 .blPMze {
-    width: 3rem;
+    width: 2.5rem;
     padding: 1px;
     box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset;
-    min-height: 4rem;
+    min-height: 3.5rem;
     border-radius: 0.4rem;
     background-color: rgb(2, 159, 79);
     font-family: PremierSans-Heavy, Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 1rem;
+    font-size: 0.5rem;
     text-align: center;
 }
 
@@ -367,6 +377,7 @@ export default {
     .blPMze {
         width: 3rem;
         min-height: 4rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -375,6 +386,7 @@ export default {
     .blPMze {
         width: 3rem;
         min-height: 4rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -382,20 +394,23 @@ export default {
     .blPMze {
         width: 3rem;
         min-height: 4rem;
+        font-size: 1rem;
     }
 }
 
 @media (min-width: 56.25em) {
     .blPMze {
-        width: 5rem;
-        min-height: 6rem;
+        width: 3rem;
+        min-height: 4rem;
+        font-size: 1rem;
     }
 }
 
 @media (min-width: 64em) {
     .blPMze {
-        width: 6rem;
-        min-height: 7rem;
+        width: 5rem;
+        min-height: 6rem;
+        font-size: 1rem;
     }
 }
 
@@ -418,7 +433,6 @@ export default {
 }
 
 @media (min-width: 64em) {
-
     .dsbthN {
         display: flex;
         justify-content: space-between;
@@ -427,15 +441,11 @@ export default {
 }
 
 @media (min-width: 64em) {
-
     .kznjgV {
         flex: 0 0 23%;
     }
 }
 
-.cgwdFl {
-    margin: 0px;
-}
 
 .ceLkmB {
     position: relative;
@@ -444,6 +454,7 @@ export default {
     border: 1px solid rgb(215, 204, 216);
     border-radius: 0.4rem;
     background-color: rgb(255, 255, 255);
+
 }
 
 .eiPequ {
@@ -459,7 +470,6 @@ export default {
     background: none;
     color: inherit;
     font-family: PremierSans-Regular, Arial, "Helvetica Neue", Helvetica, "sans-serif";
-    font-size: 1.6rem;
     appearance: none;
     cursor: pointer;
 }
@@ -495,7 +505,7 @@ export default {
     transform: translate3d(100%, 0px, 0px);
     transition: all 300ms ease;
     overflow-y: auto;
-    padding: 2rem 0;
+    padding: 1rem ;
 }
 
 @media (min-width: 64em) {
@@ -520,12 +530,6 @@ export default {
 }
 
 
-@media (min-width: 64em) {
-
-    .kznjgV {
-        flex: 0 0 23%;
-    }
-}
 
 .khqgum {
     display: inline-flex;
@@ -560,4 +564,18 @@ export default {
     opacity: 0.3;
     cursor: auto;
 }
+
+.custom-btn {
+    background-color: #0f212e;
+    color: #000000;
+    padding: 0.5rem 0.5rem;
+    border: 3px solid #2f4453; /* เส้นขอบสี #2f4453 หนา */
+    border-radius: 0.5rem; /* มุมโค้ง */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* เพิ่มเงา */
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+    font-size: 0.75rem;
+
+}
+
 </style>
