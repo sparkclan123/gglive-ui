@@ -3,23 +3,18 @@
 </script>
 
 <template>
-  <!-- <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div> -->
-  <div class="mx-auto relative">
+  <div class="relative min-h-screen pb-16">
+
     <MenuScreen />
-    <div class="container mx-auto p-4 mt-2 ">
+    <div class="container mx-auto p-4 mt-2">
       <div v-if="getLoading" class="loading-overlay">
-        <LodingSceen style="display: flex;justify-content: space-around;" />
+        <LodingSceen style="display: flex; justify-content: space-around;" />
       </div>
       <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" class="bg-color-1" />
     </div>
-    <UserMobileNav class="fixed block   lg:hidden bottom-0 bg-white rounded-t-mobile w-full" />
+
+    <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16" />
+
   </div>
 </template>
 
@@ -60,5 +55,10 @@ export default {
 .bg-color-1 {
   background-color: #1a2c38;
   border-radius: 0.5rem;
+}
+
+.user-mobile-nav {
+  height: 60px;
+  /* Set the height of the UserMobileNav */
 }
 </style>
