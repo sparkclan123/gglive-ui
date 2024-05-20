@@ -4,7 +4,7 @@
         <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
             <!-- page 1 -->
             <div class="elHRfu ">
-                <div class="sc-CrZHp hvBVYx"><button @click="toggleClass()" class="sc-iftxFb isQEzW">Player List<div
+                <div class="sc-CrZHp hvBVYx"><button @click="toggleClass()" class="sc-iftxFb isQEzW">รายชื่อผู้เล่น<div
                             ml="1" class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="32"
                                 height="20" viewBox="0 0 32 20" color="primary"
                                 class="sc-bSywJw sc-hPMVTF gPCpFh flMINk">
@@ -218,7 +218,7 @@
             <div :class="['cGcmaR', isToggled ? 'active' : '']">
                 <div class="eWuGMX">
                     <div class="sc-CrZHp hvBVYx">
-                        <button @click="toggleClassBack" class="sc-iftxFb isQEzW">Back<div ml="1"
+                        <button @click="toggleClassBack" class="sc-iftxFb isQEzW">กลับ<div ml="1"
                                 class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="15"
                                     viewBox="0 0 24 15" color="primary" class=" gPCpFh flMINk">
                                     <path
