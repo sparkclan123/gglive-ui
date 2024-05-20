@@ -44,6 +44,6 @@ export default {
 
 <style>
 .bg-color-2 {
-    background-color: #2f4453;
+    background-color: #261442;
 }
 </style>

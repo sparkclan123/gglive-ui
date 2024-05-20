@@ -16,15 +16,15 @@
                 <div class="dsbthN custom-btn shadow-xl">
                     <div class="eVUsqz">
                         <button
-                            class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                            class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             รีเซ็ต
                         </button>
                         <button
-                            class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                            class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             เลือกอัตโนมัติ
                         </button>
                         <button
-                            class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                            class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             บันทึกทีม
                         </button>
                     </div>
@@ -271,6 +271,20 @@ export default {
     padding: 0.5rem;
 
 }
+
+@media (min-width: 64em) {
+    .cGcmaR {
+        padding: 0.5rem;
+        width: calc(66.6667%);
+    }
+}
+
+.cGcmaR {
+    padding: 0.5rem;
+
+}
+
+
 
 .ism *,
 .ism ::before,
@@ -559,7 +573,7 @@ export default {
     transform: translate3d(100%, 0px, 0px);
     transition: all 300ms ease;
     overflow-y: auto;
-    padding: 1rem;
+
 }
 
 @media (min-width: 64em) {
@@ -628,7 +642,7 @@ export default {
 }
 
 .gPCpFh {
-    fill: rgb(238, 219, 239);
+    fill: #281b3c;
 }
 
 .isQEzW {
@@ -638,11 +652,11 @@ export default {
     border: 0px;
     background-color: transparent;
     color: inherit;
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-decoration: none;
     text-align: left;
     cursor: pointer;
-    color: rgb(255, 255, 255);
+    color: #281b3c;
 }
 
 .dceCpZ {
@@ -663,7 +677,7 @@ export default {
 }
 
 .custom-btn0 {
-    background-color: #0f212e;
+    background-color: #1e0f37;
     color: #000000;
     padding: 0.5rem 0.5rem;
     border-radius: 0.5rem;
@@ -677,10 +691,10 @@ export default {
 }
 
 .custom-btn {
-    background-color: #0f212e;
+    background-color: #1e0f37;
     color: #000000;
     padding: 0.5rem 0.5rem;
-    border: 3px solid #2f4453;
+    border: 3px solid #523c74;
     /* เส้นขอบสี #2f4453 หนา */
     border-radius: 0.5rem;
     /* มุมโค้ง */

@@ -5,8 +5,13 @@
 <template>
   <div class="relative min-h-screen pb-16">
 
-    <MenuScreen />
-    <div class="container mx-auto p-4 mt-2">
+    <nav class="bg-nav-top-color shadow-md  inset-x-0 top-0 z-10">
+      <div class="container mx-auto flex justify-center">
+        <img src="/public/assets/logo.webp" alt="Logo" class="h-10"> <!-- ปรับ path และขนาดของโลโก้ตามที่ต้องการ -->
+      </div>
+    </nav>
+
+    <div class="container mx-auto p-1">
       <div v-if="getLoading" class="loading-overlay">
         <LodingSceen style="display: flex; justify-content: space-around;" />
       </div>
@@ -53,7 +58,7 @@ export default {
   filter: drop-shadow(0 0 2em #42b883aa);
 } */
 .bg-color-1 {
-  background-color: #1a2c38;
+  background-color: #ffffff;
   border-radius: 0.5rem;
 }
 
@@ -61,4 +66,14 @@ export default {
   height: 60px;
   /* Set the height of the UserMobileNav */
 }
+
+nav img {
+  max-height: 40px;
+  /* ปรับขนาดของโลโก้ตามต้องการ */
+}
+
+.bg-nav-top-color{
+  background: #1e0f37;
+}
+
 </style>
