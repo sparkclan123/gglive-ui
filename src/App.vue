@@ -11,19 +11,25 @@
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div> -->
-
-  <div class="container mx-auto p-4 mt-2 ">
+  <div class="mx-auto relative">
     <MenuScreen />
-    <div v-if="getLoading" class="loading-overlay">
-      <LodingSceen style="display: flex;justify-content: space-around;" />
+    <div class="container mx-auto p-4 mt-2 ">
+      <div v-if="getLoading" class="loading-overlay">
+        <LodingSceen style="display: flex;justify-content: space-around;" />
+      </div>
+      <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" class="bg-color-1" />
     </div>
-    <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'"  class="bg-color-1"/>
+    <UserMobileNav class="fixed block   lg:hidden bottom-0 bg-white rounded-t-mobile w-full" />
   </div>
 </template>
 
 <script>
+import UserMobileNav from './components/object/UserMobileNav.vue';
 import { mapActions, mapGetters } from 'vuex'
 export default {
+  components: {
+    UserMobileNav
+  },
   methods: {
     ...mapActions('loading', ['updateLoading']),
     ...mapActions('balance', ['facthBalance']),
