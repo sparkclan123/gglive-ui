@@ -50,22 +50,22 @@ export default {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('alert', ['addNotification']),
         async loginform() {
-            this.addNotification({ type: 'error', message: 'Login failed' });
+            if (!this.username || !this.password) {
+                this.addNotification({ type: 'error', message: 'Please fill in all fields' });
+                return;
+            }
             try {
-                await api.post('/premier-league/v1/login', {
+                const response = await api.post('/premier-league/v1/login', {
                     username: this.username,
                     password: this.password,
                     app_key: 'pudee'
-                })
-                    .then(response => {
-                        console.log(response.data);
-                        // localStorage.setItem('access_token', response.data.access_token);
-                    })
-                    .catch(error => {
-                        localStorage.removeItem('token');
-                    });
+                });
+                this.addNotification({ type: 'success', message: 'Login successful' });
+                localStorage.setItem('access_token', response.data.tokenString);
             } catch (error) {
-
+               
+                this.addNotification({ type: 'error', message: error.response.data.error });
+                localStorage.removeItem('access_token');
             }
         },
         login() {
@@ -79,9 +79,9 @@ export default {
         let access_token = localStorage.getItem('access_token');
         if (access_token) {
             console.log('access_token', localStorage.getItem('access_token'));
-            api.get('/user/m/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
+            api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
                 .then(response => {
-                    window.location.href = '/lobby';
+                    window.location.href = '/pitch';
                 })
                 .catch(error => {
                     localStorage.removeItem('token');

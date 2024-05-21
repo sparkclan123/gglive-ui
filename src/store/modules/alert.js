@@ -21,7 +21,7 @@ const alert = {
             setTimeout(() => {
                 commit('removeNotification', id);
                 console.log('Notification removed');
-            }, 5000); // แจ้งเตือนจะหายไปหลังจาก 5 วินาที
+            }, 3000); // แจ้งเตือนจะหายไปหลังจาก 5 วินาที
         }
     },
     getters: {
