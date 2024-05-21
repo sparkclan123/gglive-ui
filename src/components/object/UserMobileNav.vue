@@ -61,49 +61,11 @@
     </div>
     <transition name="slide">
       <div v-if="isMenuOpen" class="sidebar">
-        <!-- Sidebar content -->
-        <button @click="toggleMenu">Close Menu</button>
+        <div class="flex items-center justify-between mb-4">
+          <img src="/public/assets/logo.webp" alt="Logo" class="logo">
+          <button @click="toggleMenu" class="close-button">Close Menu</button>
+        </div>
         <ul class="menu-items">
-          <li><a href="#">Menu Item 1</a></li>
-          <li><a href="#">Menu Item 2</a></li>
-          <li><a href="#">Menu Item 3</a></li>
-          <li><a href="#">Menu Item 4</a></li>
-          <li><a href="#">Menu Item 5</a></li>
-          <li><a href="#">Menu Item 6</a></li>
-          <li><a href="#">Menu Item 7</a></li>
-          <li><a href="#">Menu Item 8</a></li>
-          <li><a href="#">Menu Item 9</a></li>
-          <li><a href="#">Menu Item 10</a></li>
-          <li><a href="#">Menu Item 1</a></li>
-          <li><a href="#">Menu Item 2</a></li>
-          <li><a href="#">Menu Item 3</a></li>
-          <li><a href="#">Menu Item 4</a></li>
-          <li><a href="#">Menu Item 5</a></li>
-          <li><a href="#">Menu Item 6</a></li>
-          <li><a href="#">Menu Item 7</a></li>
-          <li><a href="#">Menu Item 8</a></li>
-          <li><a href="#">Menu Item 9</a></li>
-          <li><a href="#">Menu Item 10</a></li>
-          <li><a href="#">Menu Item 1</a></li>
-          <li><a href="#">Menu Item 2</a></li>
-          <li><a href="#">Menu Item 3</a></li>
-          <li><a href="#">Menu Item 4</a></li>
-          <li><a href="#">Menu Item 5</a></li>
-          <li><a href="#">Menu Item 6</a></li>
-          <li><a href="#">Menu Item 7</a></li>
-          <li><a href="#">Menu Item 8</a></li>
-          <li><a href="#">Menu Item 9</a></li>
-          <li><a href="#">Menu Item 10</a></li>
-          <li><a href="#">Menu Item 1</a></li>
-          <li><a href="#">Menu Item 2</a></li>
-          <li><a href="#">Menu Item 3</a></li>
-          <li><a href="#">Menu Item 4</a></li>
-          <li><a href="#">Menu Item 5</a></li>
-          <li><a href="#">Menu Item 6</a></li>
-          <li><a href="#">Menu Item 7</a></li>
-          <li><a href="#">Menu Item 8</a></li>
-          <li><a href="#">Menu Item 9</a></li>
-          <li><a href="#">Menu Item 10</a></li>
           <li><a href="#">Menu Item 1</a></li>
           <li><a href="#">Menu Item 2</a></li>
           <li><a href="#">Menu Item 3</a></li>
@@ -116,7 +78,6 @@
           <li><a href="#">Menu Item 10</a></li>
         </ul>
       </div>
-
     </transition>
     <div v-if="isMenuOpen" class="overlay" @click="toggleMenu"></div>
   </div>
@@ -199,6 +160,8 @@ button {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   padding: 20px;
   z-index: 1000;
+  opacity: 0.9;
+  border-radius: 5px;
 }
 
 /* Animation สำหรับ sidebar */
@@ -231,5 +194,17 @@ button {
   overflow-y: auto;
   padding-right: 10px;
   /* เพิ่ม padding ขวาเพื่อให้มีที่ว่างสำหรับ scrollbar */
+}
+
+.logo {
+  height: 40px;
+  /* ปรับขนาดโลโก้ตามต้องการ */
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 </style>
