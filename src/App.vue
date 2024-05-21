@@ -1,79 +1,9 @@
-<script setup>
-// import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div class="relative min-h-screen pb-16">
-
-    <nav class="bg-nav-top-color shadow-md  inset-x-0 top-0 z-10">
-      <div class="container mx-auto flex justify-center">
-        <img src="/public/assets/logo.webp" alt="Logo" class="h-10"> <!-- ปรับ path และขนาดของโลโก้ตามที่ต้องการ -->
-      </div>
-    </nav>
-
-    <div class="container mx-auto p-1">
-      <div v-if="getLoading" class="loading-overlay">
-        <LodingSceen style="display: flex; justify-content: space-around;" />
-      </div>
-      <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" class="bg-color-1" />
-    </div>
-
-    <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16" />
-
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import UserMobileNav from './components/object/UserMobileNav.vue';
-import { mapActions, mapGetters } from 'vuex'
 export default {
-  components: {
-    UserMobileNav
-  },
-  methods: {
-    ...mapActions('loading', ['updateLoading']),
-    ...mapActions('balance', ['facthBalance']),
-  },
-  computed: {
-    ...mapGetters('loading', ['getLoading'])
-  },
-  mounted() {
-    this.updateLoading(true)
-    this.facthBalance()
-  }
+  name: 'App'
 }
 </script>
-
-<style scoped>
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-} */
-.bg-color-1 {
-  background-color: #ffffff;
-  border-radius: 0.5rem;
-}
-
-.user-mobile-nav {
-  height: 60px;
-  /* Set the height of the UserMobileNav */
-}
-
-nav img {
-  max-height: 40px;
-  /* ปรับขนาดของโลโก้ตามต้องการ */
-}
-
-.bg-nav-top-color{
-  background: #1e0f37;
-}
-
-</style>

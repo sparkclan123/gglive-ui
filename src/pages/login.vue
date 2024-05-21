@@ -35,6 +35,7 @@
 import { mapActions } from 'vuex'
 import { api, apiMine } from '@axios_inst';
 export default {
+    name: 'Login',
     data() {
         return {
             username: '',

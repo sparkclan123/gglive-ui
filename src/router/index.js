@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import LoginPage from '../pages/login.vue';
+import DefaultLayout from '../layouts/DefaultLayout.vue';
+import LoginLayout from '../layouts/LoginLayout.vue';
 
+import Login from '../pages/login.vue';
 import Home from '../pages/home.vue';
-import Lobby from '../pages/lobby.vue';
-import History from '../pages/history.vue';
 import GgLive from '../pages/gglive/index.vue';
 
 import NotFound from '../pages/NotFound.vue';
@@ -13,61 +13,51 @@ import axios from 'axios';
 const routes = [
     {
         path: '/login',
-        name: 'login',
-        component: LoginPage
+        component: LoginLayout,
+        children: [
+            {
+                path: '',
+                name: 'login',
+                component: Login,
+            },
+        ],
     },
     {
         path: '/',
-        component: Home,
-        name: 'home',
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/pitch',
-        component: GgLive,
-        name: 'pitch',
-
-    },
-    {
-        path: '/lobby',
-        component: Lobby,
-        name: 'lobby',
-        meta: {
-            requiresAuth: true
-        }
-    },
-    {
-        path: '/history',
-        component: History,
-        name: 'history',
-        meta: {
-            requiresAuth: true
-        }
+        component: DefaultLayout,
+        children: [
+            {
+                path: '',
+                name: 'home',
+                component: Home,
+            },
+            {
+                path: 'pitch',
+                name: 'pitch',
+                component: GgLive,
+            },
+        ],
     },
     {
         path: '/:pathMatch(.*)*',
-        component: NotFound
-    }
+        component: NotFound,
+    },
 ];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
-
-})
+    routes,
+});
 
 router.beforeEach((to, from, next) => {
-
-let params = {};
-    if(window.location.search){
+    let params = {};
+    if (window.location.search) {
         let queryParams = new URLSearchParams(window.location.search);
-        for(let [key, value] of queryParams) {
+        for (let [key, value] of queryParams) {
             params[key] = value;
         }
     }
-    if(to.name == 'login'){
+    if (to.name == 'login') {
         localStorage.setItem('user_params', JSON.stringify(params));
     }
     if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -81,7 +71,6 @@ let params = {};
                     localStorage.removeItem('token');
                     next({ name: 'login' });
                 });
-
         } else {
             next({ name: 'login' });
         }
