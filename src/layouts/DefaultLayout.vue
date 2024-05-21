@@ -3,10 +3,8 @@
         <nav class="bg-nav-top-color shadow-md inset-x-0 top-0 z-10">
             <div class="container mx-auto flex justify-center">
                 <img src="/public/assets/logo.webp" alt="Logo" class="h-10">
-                <!-- ปรับ path และขนาดของโลโก้ตามที่ต้องการ -->
             </div>
         </nav>
-        <span @click="facthBalance()">asdasdasdasdasd</span>
         <div class="container mx-auto p-1">
             <div v-if="getLoading" class="loading-overlay">
                 <LodingSceen style="display: flex; justify-content: space-around;" />
