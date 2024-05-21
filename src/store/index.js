@@ -4,6 +4,7 @@ import { createStore } from "vuex";
 import auth from "./modules/auth";
 import loading from "./modules/loading";
 import balance from "./modules/balance";
+import alert from './modules/alert';
 
 export default createStore({
   state: {},
@@ -14,5 +15,6 @@ export default createStore({
     auth: auth,
     loading: loading,
     balance: balance,
+    alert: alert,
   },
 });
