@@ -160,8 +160,8 @@ button {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   padding: 20px;
   z-index: 1000;
-  opacity: 0.9;
   border-radius: 5px;
+
 }
 
 /* Animation สำหรับ sidebar */
