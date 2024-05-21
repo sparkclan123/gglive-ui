@@ -7,11 +7,11 @@
                 <label class="block mb-1 text-gray-100">View</label>
                 <select
                     class="p-2 border-b-2 border-gray-300 rounded w-full text-gray-600 focus:outline-none focus:border-blue-500">
-                    <option>View</option>
-                    <option>GoalKeeper</option>
-                    <option>Defenders</option>
-                    <option>Midfielders</option>
-                    <option>Forwards</option>
+                    <optgroup v-for="group in options" :key="group.label" :label="group.label">
+                        <option v-for="option in group.options" :key="option.value" :value="option.value">
+                            {{ option.name }}
+                        </option>
+                    </optgroup>
                 </select>
             </div>
             <div class="flex-1 min-w-[100px]">
@@ -93,7 +93,28 @@
 
 <script>
 export default {
-    name: 'PlayerSelection'
+    name: 'PlayerSelection',
+    data() {
+        return {
+            options: [
+                {
+                    label: 'View',
+                    options: [
+                        { name: 'View', value: 'view' }
+                    ]
+                },
+                {
+                    label: 'Positions',
+                    options: [
+                        { name: 'GoalKeeper', value: 'goalkeeper' },
+                        { name: 'Defenders', value: 'defenders' },
+                        { name: 'Midfielders', value: 'midfielders' },
+                        { name: 'Forwards', value: 'forwards' }
+                    ]
+                }
+            ]
+        };
+    }
 }
 </script>
 
