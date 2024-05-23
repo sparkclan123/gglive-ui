@@ -118,7 +118,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .bg-color-2 {
     background-color: #261442;
 }

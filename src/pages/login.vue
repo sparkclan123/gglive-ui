@@ -62,6 +62,7 @@ export default {
                 });
                 this.addNotification({ type: 'success', message: 'Login successful' });
                 localStorage.setItem('access_token', response.data.tokenString);
+                window.location.href = '/pitch';
             } catch (error) {
                
                 this.addNotification({ type: 'error', message: error.response.data.error });

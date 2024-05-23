@@ -5,6 +5,7 @@ import LoginLayout from '../layouts/LoginLayout.vue';
 
 import Login from '../pages/login.vue';
 import Home from '../pages/home.vue';
+import SeasonSelect from '../pages/gglive/season.vue';
 import GgLive from '../pages/gglive/index.vue';
 
 import NotFound from '../pages/NotFound.vue';
@@ -31,6 +32,11 @@ const routes = [
                 path: '',
                 name: 'home',
                 component: Home,
+            },
+            {
+                path: 'season-select',
+                name: 'season-select',
+                component: SeasonSelect,
             },
             {
                 path: 'pitch',
