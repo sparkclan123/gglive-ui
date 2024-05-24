@@ -1,35 +1,41 @@
+
+import { api } from '@axios_inst';
 const season = {
     namespaced: true,
     state: {
-        notifications: []
+        seasons: []
     },
     getters: {
-        getNotifications(state) {
-            return state.notifications;
+        getSeasons(state) {
+            return state.seasons;
         }
     },
     mutations: {
-        addNotification(state, notification) {
-            state.notifications.push({ ...notification, id: Date.now() });
-            if (state.notifications.length > 3) {
-                state.notifications.shift(); // ลบอันแรกเมื่อมีมากกว่า 3 อัน
-            }
+        setSeasons(state, seasons) {
+            state.seasons = seasons;
         },
-        removeNotification(state, id) {
-            state.notifications = state.notifications.filter(notif => notif.id !== id);
+        addSeason(state, season) {
+            state.seasons.push(season);
         }
     },
     actions: {
-        addNotification({ commit }, notification) {
-            const id = Date.now();
-            commit('addNotification', { ...notification, id });
-            setTimeout(() => {
-                commit('removeNotification', id);
-                console.log('Notification removed');
-            }, 3000); // แจ้งเตือนจะหายไปหลังจาก 5 วินาที
+        addSeason({ commit }, season) {
+            commit('addSeason', season);
+        },
+        async fetchSeasons({ commit }) {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/seasons', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                commit('setSeasons', response.data.seasons);
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
-
-}
+};
 
 export default season;

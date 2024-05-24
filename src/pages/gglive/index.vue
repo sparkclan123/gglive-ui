@@ -12,10 +12,11 @@ export default {
         FantasyTeam
     },
     methods: {
-        ...mapActions('loading', ['updateLoading']),
+
+
     },
     computed: {
-        ...mapGetters('loading', ['getLoading'])
+        ...mapGetters('season', ['getSeasons'])
     },
     mounted() {
         this.updateLoading(false)

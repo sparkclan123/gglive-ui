@@ -3,40 +3,17 @@
         <!-- Header -->
         <div class=" p-4 text-center rounded-lg">
             <h1 class="text-2xl font-bold colot-h">PuDee Challenge <span
-                    class="text-sm text-white bg-black px-2 py-1 rounded">กติกา</span></h1>
+                    class="text-sm text-white bg-black px-2 py-1 rounded cursor-pointer"
+                    @click="ruleSeasonChallenge()">กติกา</span></h1>
         </div>
 
         <!-- Content -->
-        <div class="bg-white px-2 py-4 rounded-lg">
+        <div class="bg-white px-2 py-4 rounded-lg" v-if="getSeasons.label">
             <!-- Card 1 -->
             <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4 ">
-                <div class="bg-color-h sha p-8 text-center bg-img-h cursor-pointer">
-                    <h2 class="text-xl font-bold mb-2">The 2023/24 Season has finished</h2>
-                    <p>Fantasy Challenge will be back in July 2024.</p>
-                </div>
-            </div>
-
-             <!-- Card 1 -->
-             <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4 ">
-                <div class="bg-color-h sha p-8 text-center bg-img-h">
-                    <h2 class="text-xl font-bold mb-2">The 2023/24 Season has finished</h2>
-                    <p>Fantasy Challenge will be back in July 2024.</p>
-                </div>
-            </div>
-
-             <!-- Card 1 -->
-             <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4 ">
-                <div class="bg-color-h sha p-8 text-center bg-img-h">
-                    <h2 class="text-xl font-bold mb-2">The 2023/24 Season has finished</h2>
-                    <p>Fantasy Challenge will be back in July 2024.</p>
-                </div>
-            </div>
-
-             <!-- Card 1 -->
-             <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4 ">
-                <div class="bg-color-h sha p-8 text-center bg-img-h">
-                    <h2 class="text-xl font-bold mb-2">The 2023/24 Season has finished</h2>
-                    <p>Fantasy Challenge will be back in July 2024.</p>
+                <div @click="selectSeason()" class="bg-color-h sha p-8 text-center bg-img-h cursor-pointer">
+                    <h2 class="text-xl font-bold mb-2 text-gray-300">เกมวีกฤดูการ {{getSeasons.label}} </h2>
+                    <p style="color: lemonchiffon;">Fantasy Challenge is comming.</p>
                 </div>
             </div>
 
@@ -45,10 +22,38 @@
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
     name: 'FantasyChallenge',
+    methods: {
+        ...mapActions('loading', ['updateLoading']),
+        ...mapActions('season', ['fetchSeasons']),
+        selectSeason() {
+            let seasonID = 1;
+            this.$router.push({ name: 'pitch'});
+        },
+        ruleSeasonChallenge() {
+           
+        },
+        async getSeason() {
+            try {
+                await this.fetchSeasons();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    },
+    computed: {
+        ...mapGetters('season', ['getSeasons'])
+    },
+    created() {
+        this.getSeason();
+    }
 };
 </script>
+
 
 
 
@@ -66,6 +71,6 @@ export default {
     background-image: url(/public/assets/bgChc.png);
     background-repeat: no-repeat;
     background-position: right bottom;
-    background-size: 198px 131px;
+    background-size: 130px 85px;
 }
 </style>

@@ -17,8 +17,8 @@
         <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">P.L</span>
       </button>
 
-      <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('pitch') }"
-        @click="setActive('pitch')">
+      <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('season-select') }"
+        @click="setActive('season-select')">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"
           class="w-4 h-4 icon-large" viewBox="0 0 230.057 230.057">
           <g>
