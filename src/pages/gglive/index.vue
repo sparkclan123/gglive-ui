@@ -18,9 +18,7 @@ export default {
     computed: {
         ...mapGetters('season', ['getSeasons'])
     },
-    mounted() {
-        this.updateLoading(false)
-    }
+    
 }
 </script>
 
