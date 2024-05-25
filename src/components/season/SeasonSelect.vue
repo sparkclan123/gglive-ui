@@ -1,9 +1,9 @@
 <template>
     <!-- Content for Tab 1 -->
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4" v-if="gameWeek">
         <div @click="selectSeason()" class="bg-color-h sha p-4 text-center bg-img cursor-pointer">
             <h2 class="text-xl font-bold mb-2 text-gray-100">
-                Game Week #1<br>ฤดูการ <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
+                Game Week #{{ gameWeek.week }}<br>ฤดูการ <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
             getSeasons.label }}</span>
             </h2>
             <p style="color: lemonchiffon;">Fantasy Challenge is coming.</p>
@@ -14,27 +14,46 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import { api } from '@axios_inst';
 export default {
     name: 'CardSeason',
     data() {
         return {
-
+            gameWeek: null
         };
     },
     methods: {
+        ...mapActions('selectGameWeek', ['setGameWeek']),
         selectSeason() {
-            let seasonID = 1;
-            this.$router.push({ name: 'pitch' });
+            let seasonID = this.getSeasons.id;
+            this.$router.push({ name: 'pitch', params: { seasonID } })
         },
         ruleSeasonChallenge() {
             // Implement your logic here
         },
+        async getGameWeek() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/game-week', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.gameWeek = response.data.gameWeek;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
 
     },
     computed: {
         ...mapGetters('season', ['getSeasons'])
     },
+    created() {
+        this.getGameWeek();
+    }
 
 };
 </script>

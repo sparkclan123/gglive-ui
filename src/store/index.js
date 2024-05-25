@@ -6,6 +6,7 @@ import loading from "./modules/loading";
 import balance from "./modules/balance";
 import alert from './modules/alert';
 import season from './modules/season';
+import selectGameWeek from './modules/selectGameWeek';
 
 export default createStore({
   state: {},
@@ -18,5 +19,6 @@ export default createStore({
     balance: balance,
     alert: alert,
     season: season,
+    selectGameWeek: selectGameWeek
   },
 });

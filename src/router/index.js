@@ -39,7 +39,7 @@ const routes = [
                 component: SeasonSelect,
             },
             {
-                path: 'pitch',
+                path: 'pitch/:seasonID',
                 name: 'pitch',
                 component: GgLive,
             },

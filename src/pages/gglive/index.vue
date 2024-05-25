@@ -16,7 +16,8 @@ export default {
 
     },
     computed: {
-        ...mapGetters('season', ['getSeasons'])
+        ...mapGetters('season', ['getSeasons']),
+        ...mapGetters('selectGameWeek', ['getGameWeek'])
     },
     
 }
