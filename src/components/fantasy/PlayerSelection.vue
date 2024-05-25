@@ -92,10 +92,12 @@
 </template>
 
 <script>
+
 export default {
     name: 'PlayerSelection',
     data() {
         return {
+           
             options: [
                 {
                     label: 'View',
@@ -114,7 +116,8 @@ export default {
                 }
             ]
         };
-    }
+    },
+    
 }
 </script>
 
