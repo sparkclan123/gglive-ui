@@ -1,4 +1,4 @@
-const selectGameWeek = {
+const playerSelect = {
     namespaced: true,
     state: {
         GKP: [],
@@ -37,4 +37,4 @@ const selectGameWeek = {
     }
 };
 
-export default selectGameWeek;
+export default playerSelect;
