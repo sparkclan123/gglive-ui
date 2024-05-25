@@ -1,12 +1,12 @@
 <template>
     <div
         class="player-selection bg-color-2 p-4 shadow-lg h-full overflow-y-auto text-gray-200 mt-2 mb-4 rounded-lg shadow-xl">
-        <h2 class="text-xl font-bold mb-4">Player Selection</h2>
-        <div class="flex flex-wrap gap-4 mb-4">
+        <h4 class="text-md font-bold mb-4">ตัวเลือกผู้เล่น</h4>
+        <div class="flex flex-wrap gap-4 mb-4 ">
             <div class="flex-1 min-w-[100px]">
-                <label class="block mb-1 text-gray-100">View</label>
+                <label class="block mb-1 text-gray-100 text-xs">ทีม</label>
                 <select v-model="selectedTeam" @change="filterPlayers"
-                    class="p-2 border-b-2 border-gray-300 rounded w-full text-gray-600 focus:outline-none focus:border-blue-500">
+                    class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
                     <optgroup v-for="group in options" :key="group.label" :label="group.label">
                         <option v-for="option in group.options" :key="option.value" :value="option.value">
                             {{ option.name }}
@@ -15,43 +15,40 @@
                 </select>
             </div>
             <div class="flex-1 min-w-[100px]">
-                <label class="block mb-1 text-gray-100">Position</label>
+                <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง</label>
                 <select v-model="selectedPosition" @change="filterPlayers"
-                    class="p-2 border-b-2 border-gray-300 rounded w-full text-gray-600 focus:outline-none focus:border-blue-500">
-                    <option value="">All Positions</option>
+                    class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
+                    <option value="">ทุกตำเเหน่ง</option>
                     <option v-for="option in optionsPosition" :key="option.value" :value="option.value">
                         {{ option.name }}
                     </option>
                 </select>
             </div>
             <div class="flex-1 min-w-[100px]">
-                <label class="block mb-1 text-gray-100">Sorted by</label>
+                <label class="block mb-1 text-gray-100 text-xs">Sorted by</label>
                 <select v-model="sortBy" @change="sortPlayers"
-                    class="p-2 border-b-2 border-gray-300 rounded w-full text-gray-600 focus:outline-none focus:border-blue-500">
-                    <option value="total_points">Total points</option>
-                    <option value="price">Price</option>
+                    class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
+                    <option value="total_points">เรียงตามปกติ</option>
+                    <option value="price_m">ราคา > </option>
+                    <option value="price_l">ราคา < </option>
                 </select>
             </div>
         </div>
+        <div class="flex flex-wrap gap-4 mb-4 ">
+            <div class="flex-1 min-w-[100px] ">
+                <label class="block mb-1 text-gray-100 text-xs">ค้นหา..</label>
+                <input type="text" placeholder="Search for player..." v-model="searchTerm" @input="filterPlayers"
+                    class="p-1 border rounded w-full text-gray-600 text-sm">
+            </div>
+            <div class="flex-1 min-w-[100px]">
+                <label class="block mb-1 text-gray-100 text-xs">งบไม่เกิน</label>
+                <input type="number" placeholder="Max cost" v-model="maxCost" @input="filterPlayers"
+                    class="p-1 border rounded w-full text-gray-600 text-sm">
+            </div>
 
-        <div class="mb-4">
-            <input type="number" placeholder="Max cost" v-model="maxCost" @input="filterPlayers"
-                class="p-2 border rounded w-full text-gray-600">
-        </div>
-        <div class="mb-4 p-2 border-b flex justify-between">
-            <input type="text" placeholder="Search for player..." v-model="searchTerm" @input="filterPlayers"
-                class="p-2 border rounded w-full text-gray-600">
         </div>
 
-        <div class="ElementList__ElementTypeButtonWrap-j2itt6-2 lhOTVB">
-            <button class="ElementList__ElementTypeButton-j2itt6-3 ffmiMs">
-                <div class="TabHeading__TabHeadingOuter-sc-1wos76v-0 dbiWsa">
-                    <div class="TabHeading__TabHeadingInner-sc-1wos76v-1 jhdCIq">
-                        <h3 class="TabHeading__TabHeadingTitle-sc-1wos76v-2 kVZXCD">Defenders</h3>
-                    </div>
-                </div>
-            </button>
-        </div>
+
         <table class="min-w-full bg-gray-300 rounded-lg text-xs">
             <thead>
                 <tr>
@@ -66,14 +63,15 @@
             </thead>
             <tbody>
                 <tr v-for="player in filteredPlayers" :key="player.id" class="bg-gray-50">
-                    <td class="w-1/12 py-1 px-2 border-b border-r border-gray-400 text-gray-900">
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 6 13">
+                    <td class="w-1/12 py-1 px-2 border-b border-r border-gray-400 text-gray-900" @click="infoPlayer(player)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 6 13"
+                            v-if="!player.is_ban">
                             <path
                                 d="M2.22454008,4.81004082 C2.04454008,5.29122857 1.86734808,5.7178898 1.72391208,6.156 C1.26547608,7.55608163 0.79016808,8.95126531 0.37907208,10.3661633 C0.14141208,11.1840857 0.47704128,11.7369796 1.18250808,11.838 C1.43938008,11.8748302 1.71688008,11.8733951 1.96813608,11.8150408 C3.51877608,11.4548694 4.20733608,10.1739796 4.91521608,8.91887755 C4.76334408,9.03175959 4.64147208,9.17573878 4.51255608,9.31301633 C4.11552408,9.7358449 3.67396008,10.0969714 3.12319608,10.2887878 C3.03319608,10.3198788 2.89960008,10.305529 2.82272808,10.2548278 C2.78194728,10.228042 2.80397808,10.0725869 2.8269468,9.98313796 C2.8569468,9.86451551 2.9160096,9.75306857 2.9624148,9.63827265 C3.5652228,8.14782367 4.1759748,6.66080327 4.7638548,5.16410939 C4.865574,4.90486041 4.9325988,4.59873796 4.9058868,4.32609306 C4.8566676,3.82768898 4.3424508,3.47564816 3.7124508,3.48904408 C2.0769708,3.52348286 0.8985708,4.35097469 0.0595308,5.74002367 C0.0285936,5.79120367 0.0285936,5.86151633 0,5.98253388 C0.698436,5.45686041 1.27548,4.82070122 2.22468,4.81018286 L2.22454008,4.81004082 Z M5.82634008,1.5717551 C5.82634008,2.43941633 5.13680808,3.14302041 4.28602008,3.14302041 C3.43571208,3.14302041 2.74618008,2.43941633 2.74618008,1.5717551 C2.74618008,0.703616327 3.43571208,0 4.28602008,0 C5.13679608,0 5.82634008,0.703604082 5.82634008,1.5717551"
                                 transform="translate(0 .5)"></path>
-                        </svg> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 21 19" copnr="0" fill="#c0020d"
-                            class="ElementStatus__StyledStatus-sc-1bs5tgy-1 ekMARt">
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 21 19" copnr="0"
+                            fill="#c0020d" v-else class="ElementStatus__StyledStatus-sc-1bs5tgy-1 ekMARt">
                             <title>Unlikely to play</title>
                             <path
                                 d="M20.7588154,16.1639512 L12.2281283,0.988998469 C11.879948,0.378360845 11.2183513,0 10.4998191,0 C9.78128692,0 9.11969017,0.378360845 8.77150994,0.988998469 L0.240822794,16.1639512 C-0.0919261004,16.7567989 -0.0793835139,17.4770055 0.275542057,18.0585846 C0.629499774,18.6401876 1.27376405,18.9979533 1.9691369,18.9999129 L19.0053273,18.9999129 C19.7055147,19.0063793 20.357507,18.6523673 20.7182051,18.0688941 C21.0789032,17.485421 21.0943345,16.7605391 20.7587117,16.1639512 L20.7588154,16.1639512 Z">
@@ -83,9 +81,9 @@
                             </path>
                         </svg>
                     </td>
-                    <td class="w-1/4 py-1 px-2 border-b border-r border-gray-400 text-gray-900">
+                    <td class="w-1/4 py-1 px-2 border-b border-r border-gray-400 text-gray-900" @click="selectPlayer(player)">
                         <div class="flex items-center">
-                            <img :src="getShirtImage(player)" alt="team logo" class="w-8 h-8 mr-2">
+                            <img :src="getShirtImage(player)" alt="team logo" class="w-6 h-8 mr-2">
                             <div class="truncate">
                                 <div>{{ player.name }}</div>
                                 <div class="text-xs text-gray-600">{{ player.position }}</div>
@@ -120,9 +118,9 @@ export default {
             searchTerm: '',
             options: [
                 {
-                    label: 'View',
+                    label: 'ตัวเลือก',
                     options: [
-                        { name: 'View', value: 'view' }
+                        { name: 'ทั้งหมด', value: 'view' }
                     ]
                 },
                 {
@@ -163,6 +161,13 @@ export default {
         }
     },
     methods: {
+        selectPlayer(player) {
+            console.log(player);
+        },
+        infoPlayer(player) {
+            console.log(player);
+            alert(player);
+        },
         stripTeamCode(teamCode) {
             return teamCode.replace('t', '');
         },
