@@ -24,10 +24,10 @@ const selectGameWeek = {
         setFormation(state, formation) {
             const [GKP, DEF, MID, FWD] = formation.split('-').map(Number);
 
-            state.GKP = Array.from({ length: GKP }, () => ({ player_id: null, id: null }));
-            state.DEF = Array.from({ length: DEF }, () => ({ player_id: null, id: null }));
-            state.MID = Array.from({ length: MID }, () => ({ player_id: null, id: null }));
-            state.FWD = Array.from({ length: FWD }, () => ({ player_id: null, id: null }));
+            state.GKP = Array.from({ length: GKP }, () => ({ player_id: null, id: null, name: null }));
+            state.DEF = Array.from({ length: DEF }, () => ({ player_id: null, id: null, name: null }));
+            state.MID = Array.from({ length: MID }, () => ({ player_id: null, id: null, name: null }));
+            state.FWD = Array.from({ length: FWD }, () => ({ player_id: null, id: null, name: null }));
         },
     },
     actions: {

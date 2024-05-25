@@ -62,7 +62,7 @@ export default {
                 });
                 this.addNotification({ type: 'success', message: 'Login successful' });
                 localStorage.setItem('access_token', response.data.tokenString);
-                window.location.href = '/pitch';
+                window.location.href = '/season-select';
             } catch (error) {
                
                 this.addNotification({ type: 'error', message: error.response.data.error });
@@ -82,7 +82,7 @@ export default {
             console.log('access_token', localStorage.getItem('access_token'));
             api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
                 .then(response => {
-                    window.location.href = '/pitch';
+                    window.location.href = '/season-select';
                 })
                 .catch(error => {
                     localStorage.removeItem('token');
