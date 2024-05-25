@@ -52,36 +52,43 @@
                 </div>
             </button>
         </div>
-        <table class="min-w-full bg-gray-700 rounded-lg text-sm">
+        <table class="min-w-full bg-gray-300 rounded-lg text-xs">
             <thead>
                 <tr>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">นักเตะ</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">ทีม</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">คะแนน</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">ราคา</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">%</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">⚽</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">🟨</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">🟥</th>
-                    <th class="w-1/12 py-1 text-left text-gray-100 border-b border-gray-700">คลีน</th>
+                    <th class="w-1/12 py-1 pl-7 text-left text-gray-900 border-b border-gray-400"></th>
+                    <th class="w-1/4 py-1 text-left text-gray-900 border-b border-gray-400">นักเตะ</th>
+                    <!-- <th class="w-1/12 py-1 pl-2 text-left text-gray-900 border-b border-gray-400">ทีม</th> -->
+                    <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">ราคา</th>
+                    <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">%</th>
+                    <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟨</th>
+                    <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟥</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="player in filteredPlayers" :key="player.id" class="bg-gray-900 hover:bg-gray-700">
-                    <td class="py-1 px-2 border-b border-gray-700">
+                <tr v-for="player in filteredPlayers" :key="player.id" class="bg-gray-50">
+                    <td class="w-1/12 py-1 px-2 border-b border-r border-gray-400 text-gray-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 8a.5.5 0 0 1 .5-.5H7v4H4.5a.5.5 0 0 1 0-1H6V8.5H5a.5.5 0 0 1-.5-.5zm1.5-4a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0z"/>
+                        </svg>
+                    </td>
+                    <td class="w-1/4 py-1 px-2 border-b border-r border-gray-400 text-gray-900">
                         <div class="flex items-center">
-                            <img :src="getShirtImage(player)" alt="team logo" class="w-4 h-4 mr-1">
-                            <div>{{ player.name }}</div>
+                            <img :src="getShirtImage(player)" alt="team logo" class="w-8 h-8 mr-2">
+                            <div class="truncate">
+                                <div>{{ player.name }}</div>
+                                <div class="text-xs text-gray-600">{{ player.position }}</div>
+                            </div>
                         </div>
                     </td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.team_code }} vs {{ player.opponent }}</td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.total_point }}</td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.price }}</td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.percentage }}%</td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.goals }}</td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.yellow_cards }}</td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.red_cards }}</td>
-                    <td class="py-1 px-2 border-b border-gray-700">{{ player.clean_sheets }}</td>
+                    <!-- <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">
+                        <div class="flex items-center">
+                            <img :src="`/public/assets/team/${player.team_code}.png`" alt="team logo" class="w-4 h-4 mr-1">
+                        </div>
+                    </td> -->
+                    <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">12.5</td>
+                    <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">20%</td>
+                    <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">5</td>
+                    <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">5</td>
                 </tr>
             </tbody>
         </table>
@@ -173,6 +180,10 @@ export default {
 
 <style scoped>
 .bg-color-2 {
+    background-color: #261442;
+}
+
+.bg-color-1 {
     background-color: #261442;
 }
 </style>
