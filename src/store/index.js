@@ -8,6 +8,8 @@ import alert from './modules/alert';
 import season from './modules/season';
 import GameWeek from './modules/GameWeek';
 import Teams from './modules/teams';
+import playerSelect from './modules/playerSelect';
+
 
 export default createStore({
   state: {},
@@ -21,6 +23,7 @@ export default createStore({
     alert: alert,
     season: season,
     GameWeek: GameWeek,
-    Teams: Teams
+    Teams: Teams,
+    playerSelect: playerSelect
   },
 });

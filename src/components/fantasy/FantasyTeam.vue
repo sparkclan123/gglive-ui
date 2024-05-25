@@ -42,22 +42,16 @@
                                 <label for="formation" class="kISBiI">
                                     <div><span class=" jeDXjk">เลือกรูปแบบ</span></div>
                                 </label>
-                                <select id="formation" class=" eiPequ text-xs">
+                                <select id="formation" class="eiPequ text-xs" @change="updateFormation"
+                                    v-model="selectedFormation">
                                     <option value="1-3-4-3" aria-selected="true" class="">3-4-3</option>
-                                    <option value="1-3-5-2" aria-selected="false" class="">3-5-2
-                                    </option>
-                                    <option value="1-4-3-3" aria-selected="false" class="">4-3-3
-                                    </option>
-                                    <option value="1-4-4-2" aria-selected="false" class="">4-4-2
-                                    </option>
-                                    <option value="1-4-5-1" aria-selected="false" class="">4-5-1
-                                    </option>
-                                    <option value="1-5-2-3" aria-selected="false" class="">5-2-3
-                                    </option>
-                                    <option value="1-5-3-2" aria-selected="false" class="">5-3-2
-                                    </option>
-                                    <option value="1-5-4-1" aria-selected="false" class="">5-4-1
-                                    </option>
+                                    <option value="1-3-5-2" aria-selected="false" class="">3-5-2</option>
+                                    <option value="1-4-3-3" aria-selected="false" class="">4-3-3</option>
+                                    <option value="1-4-4-2" aria-selected="false" class="">4-4-2</option>
+                                    <option value="1-4-5-1" aria-selected="false" class="">4-5-1</option>
+                                    <option value="1-5-2-3" aria-selected="false" class="">5-2-3</option>
+                                    <option value="1-5-3-2" aria-selected="false" class="">5-3-2</option>
+                                    <option value="1-5-4-1" aria-selected="false" class="">5-4-1</option>
                                 </select>
                             </div>
                         </div>
@@ -67,153 +61,71 @@
                     <div class="iA-dheQ">
 
                         <div class="gRFNix">
-                            <div class="hWtxro">
+                            <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
                                 <button type="button" @click="toggleClass()" class="fBGUqJ">
                                     <picture>
                                         <source type="image/webp"><img src="/public/assets/shirt/shirt_0_1-66.png"
                                             class="flTOZR">
                                     </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
+                                    <div class=" gTayAP" v-if="GKP.id === null">
+                                        <div class="gvQQRY text-gray-800">Add</div>
+                                    </div>
+                                    <div class=" gTayAP" v-else>
+                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" fQREvA">4.8</div>
+                                    </div>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="gRFNix">
+                            <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
+                                <button type="button" @click="toggleClass()" class="fBGUqJ">
+                                    <picture>
+                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
+                                            class="flTOZR">
+                                    </picture>
+                                    <div class=" gTayAP" v-if="DEF.id === null">
+                                        <div class="gvQQRY text-gray-800">Add</div>
+                                    </div>
+                                    <div class=" gTayAP" v-else>
+                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" fQREvA">4.8</div>
+                                    </div>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="gRFNix">
+                            <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
+                                <button type="button" @click="toggleClass()" class="fBGUqJ">
+                                    <picture>
+                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
+                                            class="flTOZR">
+                                    </picture>
+                                    <div class=" gTayAP" v-if="MID.id === null">
+                                        <div class="gvQQRY text-gray-800">Add</div>
+                                    </div>
+                                    <div class=" gTayAP" v-else>
+                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" fQREvA">4.8</div>
                                     </div>
                                 </button>
                             </div>
                         </div>
                         <div class="gRFNix">
-                            <div class="hWtxro">
+                            <div class="hWtxro" v-for="(FWD, i) in getFWD" :key="i">
                                 <button type="button" @click="toggleClass()" class="fBGUqJ">
                                     <picture>
                                         <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
                                             class="flTOZR">
                                     </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
+                                    <div class=" gTayAP" v-if="FWD.id === null">
+                                        <div class="gvQQRY text-gray-800">Add</div>
                                     </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="gRFNix">
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="gRFNix">
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="hWtxro">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
-                                    <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
-                                    </picture>
-                                    <div class="PitchElementData__StyledPitchElementData-sc-1u4y6pr-0 gTayAP">
-                                        <div class="PitchElementData__ElementName-sc-1u4y6pr-1 etyMDj">Pickford</div>
-                                        <div class="PitchElementData__ElementValue-sc-1u4y6pr-2 fQREvA">4.8</div>
+                                    <div class=" gTayAP" v-else>
+                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" fQREvA">4.8</div>
                                     </div>
                                 </button>
                             </div>
@@ -252,24 +164,44 @@ export default {
     data() {
         return {
             showPlayerList: false,
-            isToggled: false
+            isToggled: false,
+            selectedFormation: '1-3-4-3'
         }
     },
     methods: {
+        ...mapActions('playerSelect', ['setFormation']),
         toggleClass() {
             this.isToggled = true;
         },
         toggleClassBack() {
             this.isToggled = false;
+        },
+
+        updateFormation() {
+            const formation = this.selectedFormation;
+            this.setFormation(formation);
         }
+
     },
     computed: {
-        ...mapGetters('GameWeek', ['getGameWeek'])
+        ...mapGetters('GameWeek', ['getGameWeek']),
+        ...mapGetters('playerSelect', ['getGKP', 'getDEF', 'getMID', 'getFWD'])
+    },
+    mounted() {
+        this.updateFormation();
     }
 }
 </script>
 
 <style scoped>
+.gvQQRY {
+    padding: 0.2rem;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background-image: linear-gradient(to right, rgb(0, 255, 135), rgb(2, 239, 255));
+
+}
+
 @media (min-width: 64em) {
     .elHRfu {
         padding: 0.5rem;
