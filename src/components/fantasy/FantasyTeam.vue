@@ -149,8 +149,33 @@
                                         transform="matrix(-1 0 0 1 24 0)"></path>
                                 </svg></div></button>
                     </div>
-                    <PlayerSelection @playerAdded="toggleClassBack" :position="position" />
+                    <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="showPositionFullModal=true" @showTeamLimitModal="showTeamLimitModal=true" :position="position" />
                 </div>
+            </div>
+        </div>
+
+        <!-- Modal for removing player -->
+        <div v-if="showRemoveModal" class="modal">
+            <div class="modal-content">
+                <h3>Are you sure you want to remove this player?</h3>
+                <button @click="confirmRemovePlayer">Yes</button>
+                <button @click="showRemoveModal = false">No</button>
+            </div>
+        </div>
+
+        <!-- Modal for position full -->
+        <div v-if="showPositionFullModal" class="modal">
+            <div class="modal-content">
+                <h3>This position is full!</h3>
+                <button @click="showPositionFullModal = false">OK</button>
+            </div>
+        </div>
+
+        <!-- Modal for team limit -->
+        <div v-if="showTeamLimitModal" class="modal">
+            <div class="modal-content">
+                <h3>Cannot select more than 3 players from the same team!</h3>
+                <button @click="showTeamLimitModal = false">OK</button>
             </div>
         </div>
     </div>
@@ -171,7 +196,10 @@ export default {
             isToggled: false,
             selectedFormation: '1-3-4-3',
             loading: true,
-            position: 'all'
+            position: 'all',
+            showRemoveModal: false,
+            showPositionFullModal: false,
+            showTeamLimitModal: false,
         }
     },
     methods: {
@@ -218,6 +246,34 @@ export default {
 </script>
 
 <style scoped>
+.modal {
+    position: fixed;
+    z-index: 110;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8));
+    border-radius: 6px;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+    margin: auto;
+}
+
 .gvQQRY {
     padding: 0.2rem;
     border-bottom-left-radius: 3px;
