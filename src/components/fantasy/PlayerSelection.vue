@@ -108,7 +108,7 @@
             <div class="modal-content">
                 <h3>Are you sure you want to remove this player?</h3>
                 <button @click="confirmRemovePlayer">Yes</button>
-                <button @click="closeRemoveModal">No</button>
+                <button @click="showRemoveModal = false">No</button>
             </div>
         </div>
 
@@ -116,7 +116,7 @@
         <div v-if="showPositionFullModal" class="modal">
             <div class="modal-content">
                 <h3>This position is full!</h3>
-                <button @click="closePositionFullModal">OK</button>
+                <button @click="showPositionFullModal = false">OK</button>
             </div>
         </div>
     </div>
@@ -125,11 +125,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 export default {
+    props: ['position'],
     name: 'PlayerSelection',
     data() {
         return {
             selectedTeam: 'view',
-            selectedPosition: '',
+            selectedPosition: this.position == 'all' ? '' : this.position,
             sortBy: 'total_points',
             maxCost: null,
             searchTerm: '',
@@ -206,9 +207,9 @@ export default {
 
             const position = this.getPositionKey(player.position);
             const positionState = this.getPositionStateKey(player.position);
-          
+
             const playersInPosition = this[position];
-           
+
             const existingPlayerIndex = playersInPosition.findIndex(p => p.id === player.id);
 
             if (existingPlayerIndex !== -1) {
@@ -221,7 +222,9 @@ export default {
                 if (emptySpotIndex === -1) {
                     this.showPositionFullModal = true;
                 } else {
-                    this.addPlayer({ player, position: positionState });
+                    this.addPlayer({ player, position: positionState }).then(() => {
+                        this.$emit('playerAdded');
+                    });
                 }
             }
         },
@@ -248,6 +251,12 @@ export default {
                 name: team.name,
                 value: team.team_id
             }));
+        }
+    },
+    watch: {
+        position(newPosition) {
+            this.selectedPosition = newPosition === 'all' ? '' : newPosition;
+            this.filterPlayers();
         }
     },
     mounted() {

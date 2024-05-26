@@ -7,7 +7,7 @@
                 <div class="sc-CrZHp hvBVYx flex items-center">
                     <img src="/public/assets/favicon-32x32.png" alt="icon" class="mr-2">
                     <span class="mr-auto">Week {{ getGameWeek.week }}</span>
-                    <button @click="toggleClass()" class="sc-iftxFb isQEzW">
+                    <button @click="toggleClass('all')" class="sc-iftxFb isQEzW">
                         รายชื่อผู้เล่น
                         <div ml="1" class="sc-csKJxZ dviEZq">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 20"
@@ -62,16 +62,17 @@
 
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
+                                <button type="button" @click="toggleClass('G')" class="fBGUqJ">
                                     <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0_1-66.png"
-                                            class="flTOZR">
+                                        <source type="image/webp">
+                                        <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR">
                                     </picture>
                                     <div class=" gTayAP" v-if="GKP.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
-                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
                                         <div class=" fQREvA">4.8</div>
                                     </div>
                                 </button>
@@ -80,16 +81,17 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
+                                <button type="button" @click="toggleClass('D')" class="fBGUqJ">
                                     <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
+                                        <source type="image/webp">
+                                        <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
                                     </picture>
                                     <div class=" gTayAP" v-if="DEF.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
-                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
                                         <div class=" fQREvA">4.8</div>
                                     </div>
                                 </button>
@@ -98,16 +100,17 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
+                                <button type="button" @click="toggleClass('M')" class="fBGUqJ">
                                     <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
+                                        <source type="image/webp">
+                                        <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
                                     </picture>
                                     <div class=" gTayAP" v-if="MID.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
-                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
                                         <div class=" fQREvA">4.8</div>
                                     </div>
                                 </button>
@@ -115,16 +118,17 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(FWD, i) in getFWD" :key="i">
-                                <button type="button" @click="toggleClass()" class="fBGUqJ">
+                                <button type="button" @click="toggleClass('F')" class="fBGUqJ">
                                     <picture>
-                                        <source type="image/webp"><img src="/public/assets/shirt/shirt_0-66.png"
-                                            class="flTOZR">
+                                        <source type="image/webp">
+                                        <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
                                     </picture>
                                     <div class=" gTayAP" v-if="FWD.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
-                                        <div class=" etyMDj">Pickford</div>
+                                        <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
                                         <div class=" fQREvA">4.8</div>
                                     </div>
                                 </button>
@@ -145,7 +149,7 @@
                                         transform="matrix(-1 0 0 1 24 0)"></path>
                                 </svg></div></button>
                     </div>
-                    <PlayerSelection />
+                    <PlayerSelection @playerAdded="toggleClassBack" :position="position" />
                 </div>
             </div>
         </div>
@@ -166,12 +170,14 @@ export default {
             showPlayerList: false,
             isToggled: false,
             selectedFormation: '1-3-4-3',
-            loading: true
+            loading: true,
+            position: 'all'
         }
     },
     methods: {
         ...mapActions('playerSelect', ['setFormation']),
-        toggleClass() {
+        toggleClass(position) {
+            this.position = position;
             this.isToggled = true;
         },
         toggleClassBack() {
@@ -182,7 +188,23 @@ export default {
             const formation = this.selectedFormation;
             this.setFormation(formation);
 
+        },
+        getShirtImage(player) {
+            const teamCode = this.stripTeamCode(player.team_code);
+            const suffix = player.position === 'G' ? '_1-66' : '-66';
+            return `/public/assets/shirt/shirt_${teamCode}${suffix}.webp`;
+        },
+        stripTeamCode(teamCode) {
+            return teamCode.replace('t', '');
+        },
+        truncateText(text) {
+            if (text.length > 8) {
+                return text.slice(0, 8) + '...';
+            } else {
+                return text;
+            }
         }
+
 
     },
     computed: {
