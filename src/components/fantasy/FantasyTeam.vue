@@ -21,10 +21,8 @@
                 </div>
                 <!-- <span @click="toggleClass">click</span> -->
                 <div class="dsbthN custom-btn shadow-xl">
+                    <span class="text-white">asdasd</span>
                     <div class="eVUsqz">
-                        <div class="info-box ml-1">
-                            <span class="info-text">$100</span>
-                        </div>
                         <button @click="resetTeam()"
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             รีเซ็ต
@@ -37,7 +35,6 @@
                             class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             บันทึกทีม
                         </button>
-
                     </div>
                     <div class="kznjgV">
                         <div class="jrXxIw cgwdFl">
@@ -296,21 +293,6 @@ export default {
 </script>
 
 <style scoped>
-.info-box {
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-.info-text {
-    font-size: 0.875rem;
-    /* text-xs */
-}
-
 .captain-badge {
     position: absolute;
     top: 0;
@@ -612,7 +594,7 @@ export default {
 .eVUsqz {
     display: flex;
     gap: 0.8rem;
-    margin: 1.2rem 0px;
+    margin: 0.4rem 0px;
 }
 
 @media (min-width: 64em) {

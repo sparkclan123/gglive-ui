@@ -9,7 +9,7 @@ import SeasonSelect from '../pages/gglive/season.vue';
 import GgLive from '../pages/gglive/index.vue';
 
 import NotFound from '../pages/NotFound.vue';
-import axios from 'axios';
+import { api } from '@axios_inst';
 
 const routes = [
     {
@@ -26,7 +26,7 @@ const routes = [
     {
         path: '/',
         component: DefaultLayout,
-        // meta: { requiresAuth: true },
+        meta: { requiresAuth: true },
         children: [
             {
                 path: '',
@@ -70,7 +70,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
-            axios.get('/user/m/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
+            api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
                 .then(response => {
                     next();
                 })
