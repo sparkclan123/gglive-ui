@@ -63,9 +63,9 @@
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
                                 <button type="button" @click="GKP.id === null ? toggleClass('G') : adjustPlayer(GKP)" class="fBGUqJ">
-                                    <picture>
+                                    <picture class="relative">
                                         <source type="image/webp">
-                                        <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR">
+                                        <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
                                         <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR">
                                         <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
@@ -83,9 +83,9 @@
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
                                 <button type="button"   @click="DEF.id === null ? toggleClass('D') : adjustPlayer(DEF)" class="fBGUqJ">
-                                    <picture>
+                                    <picture class="relative">
                                         <source type="image/webp">
-                                        <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR">
+                                        <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
                                         <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
@@ -103,9 +103,9 @@
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
                                 <button type="button"  @click="MID.id === null ? toggleClass('M') : adjustPlayer(MID)" class="fBGUqJ">
-                                    <picture>
+                                    <picture class="relative">
                                         <source type="image/webp">
-                                        <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR">
+                                        <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
