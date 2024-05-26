@@ -62,7 +62,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="player in filteredPlayers" :key="player.id" class="bg-gray-50">
+                <tr v-for="player in filteredPlayers" :key="player.id" class="bg-gray-50"
+                    :class="{ 'opacity-50': isSelected(player.id) }">
                     <td class="w-1/12 py-1 px-2 border-b border-r border-gray-400 text-gray-900"
                         @click="infoPlayer(player)">
                         <svg width="14" height="13" viewBox="0 0 6 13" v-if="!player.is_ban">
@@ -119,6 +120,14 @@
                 <button @click="showPositionFullModal = false">OK</button>
             </div>
         </div>
+
+        <!-- Modal for team limit -->
+        <div v-if="showTeamLimitModal" class="modal">
+            <div class="modal-content">
+                <h3>Cannot select more than 3 players from the same team!</h3>
+                <button @click="showTeamLimitModal = false">OK</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -154,7 +163,8 @@ export default {
             ],
             showRemoveModal: false,
             showPositionFullModal: false,
-            playerToRemove: null,
+            showTeamLimitModal: false,
+
         };
     },
     computed: {
@@ -210,6 +220,8 @@ export default {
 
             const playersInPosition = this[position];
 
+
+
             const existingPlayerIndex = playersInPosition.findIndex(p => p.id === player.id);
 
             if (existingPlayerIndex !== -1) {
@@ -222,6 +234,19 @@ export default {
                 if (emptySpotIndex === -1) {
                     this.showPositionFullModal = true;
                 } else {
+                    // ตรวจสอบว่า มีผู้เล่นในทีมเดียวกันมากกว่า 3 คนหรือไม่
+                    const totalPlayersInTeam = [
+                        ...this.getGKP,
+                        ...this.getDEF,
+                        ...this.getMID,
+                        ...this.getFWD
+                    ].filter(p => p.team_id === player.team_id).length;
+
+                    if (totalPlayersInTeam >= 3) {
+                        this.showTeamLimitModal = true;
+                        return;
+                    }
+
                     this.addPlayer({ player, position: positionState }).then(() => {
                         this.$emit('playerAdded');
                     });
@@ -251,6 +276,14 @@ export default {
                 name: team.name,
                 value: team.team_id
             }));
+        },
+        isSelected(playerId) {
+            return [
+                ...this.getGKP,
+                ...this.getDEF,
+                ...this.getMID,
+                ...this.getFWD
+            ].some(p => p.id === playerId);
         }
     },
     watch: {
