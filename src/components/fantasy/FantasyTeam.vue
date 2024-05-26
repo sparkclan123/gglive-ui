@@ -74,7 +74,7 @@
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
-                                        <div class=" fQREvA">4.8</div>
+                                        <div class=" fQREvA">{{ GKP.price }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
-                                        <div class=" fQREvA">4.8</div>
+                                        <div class=" fQREvA">{{ DEF.price }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -114,7 +114,7 @@
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
-                                        <div class=" fQREvA">4.8</div>
+                                        <div class=" fQREvA">{{ MID.price }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -133,7 +133,7 @@
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
-                                        <div class=" fQREvA">4.8</div>
+                                        <div class=" fQREvA">{{ FWD.price }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -187,6 +187,7 @@
         <div v-if="showAdjustPlayertModal" class="modal">
             <div class="modal-content">
                 <h3 @click="setCaptan()">Click to Set Captan</h3>
+                <h3 @click="ClickRemovePlayer()">remove player</h3>
                 <button @click="showAdjustPlayertModal = false">OK</button>
             </div>
         </div>
@@ -218,7 +219,8 @@ export default {
         }
     },
     methods: {
-        ...mapActions('playerSelect', ['setFormation']),
+        ...mapActions('playerSelect', ['setFormation','removePlayer']),
+        
         resetTeam() {
             this.updateFormation();
         },
@@ -257,6 +259,20 @@ export default {
         setCaptan() {
             this.isCaptain = this.detailPlayer.id;
             this.showAdjustPlayertModal = false;
+        },
+        ClickRemovePlayer() {
+            let player = this.detailPlayer;
+            const positionState = this.getPositionStateKey(player.position);
+            this.removePlayer({ player, position: positionState });
+            this.showAdjustPlayertModal = false;
+        },
+        getPositionStateKey(position) {
+            switch (position) {
+                case 'G': return 'GKP';
+                case 'D': return 'DEF';
+                case 'M': return 'MID';
+                case 'F': return 'FWD';
+            }
         },
 
 
