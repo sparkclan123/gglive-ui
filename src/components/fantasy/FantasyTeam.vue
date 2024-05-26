@@ -1,5 +1,5 @@
 <template>
-    <div class="dxRBog" v-if="getGameWeek && !loading">
+    <div class="dxRBog" v-if="getGameWeek">
 
         <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
             <!-- page 1 -->
@@ -178,10 +178,10 @@ export default {
             this.isToggled = false;
         },
 
-        async updateFormation() {
+        updateFormation() {
             const formation = this.selectedFormation;
-            await this.setFormation(formation);
-            this.loading = false;
+            this.setFormation(formation);
+
         }
 
     },
