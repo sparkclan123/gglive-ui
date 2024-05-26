@@ -22,18 +22,22 @@
                 <!-- <span @click="toggleClass">click</span> -->
                 <div class="dsbthN custom-btn shadow-xl">
                     <div class="eVUsqz">
+                        <div class="info-box ml-1">
+                            <span class="info-text">$100</span>
+                        </div>
                         <button @click="resetTeam()"
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             รีเซ็ต
                         </button>
-                        <button
+                        <!-- <button
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             เลือกอัตโนมัติ
-                        </button>
+                        </button> -->
                         <button
                             class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             บันทึกทีม
                         </button>
+
                     </div>
                     <div class="kznjgV">
                         <div class="jrXxIw cgwdFl">
@@ -190,13 +194,8 @@
         </div>
 
         <!-- Modal for team limit -->
-        <Modelc 
-            :showAdjustPlayerModal="showAdjustPlayerModal"
-            :playerName="detailPlayer.name"
-            @close-modal="showAdjustPlayerModal = false"
-            @set-captain="setCaptan"
-            @remove-player="ClickRemovePlayer"
-        />
+        <Modelc :showAdjustPlayerModal="showAdjustPlayerModal" :playerName="detailPlayer ? detailPlayer.name : 'Player'"
+            @close-modal="showAdjustPlayerModal = false" @set-captain="setCaptan" @remove-player="ClickRemovePlayer" />
 
     </div>
 </template>
@@ -297,6 +296,21 @@ export default {
 </script>
 
 <style scoped>
+.info-box {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.info-text {
+    font-size: 0.875rem;
+    /* text-xs */
+}
+
 .captain-badge {
     position: absolute;
     top: 0;
