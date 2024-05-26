@@ -1,5 +1,5 @@
 <template>
-    <div class="dxRBog" v-if="getGameWeek">
+    <div class="dxRBog" v-if="getGameWeek && !loading">
 
         <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
             <!-- page 1 -->
@@ -165,7 +165,8 @@ export default {
         return {
             showPlayerList: false,
             isToggled: false,
-            selectedFormation: '1-3-4-3'
+            selectedFormation: '1-3-4-3',
+            loading: true
         }
     },
     methods: {
@@ -177,9 +178,10 @@ export default {
             this.isToggled = false;
         },
 
-        updateFormation() {
+        async updateFormation() {
             const formation = this.selectedFormation;
-            this.setFormation(formation);
+            await this.setFormation(formation);
+            this.loading = false;
         }
 
     },
@@ -187,7 +189,7 @@ export default {
         ...mapGetters('GameWeek', ['getGameWeek']),
         ...mapGetters('playerSelect', ['getGKP', 'getDEF', 'getMID', 'getFWD'])
     },
-    mounted() {
+    created() {
         this.updateFormation();
     }
 }
