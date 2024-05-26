@@ -62,7 +62,8 @@
 
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
-                                <button type="button" @click="GKP.id === null ? toggleClass('G') : adjustPlayer(GKP)" class="fBGUqJ">
+                                <button type="button" @click="GKP.id === null ? toggleClass('G') : adjustPlayer(GKP)"
+                                    class="fBGUqJ">
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
@@ -82,7 +83,8 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
-                                <button type="button"   @click="DEF.id === null ? toggleClass('D') : adjustPlayer(DEF)" class="fBGUqJ">
+                                <button type="button" @click="DEF.id === null ? toggleClass('D') : adjustPlayer(DEF)"
+                                    class="fBGUqJ">
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
@@ -102,7 +104,8 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
-                                <button type="button"  @click="MID.id === null ? toggleClass('M') : adjustPlayer(MID)" class="fBGUqJ">
+                                <button type="button" @click="MID.id === null ? toggleClass('M') : adjustPlayer(MID)"
+                                    class="fBGUqJ">
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
@@ -121,7 +124,8 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(FWD, i) in getFWD" :key="i">
-                                <button type="button"  @click="FWD.id === null ? toggleClass('F') : adjustPlayer(FWD)"  class="fBGUqJ">
+                                <button type="button" @click="FWD.id === null ? toggleClass('F') : adjustPlayer(FWD)"
+                                    class="fBGUqJ">
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
@@ -153,7 +157,9 @@
                                         transform="matrix(-1 0 0 1 24 0)"></path>
                                 </svg></div></button>
                     </div>
-                    <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="showPositionFullModal=true" @showTeamLimitModal="showTeamLimitModal=true" :position="position" />
+                    <PlayerSelection @playerAdded="toggleClassBack"
+                        @showPositionFullModal="showPositionFullModal = true"
+                        @showTeamLimitModal="showTeamLimitModal = true" :position="position" />
                 </div>
             </div>
         </div>
@@ -184,13 +190,14 @@
         </div>
 
         <!-- Modal for team limit -->
-        <div v-if="showAdjustPlayertModal" class="modal">
-            <div class="modal-content">
-                <h3 @click="setCaptan()">Click to Set Captan</h3>
-                <h3 @click="ClickRemovePlayer()">remove player</h3>
-                <button @click="showAdjustPlayertModal = false">OK</button>
-            </div>
-        </div>
+        <Modelc 
+            :showAdjustPlayerModal="showAdjustPlayerModal"
+            :playerName="'Odysseas Vlachodimos'"
+            @close-modal="showAdjustPlayerModal = false"
+            @set-captain="setCaptan"
+            @remove-player="ClickRemovePlayer"
+        />
+
     </div>
 </template>
 
@@ -198,10 +205,12 @@
 <script>
 import PlayerSelection from './PlayerSelection.vue';
 import { mapActions, mapGetters } from 'vuex';
+import Modelc from '../object/model.vue'
 export default {
     name: 'FantasyTeam',
     components: {
-        PlayerSelection
+        PlayerSelection,
+        Modelc,
     },
     data() {
         return {
@@ -213,14 +222,14 @@ export default {
             showRemoveModal: false,
             showPositionFullModal: false,
             showTeamLimitModal: false,
-            showAdjustPlayertModal: false,
+            showAdjustPlayerModal: false,
             isCaptain: 'none',
             detailPlayer: null
         }
     },
     methods: {
-        ...mapActions('playerSelect', ['setFormation','removePlayer']),
-        
+        ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
+
         resetTeam() {
             this.updateFormation();
         },
@@ -254,17 +263,17 @@ export default {
         },
         adjustPlayer(player) {
             this.detailPlayer = player;
-            this.showAdjustPlayertModal = true;
+            this.showAdjustPlayerModal = true;
         },
         setCaptan() {
             this.isCaptain = this.detailPlayer.id;
-            this.showAdjustPlayertModal = false;
+            this.showAdjustPlayerModal = false;
         },
         ClickRemovePlayer() {
             let player = this.detailPlayer;
             const positionState = this.getPositionStateKey(player.position);
             this.removePlayer({ player, position: positionState });
-            this.showAdjustPlayertModal = false;
+            this.showAdjustPlayerModal = false;
         },
         getPositionStateKey(position) {
             switch (position) {
@@ -288,33 +297,41 @@ export default {
 </script>
 
 <style scoped>
-
 .captain-badge {
-  position: absolute;
-  top: 0; /* อยู่มุมบนของรูปภาพ */
-  right: 0; /* อยู่มุมบนขวาของรูปภาพ */
-  background-color: white; /* พื้นหลังของคำว่า "C" */
-  color: black; /* สีตัวอักษร */
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px; /* ขนาดตัวอักษร */
-  font-weight: bold;
-  transform: translate(50%, -50%); /* เลื่อนป้ายให้เข้ามุม */
+    position: absolute;
+    top: 0;
+    /* อยู่มุมบนของรูปภาพ */
+    right: 0;
+    /* อยู่มุมบนขวาของรูปภาพ */
+    background-color: white;
+    /* พื้นหลังของคำว่า "C" */
+    color: black;
+    /* สีตัวอักษร */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    /* ขนาดตัวอักษร */
+    font-weight: bold;
+    transform: translate(50%, -50%);
+    /* เลื่อนป้ายให้เข้ามุม */
 }
 
 .circle-img {
-  border-radius: 50%;
-  width: 50px; /* กำหนดขนาดของรูปภาพ */
-  height: 50px; /* กำหนดขนาดของรูปภาพ */
+    border-radius: 50%;
+    width: 50px;
+    /* กำหนดขนาดของรูปภาพ */
+    height: 50px;
+    /* กำหนดขนาดของรูปภาพ */
 }
 
 .relative {
-  position: relative;
-  display: inline-block; /* ทำให้แน่ใจว่า picture ขนาดตามเนื้อหา */
+    position: relative;
+    display: inline-block;
+    /* ทำให้แน่ใจว่า picture ขนาดตามเนื้อหา */
 }
 
 .modal {
@@ -334,15 +351,18 @@ export default {
 }
 
 .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    z-index: 120;
     max-width: 90%;
     max-height: 90%;
-    overflow-y: auto;
-    margin: auto;
+    padding: 0px;
+    border: 0px;
+    border-radius: 6px;
+    width: 640px;
+    color: currentcolor;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px 0px;
+    background-repeat: no-repeat;
+    background-position: right top, 0px center, 0px center;
+    background-image: url(/public/assets/pattern-2-crop-90.0e86ae39.png), linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
 }
 
 .gvQQRY {
