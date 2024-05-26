@@ -22,7 +22,7 @@
                 <!-- <span @click="toggleClass">click</span> -->
                 <div class="dsbthN custom-btn shadow-xl">
                     <div class="eVUsqz">
-                        <button
+                        <button @click="resetTeam()"
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             รีเซ็ต
                         </button>
@@ -62,11 +62,12 @@
 
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
-                                <button type="button" @click="toggleClass('G')" class="fBGUqJ">
+                                <button type="button" @click="GKP.id === null ? toggleClass('G') : adjustPlayer(GKP)" class="fBGUqJ">
                                     <picture>
                                         <source type="image/webp">
                                         <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR">
                                         <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR">
+                                        <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="GKP.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
@@ -81,11 +82,12 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
-                                <button type="button" @click="toggleClass('D')" class="fBGUqJ">
+                                <button type="button"   @click="DEF.id === null ? toggleClass('D') : adjustPlayer(DEF)" class="fBGUqJ">
                                     <picture>
                                         <source type="image/webp">
                                         <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR">
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
+                                        <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="DEF.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
@@ -100,11 +102,12 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
-                                <button type="button" @click="toggleClass('M')" class="fBGUqJ">
+                                <button type="button"  @click="MID.id === null ? toggleClass('M') : adjustPlayer(MID)" class="fBGUqJ">
                                     <picture>
                                         <source type="image/webp">
                                         <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR">
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
+                                        <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="MID.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
@@ -118,11 +121,12 @@
                         </div>
                         <div class="gRFNix">
                             <div class="hWtxro" v-for="(FWD, i) in getFWD" :key="i">
-                                <button type="button" @click="toggleClass('F')" class="fBGUqJ">
-                                    <picture>
+                                <button type="button"  @click="FWD.id === null ? toggleClass('F') : adjustPlayer(FWD)"  class="fBGUqJ">
+                                    <picture class="relative">
                                         <source type="image/webp">
-                                        <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR">
+                                        <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
+                                        <span v-if="FWD.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="FWD.id === null">
                                         <div class="gvQQRY text-gray-800">Add</div>
@@ -178,6 +182,14 @@
                 <button @click="showTeamLimitModal = false">OK</button>
             </div>
         </div>
+
+        <!-- Modal for team limit -->
+        <div v-if="showAdjustPlayertModal" class="modal">
+            <div class="modal-content">
+                <h3 @click="setCaptan()">Click to Set Captan</h3>
+                <button @click="showAdjustPlayertModal = false">OK</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -200,10 +212,16 @@ export default {
             showRemoveModal: false,
             showPositionFullModal: false,
             showTeamLimitModal: false,
+            showAdjustPlayertModal: false,
+            isCaptain: 'none',
+            detailPlayer: null
         }
     },
     methods: {
         ...mapActions('playerSelect', ['setFormation']),
+        resetTeam() {
+            this.updateFormation();
+        },
         toggleClass(position) {
             this.position = position;
             this.isToggled = true;
@@ -231,7 +249,15 @@ export default {
             } else {
                 return text;
             }
-        }
+        },
+        adjustPlayer(player) {
+            this.detailPlayer = player;
+            this.showAdjustPlayertModal = true;
+        },
+        setCaptan() {
+            this.isCaptain = this.detailPlayer.id;
+            this.showAdjustPlayertModal = false;
+        },
 
 
     },
@@ -246,6 +272,35 @@ export default {
 </script>
 
 <style scoped>
+
+.captain-badge {
+  position: absolute;
+  top: 0; /* อยู่มุมบนของรูปภาพ */
+  right: 0; /* อยู่มุมบนขวาของรูปภาพ */
+  background-color: white; /* พื้นหลังของคำว่า "C" */
+  color: black; /* สีตัวอักษร */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; /* ขนาดตัวอักษร */
+  font-weight: bold;
+  transform: translate(50%, -50%); /* เลื่อนป้ายให้เข้ามุม */
+}
+
+.circle-img {
+  border-radius: 50%;
+  width: 50px; /* กำหนดขนาดของรูปภาพ */
+  height: 50px; /* กำหนดขนาดของรูปภาพ */
+}
+
+.relative {
+  position: relative;
+  display: inline-block; /* ทำให้แน่ใจว่า picture ขนาดตามเนื้อหา */
+}
+
 .modal {
     position: fixed;
     z-index: 110;
