@@ -19,11 +19,17 @@
                 <div class="dialog-body">
                     <ul>
                         <li class="dialog-button-item">
-                            <button @click="setCaptain" type="button" class="remove-player-button">Remove Player</button>
+                            <button @click="setCaptain" type="button"
+                                class="set-captan-info-button">ตั้งเป็นกับตันทีม</button>
                         </li>
                         <li class="dialog-button-item">
-                            <button @click="removePlayer" type="button" class="player-info-button">Player Information</button>
+                            <button @click="removePlayer" type="button"
+                                class="player-info-button">รายละเอียดผู้เล่น</button>
                         </li>
+                        <li class="dialog-button-item">
+                            <button @click="removePlayer" type="button" class="remove-player-button">ลบ ผู้เล่น</button>
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -53,9 +59,9 @@ export default {
     }
 };
 </script>
-  
-  <style scoped>
-  .dialog-overlay {
+
+<style scoped>
+.dialog-overlay {
     position: fixed;
     z-index: 110;
     top: 0;
@@ -65,10 +71,11 @@ export default {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  }
-  
-  .styled-dialog {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+}
+
+.styled-dialog {
     z-index: 120;
     max-width: 90%;
     max-height: 90%;
@@ -81,36 +88,35 @@ export default {
     background-repeat: no-repeat;
     background-position: right top, center, center;
     background-image: linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
-  }
-  
-  .dialog-header {
+}
+
+.dialog-header {
     position: relative;
     text-align: center;
     margin-bottom: 2rem;
     padding-top: 2.4rem;
-  }
-  
-  .dialog-heading {
-    font-family: PremierSans-Bold, Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 1.8rem;
-  }
-  
-  .close-button-wrap {
+}
+
+.dialog-heading {
+    font-size: 1.3rem;
+}
+
+.close-button-wrap {
     position: absolute;
-    right: 1rem;
-    top: 1rem;
-  }
-  
-  .close-button {
-    padding: 1rem 1.5rem;
+    right: 0.5rem;
+    top: 0.5rem;
+}
+
+.close-button {
+    padding: 0.5rem 0.8rem;
     border: 0;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.3);
     line-height: 0;
     cursor: pointer;
-  }
-  
-  .close-label {
+}
+
+.close-label {
     border: 0;
     clip: rect(0px, 0px, 0px, 0px);
     height: 1px;
@@ -120,49 +126,58 @@ export default {
     position: absolute;
     white-space: nowrap;
     width: 1px;
-  }
-  
-  .close-icon {
+}
+
+.close-icon {
     width: 16px;
     height: 16px;
-  }
-  
-  .dialog-body {
+}
+
+.dialog-body {
     max-height: calc(90vh - 61px);
     overflow-y: auto;
     margin: 2rem 1.5rem;
-  }
-  
-  .dialog-button-item {
+}
+
+.dialog-button-item {
     margin-bottom: 1rem;
-  }
-  
-  .remove-player-button {
+}
+
+.remove-player-button {
     display: block;
-    padding: 1.5rem;
+    padding: 0.9rem;
     border: 0;
     border-radius: 3px;
-    font-family: PremierSans-Bold, Arial, "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
     cursor: pointer;
-    background: rgb(150, 60, 255);
+    background: rgb(158, 31, 42);
     color: white;
     box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 8px;
     width: 100%;
-  }
-  
-  .player-info-button {
+}
+.set-captan-info-button {
     display: block;
-    padding: 1.5rem;
+    padding: 0.9rem;
     border: 0;
     border-radius: 3px;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background: rgb(30, 122, 25);
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 8px;
+    width: 100%;
+}
+
+.player-info-button {
+    display: block;
+    padding: 0.9rem;
+    border: 0;
+    border-radius: 3px;
+    font-size: 0.8rem;
     cursor: pointer;
     background: rgb(239, 239, 239);
     color: black;
-    font-family: PremierSans-Regular, Arial, "Helvetica Neue", Helvetica, sans-serif;
     box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 8px;
     width: 100%;
-  }
-  </style>
-  
+}
+</style>

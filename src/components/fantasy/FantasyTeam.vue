@@ -192,7 +192,7 @@
         <!-- Modal for team limit -->
         <Modelc 
             :showAdjustPlayerModal="showAdjustPlayerModal"
-            :playerName="'Odysseas Vlachodimos'"
+            :playerName="detailPlayer.name"
             @close-modal="showAdjustPlayerModal = false"
             @set-captain="setCaptan"
             @remove-player="ClickRemovePlayer"
