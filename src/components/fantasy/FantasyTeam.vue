@@ -31,7 +31,7 @@
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             เลือกอัตโนมัติ
                         </button> -->
-                        <button
+                        <button @click="saveTeam()"
                             class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             บันทึกทีม
                         </button>
@@ -202,6 +202,7 @@
 import PlayerSelection from './PlayerSelection.vue';
 import { mapActions, mapGetters } from 'vuex';
 import Modelc from '../object/model.vue'
+import { api } from '@axios_inst';
 export default {
     name: 'FantasyTeam',
     components: {
@@ -279,6 +280,32 @@ export default {
                 case 'F': return 'FWD';
             }
         },
+        async saveTeam() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.post('/premier-league/v1/create-player-game', {
+                    game_week_id: this.getGameWeek.id,
+                    season_id: this.getGameWeek.season_id,
+                    formation: this.selectedFormation,
+                    players: {
+                        GKP: this.getGKP,
+                        DEF: this.getDEF,
+                        MID: this.getMID,
+                        FWD: this.getFWD
+                    }
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.addNotification({ type: 'success', message: 'Team saved successfully' });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
 
 
     },
