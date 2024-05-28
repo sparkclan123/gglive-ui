@@ -106,7 +106,7 @@
                 </tbody>
             </table>
         </div>
-       
+
     </div>
 </template>
 
@@ -210,7 +210,7 @@ export default {
                 const emptySpotIndex = playersInPosition.findIndex(p => p.id === null);
                 if (emptySpotIndex === -1) {
                     this.$emit('showPositionFullModal');
-                 
+
                 } else {
                     // ตรวจสอบว่า มีผู้เล่นในทีมเดียวกันมากกว่า 3 คนหรือไม่
                     const totalPlayersInTeam = [
@@ -250,10 +250,15 @@ export default {
             this.filteredPlayers;
         },
         updateTeamOptions() {
-            this.options.find(option => option.label === 'Teams').options = this.getTeams.map(team => ({
-                name: team.name,
-                value: team.team_id
-            }));
+            const teams = this.getTeams;
+            if (teams && Array.isArray(teams)) {
+                this.options.find(option => option.label === 'Teams').options = teams.map(team => ({
+                    name: team.name,
+                    value: team.team_id
+                }));
+            } else {
+                console.error('getTeams is null or not an array');
+            }
         },
         isSelected(playerId) {
             return [
@@ -284,6 +289,4 @@ export default {
 .bg-color-1 {
     background-color: #261442;
 }
-
-
 </style>

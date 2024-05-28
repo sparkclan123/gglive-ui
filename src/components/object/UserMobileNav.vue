@@ -19,7 +19,7 @@
 
       <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('season-select') }"
         @click="setActive('season-select')">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"
+        <svg xmlns="http://www.w3.org/2000/svg"  fill="#000000"
           class="w-4 h-4 icon-large" viewBox="0 0 230.057 230.057">
           <g>
             <path

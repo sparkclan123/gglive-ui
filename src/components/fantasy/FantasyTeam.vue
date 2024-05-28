@@ -287,12 +287,12 @@ export default {
                     game_week_id: this.getGameWeek.id,
                     season_id: this.getGameWeek.season_id,
                     formation: this.selectedFormation,
-                    players: {
-                        GKP: this.getGKP,
-                        DEF: this.getDEF,
-                        MID: this.getMID,
-                        FWD: this.getFWD
-                    }
+
+                    gkp: this.getGKP,
+                    def: this.getDEF,
+                    mid: this.getMID,
+                    fwd: this.getFWD
+
                 }, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
