@@ -30,7 +30,7 @@
       </button>
 
       <button class="inline-flex flex-col items-center justify-center group"
-        :class="{ active: isActive('competition') }" @click="setActive('home')">
+        :class="{ active: isActive('challenge') }" @click="setActive('challenge')">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#360c3a"
           class="w-4 h-4 icon-large">
           <path stroke-linecap="round" stroke-linejoin="round"

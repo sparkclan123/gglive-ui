@@ -8,6 +8,7 @@ import Home from '../pages/home.vue';
 import SeasonSelect from '../pages/gglive/season.vue';
 import GgLive from '../pages/gglive/index.vue';
 import List from '../pages/gglive/list.vue';
+import Challenge from '../pages/gglive/challenge.vue';
 
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
@@ -48,6 +49,11 @@ const routes = [
                 path: 'list',
                 name: 'list',
                 component: List,
+            },
+            {
+                path: 'challenge',
+                name: 'challenge',
+                component: Challenge,
             },
         ],
     },
