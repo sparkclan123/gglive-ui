@@ -39,10 +39,7 @@ export default {
 </script>
 
 <style scoped>
-.bg-color-1 {
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-}
+
 
 .user-mobile-nav {
     height: 60px;

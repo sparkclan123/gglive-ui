@@ -21,7 +21,7 @@
                 </div>
                 <!-- <span @click="toggleClass">click</span> -->
                 <div class="dsbthN custom-btn shadow-xl">
-                    <span class="text-white">asdasd</span>
+                    <!-- <span class="text-white">asdasd</span> -->
                     <div class="eVUsqz">
                         <button @click="resetTeam()"
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
@@ -221,7 +221,8 @@ export default {
             showTeamLimitModal: false,
             showAdjustPlayerModal: false,
             isCaptain: 'none',
-            detailPlayer: null
+            detailPlayer: null,
+            nameteam: '',
         }
     },
     methods: {
@@ -287,7 +288,7 @@ export default {
                     game_week_id: this.getGameWeek.id,
                     season_id: this.getGameWeek.season_id,
                     formation: this.selectedFormation,
-
+                    name: this.nameteam,
                     gkp: this.getGKP,
                     def: this.getDEF,
                     mid: this.getMID,

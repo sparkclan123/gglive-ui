@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-color-1">
         <FantasyTeam />
     </div>
 </template>
@@ -75,6 +75,10 @@ export default {
 
 
 <style scoped>
+.bg-color-1 {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+}
 .field {
     background-image: url('path-to-football-field-image.jpg');
     background-size: cover;

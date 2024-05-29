@@ -7,6 +7,7 @@ import Login from '../pages/login.vue';
 import Home from '../pages/home.vue';
 import SeasonSelect from '../pages/gglive/season.vue';
 import GgLive from '../pages/gglive/index.vue';
+import List from '../pages/gglive/list.vue';
 
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
@@ -42,6 +43,11 @@ const routes = [
                 path: 'pitch/:seasonID',
                 name: 'pitch',
                 component: GgLive,
+            },
+            {
+                path: 'list',
+                name: 'list',
+                component: List,
             },
         ],
     },
