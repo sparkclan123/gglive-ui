@@ -1,6 +1,6 @@
 <template>
     <div class="w-full px-4 mb-8 mx-auto">
-        <div class="flex flex-col items-center my-12">
+        <div class="flex flex-col items-center my-10">
             <div class="flex text-gray-700">
                 <div @click="previousPage" class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer" :class="{ 'cursor-not-allowed': page === 1 }">
                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
@@ -94,5 +94,10 @@ export default {
 .cursor-not-allowed {
     pointer-events: none;
     opacity: 0.5;
+}
+.w-8 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>
