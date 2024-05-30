@@ -6,10 +6,12 @@
             </div>
         </nav>
         <div class="container mx-auto p-1">
-            <div v-if="getLoading" class="loading-overlay">
+            <div v-if="getLoading">
                 <LodingSceen style="display: flex; justify-content: space-around;" />
             </div>
-            <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" class="bg-color-1" />
+
+            <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" />
+
         </div>
         <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16" />
     </div>
@@ -18,6 +20,7 @@
 <script>
 import UserMobileNav from '../components/object/UserMobileNav.vue';
 import { mapActions, mapGetters } from 'vuex';
+
 export default {
     name: 'DefaultLayout',
     components: {
@@ -33,7 +36,6 @@ export default {
     mounted() {
         this.updateLoading(false);
         this.facthBalance();
-      
     },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gradient-to-r from-teal-400 to-blue-500 text-white p-2" v-if="getSeasons.label">
+    <div class="min-h-screen bg-gradient-to-r rounded-xl  from-teal-400 to-blue-500 text-white p-2" v-if="getSeasons.label">
         <!-- Header -->
         <div class="p-4 text-center rounded-lg">
             <h1 class="text-2xl font-bold colot-h border-b-4 border-gray-800 inline-block pb-1">
@@ -23,7 +23,7 @@
 
             <!-- Tab Content -->
             <div v-if="activeTab === 'tab1'">
-                <SeasonSelect/>
+                <SeasonSelect />
             </div>
             <div v-if="activeTab === 'tab2'">
                 <!-- Content for Tab 2 -->
@@ -59,8 +59,9 @@ export default {
         async getSeason() {
             try {
                 await this.fetchSeasons();
+                this.updateLoading(false);
             } catch (error) {
-                console.log(error);
+                this.updateLoading(false);
             }
         }
     },
@@ -68,12 +69,12 @@ export default {
         ...mapGetters('season', ['getSeasons'])
     },
     created() {
+        this.updateLoading(true);
         this.getSeason();
     }
 };
 </script>
 <style scoped>
-
 .colot-h {
     color: #1e1037;
 }

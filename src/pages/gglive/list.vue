@@ -169,8 +169,54 @@
                 # TODO
             </div>
         </div>
+        <Pagination :page="page" :pages="pages" @page-change="fetchDataMyGameWeek" />
     </div>
 </template>
+
+<script>
+import { api } from '@axios_inst';
+import { mapActions, mapGetters } from 'vuex';
+export default {
+    data() {
+        return {
+            teams: [],
+            total: 0,
+            page: 1,
+            limit: 1,
+            pages: 1,
+        };
+    },
+    methods: {
+        async fetchDataMyGameWeek(page = 1, limit = 1) {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/game-week-player-user', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    },
+                    params: {
+                        page: page,
+                        limit: limit
+                    }
+                });
+                if (response.data.ok) {
+                   
+                    this.total = response.data.total;
+                    this.page = response.data.page;
+                    this.limit = response.data.limit;
+                    this.pages = response.data.pages;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+    },
+    created() {
+        this.fetchDataMyGameWeek();
+    },
+
+};
+</script>
 
 <style scoped>
 .cus-bg-card {

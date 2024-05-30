@@ -18,6 +18,7 @@ export default {
         FantasyTeam
     },
     methods: {
+        ...mapActions('loading', ['updateLoading']),
         ...mapActions('GameWeek', ['setGameWeek', 'setGameWeekPlayer']),
         ...mapActions('Teams', ['setTeams']),
 
@@ -59,14 +60,14 @@ export default {
         ...mapGetters('selectGameWeek', ['getGameWeek'])
     },
     created() {
+        this.updateLoading(true);
         this.seasonID = this.$route.params.seasonID;
         Promise.all([this.fetchData(this.seasonID), this.fetchDataTeams()])
             .then(() => {
-                console.log('Both data fetching operations are completed');
-
+                this.updateLoading(false);
             })
             .catch((error) => {
-                console.log('Error in one of the data fetching operations:', error);
+                this.updateLoading(false);
             });
     },
 
@@ -79,6 +80,7 @@ export default {
     background-color: #ffffff;
     border-radius: 0.5rem;
 }
+
 .field {
     background-image: url('path-to-football-field-image.jpg');
     background-size: cover;
