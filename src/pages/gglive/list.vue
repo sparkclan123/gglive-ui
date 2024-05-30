@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- component -->
-        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer" v-for="data in datas">
+        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer" v-for="data in datas" @click="seeDetailAndEdit(data)">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <div class="rounded-full w-5 h-5  ">
@@ -67,6 +67,13 @@ export default {
                 console.log(error);
                 this.updateLoading(false);
             }
+        },
+        seeDetailAndEdit(data) {
+            if (!data) {
+                return;
+            }
+            let id = data.id;
+            this.$router.push({ name: 'pitch-detail', params: { id } });
         },
     },
     created() {

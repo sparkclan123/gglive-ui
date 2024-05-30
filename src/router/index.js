@@ -10,6 +10,9 @@ import GgLive from '../pages/gglive/index.vue';
 import List from '../pages/gglive/list.vue';
 import Challenge from '../pages/gglive/challenge.vue';
 
+
+import GgLiveDetail from '../pages/gglive-detail/gglive-detail.vue';
+
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
 
@@ -54,6 +57,11 @@ const routes = [
                 path: 'challenge',
                 name: 'challenge',
                 component: Challenge,
+            },
+            {
+                path: 'pitch-detail/:id',
+                name: 'pitch-detail',
+                component: GgLiveDetail,
             },
         ],
     },
