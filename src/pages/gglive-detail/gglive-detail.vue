@@ -1,32 +1,41 @@
 <template>
     <div class="dxRBog" v-if="getMain">
-
-        <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
+        <div class="bg-white top-0 w-full rounded-b-lg p-4 shadow-md relative">
+            <!-- "กลับ" Button with SVG -->
+            <div class="absolute top-0 left-0 m-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 15" color="primary"
+                    class="mr-1">
+                    <path
+                        d="M23.9996,7.4946 C23.9786,7.0416 23.8296,6.5696 23.4816,6.2506 C23.4816,6.2506 23.4806,6.2496 23.4806,6.2496 L18.4596,1.2256 L17.7526,0.5176 C17.4346,0.1986 16.9586,0.0016 16.5096,-0.0004 C16.0766,-0.0004 15.5616,0.1906 15.2656,0.5176 C14.9596,0.8526 14.7296,1.2916 14.7486,1.7616 C14.7686,2.2296 14.9276,2.6676 15.2656,3.0056 L17.9916,5.7336 C17.9916,5.7336 2.6226,5.7246 1.7966,5.7346 L1.7616,5.7346 C1.3076,5.7346 0.8386,5.9316 0.5186,6.2526 C0.2116,6.5586 -0.0164,7.0556 0.0006,7.4966 C0.0216,7.9496 0.1696,8.4226 0.5176,8.7406 C0.8656,9.0596 1.2886,9.2576 1.7616,9.2566 L17.9986,9.2566 L15.2646,11.9936 C14.9456,12.3116 14.7496,12.7866 14.7476,13.2376 C14.7476,13.6686 14.9376,14.1846 15.2646,14.4816 C15.5996,14.7866 16.0376,15.0166 16.5076,14.9986 C16.9736,14.9746 17.4136,14.8186 17.7506,14.4816 L22.7766,9.4516 L23.4856,8.7436 C23.6656,8.5626 23.7936,8.3486 23.8776,8.1186 C23.9576,7.9146 24.0076,7.6996 23.9996,7.4946"
+                        transform="matrix(-1 0 0 1 24 0)"></path>
+                </svg>
+                <span class="text-gray-800 font-bold">กลับ</span>
+            </div>
             <!-- page 1 -->
-            <div class="elHRfu ">
-                <div class="sc-CrZHp hvBVYx flex items-center">
-                    <img src="/public/assets/favicon-32x32.png" alt="icon" class="mr-2">
-                    <span class="mr-auto">Week {{ getMain.week }}</span>
-                    <button @click="toggleClass('all')" class="sc-iftxFb isQEzW">
-                        รายชื่อผู้เล่น
-                        <div ml="1" class="sc-csKJxZ dviEZq">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 20"
-                                color="primary" class="sc-bSywJw sc-hPMVTF gPCpFh flMINk">
-                                <path fill-rule="evenodd"
-                                    d="M53.6485838,32.0017628 L50.0028805,32.002243 L44.1795487,32.002243 L42.8449352,32.002243 C42.2448392,32.002243 41.6106577,32.2648846 41.1853096,32.6869358 C40.7782045,33.0941023 40.4723956,33.7595891 40.5007201,34.3468117 C40.5285646,34.9508394 40.7258761,35.5807952 41.1853096,36.0066875 C41.6447432,36.4287387 42.2069131,36.6913803 42.8449352,36.6913803 L46.4978397,36.6913803 L47.9851176,36.6913803 L45.4666347,39.209763 C43.6044167,41.0722619 41.7383581,42.9386019 39.8780605,44.7991802 C38.2707633,46.4067198 36.6673068,48.0104182 35.0585694,49.6193983 C34.2803649,50.3977202 33.4867979,51.1722009 32.7181949,51.9601258 L32.6845895,51.9937362 C32.2568411,52.4215492 32,53.0481439 32,53.6536121 C32,54.2317118 32.2530005,54.9140038 32.6845895,55.313488 C33.1305809,55.7206545 33.7157945,56.0265096 34.3442151,55.9981808 C34.9721555,55.9703321 35.5592895,55.7600268 36.0038406,55.313488 L37.931349,53.3856888 L42.5261642,48.7906607 L48.1147384,43.2007634 C49.1805089,42.1348321 50.2462794,41.0689008 51.3115699,40.0034497 L51.3115699,43.8239971 L51.3115699,45.1597723 C51.3115699,45.7599588 51.5741719,46.3937558 51.9961594,46.8196481 C52.4032645,47.2263345 53.068651,47.5321896 53.6557849,47.5038608 C54.2597216,47.4760121 54.8895823,47.279151 55.3154105,46.8196481 C55.7316371,46.3582247 56,45.7954898 56,45.1597723 L56,41.5058366 L56,35.6821067 L56,34.3468117 C56,34.0073461 55.9183869,33.6846859 55.781085,33.3893941 C55.6649064,33.1209907 55.5084013,32.8717932 55.3082093,32.6864556 C54.8617379,32.2792891 54.2770043,31.9739142 53.6485838,32.0017628 Z"
-                                    transform="rotate(45 71.042 -6.799)"></path>
-                            </svg>
-                        </div>
-                    </button>
+            <div class="text-center">
+                <p class="text-lg font-bold text-green-600">มาเอาแชมป์วิกสุดท้าย34</p>
+                <div class="flex justify-center items-center mt-2">
+                    <p class="text-sm mr-2">เกมวีค 38</p>
+                    <div class="bg-yellow-500 text-white py-1 px-3 rounded-md text-sm mr-2">Premium</div>
                 </div>
-                <!-- <span @click="toggleClass">click</span> -->
-                <div class="dsbthN custom-btn shadow-xl">
-                    <!-- <span class="text-white">asdasd</span> -->
-                    <div class="eVUsqz">
-
+                <div class="flex justify-between mt-4">
+                    <div class="text-center mx-2">
+                        <p>เฉลี่ย</p>
+                        <p>48</p>
                     </div>
-
+                    <div class="text-center mx-2">
+                        <p class="font-bold text-green-600">คะแนน</p>
+                        <p class="text-2xl font-bold text-green-600">81</p>
+                    </div>
+                    <div class="text-center mx-2">
+                        <p>สูงสุด</p>
+                        <p>81</p>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <div>
+            <div class="elHRfu ">
                 <div class="imodPj custom-btn shadow-xl">
                     <div class="iA-dheQ">
 
@@ -41,7 +50,7 @@
 
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
-                                        <div class=" fQREvA">{{ GKP.price }}</div>
+                                        <div class=" fQREvA">{{ GKP.points }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -57,7 +66,7 @@
                                     </picture>
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
-                                        <div class=" fQREvA">{{ DEF.price }}</div>
+                                        <div class=" fQREvA">{{ DEF.points }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -74,7 +83,7 @@
 
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
-                                        <div class=" fQREvA">{{ MID.price }}</div>
+                                        <div class=" fQREvA">{{ MID.points }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -90,7 +99,7 @@
 
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
-                                        <div class=" fQREvA">{{ FWD.price }}</div>
+                                        <div class=" fQREvA">{{ FWD.points }}</div>
                                     </div>
                                 </button>
                             </div>
