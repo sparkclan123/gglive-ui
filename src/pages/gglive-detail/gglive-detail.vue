@@ -1,8 +1,10 @@
 <template>
     <div class="dxRBog" v-if="getMain">
-        <div class="bg-white top-0 w-full rounded-b-lg p-4 shadow-md relative">
+
+        <div class="w-full rounded-b-lg p-4 shadow-md relative"
+            style="background: linear-gradient(to bottom, #1e0f37 0%, white 5%);">
             <!-- "กลับ" Button with SVG -->
-            <div class="absolute top-0 left-0 m-2 flex items-center">
+            <div class="absolute top-0 left-0 m-2 flex items-center" @click="route_back()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 15" color="primary"
                     class="mr-1">
                     <path
@@ -13,10 +15,10 @@
             </div>
             <!-- page 1 -->
             <div class="text-center">
-                <p class="text-lg font-bold text-green-600">มาเอาแชมป์วิกสุดท้าย34</p>
+                <p class="text-lg font-bold text-green-600">{{getMain.name}}</p>
                 <div class="flex justify-center items-center mt-2">
-                    <p class="text-sm mr-2">เกมวีค 38</p>
-                    <div class="bg-yellow-500 text-white py-1 px-3 rounded-md text-sm mr-2">Premium</div>
+                    <p class="text-sm mr-2">เกมวีค {{getMain.week}}</p>
+                    <div class="bg-yellow-500 text-white py-1 px-3 rounded-md text-sm mr-2">{{getMain.season}}</div>
                 </div>
                 <div class="flex justify-between mt-4">
                     <div class="text-center mx-2">
@@ -25,7 +27,7 @@
                     </div>
                     <div class="text-center mx-2">
                         <p class="font-bold text-green-600">คะแนน</p>
-                        <p class="text-2xl font-bold text-green-600">81</p>
+                        <p class="text-3xl font-bold text-green-600">{{getMain.total_point}}</p>
                     </div>
                     <div class="text-center mx-2">
                         <p>สูงสุด</p>
@@ -34,6 +36,7 @@
                 </div>
             </div>
         </div>
+
         <div>
             <div class="elHRfu ">
                 <div class="imodPj custom-btn shadow-xl">
@@ -128,6 +131,9 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        route_back(){
+            this.$router.push({ name: 'list' });
+        },
         async fetchGameWeekDetail() {
             try {
                 const access_token = localStorage.getItem('access_token');
@@ -175,7 +181,6 @@ export default {
 
 };
 </script>
-
 
 <style scoped>
 .captain-badge {
