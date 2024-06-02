@@ -241,7 +241,7 @@ export default {
         getShirtImage(player) {
             const teamCode = this.stripTeamCode(player.team_code);
             const suffix = player.position === 'G' ? '_1-66' : '-66';
-            return `/public/assets/shirt/shirt_${teamCode}${suffix}.webp`;
+            return `/assets/shirt/shirt_${teamCode}${suffix}.webp`;
         },
         filterPlayers() {
             this.filteredPlayers;
