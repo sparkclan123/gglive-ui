@@ -4,7 +4,7 @@
         <div class="w-full rounded-b-lg p-4 shadow-md relative"
             style="background: linear-gradient(to bottom, #1e0f37 0%, white 5%);">
             <!-- "กลับ" Button with SVG -->
-            <div class="absolute top-0 left-0 m-2 flex items-center" @click="route_back()">
+            <div class="absolute top-0 left-0 m-2 flex items-center cursor-pointer" @click="route_back()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 15" color="primary"
                     class="mr-1">
                     <path

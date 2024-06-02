@@ -17,10 +17,9 @@
         <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">P.L</span>
       </button>
 
-      <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('season-select') }"
-        @click="setActive('season-select')">
-        <svg xmlns="http://www.w3.org/2000/svg"  fill="#000000"
-          class="w-4 h-4 icon-large" viewBox="0 0 230.057 230.057">
+      <button class="inline-flex flex-col items-center justify-center group"
+        :class="{ active: isActive('season-select') }" @click="setActive('season-select')">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" class="w-4 h-4 icon-large" viewBox="0 0 230.057 230.057">
           <g>
             <path
               d="M228.579,83.315l-32.147-41.258c-7.817-10.032-19.594-15.785-32.312-15.785h-21.204c-2.939,0-5.565,1.836-6.574,4.597   c-3.257,8.909-11.822,14.895-21.313,14.895s-18.055-5.986-21.313-14.895c-1.009-2.761-3.635-4.597-6.574-4.597H65.937   c-12.717,0-24.495,5.753-32.312,15.786L1.479,83.315c-1.397,1.793-1.837,4.152-1.179,6.328c0.658,2.176,2.331,3.897,4.488,4.615   l44.558,14.845v87.682c0,3.866,3.134,7,7,7h117.366c3.866,0,7-3.134,7-7v-87.682l44.558-14.845c2.157-0.718,3.83-2.439,4.488-4.615   C230.416,87.467,229.976,85.108,228.579,83.315z M180.712,94.347V84.057c0-3.866-3.134-7-7-7s-7,3.134-7,7v105.728H63.345V84.057   c0-3.866-3.134-7-7-7s-7,3.134-7,7v10.29l-30.736-10.24l26.059-33.444c5.146-6.604,12.897-10.391,21.269-10.391h16.681   c6.295,11.832,18.761,19.491,32.41,19.491c13.649,0,26.115-7.66,32.411-19.491h16.681c8.371,0,16.123,3.787,21.269,10.39   l26.06,33.445L180.712,94.347z" />
@@ -29,8 +28,8 @@
         <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">จัดทีม</span>
       </button>
 
-      <button class="inline-flex flex-col items-center justify-center group"
-        :class="{ active: isActive('challenge') }" @click="setActive('challenge')">
+      <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('challenge') }"
+        @click="setActive('challenge')">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#360c3a"
           class="w-4 h-4 icon-large">
           <path stroke-linecap="round" stroke-linejoin="round"
@@ -60,22 +59,25 @@
       </button>
     </div>
     <transition name="slide">
-      <div v-if="isMenuOpen" class="sidebar">
+      <div v-if="isMenuOpen" class="sidebar bg-white shadow-lg p-4">
         <div class="flex items-center justify-between mb-4">
-          <img src="/public/assets/logo.webp" alt="Logo" class="logo">
-          <button @click="toggleMenu" class="close-button">Close Menu</button>
+          <div class="logo-container">
+            <img src="/public/assets/logo.webp" alt="Logo" class="logo rounded-full shadow-lg">
+          </div>
+          <button @click="toggleMenu" class="close-button text-gray-600 hover:text-gray-800">
+            <i class="fas fa-times"></i>
+          </button>
         </div>
         <ul class="menu-items">
-          <li><a href="#">Menu Item 1</a></li>
-          <li><a href="#">Menu Item 2</a></li>
-          <li><a href="#">Menu Item 3</a></li>
-          <li><a href="#">Menu Item 4</a></li>
-          <li><a href="#">Menu Item 5</a></li>
-          <li><a href="#">Menu Item 6</a></li>
-          <li><a href="#">Menu Item 7</a></li>
-          <li><a href="#">Menu Item 8</a></li>
-          <li><a href="#">Menu Item 9</a></li>
-          <li><a href="#">Menu Item 10</a></li>
+          <li class="menu-item">
+            <a href="#" class="menu-link"> <i class="fas fa-ticket-alt mr-2"></i> ซื้อตั๋ว</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link"><i class="fas fa-book mr-2"></i> กติกาการเล่น</a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="menu-link"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
+          </li>
         </ul>
       </div>
     </transition>
@@ -155,7 +157,7 @@ button {
   top: 0;
   left: 0;
   height: 100%;
-  width: 250px;
+  width: 200px;
   background-color: #fff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   padding: 20px;
@@ -190,21 +192,40 @@ button {
 
 .menu-items {
   max-height: calc(100vh - 100px);
-  /* ปรับความสูงตามที่ต้องการ */
   overflow-y: auto;
   padding-right: 10px;
-  /* เพิ่ม padding ขวาเพื่อให้มีที่ว่างสำหรับ scrollbar */
 }
 
-.logo {
-  height: 40px;
-  /* ปรับขนาดโลโก้ตามต้องการ */
+.menu-item {
+  margin-bottom: 1rem;
+}
+
+.menu-link {
+  display: block;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 200;
+  color: #333;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #dccef1;
+}
+
+.menu-link:hover {
+  background-color: #47395b;
+  color: #fff;
 }
 
 .close-button {
-  background-color: transparent;
+  background: none;
   border: none;
-  font-size: 16px;
   cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.logo-container {
+  position: relative;
+  width: 40px;
+  height: 40px;
 }
 </style>
