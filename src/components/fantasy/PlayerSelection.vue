@@ -2,7 +2,6 @@
     <div>
         <div
             class="player-selection bg-color-2 p-4 shadow-lg h-full overflow-y-auto text-gray-200 mt-2 mb-4 rounded-lg shadow-xl">
-            <h4 class="text-md font-bold mb-4">ตัวเลือกผู้เล่น</h4>
             <div class="flex flex-wrap gap-4 mb-4 ">
                 <div class="flex-1 min-w-[100px]">
                     <label class="block mb-1 text-gray-100 text-xs">ทีม</label>
@@ -23,15 +22,6 @@
                         <option v-for="option in optionsPosition" :key="option.value" :value="option.value">
                             {{ option.name }}
                         </option>
-                    </select>
-                </div>
-                <div class="flex-1 min-w-[100px]">
-                    <label class="block mb-1 text-gray-100 text-xs">Sorted by</label>
-                    <select v-model="sortBy" @change="sortPlayers"
-                        class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
-                        <option value="total_points">เรียงตามปกติ</option>
-                        <option value="price_m">ราคา > </option>
-                        <option value="price_l">ราคา < </option>
                     </select>
                 </div>
             </div>
@@ -63,7 +53,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="player in filteredPlayers" :key="player.id" class="bg-gray-50"
+                    <tr v-for="player in paginatedPlayers" :key="player.id" class="bg-gray-50"
                         :class="{ 'opacity-50': isSelected(player.id) }">
                         <td class="w-1/12 py-1 px-2 border-b border-r border-gray-400 text-gray-900"
                             @click="infoPlayer(player)">
@@ -106,7 +96,7 @@
                 </tbody>
             </table>
         </div>
-
+        <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" />
     </div>
 </template>
 
@@ -117,6 +107,8 @@ export default {
     name: 'PlayerSelection',
     data() {
         return {
+            currentPage: 1,
+            playersPerPage: 10,
             selectedTeam: 'view',
             selectedPosition: this.position == 'all' ? '' : this.position,
             sortBy: 'total_points',
@@ -167,10 +159,21 @@ export default {
                 }
                 return 0;
             });
-        }
+        },
+        paginatedPlayers() {
+            const start = (this.currentPage - 1) * this.playersPerPage;
+            const end = start + this.playersPerPage;
+            return this.filteredPlayers.slice(start, end);
+        },
+        totalPages() {
+            return Math.ceil(this.filteredPlayers.length / this.playersPerPage);
+        },
     },
     methods: {
         ...mapActions('playerSelect', ['addPlayer', 'removePlayer']),
+        handlePageChange(page) {
+            this.currentPage = page;
+        },
         getPositionKey(position) {
             switch (position) {
                 case 'G': return 'getGKP';
@@ -244,6 +247,7 @@ export default {
             return `/assets/shirt/shirt_${teamCode}${suffix}.webp`;
         },
         filterPlayers() {
+            this.handlePageChange(1);
             this.filteredPlayers;
         },
         sortPlayers() {
@@ -265,7 +269,7 @@ export default {
                 this.updateTeamOptions();
             } else {
                 console.error('Teams data is not available yet');
-                setTimeout(this.checkTeamsData, 1000); 
+                setTimeout(this.checkTeamsData, 1000);
             }
         },
         isSelected(playerId) {
