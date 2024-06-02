@@ -289,4 +289,8 @@ export default {
 .bg-color-1 {
     background-color: #261442;
 }
+.player-selection {
+    height: 100%; /* ตั้งค่า height ให้เต็มที่ */
+    overflow-y: auto; /* เปิดการเลื่อนในแนวตั้ง */
+}
 </style>
