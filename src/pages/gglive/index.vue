@@ -48,6 +48,8 @@ export default {
                 });
                 if (response.data.ok) {
                     this.setTeams(response.data.teams);
+                }else{
+                    console.error('Failed to fetch teams data');
                 }
             } catch (error) {
                 console.log(error);

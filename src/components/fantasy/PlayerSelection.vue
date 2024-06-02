@@ -260,6 +260,14 @@ export default {
                 console.error('getTeams is null or not an array');
             }
         },
+        checkTeamsData() {
+            if (this.getTeams && Array.isArray(this.getTeams)) {
+                this.updateTeamOptions();
+            } else {
+                console.error('Teams data is not available yet');
+                setTimeout(this.checkTeamsData, 1000); 
+            }
+        },
         isSelected(playerId) {
             return [
                 ...this.getGKP,
@@ -276,7 +284,7 @@ export default {
         }
     },
     mounted() {
-        this.updateTeamOptions();
+        this.checkTeamsData();
     }
 };
 </script>
@@ -289,8 +297,11 @@ export default {
 .bg-color-1 {
     background-color: #261442;
 }
+
 .player-selection {
-    height: 100%; /* ตั้งค่า height ให้เต็มที่ */
-    overflow-y: auto; /* เปิดการเลื่อนในแนวตั้ง */
+    height: 100%;
+    /* ตั้งค่า height ให้เต็มที่ */
+    overflow-y: auto;
+    /* เปิดการเลื่อนในแนวตั้ง */
 }
 </style>
