@@ -11,6 +11,7 @@ import NumberformatValue from './components/object/numberformatforvalue.vue';
 import LodingSceen from './components/object/lodingSceen.vue';
 import Menu from './components/object/menu.vue';
 import Pagination from './components/object/pagenation.vue';
+import DateFormatted from './components/object/dateformatted.vue';
 
 
 
@@ -20,6 +21,7 @@ app.component('NumberformatValue', NumberformatValue);
 app.component('LodingSceen', LodingSceen);
 app.component('MenuScreen', Menu);
 app.component('Pagination', Pagination);
+app.component('DateFormatted', DateFormatted);
 
 app.use(router)
 app.use(store)
