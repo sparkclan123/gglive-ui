@@ -11,9 +11,9 @@
         <span class="font-size-10 primary-color group-hover:text-gray-900 mt-2">ข่าว</span>
       </button>
 
-      <button class="flex-col inline-flex items-center justify-center group" :class="{ active: isActive('lottery') }"
-        @click="setActive('home')">
-        <img src="/public/assets/favicon-32x32.png" alt="lottery" class="w-4 h-4 group-hover:fill-blue-950" />
+      <button class="flex-col inline-flex items-center justify-center group" :class="{ active: isActive('result') }"
+        @click="setActive('result')">
+        <img src="/public/assets/favicon-32x32.png" alt="result" class="w-4 h-4 group-hover:fill-blue-950" />
         <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">P.L</span>
       </button>
 

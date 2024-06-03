@@ -9,6 +9,7 @@ import SeasonSelect from '../pages/gglive/season.vue';
 import GgLive from '../pages/gglive/index.vue';
 import List from '../pages/gglive/list.vue';
 import Challenge from '../pages/gglive/challenge.vue';
+import Result from '../pages/gglive/result.vue';
 
 
 import GgLiveDetail from '../pages/gglive-detail/gglive-detail.vue';
@@ -57,6 +58,11 @@ const routes = [
                 path: 'challenge',
                 name: 'challenge',
                 component: Challenge,
+            },
+            {
+                path: 'result',
+                name: 'result',
+                component: Result,
             },
             {
                 path: 'pitch-detail/:id',
