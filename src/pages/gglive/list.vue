@@ -7,7 +7,7 @@
                     <div class="rounded-full w-5 h-5  ">
                         <img class="w-5 h-5 rounded-full" src="/public/assets/favicon-32x32.png" />
                     </div>
-                    <div class="text-md font-bold">ฤดูการ {{ data.season }} เกมวีค {{ data.week }}</div>
+                    <div class="text-sm ">ฤดูการ {{ data.season }} เกมวีค {{ data.week }}</div>
                 </div>
                 <div class="flex items-center space-x-4" v-if="data.is_vip">
                     <div class="text-orange-600 font-bold cursor-pointer">
@@ -16,10 +16,10 @@
                 </div>
             </div>
             <div class="flex items-center justify-between">
-                <div class="mt-4 text-gray-800 font-bold text-sm space-x-4">
+                <div class="mt-4 text-gray-800  text-xs space-x-4">
                     ชื่อทีม: {{ data.name }}
                 </div>
-                <div class="mt-4 text-gray-800 font-bold text-sm space-x-4">
+                <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
                     คะเเนนรวม: {{ data.total_point }}
                 </div>
             </div>
