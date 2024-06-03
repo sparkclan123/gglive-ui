@@ -73,7 +73,7 @@
                                 </path>
                             </svg>
                         </td>
-                        <td class="w-1/4 py-1 px-2 border-b border-r border-gray-400 text-gray-900"
+                        <td class="w-1/4 py-1 px-2 border-b border-r border-gray-400 text-gray-900 cursor-pointer"
                             @click="selectPlayer(player)">
                             <div class="flex items-center">
                                 <img :src="getShirtImage(player)" alt="team logo" class="w-6 h-8 mr-2">

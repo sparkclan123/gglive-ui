@@ -5,7 +5,7 @@
             <!-- page 1 -->
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
-                    <img src="/public/assets/favicon-32x32.png" alt="icon" class="mr-2">
+                    <img src="/public/assets/favicon-32x32.png" alt="icon" class="mr-1">
                     <span class="mr-auto">Week {{ getGameWeek.week }}</span>
                     <button @click="toggleClass('all')" class="sc-iftxFb isQEzW">
                         รายชื่อผู้เล่น
@@ -21,20 +21,26 @@
                 </div>
                 <!-- <span @click="toggleClass">click</span> -->
                 <div class="dsbthN custom-btn shadow-xl">
-                    <!-- <span class="text-white">asdasd</span> -->
                     <div class="eVUsqz">
+                        <button @click="saveTeam()"
+                            class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                            บันทึกทีม
+                        </button>
                         <button @click="resetTeam()"
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             รีเซ็ต
+                        </button>
+                        <button class="font-bold text-gray-300  py-2 px-1 text-xs items-center">
+                            {{ totalPlayerCount }}/11
+                        </button>
+                        <button class=" font-bold text-green-400  py-2 px-0 text-xs items-center">
+                            100$
                         </button>
                         <!-- <button
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
                             เลือกอัตโนมัติ
                         </button> -->
-                        <button @click="saveTeam()"
-                            class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
-                            บันทึกทีม
-                        </button>
+
                     </div>
                     <div class="kznjgV">
                         <div class="jrXxIw cgwdFl">
@@ -227,7 +233,7 @@ export default {
     },
     methods: {
         ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
-
+        ...mapActions('alert', ['addNotification']),
         resetTeam() {
             this.updateFormation();
         },
@@ -281,7 +287,27 @@ export default {
                 case 'F': return 'FWD';
             }
         },
+        checkHasCaptan() {
+            const allPlayers = [
+                ...this.getGKP,
+                ...this.getDEF,
+                ...this.getMID,
+                ...this.getFWD,
+            ];
+            const isCaptainValid = allPlayers.some(player => player.id === this.isCaptain);
+            return isCaptainValid;
+        },
         async saveTeam() {
+            if (this.totalPlayerCount !== 11) {
+                this.addNotification({ type: 'error', message: 'Please select 11 players' });
+                return;
+            }
+            if (!this.checkHasCaptan()) {
+                this.addNotification({ type: 'error', message: 'Please select a captain' });
+                return;
+            }
+            console.log('ok');
+            return;
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.post('/premier-league/v1/create-player-game', {
@@ -313,7 +339,17 @@ export default {
     },
     computed: {
         ...mapGetters('GameWeek', ['getGameWeek']),
-        ...mapGetters('playerSelect', ['getGKP', 'getDEF', 'getMID', 'getFWD'])
+        ...mapGetters('playerSelect', ['getGKP', 'getDEF', 'getMID', 'getFWD']),
+        totalPlayerCount() {
+            try {
+                const allPlayers = [...this.getGKP, ...this.getDEF, ...this.getMID, ...this.getFWD];
+                const validPlayers = allPlayers.filter(player => player.id !== null);
+                return validPlayers.length;
+            } catch (error) {
+                console.error('Error calculating total player count:', error);
+                return 0;
+            }
+        },
     },
     created() {
         this.updateFormation();
@@ -623,7 +659,7 @@ export default {
 .eVUsqz {
     display: flex;
     gap: 0.8rem;
-    margin: 0.4rem 0px;
+    margin: 0.2rem 0px 12px 0px;
 }
 
 @media (min-width: 64em) {
