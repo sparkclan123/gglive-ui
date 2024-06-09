@@ -13,6 +13,7 @@ import Menu from './components/object/menu.vue';
 import Pagination from './components/object/pagenation.vue';
 import PaginationJavascript from './components/object/pagenationjavascript.vue';
 import DateFormatted from './components/object/dateformatted.vue';
+import CountDown from './components/object/countdown.vue';
 
 
 
@@ -24,6 +25,7 @@ app.component('MenuScreen', Menu);
 app.component('Pagination', Pagination);
 app.component('PaginationJavascript', PaginationJavascript);
 app.component('DateFormatted', DateFormatted);
+app.component('CountDown', CountDown);
 
 app.use(router)
 app.use(store)

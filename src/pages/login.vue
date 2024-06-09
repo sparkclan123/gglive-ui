@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-col items-center justify-center pt-20">
-
+        <CountDown datenow="2023-12-31T23:59:00" starttime="2024-01-02T18:00:00" />
         <div class="w-full max-w-lg p-8 space-y-6 bg-white rounded-lg shadow-lg sm:w-96">
+           
             <div class="container mx-auto flex justify-center">
                 <img src="/public/assets/logo.webp" alt="Logo" class="h-12">
             </div>
