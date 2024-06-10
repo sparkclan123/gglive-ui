@@ -306,8 +306,7 @@ export default {
                 this.addNotification({ type: 'error', message: 'Please select a captain' });
                 return;
             }
-            console.log('ok');
-            return;
+
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.post('/premier-league/v1/create-player-game', {
