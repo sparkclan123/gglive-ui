@@ -3,9 +3,9 @@
         <div class="tabs rounded-t-lg ml-3 text-white  flex">
             <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="activeTab = 'tab1'">ผลการเเข่ง
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">เกมวีค VIP
+            <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">เกมวีค VIP
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">กติกา</div>
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">กติกา</div> -->
         </div>
         <div class=" rounded-xl shadow-lg  min-h-screen  bg-white">
 
@@ -13,14 +13,12 @@
                 <div v-if="activeTab === 'tab1'">
                     <Result />
                 </div>
-                <div v-if="activeTab === 'tab2'">
-                    <!-- Content for Tab 2 -->
+                <!-- <div v-if="activeTab === 'tab2'">
                     Content for Tab 2
                 </div>
                 <div v-if="activeTab === 'tab3'">
-                    <!-- Content for Tab 3 -->
                     Content for Tab 3
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
