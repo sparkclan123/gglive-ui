@@ -1,27 +1,37 @@
 const alert = {
     namespaced: true,
     state: {
-        notifications: []
+        notifications: [],
+        timeoutId: null
     },
     mutations: {
-        addNotification(state, notification) {
-            state.notifications.push({ ...notification, id: Date.now() });
-            if (state.notifications.length > 3) {
-                state.notifications.shift(); // ลบอันแรกเมื่อมีมากกว่า 3 อัน
-            }
+        setNotifications(state, notifications) {
+            state.notifications = notifications;
         },
-        removeNotification(state, id) {
-            state.notifications = state.notifications.filter(notif => notif.id !== id);
+        clearNotifications(state) {
+            state.notifications = [];
+        },
+        setTimeoutId(state, timeoutId) {
+            state.timeoutId = timeoutId;
+        },
+        clearTimeoutId(state) {
+            if (state.timeoutId) {
+                clearTimeout(state.timeoutId);
+                state.timeoutId = null;
+            }
         }
     },
     actions: {
-        addNotification({ commit }, notification) {
-            const id = Date.now();
-            commit('addNotification', { ...notification, id });
-            setTimeout(() => {
-                commit('removeNotification', id);
-                console.log('Notification removed');
-            }, 3000); // แจ้งเตือนจะหายไปหลังจาก 5 วินาที
+        addNotification({ commit, state }, notification) {
+            commit('clearTimeoutId'); 
+            commit('setNotifications', [{ ...notification, id: Date.now() }]);
+
+            const timeoutId = setTimeout(() => {
+                commit('clearNotifications');
+                console.log('All notifications removed');
+            }, 3000);
+
+            commit('setTimeoutId', timeoutId); 
         }
     },
     getters: {

@@ -6,7 +6,7 @@
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
                     <img src="/public/assets/favicon-32x32.png" alt="icon" class="mr-1">
-                    <span class="mr-auto">Week {{ getGameWeek.week }}</span>
+                    <span class="mr-auto">เกมวีค {{ getGameWeek.week }}</span>
                     <button @click="toggleClass('all')" class="sc-iftxFb isQEzW">
                         รายชื่อผู้เล่น
                         <div ml="1" class="sc-csKJxZ dviEZq">
@@ -34,7 +34,7 @@
                             {{ totalPlayerCount }}/11
                         </button>
                         <button class=" font-bold text-green-400  py-2 px-0 text-xs items-center">
-                            100$
+                           <NumberDisplay :number="remainingAmount"/> $
                         </button>
                         <!-- <button
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
@@ -229,6 +229,7 @@ export default {
             isCaptain: 'none',
             detailPlayer: null,
             nameteam: '',
+            amount: 80.0
         }
     },
     methods: {
@@ -298,12 +299,16 @@ export default {
             return isCaptainValid;
         },
         async saveTeam() {
+            if (this.remainingAmount < 0) {
+                this.addNotification({ type: 'error', message: 'จำนวนเงินการซื้อนักเตะของคุณไม่เพียงพอ' });
+                return;
+            }
             if (this.totalPlayerCount !== 11) {
-                this.addNotification({ type: 'error', message: 'Please select 11 players' });
+                this.addNotification({ type: 'error', message: 'กรุณาเลือกนักเตะให้ครบ 11 คน' });
                 return;
             }
             if (!this.checkHasCaptan()) {
-                this.addNotification({ type: 'error', message: 'Please select a captain' });
+                this.addNotification({ type: 'error', message: 'กรุณาเลือกกับตันทีม' });
                 return;
             }
 
@@ -326,7 +331,7 @@ export default {
                     }
                 });
                 if (response.data.ok) {
-                    this.addNotification({ type: 'success', message: 'Team saved successfully' });
+                    this.addNotification({ type: 'success', message: 'บันทึกสำเร็จ รายละเอียดอยู่ที่เมนูรายการ' });
                 }
             } catch (error) {
                 console.log(error);
@@ -349,6 +354,14 @@ export default {
                 return 0;
             }
         },
+        totalPrice() {
+            const allPlayers = [...this.getGKP, ...this.getDEF, ...this.getMID, ...this.getFWD];
+            const validPlayers = allPlayers.filter(player => player.id !== null);
+            return validPlayers.reduce((total, player) => total + player.price, 0);
+        },
+        remainingAmount() {
+            return this.amount - this.totalPrice;
+        }
     },
     created() {
         this.updateFormation();

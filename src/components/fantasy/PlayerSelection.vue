@@ -88,7 +88,7 @@
                             <img :src="`/public/assets/team/${player.team_code}.png`" alt="team logo" class="w-4 h-4 mr-1">
                         </div>
                     </td> -->
-                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">12.5</td>
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.price }}</td>
                         <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">20%</td>
                         <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">5</td>
                         <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">5</td>

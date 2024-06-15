@@ -8,6 +8,7 @@ import store from './store'
 
 import Numberformat from './components/object/numberformat.vue';
 import NumberformatValue from './components/object/numberformatforvalue.vue';
+import NumberDisplay from './components/object/numberDisplay.vue';
 import LodingSceen from './components/object/lodingSceen.vue';
 import Menu from './components/object/menu.vue';
 import Pagination from './components/object/pagenation.vue';
@@ -20,6 +21,7 @@ import CountDown from './components/object/countdown.vue';
 const app = createApp(App)
 app.component('Numberformat', Numberformat);
 app.component('NumberformatValue', NumberformatValue);
+app.component('NumberDisplay', NumberDisplay);
 app.component('LodingSceen', LodingSceen);
 app.component('MenuScreen', Menu);
 app.component('Pagination', Pagination);
