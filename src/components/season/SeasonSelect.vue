@@ -83,6 +83,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions('loading', ['updateLoading']),
     ...mapActions('selectGameWeek', ['setGameWeek']),
     selectSeason() {
       let seasonID = this.getSeasons.id;
@@ -101,8 +102,10 @@ export default {
         });
         if (response.data.ok) {
           this.gameWeek = response.data.gameWeek;
+          this.updateLoading(false);
         }
       } catch (error) {
+        this.updateLoading(false);
         console.log(error);
       }
     }
@@ -117,6 +120,7 @@ export default {
     }, 5000);
   },
   created() {
+    this.updateLoading(true);
     this.getGameWeek();
   }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gradient-to-r rounded-xl  from-purple-950 to-purple-800 text-white p-2" v-if="getSeasons.label">
+    <div class="min-h-screen bg-gradient-to-r rounded-xl  from-purple-950 to-purple-900 text-white p-2" v-if="getSeasons.label">
         <!-- Header -->
         <div class="p-4 text-center rounded-lg">
             <h1 class="text-2xl  font-bold colot-h inline-block pb-1">
