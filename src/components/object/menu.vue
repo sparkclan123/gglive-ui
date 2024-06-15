@@ -38,7 +38,7 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-        ...mapActions('balance', ['facthBalance']),
+        // ...mapActions('balance', ['facthBalance']),
         callalance() {
             this.facthBalance()
         }

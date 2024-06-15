@@ -36,14 +36,14 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-        ...mapActions('balance', ['facthBalance']),
+        // ...mapActions('balance', ['facthBalance']),
     },
     computed: {
         ...mapGetters('loading', ['getLoading']),
     },
     mounted() {
         this.updateLoading(false);
-        this.facthBalance();
+        // this.facthBalance();
     },
 };
 </script>
