@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import { api } from '@axios_inst';
 
 export default {
@@ -45,6 +46,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions('loading', ['updateLoading']),
         async fetchMatches() {
             try {
                 const access_token = localStorage.getItem('access_token');
@@ -62,8 +64,10 @@ export default {
                         alt_ids_opta_1: match.Team1Code,
                         alt_ids_opta_2: match.Team2Code
                     }));
+                    this.updateLoading(false);
                 }
             } catch (error) {
+                this.updateLoading(false);
                 console.error('Error fetching matches:', error);
             }
         },
@@ -79,6 +83,7 @@ export default {
         }
     },
     created() {
+        this.updateLoading(true);
         this.fetchMatches();
     }
 };

@@ -26,8 +26,7 @@
                 <SeasonSelect />
             </div>
             <div v-if="activeTab === 'tab2'">
-                <!-- Content for Tab 2 -->
-                Content for Tab 2
+                <SeasonSelectVip />
             </div>
             <div v-if="activeTab === 'tab3'">
                 <!-- Content for Tab 3 -->
@@ -40,10 +39,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import SeasonSelect from '../../components/season/SeasonSelect.vue';
+import SeasonSelectVip from '../../components/season/SeasonSelectVip.vue';
+
 export default {
     name: 'Season',
     components: {
-        SeasonSelect
+        SeasonSelect,
+        SeasonSelectVip
     },
     data() {
         return {
