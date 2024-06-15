@@ -4,5 +4,36 @@
 
 body {
     font-family: 'Sarabun', sans-serif;
-     background-color:  #1e0f37;
+    background-color: #1e0f37;
+}
+
+.swal2-popup.popup-custom {
+    background-color: #1e0f37;
+    border-radius: 15px;
+    font-size: 13px;
+    /* Add rounded corners to the modal */
+}
+
+.swal2-title.text-custom,
+.swal2-html-container.text-custom {
+    color: rgb(212, 212, 212);
+}
+
+.swal2-confirm.btn-confirm {
+    background-color: #069668;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 0.5em;
+    border-radius: 5px;
+    /* Add rounded corners to the confirm button */
+}
+
+.swal2-cancel.btn-cancel {
+    background-color: #dd3333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    /* Add rounded corners to the cancel button */
 }

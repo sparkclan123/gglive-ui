@@ -34,7 +34,7 @@
                             {{ totalPlayerCount }}/11
                         </button>
                         <button class=" font-bold text-green-400  py-2 px-0 text-xs items-center">
-                           <NumberDisplay :number="remainingAmount"/> $
+                            <NumberDisplay :number="remainingAmount" /> $
                         </button>
                         <!-- <button
                             class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
@@ -209,6 +209,7 @@ import PlayerSelection from './PlayerSelection.vue';
 import { mapActions, mapGetters } from 'vuex';
 import Modelc from '../object/model.vue'
 import { api } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
     name: 'FantasyTeam',
     components: {
@@ -299,6 +300,26 @@ export default {
             return isCaptainValid;
         },
         async saveTeam() {
+            
+            const result = await Swal.fire({
+                title: 'กรุณาอ่าน!',
+                text: 'บันทึกเเล้วจะไม่สามารถเเก้ไข หรือลบได้',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ยืนยัน',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+
+            if (!result.isConfirmed) {
+                return;
+            }
             if (this.remainingAmount < 0) {
                 this.addNotification({ type: 'error', message: 'จำนวนเงินการซื้อนักเตะของคุณไม่เพียงพอ' });
                 return;
