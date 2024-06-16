@@ -102,6 +102,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Swal from 'sweetalert2';
 export default {
     props: ['position'],
     name: 'PlayerSelection',
@@ -144,6 +145,9 @@ export default {
             return this.options.find(option => option.label === 'Positions').options;
         },
         filteredPlayers() {
+            if (this.maxCost < 1) {
+                this.maxCost = null;
+            }
             return this.getGameWeekPlayer.filter(player => {
                 return (
                     (this.selectedTeam === 'view' || player.team_id === this.selectedTeam) &&
@@ -190,7 +194,7 @@ export default {
                 case 'F': return 'FWD';
             }
         },
-        selectPlayer(player) {
+        async selectPlayer(player) {
             if (player.is_ban) {
                 return;
             }
@@ -205,8 +209,21 @@ export default {
             const existingPlayerIndex = playersInPosition.findIndex(p => p.id === player.id);
 
             if (existingPlayerIndex !== -1) {
-
-                if (confirm(`Do you want to remove player ${player.name}?`)) {
+                const result = await Swal.fire({
+                    text: 'คุณต้องการลบนักเตะใช่หรือไม่? ' + player.name,
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    confirmButtonText: 'ลบ',
+                    customClass: {
+                        confirmButton: 'btn-confirm',
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                if (result.isConfirmed) {
                     this.removePlayer({ player, position: positionState });
                 }
             } else {

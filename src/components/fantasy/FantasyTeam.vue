@@ -164,35 +164,9 @@
                                         transform="matrix(-1 0 0 1 24 0)"></path>
                                 </svg></div></button>
                     </div>
-                    <PlayerSelection @playerAdded="toggleClassBack"
-                        @showPositionFullModal="showPositionFullModal = true"
-                        @showTeamLimitModal="showTeamLimitModal = true" :position="position" />
+                    <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
+                        @showTeamLimitModal="alertTeamLimit" :position="position" />
                 </div>
-            </div>
-        </div>
-
-        <!-- Modal for removing player -->
-        <div v-if="showRemoveModal" class="modal">
-            <div class="modal-content">
-                <h3>Are you sure you want to remove this player?</h3>
-                <button @click="confirmRemovePlayer">Yes</button>
-                <button @click="showRemoveModal = false">No</button>
-            </div>
-        </div>
-
-        <!-- Modal for position full -->
-        <div v-if="showPositionFullModal" class="modal">
-            <div class="modal-content">
-                <h3>This position is full!</h3>
-                <button @click="showPositionFullModal = false">OK</button>
-            </div>
-        </div>
-
-        <!-- Modal for team limit -->
-        <div v-if="showTeamLimitModal" class="modal">
-            <div class="modal-content">
-                <h3>Cannot select more than 3 players from the same team!</h3>
-                <button @click="showTeamLimitModal = false">OK</button>
             </div>
         </div>
 
@@ -223,9 +197,7 @@ export default {
             selectedFormation: '1-3-4-3',
             loading: true,
             position: 'all',
-            showRemoveModal: false,
-            showPositionFullModal: false,
-            showTeamLimitModal: false,
+
             showAdjustPlayerModal: false,
             isCaptain: 'none',
             detailPlayer: null,
@@ -236,6 +208,36 @@ export default {
     methods: {
         ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
         ...mapActions('alert', ['addNotification']),
+        alertPositionfull() {
+            Swal.fire({
+                text: 'ไม่สามารถเลือกตำเเหน่งซ้ำกันได้',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+        },
+        alertTeamLimit() {
+            Swal.fire({
+                text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+        },
         resetTeam() {
             this.updateFormation();
         },
@@ -300,7 +302,7 @@ export default {
             return isCaptainValid;
         },
         async saveTeam() {
-            
+
             const result = await Swal.fire({
                 title: 'กรุณาอ่าน!',
                 text: 'บันทึกเเล้วจะไม่สามารถเเก้ไข หรือลบได้',
