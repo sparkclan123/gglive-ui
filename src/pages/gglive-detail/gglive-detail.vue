@@ -1,5 +1,5 @@
 <template>
-    <div class="dxRBog" v-if="getMain">
+    <div class="dxRBog" v-if="getMain" >
         <div class="card cursor-pointer">
             <div class="top-section  ">
                 <div class="icons">
@@ -194,9 +194,10 @@ export default {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border-radius: 20px;
-    border-left: 4px solid #503779;  /* ขอบซ้าย */
-    border-right: 4px solid #503779; /* ขอบขวา */
-    border-bottom: 4px solid #503779; /* ขอบล่าง */
+    border-top: 1px solid #503779;
+    border-left: 2px solid #503779;  /* ขอบซ้าย */
+    border-right: 2px solid #503779; /* ขอบขวา */
+    border-bottom: 3px solid #503779; /* ขอบล่าง */
 }
 
 
