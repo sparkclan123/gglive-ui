@@ -19,16 +19,16 @@
                 <span class="title text-green-500">0 คะเเนน</span>
                 <div class="row row1">
                     <div class="item">
-                        <span class="big-text text-gray-200">เกมวีค</span>
-                        <span class="big-text text-gray-200">{{ getMain.week }}</span>
-                    </div>
-                    <div class="item">
-                        <span class="big-text text-gray-200">{{ getMain.season }}</span>
-                        <span class="regular-text text-gray-200">season</span>
+                        <span class="big-text text-gray-200">เกมวีค{{ getMain.week }}</span>
+                        <span class="regular-text text-gray-200">(คะเเนน)</span>
                     </div>
                     <div class="item">
                         <span class="big-text text-green-400">62 สูงสุด</span>
                         <span class="regular-text text-yellow-400">41 เฉลี่ย</span>
+                    </div>
+                    <div class="item">
+                        <span class="big-text text-gray-200">{{ getMain.season }}</span>
+                        <span class="regular-text text-gray-200">ฤดูการ</span>
                     </div>
                 </div>
             </div>
