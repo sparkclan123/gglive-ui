@@ -32,6 +32,7 @@
       <div class="confetti-piece"></div>
       <div class="confetti-piece"></div>
     </div>
+   
     <div class="card cursor-pointer">
       <div class="top-section  bg-img" @click="selectSeason()">
         <div class="icons">
@@ -61,6 +62,7 @@
         </div>
       </div>
     </div>
+    <CountDown datenow="2023-12-31T23:59:00" starttime="2024-01-02T18:00:00" />
   </div>
   <div v-else class="group duration-500  ">
     <div

@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col items-center justify-center m-1">
-        <div class="bg-white p-4 rounded-lg shadow-lg">
+    <div class="flex flex-col items-center justify-center mt-2">
+        <div class="bg-white p-4 rounded-lg shadow-lg text-gray-800">
             <div class="flex flex-row gap-4">
                 <div class="text-center">
                     <div class="text-2xl font-bold countdown-number">{{ days }}</div>
