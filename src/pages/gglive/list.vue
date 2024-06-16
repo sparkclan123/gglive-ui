@@ -7,7 +7,7 @@
                     <div class="rounded-full w-5 h-5  ">
                         <img class="w-5 h-5 rounded-full" src="/public/assets/favicon-32x32.png" />
                     </div>
-                    <div class="text-sm ">ฤดูการ {{ data.season }} เกมวีค {{ data.week }}</div>
+                    <div class="text-sm ">ฤดูการ {{ data.season }} เกมวีค {{ data.week }} <DateFormatted :dateString="data.created_at"/></div>
                 </div>
                 <div class="flex items-center space-x-4" v-if="data.is_vip">
                     <div class="text-orange-600 font-bold cursor-pointer">

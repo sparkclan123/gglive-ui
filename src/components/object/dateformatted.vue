@@ -1,9 +1,7 @@
 <template>
-
     <p>
         {{ formattedDate }}
     </p>
-
 </template>
 
 <script>
@@ -27,7 +25,7 @@ export default {
             const options = {
                 day: '2-digit',
                 month: '2-digit',
-                year: '2-digit',
+                year: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
@@ -38,10 +36,15 @@ export default {
 
             const formattedDate = parts.map(part => {
                 if (part.type === 'year') {
-                    return (parseInt(part.value) + 543).toString().slice(-2);
+                    return (parseInt(part.value) - 543).toString();
                 }
                 return part.value;
-            }).join('');
+            }).reduce((string, part, index, array) => {
+                if (array[index - 1] && array[index - 1].type === 'literal' && array[index - 1].value === "/") {
+                    return string + part;
+                }
+                return string + (part.type === 'literal' && part.value === ":" ? "" : part);
+            }, '');
 
             return formattedDate;
         }
