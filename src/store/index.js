@@ -9,6 +9,7 @@ import season from './modules/season';
 import GameWeek from './modules/GameWeek';
 import Teams from './modules/teams';
 import playerSelect from './modules/playerSelect';
+import ticket from './modules/ticket';
 
 
 export default createStore({
@@ -24,6 +25,7 @@ export default createStore({
     season: season,
     GameWeek: GameWeek,
     Teams: Teams,
-    playerSelect: playerSelect
+    playerSelect: playerSelect,
+    ticket: ticket,
   },
 });

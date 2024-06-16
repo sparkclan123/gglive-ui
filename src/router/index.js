@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import store from '../store';
 
 import DefaultLayout from '../layouts/DefaultLayout.vue';
 import LoginLayout from '../layouts/LoginLayout.vue';
@@ -82,7 +83,7 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     let params = {};
     if (window.location.search) {
         let queryParams = new URLSearchParams(window.location.search);
@@ -96,14 +97,14 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
-            api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
-                .then(response => {
-                    next();
-                })
-                .catch(error => {
-                    localStorage.removeItem('token');
-                    next({ name: 'login' });
-                });
+            try {
+                await api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } });
+                // await store.dispatch('ticket/facthTicket'); // 
+                next();
+            } catch (error) {
+                localStorage.removeItem('token');
+                next({ name: 'login' });
+            }
         } else {
             next({ name: 'login' });
         }

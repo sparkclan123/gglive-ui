@@ -208,6 +208,7 @@ export default {
     methods: {
         ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
         ...mapActions('alert', ['addNotification']),
+        ...mapActions('ticket', ['facthTicket']),
         alertPositionfull() {
             Swal.fire({
                 text: 'ไม่สามารถเลือกตำเเหน่งซ้ำกันได้',
@@ -308,7 +309,7 @@ export default {
                 text: 'บันทึกเเล้วจะไม่สามารถเเก้ไข หรือลบได้',
                 showCancelButton: true,
                 cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ยืนยัน',
+                confirmButtonText: 'ยืนยัน (1ตั๋วเงิน)',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
@@ -354,9 +355,25 @@ export default {
                     }
                 });
                 if (response.data.ok) {
+                    this.facthTicket();
                     this.addNotification({ type: 'success', message: 'บันทึกสำเร็จ รายละเอียดอยู่ที่เมนูรายการ' });
+                    let id = response.data.main_id;
+                    this.$router.push({ name: 'pitch-detail', params: { id } });
                 }
             } catch (error) {
+                Swal.fire({
+                    text: 'บันทึกไม่สำเร็จ' + error.response.data.error,
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
                 console.log(error);
             }
 
