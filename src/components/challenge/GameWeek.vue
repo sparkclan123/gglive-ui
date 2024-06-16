@@ -21,15 +21,15 @@
                 <div class="row row1">
                     <div class="item">
                         <span class="big-text text-gray-200">เกมวีค</span>
-                        <span class="regular-text text-gray-200">{{gameWeek.week }}</span>
+                        <span class="big-text text-gray-200">{{gameWeek.week }}</span>
                     </div>
                     <div class="item">
                         <span class="big-text text-gray-200">{{ season.label }}</span>
                         <span class="regular-text text-gray-200">season</span>
                     </div>
                     <div class="item">
-                        <span class="big-text text-green-200">62 สูงสุด</span>
-                        <span class="regular-text text-yellow-200">41 เฉลี่ย</span>
+                        <span class="big-text text-green-400">62 สูงสุด</span>
+                        <span class="regular-text text-yellow-400">41 เฉลี่ย</span>
                     </div>
                 </div>
             </div>
