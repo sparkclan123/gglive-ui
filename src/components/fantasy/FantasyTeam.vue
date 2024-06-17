@@ -202,7 +202,8 @@ export default {
             isCaptain: 'none',
             detailPlayer: null,
             nameteam: '',
-            amount: 80.0
+            amount: 80.0,
+            disable: false,
         }
     },
     methods: {
@@ -303,7 +304,10 @@ export default {
             return isCaptainValid;
         },
         async saveTeam() {
-
+            if (this.disable) {
+                return;
+            }
+            this.disable = true;
             const result = await Swal.fire({
                 title: 'กรุณาอ่าน!',
                 text: 'บันทึกเเล้วจะไม่สามารถเเก้ไข หรือลบได้',
@@ -321,18 +325,22 @@ export default {
             });
 
             if (!result.isConfirmed) {
+                this.disable = false;
                 return;
             }
             if (this.remainingAmount < 0) {
                 this.addNotification({ type: 'error', message: 'จำนวนเงินการซื้อนักเตะของคุณไม่เพียงพอ' });
+                this.disable = false;
                 return;
             }
             if (this.totalPlayerCount !== 11) {
                 this.addNotification({ type: 'error', message: 'กรุณาเลือกนักเตะให้ครบ 11 คน' });
+                this.disable = false;
                 return;
             }
             if (!this.checkHasCaptan()) {
                 this.addNotification({ type: 'error', message: 'กรุณาเลือกกับตันทีม' });
+                this.disable = false;
                 return;
             }
 
@@ -358,6 +366,7 @@ export default {
                     this.facthTicket();
                     this.addNotification({ type: 'success', message: 'บันทึกสำเร็จ รายละเอียดอยู่ที่เมนูรายการ' });
                     let id = response.data.main_id;
+                    this.disable = false;
                     this.$router.push({ name: 'pitch-detail', params: { id } });
                 }
             } catch (error) {
@@ -374,6 +383,7 @@ export default {
                     },
                     buttonsStyling: false,
                 });
+                this.disable = false;
                 console.log(error);
             }
 
