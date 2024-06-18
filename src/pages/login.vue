@@ -95,7 +95,7 @@ export default {
             })
         },
         loginWithGoogle() {
-            const googleLoginUrl = 'http://127.0.0.1:8010/auth/login';
+            const googleLoginUrl = 'https://api-pudee.op-part.com/auth/login';
             const width = 600;
             const height = 700;
             const left = (screen.width / 2) - (width / 2);
