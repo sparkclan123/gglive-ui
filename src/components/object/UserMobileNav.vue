@@ -78,6 +78,10 @@
           <li class="menu-item">
             <a href="#" class="menu-link"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
           </li>
+          <li class="menu-item">
+            <a @click="logout()" class="menu-link-red"> <i class="fas fa-sign-out-alt mr-2"></i> logout</a>
+          </li>
+
         </ul>
       </div>
     </transition>
@@ -86,6 +90,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+import { api } from '@axios_inst';
 export default {
   name: 'UserMobileNav',
   data() {
@@ -104,6 +110,40 @@ export default {
     },
     isActive(button) {
       return this.activeButton === button;
+    },
+    async logout() {
+      const result = await Swal.fire({
+        title: 'ยืนยันออกจากระบบ!',
+        showCancelButton: true,
+        cancelButtonText: 'ยกเลิก',
+        confirmButtonText: 'ยืนยัน',
+        customClass: {
+          confirmButton: 'btn-confirm',
+          cancelButton: 'btn-cancel',
+          popup: 'popup-custom',
+          title: 'text-custom',
+          htmlContainer: 'text-custom'
+        },
+        buttonsStyling: false,
+      });
+      if (!result.isConfirmed) {
+        return;
+      }
+      try {
+        const access_token = localStorage.getItem('access_token');
+        const response = await api.post('/premier-league/v1/logout', {}, {
+          headers: {
+            'Authorization': `Bearer ${access_token}`
+          }
+        });
+        if (response.data.ok) {
+          localStorage.removeItem('access_token');
+          this.$router.push({ name: 'login' });
+        }
+      } catch (error) {
+
+      }
+
     },
   },
 }
@@ -213,6 +253,22 @@ button {
 
 .menu-link:hover {
   background-color: #47395b;
+  color: #fff;
+}
+
+.menu-link-red {
+  display: block;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 200;
+  color: #f8f7f7;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #da3a3a;
+}
+
+.menu-link-red:hover {
+  background-color: #612f2f;
   color: #fff;
 }
 
