@@ -95,7 +95,26 @@ export default {
             })
         },
         loginWithGoogle() {
-            window.location.href = 'https://api-pudee.op-part.com/auth/login'; 
+            window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/login'; 
+            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/login';
+        },
+        async loginuuid(uuid, username) {
+            this.updateLoading(true);
+            try {
+                const response = await api.post('/premier-league/v1/login-uuid', {
+                    uuid: uuid,
+                    username: username,
+                    app_key: 'pudee'
+                });
+                this.addNotification({ type: 'success', message: 'Login successful' });
+                localStorage.setItem('access_token', response.data.tokenString);
+                this.updateLoading(false);
+                window.location.href = '/season-select';
+            } catch (error) {
+                this.addNotification({ type: 'error', message: error.response.data.error });
+                localStorage.removeItem('access_token');
+                this.updateLoading(false);
+            }
         }
     },
     mounted() {
@@ -117,6 +136,14 @@ export default {
             localStorage.setItem('access_token', token);
             window.location.href = '/lobby';
         }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const uuid = urlParams.get('uuid');
+        const username = urlParams.get('username');
+        if (uuid && username) {
+            this.loginuuid(uuid, username);
+        }
+
         this.updateLoading(false);
     }
 }
