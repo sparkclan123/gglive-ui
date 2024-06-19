@@ -95,12 +95,7 @@ export default {
             })
         },
         loginWithGoogle() {
-            const googleLoginUrl = 'https://api-pudee.op-part.com/api/premier-league/auth/login';
-            const width = 600;
-            const height = 700;
-            const left = (screen.width / 2) - (width / 2);
-            const top = (screen.height / 2) - (height / 2);
-            window.open(googleLoginUrl, 'Google Login', `width=${width},height=${height},top=${top},left=${left}`);
+            window.location.href = 'https://api-pudee.op-part.com/auth/login'; 
         }
     },
     mounted() {
