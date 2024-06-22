@@ -38,7 +38,7 @@
                         </g>
                     </svg>
                 </button>
-                <button aria-label="Log in with Twitter" class="icon">
+                <button aria-label="Log in with Twitter" class="icon" @click="loginWithFacebook">
                     <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
                         width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -58,8 +58,8 @@
                         <g />
                     </svg>
                 </button>
-                <button aria-label="Log in with GitHub" class="icon">
-                    <svg  version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
+                <button aria-label="Log in with GitHub" class="icon" @click="loginWithLine">
+                    <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
                         <g id="_x32_00-line">
                             <g>
                                 <path
@@ -100,6 +100,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { api, apiMine } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
     name: 'Login',
     data() {
@@ -140,6 +141,27 @@ export default {
         loginWithGoogle() {
             window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/login';
+        },
+        loginWithFacebook() {
+            Swal.fire({
+                text: 'เปิด login ได้เเค่ google กับ line เท่านั้น',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+            // window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/facebook/login';
+            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/facebook/login';
+        },
+        loginWithLine() {
+            window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/line/login';
+            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/line/login';
         },
         async loginuuid(uuid, username) {
             this.updateLoading(true);
