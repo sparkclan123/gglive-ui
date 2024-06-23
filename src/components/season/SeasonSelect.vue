@@ -91,6 +91,7 @@ export default {
   methods: {
     ...mapActions('loading', ['updateLoading']),
     ...mapActions('selectGameWeek', ['setGameWeek']),
+    ...mapActions('season', ['fetchSeasons']),
     selectSeason() {
       let seasonID = this.getSeasons.id;
       this.$router.push({ name: 'pitch', params: { seasonID } })
@@ -110,15 +111,8 @@ export default {
           this.gameWeek = response.data.gameWeek;
           this.allPlayer = response.data.allPlayer;
           this.myTeam = response.data.myTeam;
-          setTimeout(() => {
-            this.updateLoading(false);
-          }, 50);
-
         }
       } catch (error) {
-        setTimeout(() => {
-          this.updateLoading(false);
-        }, 50);
         console.log(error);
       }
     }
@@ -134,7 +128,17 @@ export default {
   },
   created() {
     this.updateLoading(true);
-    this.getGameWeek();
+    Promise.all([this.fetchSeasons(), this.getGameWeek()])
+      .then(() => {
+        setTimeout(() => {
+          this.updateLoading(false);
+        }, 50);
+      })
+      .catch((error) => {
+        setTimeout(() => {
+          this.updateLoading(false);
+        }, 50);
+      });
   }
 
 };
