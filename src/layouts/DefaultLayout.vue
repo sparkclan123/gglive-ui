@@ -10,7 +10,7 @@
                     <i class="fas fa-ticket-alt text-yellow-400"></i>
                     <span class="ml-1 text-yellow-200 text-xs">0</span>
                 </div>
-                
+             
             </div>
         </nav>
         <div class="container mx-auto p-1">
@@ -37,14 +37,17 @@ export default {
     methods: {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('ticket', ['facthTicket']),
+        ...mapActions('auth', ['facthUserInfo']),
     },
     computed: {
         ...mapGetters('loading', ['getLoading']),
         ...mapGetters('ticket', ['getTicket']),
+      
     },
     mounted() {
         this.updateLoading(false);
         this.facthTicket();
+        this.facthUserInfo();
     },
 };
 </script>

@@ -5,7 +5,7 @@ const auth = {
   namespaced: true,
   state: {
     access_token: null,
-    userinfo: null,
+    userinfo: localStorage.getItem('userinfo') ? JSON.parse(localStorage.getItem('userinfo')) : null,
     loading: false,
   },
   getters: {
@@ -22,31 +22,24 @@ const auth = {
   mutations: {
     SET_DATA(state, value) {
       state[value.type] = value.value;
+     
+      localStorage.setItem('userinfo', JSON.stringify(userinfo));
     },
     SET_LOADING(state, loading) {
       state.loading = loading;
     },
   },
   actions: {
-    async checkAuth({ commit }, token) {
-      try {
-        commit("SET_LOADING", true);
-        commit("SET_DATA", { type: "access_token", value: token.token });
-        commit("SET_LOADING", false);
-      } catch (err) {
-        console.log("checkAuth_error: ", err);
-      }
 
-    },
-    async facthUser({ commit }) {
+    async facthUserInfo({ commit }) {
       try {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
-          await api.get('/user-info', {
+          await api.get('/premier-league/v1/user-info', {
             headers: { 'Authorization': `Bearer ${access_token}` },
           })
             .then(response => {
-              if (response.data.state === true) {
+              if (response.data.ok === true) {
                 commit("SET_DATA", { type: "userinfo", value: response.data.data });
               }
             })

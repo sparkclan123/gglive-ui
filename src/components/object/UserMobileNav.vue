@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="userinfo">
     <div class="flex gap-2 w-full justify-between px-4 mobile-menu">
       <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('news') }"
         @click="setActive('home')">
@@ -62,8 +62,11 @@
       <div v-if="isMenuOpen" class="sidebar bg-white shadow-lg p-4">
         <div class="flex items-center justify-between mb-4">
           <div class="logo-container">
-            <img src="/public/assets/logo.webp" alt="Logo" class="logo rounded-full shadow-lg">
+            <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
+              class="logo rounded-full shadow-lg">
+
           </div>
+          <span class="text-xs">{{ truncatedUsername }}</span>
           <button @click="toggleMenu" class="close-button text-gray-600 hover:text-gray-800">
             <i class="fas fa-times"></i>
           </button>
@@ -92,6 +95,7 @@
 <script>
 import Swal from 'sweetalert2';
 import { api } from '@axios_inst';
+import { mapGetters } from 'vuex';
 export default {
   name: 'UserMobileNav',
   data() {
@@ -100,7 +104,16 @@ export default {
       activeButton: this.$route.name, // ค่าเริ่มต้น
     }
   },
+  computed: {
+    ...mapGetters('auth', ['userinfo']),
+    truncatedUsername() {
+      return this.userinfo.Username.length > 10
+        ? this.userinfo.Username.substring(0, 10) + '..'
+        : this.userinfo.Username;
+    },
+  },
   methods: {
+
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
