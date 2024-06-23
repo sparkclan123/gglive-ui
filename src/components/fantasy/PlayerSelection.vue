@@ -90,8 +90,8 @@
                     </td> -->
                         <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.price }}</td>
                         <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">20%</td>
-                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">5</td>
-                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">5</td>
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.yellows_card }}</td>
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.reds_card }}</td>
                     </tr>
                 </tbody>
             </table>
