@@ -64,10 +64,14 @@ export default {
                         alt_ids_opta_1: match.Team1Code,
                         alt_ids_opta_2: match.Team2Code
                     }));
-                    this.updateLoading(false);
+                    setTimeout(() => {
+                        this.updateLoading(false);
+                    }, 50);
                 }
             } catch (error) {
-                this.updateLoading(false);
+                setTimeout(() => {
+                    this.updateLoading(false);
+                }, 50);
                 console.error('Error fetching matches:', error);
             }
         },

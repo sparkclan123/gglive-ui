@@ -48,15 +48,17 @@
         <span class="title">season {{ getSeasons.label }}</span>
         <div class="row row1">
           <div class="item">
-            <span class="big-text">{{allPlayer}}</span>
+            <span class="big-text">{{ allPlayer }}</span>
             <span class="regular-text">เข้าเเข่งขันทั้งหมด</span>
           </div>
           <div class="item">
-            <span class="big-text">{{myTeam}} <span class="regular-text">(ทีม)</span></span>
+            <span class="big-text">{{ myTeam }} <span class="regular-text">(ทีม)</span></span>
             <span class="regular-text">ทีมของคุณ</span>
           </div>
           <div class="item">
-            <span class="big-text text-green-500"> <NumberDisplay :number="gameWeek.reward"/> </span>
+            <span class="big-text text-green-500">
+              <NumberDisplay :number="gameWeek.reward" />
+            </span>
             <span class="regular-text text-green-500">เงินรางลังสูงสุด</span>
           </div>
         </div>
@@ -108,10 +110,15 @@ export default {
           this.gameWeek = response.data.gameWeek;
           this.allPlayer = response.data.allPlayer;
           this.myTeam = response.data.myTeam;
-          this.updateLoading(false);
+          setTimeout(() => {
+            this.updateLoading(false);
+          }, 50);
+
         }
       } catch (error) {
-        this.updateLoading(false);
+        setTimeout(() => {
+          this.updateLoading(false);
+        }, 50);
         console.log(error);
       }
     }

@@ -107,9 +107,9 @@ export default {
   computed: {
     ...mapGetters('auth', ['userinfo']),
     truncatedUsername() {
-      return this.userinfo.Username.length > 10
-        ? this.userinfo.Username.substring(0, 10) + '..'
-        : this.userinfo.Username;
+      return this.userinfo.Email.length > 10
+        ? this.userinfo.Email.substring(0, 10) + '..'
+        : this.userinfo.Email;
     },
   },
   methods: {

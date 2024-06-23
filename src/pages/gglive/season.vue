@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gradient-to-r rounded-xl  from-purple-950 to-purple-900 text-white p-2" v-if="getSeasons.label">
+    <div class="min-h-screen bg-gradient-to-r rounded-xl  from-purple-950 to-purple-900 text-white p-2">
         <!-- Header -->
         <div class="p-4 text-center rounded-lg">
             <h1 class="text-2xl  font-bold colot-h inline-block pb-1">
@@ -53,26 +53,26 @@ export default {
         };
     },
     methods: {
-        ...mapActions('loading', ['updateLoading']),
-        ...mapActions('season', ['fetchSeasons']),
+        // ...mapActions('loading', ['updateLoading']),
+        // ...mapActions('season', ['fetchSeasons']),
         ruleSeasonChallenge() {
             // Implement your logic here
         },
-        async getSeason() {
-            try {
-                await this.fetchSeasons();
-                this.updateLoading(false);
-            } catch (error) {
-                this.updateLoading(false);
-            }
-        }
+        // async getSeason() {
+        //     try {
+        //         await this.fetchSeasons();
+        //         this.updateLoading(false);
+        //     } catch (error) {
+        //         this.updateLoading(false);
+        //     }
+        // }
     },
     computed: {
-        ...mapGetters('season', ['getSeasons'])
+        // ...mapGetters('season', ['getSeasons'])
     },
     created() {
-        this.updateLoading(true);
-        this.getSeason();
+        // this.updateLoading(true);
+        // this.getSeason();
     }
 };
 </script>

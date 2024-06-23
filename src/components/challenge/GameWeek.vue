@@ -12,8 +12,8 @@
                         <span class="regular-text text-gray-200">(คะเเนน)</span>
                     </div>
                     <div class="item">
-                        <span class="big-text text-green-400">62 สูงสุด</span>
-                        <span class="regular-text text-yellow-400">41 เฉลี่ย</span>
+                        <span class="big-text text-green-400">{{maxTotalPoint}} สูงสุด</span>
+                        <span class="regular-text text-yellow-400">{{ avgTotalPoint}} เฉลี่ย</span>
                     </div>
                     <div class="item">
                         <span class="big-text text-gray-200">{{ season.label }}</span>
@@ -84,6 +84,8 @@ export default {
         return {
             season: null,
             gameWeek: null,
+            maxTotalPoint: 0,
+            avgTotalPoint : 0,
             datas: [],
             total: 0,
             page: 1,
@@ -113,6 +115,8 @@ export default {
                     this.page = response.data.page;
                     this.limit = response.data.limit;
                     this.pages = response.data.pages;
+                    this.maxTotalPoint = response.data.maxTotalPoint;
+                    this.avgTotalPoint = response.data.avgTotalPoint;
                     this.updateLoading(false);
                 }
             } catch (error) {

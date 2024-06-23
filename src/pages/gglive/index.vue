@@ -48,7 +48,7 @@ export default {
                 });
                 if (response.data.ok) {
                     this.setTeams(response.data.teams);
-                }else{
+                } else {
                     console.error('Failed to fetch teams data');
                 }
             } catch (error) {
@@ -66,10 +66,14 @@ export default {
         this.seasonID = this.$route.params.seasonID;
         Promise.all([this.fetchData(this.seasonID), this.fetchDataTeams()])
             .then(() => {
-                this.updateLoading(false);
+                setTimeout(() => {
+                    this.updateLoading(false);
+                }, 50);
             })
             .catch((error) => {
-                this.updateLoading(false);
+                setTimeout(() => {
+                    this.updateLoading(false);
+                }, 50);
             });
     },
 
