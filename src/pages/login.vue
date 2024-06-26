@@ -160,8 +160,15 @@ export default {
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/facebook/login';
         },
         loginWithLine() {
-            window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/line/login';
+
+
+            window.location.href = `https://api-pudee.op-part.com/api/premier-league/auth/line/login`;
+
+            // window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/line/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/line/login';
+        },
+        generateState() {
+            return Math.random().toString(36).substring(2);
         },
         async loginuuid(uuid, username) {
             this.updateLoading(true);

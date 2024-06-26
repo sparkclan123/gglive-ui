@@ -444,7 +444,7 @@ export default {
 }
 
 .circle-img {
-    border-radius: 50%;
+    border-radius: 5%;
     width: 50px;
     /* กำหนดขนาดของรูปภาพ */
     height: 50px;
