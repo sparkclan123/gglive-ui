@@ -22,10 +22,10 @@
                             <button @click="setCaptain" type="button"
                                 class="set-captan-info-button">ตั้งเป็นกับตันทีม</button>
                         </li>
-                        <li class="dialog-button-item">
+                        <!-- <li class="dialog-button-item">
                             <button @click="removePlayer" type="button"
                                 class="player-info-button">รายละเอียดผู้เล่น</button>
-                        </li>
+                        </li> -->
                         <li class="dialog-button-item">
                             <button @click="removePlayer" type="button" class="remove-player-button">ลบ ผู้เล่น</button>
                         </li>
@@ -87,7 +87,7 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px;
     background-repeat: no-repeat;
     background-position: right top, center, center;
-    background-image: linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+    background-image: linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, #7436a4, #b594ce);
 }
 
 .dialog-header {

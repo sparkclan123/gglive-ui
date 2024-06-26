@@ -78,7 +78,7 @@
                                         <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="GKP.id === null">
-                                        <div class="gvQQRY text-gray-800">Add</div>
+                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
@@ -99,7 +99,7 @@
                                         <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="DEF.id === null">
-                                        <div class="gvQQRY text-gray-800">Add</div>
+                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
@@ -120,7 +120,7 @@
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="MID.id === null">
-                                        <div class="gvQQRY text-gray-800">Add</div>
+                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
@@ -140,7 +140,7 @@
                                         <span v-if="FWD.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="FWD.id === null">
-                                        <div class="gvQQRY text-gray-800">Add</div>
+                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
@@ -485,14 +485,14 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px 0px;
     background-repeat: no-repeat;
     background-position: right top, 0px center, 0px center;
-    background-image: url(/public/assets/pattern-2-crop-90.0e86ae39.png), linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+    background-image: url(/public/assets/pattern-2-crop-90.0e86ae39.png), linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, #581c86, #581c86);
 }
 
 .gvQQRY {
     padding: 0.2rem;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    background-image: linear-gradient(to right, rgb(0, 255, 135), rgb(2, 239, 255));
+    background-image: linear-gradient(to right, rgb(220, 201, 255), rgb(253 250 255));
 
 }
 

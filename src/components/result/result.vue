@@ -5,15 +5,15 @@
                 <div class="date m-2">{{ formatDate(date) }}</div>
                 <div class="match-results">
                     <div class="match" v-for="match in matches" :key="match.id">
-                        <div class="team-wrapper text-xs font-bold" style="justify-content: end;">
+                        <div class="team-wrapper text-xs font-bold mr-2" style="justify-content: end;">
                             <div>{{ truncateTeamName(match.team1) }}</div>
                         </div>
                         <div class="score-container">
-                            <img :src="getTeamImage(match.alt_ids_opta_1)" alt="Team 1" class="team-img">
+                            <!-- <img :src="getTeamImage(match.alt_ids_opta_1)" alt="Team 1" class="team-img"> -->
                             <div class="score">{{ match.score1 }} - {{ match.score2 }}</div>
-                            <img :src="getTeamImage(match.alt_ids_opta_2)" alt="Team 2" class="team-img">
+                            <!-- <img :src="getTeamImage(match.alt_ids_opta_2)" alt="Team 2" class="team-img"> -->
                         </div>
-                        <div class="team-wrapper text-xs font-bold" style="justify-content: start;">
+                        <div class="team-wrapper text-xs font-bold ml-2" style="justify-content: start;">
                             <div>{{ truncateTeamName(match.team2) }}</div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ export default {
             }
         },
         truncateTeamName(name) {
-            return name.length > 12 ? name.slice(0, 12) + '...' : name;
+            return name.length > 15 ? name.slice(0, 15) + '...' : name;
         },
         getTeamImage(alt_ids_opta) {
             return `/assets/team/${alt_ids_opta}.png`;
