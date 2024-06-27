@@ -11,6 +11,7 @@ import GgLive from '../pages/gglive/index.vue';
 import List from '../pages/gglive/list.vue';
 import Challenge from '../pages/gglive/challenge.vue';
 import Result from '../pages/gglive/result.vue';
+import News from '../pages/gglive/news.vue';
 
 
 import GgLiveDetail from '../pages/gglive-detail/gglive-detail.vue';
@@ -70,8 +71,13 @@ const routes = [
                 name: 'pitch-detail',
                 component: GgLiveDetail,
             },
+            {
+                path: 'news',
+                name: 'news',
+                component: News,
+            },
         ],
-    },
+    }, 
     {
         path: '/:pathMatch(.*)*',
         component: NotFound,
