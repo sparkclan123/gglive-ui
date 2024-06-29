@@ -64,7 +64,7 @@
         </div>
       </div>
     </div>
-    <CountDown datenow="2024-01-03T23:59:00" endtime="2024-01-04T18:00:00" />
+    <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" />
   </div>
   <div v-else class="group duration-500  ">
     <div
@@ -85,7 +85,8 @@ export default {
       showConfetti: true,
       gameWeek: null,
       allPlayer: 0,
-      myTeam: 0
+      myTeam: 0,
+      currentTime: null
     };
   },
   methods: {
@@ -111,6 +112,7 @@ export default {
           this.gameWeek = response.data.gameWeek;
           this.allPlayer = response.data.allPlayer;
           this.myTeam = response.data.myTeam;
+          this.currentTime = response.data.currentTime;
         }
       } catch (error) {
         console.log(error);
