@@ -64,7 +64,18 @@
         </div>
       </div>
     </div>
-    <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" />
+
+    <div class="flex justify-center mt-1">
+      <div v-if="gameWeek.start_date > currentTime">
+        <span class="text-red-900 font-bold text-shadow-md ml-6">เริ่มจัดทีมได้ในอีก</span>
+        <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'"/>
+      </div>
+      <div v-else>
+        <span class="text-green-900 font-bold text-shadow-md ml-6">เหลือเวลาจัดทีมอีก</span>
+        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" :classadj="'text-green-900'"/>
+      </div>
+    </div>
+    
   </div>
   <div v-else class="group duration-500  ">
     <div
