@@ -311,6 +311,8 @@ export default {
             const result = await Swal.fire({
                 title: 'กรุณาอ่าน!',
                 text: 'บันทึกเเล้วจะไม่สามารถเเก้ไข หรือลบได้',
+                input: 'text',
+                inputPlaceholder: 'กรุณาใส่ชื่อทีมของคุณ',
                 showCancelButton: true,
                 cancelButtonText: 'ยกเลิก',
                 confirmButtonText: 'ยืนยัน (1ตั๋วเงิน)',
@@ -322,12 +324,24 @@ export default {
                     htmlContainer: 'text-custom'
                 },
                 buttonsStyling: false,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'กรุณาใส่ชื่อทีมของคุณ';
+                    }
+                }
             });
 
             if (!result.isConfirmed) {
                 this.disable = false;
                 return;
             }
+
+            const teamName = result.value;
+            if (!teamName) {
+                this.disable = false;
+                return;
+            }
+
             if (this.remainingAmount < 0) {
                 this.addNotification({ type: 'error', message: 'จำนวนเงินการซื้อนักเตะของคุณไม่เพียงพอ' });
                 this.disable = false;
