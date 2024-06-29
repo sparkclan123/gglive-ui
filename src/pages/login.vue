@@ -139,7 +139,7 @@ export default {
             })
         },
         loginWithGoogle() {
-            window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/login';
+            window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/login';
         },
         loginWithFacebook() {
@@ -156,15 +156,15 @@ export default {
                 },
                 buttonsStyling: false,
             });
-            // window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/facebook/login';
+            // window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/facebook/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/facebook/login';
         },
         loginWithLine() {
 
 
-            window.location.href = `https://api-pudee.op-part.com/api/premier-league/auth/line/login`;
+            window.location.href = `https://api-service.pudee-club.com/api/premier-league/auth/line/login`;
 
-            // window.location.href = 'https://api-pudee.op-part.com/api/premier-league/auth/line/login';
+            // window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/line/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/line/login';
         },
         generateState() {
