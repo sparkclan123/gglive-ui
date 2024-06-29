@@ -1,40 +1,34 @@
 <template>
-    <div>
+    <div v-if="userinfo">
         <div class="card">
             <div class="card__info">
-                <div class="card__logo">รายการ ทีมของคุณ</div>
-                <div class="card__chip">
-                    <svg class="card__chip-lines" role="img" width="20px" height="20px" viewBox="0 0 100 100"
-                        aria-label="Chip">
-                        <g opacity="0.8">
-                            <polyline points="0,50 35,50" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            <polyline points="0,20 20,20 35,35" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            <polyline points="50,0 50,35" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            <polyline points="65,35 80,20 100,20" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            <polyline points="100,50 65,50" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            <polyline points="35,35 65,35 65,65 35,65 35,35" fill="none" stroke="#000" stroke-width="2">
-                            </polyline>
-                            <polyline points="0,80 20,80 35,65" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            <polyline points="50,100 50,65" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            <polyline points="65,65 80,80 100,80" fill="none" stroke="#000" stroke-width="2"></polyline>
-                        </g>
-                    </svg>
-                    <div class="card__chip-texture"></div>
+                <div class="card__logo">
+
+                    <span class="left">
+
+                        รายการ ทีมของคุณ
+                    </span>
+                    <span class="right">คะเเนนสะสม</span>
                 </div>
-                <div class="card__type">debit</div>
+                <div class="card__type">2345</div>
                 <div class="card__number">
-                    <span class="card__digit-group">0123</span>
-                    <span class="card__digit-group">4567</span>
-                    <span class="card__digit-group">8901</span>
-                    <span class="card__digit-group">2345</span>
+
                 </div>
-                <div class="card__valid-thru" aria-label="Valid thru">Valid<br>thru</div>
-                <div class="card__exp-date"><time datetime="2038-01">01/38</time></div>
-                <div class="card__name" aria-label="Dee Stroyer">Jk Huger</div>
-                <div class="card__vendor" role="img" aria-labelledby="card-vendor">
-                    <span id="card-vendor" class="card__vendor-sr">Mastercard</span>
+                <div class="card__valid-thru" aria-label="Valid thru"></div>
+                <div class="card__exp-date"><time datetime="2038-01"></time></div>
+
+                <div class="logo-container">
+                    <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
+                        class="logo rounded-full shadow-lg">
+
                 </div>
-                <div class="card__texture"></div>
+                <div class="card__name" aria-label="Dee Stroyer">{{ truncatedUsername }}</div>
+
+                <button
+                    class="card__vendor bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-xs">
+                    เเลกคะเเนน
+                </button>
+
             </div>
         </div>
         <!-- component -->
@@ -80,6 +74,14 @@ export default {
             limit: 10,
             pages: 1,
         };
+    },
+    computed: {
+        ...mapGetters('auth', ['userinfo']),
+        truncatedUsername() {
+            return this.userinfo.Email.length > 10
+                ? this.userinfo.Email.substring(0, 10) + '..'
+                : this.userinfo.Email;
+        },
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
@@ -144,16 +146,10 @@ export default {
 
 .card,
 .card__chip-texture,
-.card__texture {
-    animation-duration: 3s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-}
+
 
 .card {
-    animation-name: rotate_500;
-    background-color: var(--primary);
-   
+    background-image: linear-gradient(to bottom ,#8141b157, #b077db57);
     border-radius: 0.5em;
     box-shadow: 0 0 0 hsl(0, 0%, 80%),
         0 0 0 hsl(0, 0%, 100%),
@@ -161,23 +157,14 @@ export default {
     color: hsl(0, 0%, 100%);
     /* width: 10.3em; */
     height: 6.8em;
-    transform: translate3d(0, 0, 0);
+    
 }
 
 .card__info,
 .card__chip-texture,
-.card__texture {
-    position: absolute;
-}
+
 
 .card__chip-texture,
-.card__texture {
-    animation-name: texture;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 100%;
-}
 
 .card__info {
     font: 0.75em/1 "DM Sans", sans-serif;
@@ -193,9 +180,14 @@ export default {
     width: 100%;
 }
 
+
+
 .card__logo {
     font-weight: bold;
     font-style: italic;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .card__chip {
@@ -277,9 +269,9 @@ export default {
 }
 
 .card__vendor {
-    right: 0.375rem;
-    bottom: 0.375rem;
-    width: 2.55rem;
+    right: 0.575rem;
+    bottom: 1.15rem;
+    width: 5.55rem;
     height: 1.5rem;
 }
 
@@ -293,17 +285,6 @@ export default {
     height: 1.5rem;
 }
 
-.card__vendor:before {
-    background-color: #e71d1a;
-    left: 0;
-}
-
-.card__vendor:after {
-    background-color: #fa5e03;
-    box-shadow: -1.05rem 0 0 #f59d1a inset;
-    right: 0;
-}
-
 .card__vendor-sr {
     clip: rect(1px, 1px, 1px, 1px);
     overflow: hidden;
@@ -312,58 +293,9 @@ export default {
     height: 1px;
 }
 
-.card__texture {
-    animation-name: texture;
-    background-image: linear-gradient(-80deg, hsla(0, 0%, 100%, 0.3) 25%, hsla(0, 0%, 100%, 0) 45%);
-}
-
-/* Dark theme */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg: hsl(var(--hue), 10%, 30%);
-        --fg: hsl(var(--hue), 10%, 90%);
-    }
-}
-
-/* Animation */
-@keyframes rotate_500 {
-
-    from,
-    to {
-        animation-timing-function: ease-in;
-        box-shadow: 0 0 0 hsl(0, 0%, 80%),
-            0.1rem 0 0 hsl(0, 0%, 100%),
-            -0.2rem 0 0.75rem 0 hsla(0, 0%, 0%, 0.3);
-        transform: rotateY(-10deg);
-    }
-
-    25%,
-    75% {
-        animation-timing-function: ease-out;
-        box-shadow: 0 0 0 hsl(0, 0%, 80%),
-            0 0 0 hsl(0, 0%, 100%),
-            -0.25rem -0.05rem 1rem 0.15rem hsla(0, 0%, 0%, 0.3);
-        transform: rotateY(0deg);
-    }
-
-    50% {
-        animation-timing-function: ease-in;
-        box-shadow: -0.1rem 0 0 hsl(0, 0%, 80%),
-            0 0 0 hsl(0, 0%, 100%),
-            -0.3rem -0.1rem 1.5rem 0.3rem hsla(0, 0%, 0%, 0.3);
-        transform: rotateY(10deg);
-    }
-}
-
-@keyframes texture {
-
-    from,
-    to {
-        transform: translate3d(0, 0, 0);
-    }
-
-    50% {
-        transform: translate3d(-20%, 0, 0);
-    }
+.logo-container {
+    position: relative;
+    width: 40px;
+    height: 40px;
 }
 </style>
