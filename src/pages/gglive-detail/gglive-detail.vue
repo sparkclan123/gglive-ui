@@ -16,15 +16,15 @@
                 </div>
             </div>
             <div class="bottom-section">
-                <span class="title text-green-500">0 คะเเนน</span>
+                <span class="title text-green-500">{{ getMain.total_point }} คะเเนน</span>
                 <div class="row row1">
                     <div class="item">
                         <span class="big-text text-gray-200">เกมวีค{{ getMain.week }}</span>
                         <span class="regular-text text-gray-200">(คะเเนน)</span>
                     </div>
                     <div class="item">
-                        <span class="big-text text-green-400">62 สูงสุด</span>
-                        <span class="regular-text text-yellow-400">41 เฉลี่ย</span>
+                        <span class="big-text text-green-400">{{maxTotalPoint}} สูงสุด</span>
+                        <span class="regular-text text-yellow-400">{{avgTotalPoint}} เฉลี่ย</span>
                     </div>
                     <div class="item">
                         <span class="big-text text-gray-200">{{ getMain.season }}</span>
@@ -124,6 +124,8 @@ export default {
             getMID: [],
             getFWD: [],
             getMain: null,
+            avgTotalPoint: 0,
+            maxTotalPoint: 0,
         };
     },
     methods: {
@@ -146,6 +148,8 @@ export default {
                     this.getMID = datas.filter(player => player.position === 'M').sort((a, b) => a.sort - b.sort);
                     this.getFWD = datas.filter(player => player.position === 'F').sort((a, b) => a.sort - b.sort);
                     this.getMain = response.data.playerGameMain;
+                    this.avgTotalPoint = response.data.avgTotalPoint;
+                    this.maxTotalPoint = response.data.maxTotalPoint;
                     this.updateLoading(false);
                 }
             } catch (error) {
