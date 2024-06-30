@@ -59,7 +59,7 @@ export default {
                     }
                 } else {
                     range.push(1);
-                    range.push('...');
+                    // range.push('...');
                     for (let i = this.page - halfRange; i <= this.page + halfRange; i++) {
                         range.push(i);
                     }
@@ -86,6 +86,11 @@ export default {
                 this.$emit('page-change', page);
             }
         },
+    },
+    created() {
+        console.log(this.page);
+        console.log(this.pages);
+
     },
 };
 </script>
