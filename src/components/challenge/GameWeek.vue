@@ -49,8 +49,8 @@
                     <tr v-for="data in datas" :key="i">
                         <td class="p-1 border-b border-blue-gray-50">
                             <div class="flex items-center gap-3">
-                                <img src="https://docs.material-tailwind.com/img/logos/logo-spotify.svg" alt="Spotify"
-                                    class="inline-block relative object-center !rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain p-1">
+                                <img  :src="data.image_url ? data.image_url : '/public/assets/logo.webp'" alt="userimage"
+                                    class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
                                 <p
                                     class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
                                     {{ data.name }}</p>

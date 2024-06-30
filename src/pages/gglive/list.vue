@@ -10,22 +10,22 @@
                     </span>
                     <span class="right">คะเเนนสะสม</span>
                 </div>
-                <div class="card__type">2345</div>
+                <div class="card__type mt-1 text-green-500">2345</div>
                 <div class="card__number">
 
                 </div>
                 <div class="card__valid-thru" aria-label="Valid thru"></div>
                 <div class="card__exp-date"><time datetime="2038-01"></time></div>
 
-                <div class="logo-container">
+                <div class="logo-container mt-4">
                     <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
                         class="logo rounded-full shadow-lg">
 
                 </div>
-                <div class="card__name" aria-label="Dee Stroyer">{{ truncatedUsername }}</div>
+                <div class="card__name mt-4 ml-1" aria-label="Dee Stroyer">{{ truncatedUsername }}</div>
 
                 <button
-                    class="card__vendor bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-xs">
+                    class="card__vendor bg-green-500 hover:bg-green-700 text-gray-700 font-bold py-1 px-2 rounded text-xs ">
                     เเลกคะเเนน
                 </button>
 
@@ -78,8 +78,8 @@ export default {
     computed: {
         ...mapGetters('auth', ['userinfo']),
         truncatedUsername() {
-            return this.userinfo.Email.length > 10
-                ? this.userinfo.Email.substring(0, 10) + '..'
+            return this.userinfo.Email.length > 20
+                ? this.userinfo.Email.substring(0, 20) + '..'
                 : this.userinfo.Email;
         },
     },
@@ -149,7 +149,7 @@ export default {
 
 
 .card {
-    background-image: linear-gradient(to bottom ,#8141b157, #b077db57);
+    background-image: linear-gradient(to bottom, #8141b157, #b077db57);
     border-radius: 0.5em;
     box-shadow: 0 0 0 hsl(0, 0%, 80%),
         0 0 0 hsl(0, 0%, 100%),
@@ -157,7 +157,7 @@ export default {
     color: hsl(0, 0%, 100%);
     /* width: 10.3em; */
     height: 6.8em;
-    
+
 }
 
 .card__info,

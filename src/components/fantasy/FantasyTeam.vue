@@ -364,7 +364,7 @@ export default {
                     game_week_id: this.getGameWeek.id,
                     season_id: this.getGameWeek.season_id,
                     formation: this.selectedFormation,
-                    name: this.nameteam,
+                    name: teamName,
                     captain: this.isCaptain,
                     gkp: this.getGKP,
                     def: this.getDEF,
