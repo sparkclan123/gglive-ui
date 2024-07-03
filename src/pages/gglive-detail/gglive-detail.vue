@@ -1,9 +1,10 @@
 <template>
-    <div class="dxRBog" v-if="getMain" >
+    <div class="dxRBog" v-if="getMain">
         <div class="card cursor-pointer">
             <div class="top-section  ">
                 <div class="icons">
-                    <div class="absolute top-0 left-0 m-2 flex items-center cursor-pointer shsojvp text-gray-200" @click="route_back()">
+                    <div class="absolute top-0 left-0 m-2 flex items-center cursor-pointer shsojvp text-gray-200"
+                        @click="route_back()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 12"
                             class="svg-white mr-1">
                             <path
@@ -23,8 +24,8 @@
                         <span class="regular-text text-gray-200">(คะเเนน)</span>
                     </div>
                     <div class="item">
-                        <span class="big-text text-green-400">{{maxTotalPoint}} สูงสุด</span>
-                        <span class="regular-text text-yellow-400">{{avgTotalPoint}} เฉลี่ย</span>
+                        <span class="big-text text-green-400">{{ maxTotalPoint }} สูงสุด</span>
+                        <span class="regular-text text-yellow-400">{{ avgTotalPoint }} เฉลี่ย</span>
                     </div>
                     <div class="item">
                         <span class="big-text text-gray-200">{{ getMain.season }}</span>
@@ -190,20 +191,20 @@ export default {
 }
 
 .card {
-
-    border-radius: 20px;
     background: linear-gradient(to bottom, #1e1037, #341c5d);
     padding: 5px;
     overflow: hidden;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px; */
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 20px;
+    border-radius: 10px;
     border-top: 1px solid #503779;
-    border-left: 2px solid #503779;  /* ขอบซ้าย */
-    border-right: 2px solid #503779; /* ขอบขวา */
-    border-bottom: 3px solid #503779; /* ขอบล่าง */
+    /* border-left: 2px solid #503779; */
+    /* ขอบซ้าย */
+    /* border-right: 2px solid #503779; */
+    /* ขอบขวา */
+    border-bottom: 2px solid #503779;
+    /* ขอบล่าง */
 }
-
 
 .card .top-section .icons {
     position: absolute;

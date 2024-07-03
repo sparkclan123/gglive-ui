@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="data in datas" :key="i">
-                        <td class="p-1 border-b border-blue-gray-50">
+                        <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data.id)">
                             <div class="flex items-center gap-3">
                                 <img  :src="data.image_url ? data.image_url : '/public/assets/logo.webp'" alt="userimage"
                                     class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
@@ -123,6 +123,14 @@ export default {
                 console.log(error);
                 this.updateLoading(false);
             }
+        },
+        seeDetail(id) {
+            this.$router.push({
+                name: 'challenge-detail',
+                params: {
+                    id: id
+                }
+            });
         }
     },
     computed: {
