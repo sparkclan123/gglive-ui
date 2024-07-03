@@ -87,7 +87,7 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px;
     background-repeat: no-repeat;
     background-position: right top, center, center;
-    background-image: linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, #7436a4, #b594ce);
+    background-image: linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, #b594ce, #b594ce);
 }
 
 .dialog-header {

@@ -471,36 +471,7 @@ export default {
     /* ทำให้แน่ใจว่า picture ขนาดตามเนื้อหา */
 }
 
-.modal {
-    position: fixed;
-    z-index: 110;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.8));
-    border-radius: 6px;
-}
 
-.modal-content {
-    z-index: 120;
-    max-width: 90%;
-    max-height: 90%;
-    padding: 0px;
-    border: 0px;
-    border-radius: 6px;
-    width: 640px;
-    color: currentcolor;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px 0px;
-    background-repeat: no-repeat;
-    background-position: right top, 0px center, 0px center;
-    background-image: url(/public/assets/pattern-2-crop-90.0e86ae39.png), linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, #581c86, #581c86);
-}
 
 .gvQQRY {
     padding: 0.2rem;
