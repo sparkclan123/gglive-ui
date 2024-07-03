@@ -1028,7 +1028,7 @@ export default {
 @media (min-width: 38.125em) {
 
     .flTOZR {
-        padding-bottom: 0.7rem;
+        padding-bottom: 0.3rem;
         background-size: 44px 8px;
     }
 }
@@ -1036,7 +1036,7 @@ export default {
 @media (min-width: 64em) {
 
     .flTOZR {
-        padding-bottom: 0.9rem;
+        padding-bottom: 0.3rem;
         background-size: 55px 10px;
     }
 }
