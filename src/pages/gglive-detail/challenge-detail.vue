@@ -20,7 +20,7 @@
                 <div class="flex items-center justify-center gap-3 text-center">
                     <img :src="image_url ? image_url : '/public/assets/logo.webp'" alt="userimage"
                         class="inline-block relative object-center rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain">
-                    <span class="title text-gray-200">ทีม{{ getMain.name }} </span>
+                    <span class="title text-gray-200">{{ getMain.name }} </span>
                 </div>
                 <span class="title text-green-500">{{ getMain.total_point }} คะเเนน</span>
             </div>

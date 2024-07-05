@@ -30,7 +30,7 @@
             </div>
             <div v-if="activeTab === 'tab3'">
                 <!-- Content for Tab 3 -->
-                Content for Tab 3
+                <Rule />
             </div>
         </div>
     </div>
@@ -40,12 +40,13 @@
 import { mapActions, mapGetters } from 'vuex';
 import SeasonSelect from '../../components/season/SeasonSelect.vue';
 import SeasonSelectVip from '../../components/season/SeasonSelectVip.vue';
-
+import Rule from '../../components/rule/rule.vue';
 export default {
     name: 'Season',
     components: {
         SeasonSelect,
-        SeasonSelectVip
+        SeasonSelectVip,
+        Rule
     },
     data() {
         return {
