@@ -48,7 +48,7 @@ const routes = [
                 component: SeasonSelect,
             },
             {
-                path: 'pitch/:seasonID',
+                path: 'pitch/:seasonID/:gameWeekID',
                 name: 'pitch',
                 component: GgLive,
             },

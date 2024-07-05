@@ -106,7 +106,8 @@ export default {
     ...mapActions('season', ['fetchSeasons']),
     selectSeason() {
       let seasonID = this.getSeasons.id;
-      this.$router.push({ name: 'pitch', params: { seasonID } })
+      let gameWeekID = this.gameWeek.id;
+      this.$router.push({ name: 'pitch', params: { seasonID, gameWeekID } })
     },
     ruleSeasonChallenge() {
       // Implement your logic here

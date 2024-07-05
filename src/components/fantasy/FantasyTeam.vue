@@ -1,5 +1,5 @@
 <template>
-    <div class="dxRBog" v-if="getGameWeek">
+    <div class="dxRBog" v-if="getGameWeek && getGameWeek.status == 'active'">
 
         <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
             <!-- page 1 -->
@@ -304,6 +304,10 @@ export default {
             return isCaptainValid;
         },
         async saveTeam() {
+            if (this.getGameWeek.status != "active") {
+                this.addNotification({ type: 'error', message: 'เกมวีคไม่สามารถบันทึกได้' });
+                return;
+            }
             if (this.disable) {
                 return;
             }

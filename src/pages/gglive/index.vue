@@ -11,7 +11,8 @@ export default {
     data() {
         return {
             gameWeek: null,
-            seasonID: null
+            seasonID: null,
+            gameWeekID: null
         }
     },
     components: {
@@ -22,12 +23,20 @@ export default {
         ...mapActions('GameWeek', ['setGameWeek', 'setGameWeekPlayer']),
         ...mapActions('Teams', ['setTeams']),
 
-        async fetchData(seasonID) {
+        async fetchData(seasonID, gameWeekID) {
             try {
+                // แปลง seasonID และ gameWeekID เป็น integer
+                const intSeasonID = parseInt(seasonID, 10);
+                const intGameWeekID = parseInt(gameWeekID, 10);
+
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.get('/premier-league/v1/game-week-player', {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
+                    },
+                    params: {
+                        seasonID: intSeasonID,
+                        gameWeekID: intGameWeekID
                     }
                 });
                 if (response.data.ok) {
@@ -64,7 +73,8 @@ export default {
     created() {
         this.updateLoading(true);
         this.seasonID = this.$route.params.seasonID;
-        Promise.all([this.fetchData(this.seasonID), this.fetchDataTeams()])
+        this.gameWeekID = this.$route.params.gameWeekID;
+        Promise.all([this.fetchData(this.seasonID, this.gameWeekID), this.fetchDataTeams()])
             .then(() => {
                 setTimeout(() => {
                     this.updateLoading(false);
