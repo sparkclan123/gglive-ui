@@ -1,7 +1,24 @@
 <template>
     <div>
-        <h1>Home</h1>
-        <p>Welcome</p>
-        <button>Logout</button>
+
     </div>
 </template>
+
+<script>
+export default{
+    data(){
+        return{
+           
+        }
+    },
+    methods:{
+
+    },
+    computed:{
+
+    },
+    created(){
+        this.$router.push({ name: 'season-select' });
+    }
+}
+</script>

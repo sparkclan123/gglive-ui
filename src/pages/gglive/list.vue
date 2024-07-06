@@ -10,7 +10,7 @@
                     </span>
                     <span class="right">คะเเนนสะสม</span>
                 </div>
-                <div class="card__type mt-1 text-green-500">2345</div>
+                <div class="card__type mt-1 text-green-500">0</div>
                 <div class="card__number">
 
                 </div>
