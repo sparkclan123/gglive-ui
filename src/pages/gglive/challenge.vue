@@ -6,6 +6,7 @@
             <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">เกมวีค VIP
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">กติกา</div>
+
         </div>
         <div class=" rounded-xl shadow-lg  min-h-screen  bg-white">
 
@@ -27,6 +28,7 @@
                     <!-- Content for Tab 3 -->
                     <Rule />
                 </div>
+                
             </div>
         </div>
     </div>

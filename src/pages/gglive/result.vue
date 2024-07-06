@@ -1,24 +1,28 @@
 <template>
     <div>
         <div class="tabs rounded-t-lg ml-3 text-white  flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="activeTab = 'tab1'">ผลการเเข่ง
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="activeTab = 'tab1'">การเเข่ง
+            </div>
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">ย้อนหลัง(ปกติ)
+            </div>
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">ย้อนหลัง(VIP)
             </div>
             <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">เกมวีค VIP
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">กติกา</div> -->
         </div>
-        <div class=" rounded-xl shadow-lg  min-h-screen  bg-white">
+        <div class=" ">
 
-            <div class="">
-                <div v-if="activeTab === 'tab1'">
+            <div class="rounded-xl shadow-lg  min-h-screen bg-white">
+                <div v-if="activeTab === 'tab1'" >
                     <Result />
                 </div>
-                <!-- <div v-if="activeTab === 'tab2'">
-                    Content for Tab 2
+                <div v-if="activeTab === 'tab2'" class="pt-1">
+                    <ResultGameweek />
                 </div>
                 <div v-if="activeTab === 'tab3'">
-                    Content for Tab 3
-                </div> -->
+
+                </div>
             </div>
         </div>
     </div>
@@ -27,6 +31,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Result from '../../components/result/result.vue';
+import ResultGameweek from '../../components/result/gameweek.vue';
 export default {
     name: 'challenge',
 
@@ -36,10 +41,11 @@ export default {
         };
     },
     components: {
-        Result
+        Result,
+        ResultGameweek
     },
     methods: {
-        
+
 
     },
     computed: {
