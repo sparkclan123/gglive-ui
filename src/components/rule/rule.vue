@@ -1,5 +1,9 @@
 <template>
     <div class="rules-container">
+        <div class="rule-title">
+            <strong>กติกาการนับคะเเนน</strong>
+        </div>
+        
         <div class="rule">
             <strong>-</strong> นักเตะที่ลงสนามสตาร์ทเป็นตัวจริง <span class="rule-strong"> 1 คะแนน </span>
         </div>
@@ -38,9 +42,9 @@
 .rules-container {
     font-size: 13px;
     line-height: 1.6;
-    margin: 10px;
+    /* margin: 10px; */
     padding: 5px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 10px;
     background-color: #f9f9f9;
 }
@@ -62,5 +66,11 @@
 
 .rule strong {
     color: #581c86;
+}
+
+.rule-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #3b1956;
 }
 </style>

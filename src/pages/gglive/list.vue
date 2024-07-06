@@ -54,7 +54,7 @@
                     ชื่อทีม: {{ data.name }}
                 </div>
                 <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
-                    คะเเนนรวม: {{ data.total_point }}
+                    คะเเนนรวม: <span class="text-green-800"> {{ data.total_point }} </span>
                 </div>
             </div>
         </div>
@@ -236,15 +236,15 @@ export default {
 
 .card__valid-thru,
 .card__exp-date {
-    margin-bottom: 0.25rem;
+    /* margin-bottom: 0.25rem; */
     width: 50%;
 }
 
-.card__valid-thru {
+/* .card__valid-thru {
     font-size: 0.3rem;
     padding-right: 0.25rem;
     text-align: right;
-}
+} */
 
 .card__exp-date,
 .card__name {
@@ -255,12 +255,12 @@ export default {
     padding-left: 0.25rem;
 }
 
-.card__name {
+/* .card__name {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     width: 6.25rem;
-}
+} */
 
 .card__vendor,
 .card__vendor:before,

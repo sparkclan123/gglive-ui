@@ -12,8 +12,8 @@
                         <span class="regular-text text-gray-200">(คะเเนน)</span>
                     </div>
                     <div class="item">
-                        <span class="big-text text-green-400">{{maxTotalPoint}} สูงสุด</span>
-                        <span class="regular-text text-yellow-400">{{ avgTotalPoint}} เฉลี่ย</span>
+                        <span class="big-text text-green-400">{{ maxTotalPoint }} สูงสุด</span>
+                        <span class="regular-text text-yellow-400">{{ avgTotalPoint }} เฉลี่ย</span>
                     </div>
                     <div class="item">
                         <span class="big-text text-gray-200">{{ season.label }}</span>
@@ -49,7 +49,7 @@
                     <tr v-for="data in datas" :key="i">
                         <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data.id)">
                             <div class="flex items-center gap-3">
-                                <img  :src="data.image_url ? data.image_url : '/public/assets/logo.webp'" alt="userimage"
+                                <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'" alt="userimage"
                                     class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
                                 <p
                                     class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
@@ -57,8 +57,7 @@
                             </div>
                         </td>
                         <td class="p-1 border-b border-blue-gray-50 pl-4">
-                            <p
-                                class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
+                            <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
                                 {{ data.total_point }}</p>
                         </td>
                         <td class="p-1 border-b border-blue-gray-50">
@@ -85,7 +84,7 @@ export default {
             season: null,
             gameWeek: null,
             maxTotalPoint: 0,
-            avgTotalPoint : 0,
+            avgTotalPoint: 0,
             datas: [],
             total: 0,
             page: 1,
