@@ -13,6 +13,7 @@ import Challenge from '../pages/gglive/challenge.vue';
 import Result from '../pages/gglive/result.vue';
 import ResultlistGameWeek from '../pages/gglive/result-gameweek-list.vue';
 import News from '../pages/gglive/news.vue';
+import Payments from '../pages/payment/payment.vue';
 
 
 import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
@@ -89,6 +90,12 @@ const routes = [
                 path: 'result-list-gameweek/:gameWeekID',
                 name: 'result-list-gameweek',
                 component: ResultlistGameWeek,
+            },
+
+            {
+                path: 'payments',
+                name: 'payments',
+                component: Payments,
             },
             
         ],

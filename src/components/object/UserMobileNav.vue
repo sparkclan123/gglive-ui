@@ -95,7 +95,7 @@
         </div>
         <ul class="menu-items">
           <li class="menu-item">
-            <a href="#" class="menu-link"> <i class="fas fa-ticket-alt mr-2"></i> ซื้อตั๋ว</a>
+            <a @click="sideMenu('payments')" class="menu-link"> <i class="fas fa-ticket-alt mr-2"></i> ซื้อตั๋ว</a>
           </li>
           <li class="menu-item">
             <a href="#" class="menu-link"><i class="fas fa-book mr-2"></i> กติกาการเล่น</a>
@@ -135,7 +135,11 @@ export default {
     },
   },
   methods: {
-
+    sideMenu(page) {
+      this.activeButton = page;
+      this.isMenuOpen = !this.isMenuOpen;
+      this.$router.push({ name: page });
+    },
     toggleMenu() {
       this.isMenuOpen = !this.isMenuOpen;
     },
