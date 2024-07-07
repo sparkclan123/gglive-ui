@@ -3,7 +3,7 @@
   <!-- <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4" v-if="gameWeek">
         <div @click="selectSeason()" class="bg-color-h sha p-4 text-center bg-img cursor-pointer">
             <h2 class="text-xl font-bold mb-2 text-gray-100">
-                Game Week #{{ gameWeek.week }}<br>ฤดูการ <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
+                Game Week #{{ gameWeek.week }}<br>ฤดูกาล <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
             getSeasons.label }}</span>
             </h2>
             <p style="color: lemonchiffon;">Fantasy Challenge is coming.</p>

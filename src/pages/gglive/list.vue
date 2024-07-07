@@ -39,7 +39,7 @@
                     <div class="rounded-full w-5 h-5  ">
                         <img class="w-5 h-5 rounded-full" src="/public/assets/favicon-32x32.png" />
                     </div>
-                    <div class="text-sm ">ฤดูการ {{ data.season }} เกมวีค {{ data.week }}
+                    <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
                         <DateFormatted :dateString="data.created_at" />
                     </div>
                 </div>

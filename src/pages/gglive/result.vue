@@ -5,8 +5,8 @@
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">ย้อนหลัง(ปกติ)
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">ย้อนหลัง(VIP)
-            </div>
+            <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">ย้อนหลัง(VIP)
+            </div> -->
             <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">เกมวีค VIP
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">กติกา</div> -->

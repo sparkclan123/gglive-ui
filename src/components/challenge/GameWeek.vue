@@ -17,7 +17,7 @@
                     </div>
                     <div class="item">
                         <span class="big-text text-gray-200">{{ season.label }}</span>
-                        <span class="regular-text text-gray-200">ฤดูการ</span>
+                        <span class="regular-text text-gray-200">ฤดูกาล</span>
                     </div>
 
                 </div>

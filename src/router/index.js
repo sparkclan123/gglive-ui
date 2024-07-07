@@ -11,6 +11,7 @@ import GgLive from '../pages/gglive/index.vue';
 import List from '../pages/gglive/list.vue';
 import Challenge from '../pages/gglive/challenge.vue';
 import Result from '../pages/gglive/result.vue';
+import ResultlistGameWeek from '../pages/gglive/result-gameweek-list.vue';
 import News from '../pages/gglive/news.vue';
 
 
@@ -62,11 +63,7 @@ const routes = [
                 name: 'challenge',
                 component: Challenge,
             },
-            {
-                path: 'result',
-                name: 'result',
-                component: Result,
-            },
+            
             {
                 path: 'pitch-detail/:id',
                 name: 'pitch-detail',
@@ -82,6 +79,18 @@ const routes = [
                 name: 'news',
                 component: News,
             },
+
+            {
+                path: 'result',
+                name: 'result',
+                component: Result,
+            },
+            {
+                path: 'result-list-gameweek/:gameWeekID',
+                name: 'result-list-gameweek',
+                component: ResultlistGameWeek,
+            },
+            
         ],
     }, 
     {

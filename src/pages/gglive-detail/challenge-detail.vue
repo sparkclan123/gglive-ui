@@ -117,13 +117,20 @@ export default {
             getFWD: [],
             getMain: null,
             image_url: null,
+            isNavigating: false
 
         };
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
         route_back() {
-            this.$router.push({ name: 'challenge' });
+            if (!this.isNavigating) {
+                this.isNavigating = true;
+                this.$router.go(-1);
+                setTimeout(() => {
+                    this.isNavigating = false;
+                }, 1000);
+            }
         },
         async fetchGameWeekDetail() {
             try {
