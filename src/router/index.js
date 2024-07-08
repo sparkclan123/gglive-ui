@@ -19,6 +19,8 @@ import Payments from '../pages/payment/payment.vue';
 import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
 import GgLiveDetail from '../pages/gglive-detail/gglive-detail.vue';
 
+import Setting from '../pages/gglive/setting.vue';
+
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
 
@@ -96,6 +98,12 @@ const routes = [
                 path: 'payments',
                 name: 'payments',
                 component: Payments,
+            },
+
+            {
+                path: 'setting',
+                name: 'setting',
+                component: Setting,
             },
             
         ],

@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="tabs rounded-t-lg ml-3 text-white  flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="activeTab = 'tab1'">การเเข่ง
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">การเเข่ง
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">ย้อนหลัง(ปกติ)
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">ย้อนหลัง(ปกติ)
             </div>
             <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">ย้อนหลัง(VIP)
             </div> -->
@@ -45,14 +45,20 @@ export default {
         ResultGameweek
     },
     methods: {
-
+        SetactiveTab(tab) {
+            localStorage.setItem('result-tab', tab);
+            this.activeTab = tab;
+        }
 
     },
     computed: {
 
     },
     created() {
-
+        let has_result_tab = localStorage.getItem('result-tab');
+        if (has_result_tab) {
+            this.activeTab = has_result_tab;
+        }
     }
 };
 </script>
