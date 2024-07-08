@@ -43,19 +43,19 @@
             <table class="min-w-full bg-gray-300 rounded-lg text-xs">
                 <thead>
                     <tr>
-                        <th class="  text-left text-gray-900 border-b border-gray-400"></th>
-                        <th class="w-1/4 py-1 pl-2 text-left text-gray-900 border-b border-gray-400">นักเตะ</th>
+                        <th class=" w-1/12 text-left text-gray-900 border-b border-gray-400"></th>
+                        <th class="w-1/3 py-1 pl-2 text-left text-gray-900 border-b border-gray-400">นักเตะ</th>
                         <!-- <th class=" py-1 pl-2 text-left text-gray-900 border-b border-gray-400">ทีม</th> -->
-                        <th class=" py-1  pl-2 text-left text-gray-900 border-b border-gray-400">ราคา</th>
-                        <th class=" py-1  pl-2 text-left text-gray-900 border-b border-gray-400">%</th>
-                        <th class=" py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟨</th>
-                        <th class=" py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟥</th>
+                        <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">ราคา</th>
+                        <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">%</th>
+                        <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟨</th>
+                        <th class="w-1/12 py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟥</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="player in paginatedPlayers" :key="player.id" class="bg-gray-50"
                         :class="{ 'opacity-50': isSelected(player.id) }">
-                        <td class="  border-b border-r border-gray-400 text-gray-900" @click="infoPlayer(player)">
+                        <td  class="w-1/12  border-b border-r border-gray-400 text-gray-900" @click="infoPlayer(player)">
                             <svg width="14" height="13" viewBox="0 0 5 13" v-if="!player.is_ban">
                                 <path
                                     d="M2.22454008,4.81004082 C2.04454008,5.29122857 1.86734808,5.7178898 1.72391208,6.156 C1.26547608,7.55608163 0.79016808,8.95126531 0.37907208,10.3661633 C0.14141208,11.1840857 0.47704128,11.7369796 1.18250808,11.838 C1.43938008,11.8748302 1.71688008,11.8733951 1.96813608,11.8150408 C3.51877608,11.4548694 4.20733608,10.1739796 4.91521608,8.91887755 C4.76334408,9.03175959 4.64147208,9.17573878 4.51255608,9.31301633 C4.11552408,9.7358449 3.67396008,10.0969714 3.12319608,10.2887878 C3.03319608,10.3198788 2.89960008,10.305529 2.82272808,10.2548278 C2.78194728,10.228042 2.80397808,10.0725869 2.8269468,9.98313796 C2.8569468,9.86451551 2.9160096,9.75306857 2.9624148,9.63827265 C3.5652228,8.14782367 4.1759748,6.66080327 4.7638548,5.16410939 C4.865574,4.90486041 4.9325988,4.59873796 4.9058868,4.32609306 C4.8566676,3.82768898 4.3424508,3.47564816 3.7124508,3.48904408 C2.0769708,3.52348286 0.8985708,4.35097469 0.0595308,5.74002367 C0.0285936,5.79120367 0.0285936,5.86151633 0,5.98253388 C0.698436,5.45686041 1.27548,4.82070122 2.22468,4.81018286 L2.22454008,4.81004082 Z M5.82634008,1.5717551 C5.82634008,2.43941633 5.13680808,3.14302041 4.28602008,3.14302041 C3.43571208,3.14302041 2.74618008,2.43941633 2.74618008,1.5717551 C2.74618008,0.703616327 3.43571208,0 4.28602008,0 C5.13679608,0 5.82634008,0.703604082 5.82634008,1.5717551"
@@ -72,12 +72,12 @@
                                 </path>
                             </svg>
                         </td>
-                        <td class="w-1/4 py-1 px-2 border-b border-r border-gray-400 text-gray-900 cursor-pointer"
+                        <td class="w-1/3 py-1 px-2 border-b border-r border-gray-400 text-gray-900 cursor-pointer"
                             @click="selectPlayer(player)">
                             <div class="flex items-center">
                                 <img :src="getShirtImage(player)" alt="team logo" class="w-6 h-8 mr-2">
                                 <div class="truncate">
-                                    <div>{{ player.name }}</div>
+                                    <div>{{ truncateText(player.name) }}</div>
                                     <div class="text-xs text-gray-600">{{ player.position }}</div>
                                 </div>
                             </div>
@@ -87,17 +87,17 @@
                             <img :src="`/public/assets/team/${player.team_code}.png`" alt="team logo" class="w-4 h-4 mr-1">
                         </div>
                     </td> -->
-                        <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">
                             <Numberformat :value="player.price" :decimal="1" />
                         </td>
-                        <td class=" py-1 px-2 border-b border-gray-400 text-gray-900"
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900"
                             v-if="getGameWeekPercentPlayer[player.player_id]">
                             <Numberformat :value="getGameWeekPercentPlayer[player.player_id]" :decimal="1" />%
                         </td>
-                        <td class=" py-1 px-2 border-b border-gray-400 text-gray-900" v-else>0.0%</td>
-                        <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.yellows_card }}
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900" v-else>0.0%</td>
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.yellows_card }}
                         </td>
-                        <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.reds_card }}</td>
+                        <td class="w-1/12 py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.reds_card }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -181,6 +181,13 @@ export default {
     },
     methods: {
         ...mapActions('playerSelect', ['addPlayer', 'removePlayer']),
+        truncateText(text) {
+            if (text.length > 10) {
+                return text.slice(0, 10) + '...';
+            } else {
+                return text;
+            }
+        },
         handlePageChange(page) {
             this.currentPage = page;
         },
