@@ -1,6 +1,6 @@
 <template>
   <div v-if="userinfo">
-    <div class="flex gap-2 w-full justify-between px-4 mobile-menu">
+    <div class="flex gap-2 w-full justify-between mobile-menu">
       <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('1vs1') }"
         @click="setActive('1vs1')">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"
