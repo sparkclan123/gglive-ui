@@ -98,7 +98,7 @@
             <a @click="sideMenu('payments')" class="menu-link"> <i class="fas fa-ticket-alt mr-2"></i> ซื้อตั๋ว</a>
           </li>
           <li class="menu-item">
-            <a href="#" class="menu-link"><i class="fas fa-book mr-2"></i> กติกาการเล่น</a>
+            <a @click="showRule()" class="menu-link"><i class="fas fa-book mr-2"></i> กติกาการเล่น</a>
           </li>
           <li class="menu-item">
             <a href="#" class="menu-link"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
@@ -118,6 +118,7 @@
 import Swal from 'sweetalert2';
 import { api } from '@axios_inst';
 import { mapGetters } from 'vuex';
+
 export default {
   name: 'UserMobileNav',
   data() {
@@ -135,6 +136,33 @@ export default {
     },
   },
   methods: {
+    showRule() {
+      this.isMenuOpen = !this.isMenuOpen;
+      const rulesHtml = `
+        <div class="rules-container">
+            <div class="rule-title"><strong>กติกาการนับคะเเนน</strong></div>
+            <div class="rule"><strong>-</strong> นักเตะที่ลงสนามสตาร์ทเป็นตัวจริง <span class="rule-strong"> 1 คะแนน </span></div>
+            <div class="rule"><strong>-</strong> โกล์/กองหลัง ทำประตู <span class="rule-strong"> 6 คะแนน </span> , กองกลางทำประตู <span class="rule-strong"> 5 คะแนน </span>, กองหน้าทำประตู <span class="rule-strong"> 4 คะแนน</span></div>
+            <div class="rule"><strong>-</strong> จ่ายบอลให้เพื่อนทำประตูได้ (Assist) <span class="rule-strong"> 3 คะแนน </span></div>
+            <div class="rule"><strong>-</strong> ผู้รักษาประตูไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองหลังไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองกลางไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 1 คะแนน </span></div>
+            <div class="rule"><strong>-</strong> ผู้รักษาประตูเซฟลูกจุดโทษได้ <span class="rule-strong"> 5 คะแนน </span>, ผู้เล่นคนไหน ยิงจุดโทษพลาด <span class="rule-strong-red"> -2 คะแนน </span></div>
+            <div class="rule"><strong>-</strong> โดนใบเหลือง <span class="rule-strong-red"> -1 คะแนน </span>, โดนใบแดง <span class="rule-strong-red"> -3 คะแนน </span> (ทั้งแดงโดยตรงและใบเหลืองที่2)</div>
+            <div class="rule"><strong>-</strong> ยิงเข้าประตูตัวเอง <span class="rule-strong-red"> -2 คะแนน </span></div>
+            <div class="rule"><strong>-</strong> ทุกๆการเสีย 2 ประตูของโกล์/กองหลัง <span class="rule-strong-red"> -1 คะแนน</span></div>
+        </div>
+      `;
+
+      Swal.fire({
+        html: rulesHtml,
+        confirmButtonText: 'ปิด',
+        customClass: {
+          cancelButton: 'btn-cancel',
+          popup: 'popup-custom',
+          title: 'text-custom',
+          htmlContainer: 'text-custom'
+        },
+      });
+    },
     sideMenu(page) {
       this.activeButton = page;
       this.isMenuOpen = !this.isMenuOpen;
@@ -335,4 +363,6 @@ button {
   width: 40px;
   height: 40px;
 }
+
+
 </style>
