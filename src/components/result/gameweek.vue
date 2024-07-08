@@ -1,14 +1,22 @@
 <template>
-    <div class="mt-2" v-if="datas">
-        <div class="notification cursor-pointer" v-for="data in datas" @click="seeDetailGameWeek(data)">
-            <div class="notiglow"></div>
-            <div class="notiborderglow"></div>
-            <div class="notititle">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}</div>
-            <div class="notibody">ทีมที่ชนะเงินรางวัล <Numberformat class="text-green-400" :value="data.reward" :decimal="1"/> {{ data.who_win }} </div>
+    <div class="flex flex-col items-center">
+        <div class="flex justify-center w-full">
+            <img class="w-8 h-8" src="/public/assets/logonew.png" />
         </div>
-        
-        <Pagination :page="page" :pages="pages" @page-change="facthGameWeeks" />
+        <div class="mt-2 w-full" v-if="datas">
+            <div class="notification cursor-pointer" v-for="data in datas" @click="seeDetailGameWeek(data)">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}</div>
+                <div class="notibody">ทีมที่ชนะเงินรางวัล
+                    <Numberformat class="text-green-400" :value="data.reward" :decimal="1" /> {{ data.who_win }}
+                </div>
+            </div>
+
+            <Pagination :page="page" :pages="pages" @page-change="facthGameWeeks" />
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -106,7 +114,7 @@ export default {
     inset: 0.65rem auto 0.65rem 0.5rem;
     border-radius: 0.125rem;
     background: var(--gradient);
-   
+
     z-index: 4;
 }
 
@@ -117,7 +125,7 @@ export default {
     padding: 0.65rem 0.25rem 0.4rem 1.25rem;
     font-weight: 500;
     font-size: 1rem;
-  
+
     z-index: 5;
 }
 
@@ -140,7 +148,7 @@ export default {
     transform: translate(-50%, -50%);
     background: radial-gradient(circle closest-side at center, white, transparent);
     opacity: 0;
-   
+
 }
 
 .notiglow {

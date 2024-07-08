@@ -5,7 +5,7 @@
             <!-- page 1 -->
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
-                    <img src="/public/assets/favicon-32x32.png" alt="icon" class="mr-1">
+                    <img src="/public/assets/logonew.png" alt="icon" class="mr-1 w-7 h-7">
                     <span class="mr-auto">เกมวีค {{ getGameWeek.week }}</span>
                     <button @click="toggleClass('all')" class="sc-iftxFb isQEzW">
                         รายชื่อผู้เล่น

@@ -43,7 +43,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <div class="rounded-full w-5 h-5  ">
-                        <img class="w-5 h-5 rounded-full" src="/public/assets/favicon-32x32.png" />
+                        <img class="w-5 h-5 rounded-full" src="/public/assets/logonew.png" />
                     </div>
                     <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
                         <DateFormatted :dateString="data.created_at" />

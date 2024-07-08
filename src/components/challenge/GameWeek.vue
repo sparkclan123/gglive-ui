@@ -27,17 +27,21 @@
             <table class="w-full min-w-max table-auto text-left">
                 <thead>
                     <tr>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
-                            <p
-                                class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                ชื่อทีม</p>
+                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
+                            <div class="flex items-center">
+                                <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
+                                <p
+                                    class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    ชื่อทีม
+                                </p>
+                            </div>
                         </th>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
                                 คะเเนน</p>
                         </th>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
+                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
                                 วันที่</p>

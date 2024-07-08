@@ -67,7 +67,7 @@
 
     <div class="flex justify-center mt-1">
       <div v-if="gameWeek.start_date > currentTime">
-        <span class="text-red-900 font-bold text-shadow-md ml-6">เริ่มจัดทีมได้ในอีก</span>
+        <span class="text-red-900 font-bold text-shadow-md ml-6"> เริ่มจัดทีมได้ในอีก</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'"/>
       </div>
       <div v-else>
@@ -167,7 +167,7 @@ export default {
 
 .bg-img {
   flex: 1 1 0%;
-  background-image: url('/public/assets/favicon-32x32.png'), url('/public/assets/bgChc.png');
+  background-image: url('/public/assets/logonew32x32.png'), url('/public/assets/bgChc.png');
   background-repeat: no-repeat, no-repeat;
   background-position: 5px 8px, right bottom;
   background-size: 35px 35px, 130px 75px;
