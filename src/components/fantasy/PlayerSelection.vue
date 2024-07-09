@@ -93,7 +93,7 @@
                             <Numberformat :value="player.price" :decimal="1" />
                         </td>
                         <td class=" py-1 px-2 border-b border-gray-400 text-gray-900"
-                            v-if="getGameWeekPercentPlayer[player.player_id]">
+                            v-if="getGameWeekPercentPlayer && getGameWeekPercentPlayer[player.player_id]">
                             <Numberformat :value="getGameWeekPercentPlayer[player.player_id]" :decimal="1" />%
                         </td>
                         <td class=" py-1 px-2 border-b border-gray-400 text-gray-900" v-else>0.0%</td>
@@ -104,7 +104,7 @@
                 </tbody>
             </table>
         </div>
-        <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" />
+        <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange"  />
     </div>
 </template>
 

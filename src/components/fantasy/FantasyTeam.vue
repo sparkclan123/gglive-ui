@@ -1,7 +1,7 @@
 <template>
-    <div class="dxRBog" v-if="getGameWeek && getGameWeek.status == 'active'">
+    <div class="dxRBog pb-4" v-if="getGameWeek && getGameWeek.status == 'active'" >
 
-        <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
+        <div :class="['kigSry', isToggled ? 'liIqzj' : '']" >
             <!-- page 1 -->
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
@@ -153,8 +153,8 @@
                 </div>
             </div>
             <!-- page 2 -->
-            <div :class="['cGcmaR', isToggled ? 'active' : '']">
-                <div class="eWuGMX">
+            <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 max-h-fit !overflow-y-hidden">
+                <div class="eWuGMX " >
                     <div class="sc-CrZHp hvBVYx">
                         <button @click="toggleClassBack" class="sc-iftxFb isQEzW">กลับ<div ml="1"
                                 class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="15"
@@ -165,7 +165,7 @@
                                 </svg></div></button>
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
-                        @showTeamLimitModal="alertTeamLimit" :position="position" />
+                        @showTeamLimitModal="alertTeamLimit" :position="position"  />
                 </div>
             </div>
         </div>
