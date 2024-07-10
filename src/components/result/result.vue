@@ -1,6 +1,9 @@
 <template>
     <div>
         <div class="flex justify-center items-center flex-col">
+            <div class="flex justify-center w-full mt-2">
+                <img class="w-8 h-8" src="/public/assets/logonew.png" />
+            </div>
             <div class="match-group" v-for="(matches, date) in groupedMatches" :key="date">
                 <div class="date m-2">{{ formatDate(date) }}</div>
                 <div class="match-results">

@@ -1,10 +1,10 @@
 <template>
     <div class="flex flex-col items-center">
-        <div class="flex justify-center w-full">
+        <div class="flex justify-center w-full m-1">
             <img class="w-8 h-8" src="/public/assets/logonew.png" />
         </div>
         <div class="mt-2 w-full" v-if="datas">
-            <div class="notification cursor-pointer" v-for="data in datas" @click="seeDetailGameWeek(data)">
+            <div class="notification cursor-pointer mb-2" v-for="data in datas" @click="seeDetailGameWeek(data)">
                 <div class="notiglow"></div>
                 <div class="notiborderglow"></div>
                 <div class="notititle">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}</div>
@@ -95,8 +95,8 @@ export default {
     overflow: hidden;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 16px;
-    --gradient: linear-gradient(to bottom, #1b7939, #32b05a, #80faa6);
-    --color: #eadbff
+    --gradient: linear-gradient(to bottom, #cdf4d9, #78e79b, #6fcf8d);
+    --color: #f3f3f3
 }
 
 .notification:before {
