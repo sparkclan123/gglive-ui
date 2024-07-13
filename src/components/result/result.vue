@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="flex justify-center items-center flex-col">
+        <!-- Your existing HTML for displaying results -->
+        <div class="flex flex-col items-center">
             <div class="flex justify-center w-full mt-2">
                 <img class="w-8 h-8" src="/public/assets/logonew.png" />
             </div>
@@ -12,9 +13,7 @@
                             <div>{{ truncateTeamName(match.team1) }}</div>
                         </div>
                         <div class="score-container">
-                            <!-- <img :src="getTeamImage(match.alt_ids_opta_1)" alt="Team 1" class="team-img"> -->
                             <div class="score">{{ match.score1 }} - {{ match.score2 }}</div>
-                            <!-- <img :src="getTeamImage(match.alt_ids_opta_2)" alt="Team 2" class="team-img"> -->
                         </div>
                         <div class="team-wrapper text-xs font-bold ml-2" style="justify-content: start;">
                             <div>{{ truncateTeamName(match.team2) }}</div>
@@ -27,14 +26,20 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import { api } from '@axios_inst';
-
 export default {
-    data() {
-        return {
-            matches: []
-        };
+    props: {
+        data: {
+            type: Object,
+            required: true
+        },
+        matches: {
+            type: Array,
+            required: true
+        },
+        fetchMatches: {
+            type: Function,
+            required: true
+        }
     },
     computed: {
         groupedMatches() {
@@ -49,35 +54,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions('loading', ['updateLoading']),
-        async fetchMatches() {
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/result', {
-                    headers: { Authorization: `Bearer ${access_token}` }
-                });
-                if (response.data.ok) {
-                    this.matches = response.data.matches.map(match => ({
-                        id: match.ID,
-                        date: match.DateVs,
-                        team1: match.Team1Name,
-                        score1: match.Score1,
-                        score2: match.Score2,
-                        team2: match.Team2Name,
-                        alt_ids_opta_1: match.Team1Code,
-                        alt_ids_opta_2: match.Team2Code
-                    }));
-                    setTimeout(() => {
-                        this.updateLoading(false);
-                    }, 50);
-                }
-            } catch (error) {
-                setTimeout(() => {
-                    this.updateLoading(false);
-                }, 50);
-                console.error('Error fetching matches:', error);
-            }
-        },
         truncateTeamName(name) {
             return name.length > 15 ? name.slice(0, 15) + '...' : name;
         },
@@ -88,62 +64,11 @@ export default {
             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
             return new Date(date).toLocaleDateString('en-GB', options);
         }
-    },
-    created() {
-        this.updateLoading(true);
-        this.fetchMatches();
     }
 };
 </script>
 
 <style scoped>
-.colot-h {
-    color: #1e1037;
-}
-
-.tabs {
-    display: flex;
-    font-size: 0.7rem;
-}
-
-.tab-item {
-    margin-right: 3px;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #37003c;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.tab-item.active {
-    background-color: white;
-    color: rgb(0, 0, 0);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.no-top-left-radius {
-    border-top-left-radius: 0;
-}
-
-.glow-border {
-    position: relative;
-}
-
-.glow-border::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, rgba(255, 255, 0, 0.6), rgba(255, 255, 0, 0.3));
-    z-index: -1;
-    filter: blur(4px);
-    opacity: 0.75;
-    border-radius: inherit;
-}
-
 .match-group {
     margin-bottom: 20px;
     width: 100%;
@@ -176,16 +101,6 @@ export default {
     width: 120px;
     text-align: center;
     white-space: nowrap;
-}
-
-.team {
-    margin-left: 5px;
-}
-
-.team-img {
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
 }
 
 .score-container {

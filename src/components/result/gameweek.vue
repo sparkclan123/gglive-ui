@@ -3,8 +3,8 @@
         <div class="flex justify-center w-full m-1">
             <img class="w-8 h-8" src="/public/assets/logonew.png" />
         </div>
-        <div class="mt-2 w-full" v-if="datas">
-            <div class="notification cursor-pointer mb-2" v-for="data in datas" @click="seeDetailGameWeek(data)">
+        <div class="mt-2 w-full" v-if="data.datas">
+            <div class="notification cursor-pointer mb-2" v-for="data in data.datas" @click="seeDetailGameWeek(data)">
                 <div class="notiglow"></div>
                 <div class="notiborderglow"></div>
                 <div class="notititle">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}</div>
@@ -12,33 +12,24 @@
                     <Numberformat class="text-green-400" :value="data.reward" :decimal="1" /> {{ data.who_win }}
                 </div>
             </div>
-
-            <Pagination :page="page" :pages="pages" @page-change="facthGameWeeks" />
+            <Pagination :page="data.page" :pages="data.pages" @page-change="fetchGameWeeks" />
         </div>
     </div>
-
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import { api } from '@axios_inst';
 export default {
-    name: 'result-game-week',
-
-    data() {
-        return {
-            datas: [],
-            total: 0,
-            page: 1,
-            limit: 10,
-            pages: 1,
-        };
-    },
-    components: {
-
+    props: {
+        data: {
+            type: Object,
+            required: true
+        },
+        fetchGameWeeks: {
+            type: Function,
+            required: true
+        }
     },
     methods: {
-        ...mapActions('loading', ['updateLoading']),
         seeDetailGameWeek(data) {
             this.$router.push({
                 name: 'result-list-gameweek',
@@ -46,40 +37,7 @@ export default {
                     gameWeekID: data.id
                 }
             });
-        },
-        async facthGameWeeks(page = 1, limit = 10) {
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get(`/premier-league/v1/game-week-all`, {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        page: page,
-                        limit: limit
-                    }
-                });
-                if (response.data.ok) {
-                    this.datas = response.data.data;
-                    this.total = response.data.total;
-                    this.page = response.data.page;
-                    this.limit = response.data.limit;
-                    this.pages = response.data.pages;
-                    this.updateLoading(false);
-                }
-            } catch (error) {
-                console.log(error);
-                this.updateLoading(false);
-            }
-        },
-
-    },
-    computed: {
-
-    },
-    created() {
-        this.updateLoading(true);
-        this.facthGameWeeks()
+        }
     }
 };
 </script>
