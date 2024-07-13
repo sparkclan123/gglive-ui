@@ -1,74 +1,91 @@
 <template>
     <div>
-        <div class="tabs rounded-t-lg ml-3 text-white  flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="activeTab = 'tab1'">เกมวีคปกติ
-            </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">เกมวีค VIP
-            </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">กติกา</div>
-
+        <div v-show="loading">
+            <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
-        <div class=" rounded-xl shadow-lg  min-h-screen  bg-white">
 
-            <div class="">
-                <div v-if="activeTab === 'tab1'">
-                    <ChallengeGameWeek />
+        <div >
+            <div class="tabs rounded-t-lg ml-3 text-white flex">
+                <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
                 </div>
-                <div v-if="activeTab === 'tab2'">
-                    <!-- Content for Tab 2 -->
-                    <div class="group duration-500  ">
-                        <div
-                            class=" relative rounded-md  h-36   bg-gradient-to-r from-zinc-900 to-zinc-700  text-gray-50 flex flex-col justify-center items-center gap-1 before:-skew-x-12  before:rounded-2xl  before:absolute before:content['']  before:bg-neutral-700 before:right-3 before:top-0 before:w-72 before:h-32 before:-z-10">
-                            <span class="text-3xl font-bold">Comming Soon VIP</span>
-                            <p class="text-amber-300 font-thin">- new game week VIP -</p>
-                        </div>
-                    </div>
+                <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">เกมวีค VIP
                 </div>
-                <div v-if="activeTab === 'tab3'">
-                    <!-- Content for Tab 3 -->
-                    <Rule />
-                </div>
-                
+                <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">กติกา</div>
+            </div>
+            <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
+                <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
+                    <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading"></component>
+                </transition>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import ChallengeGameWeek from '../../components/challenge/GameWeek.vue';
+import ChallengeGameWeekVip from '../../components/challenge/GameWeekVip.vue';
 import Rule from '../../components/rule/rule.vue';
+
 export default {
     name: 'challenge',
-
     data() {
         return {
-            activeTab: 'tab1'
+            activeTab: 'tab1',
+            loading: false
         };
     },
     components: {
         ChallengeGameWeek,
-        Rule
-    },
-    methods: {
-
-
+        ChallengeGameWeekVip,
+        Rule,
+        
     },
     computed: {
-
+        currentTabComponent() {
+            switch (this.activeTab) {
+                case 'tab1':
+                    return 'ChallengeGameWeek';
+                case 'tab2':
+                    return 'ChallengeGameWeekVip';
+                case 'tab3':
+                    return 'Rule';
+                default:
+                    return 'ChallengeGameWeek';
+            }
+        }
     },
-    created() {
-
+    methods: {
+        SetactiveTab(tab) {
+            this.activeTab = tab;
+        },
+        beforeEnter(el) {
+            el.style.transform = 'translateX(100%)';
+            el.style.opacity = 0;
+            requestAnimationFrame(() => {
+                el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                el.style.transform = 'translateX(0)';
+                el.style.opacity = 1;
+            });
+        },
+        leave(el, done) {
+            el.style.transform = 'translateX(0)';
+            el.style.opacity = 1;
+            requestAnimationFrame(() => {
+                el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                el.style.transform = 'translateX(-100%)';
+                el.style.opacity = 0;
+                setTimeout(done, 500);
+            });
+        },
+        setLoading(isLoading) {
+           
+            this.loading = isLoading;
+        }
     }
 };
 </script>
 
 <style scoped>
-.colot-h {
-    color: #1e1037;
-}
-
-
 .tabs {
     display: flex;
     font-size: 0.7rem;
@@ -81,7 +98,6 @@ export default {
     background-color: #37003c;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-
 }
 
 .tab-item.active {
@@ -91,25 +107,31 @@ export default {
     border-top-right-radius: 5px;
 }
 
-.no-top-left-radius {
-    border-top-left-radius: 0;
-}
-
-.glow-border {
+.tab-container {
     position: relative;
+    overflow: hidden;
 }
 
-.glow-border::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, rgba(255, 255, 0, 0.6), rgba(255, 255, 0, 0.3));
-    z-index: -1;
-    filter: blur(4px);
-    opacity: 0.75;
-    border-radius: inherit;
+.slide-enter-active,
+.slide-leave-active {
+    transition: all 2.1s ease;
+}
+
+.slide-enter, 
+.slide-leave-to {
+    opacity: 0;
+}
+
+.slide-enter {
+    transform: translateX(100%);
+}
+
+.slide-leave-active {
+    transform: translateX(-100%);
+}
+
+.slide-enter-to {
+    transform: translateX(0);
+    opacity: 1;
 }
 </style>

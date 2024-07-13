@@ -99,7 +99,9 @@ export default {
     methods: {
         ...mapActions('loading', ['updateLoading']),
         async facthPlayerListGameWeek(page = 1, limit = 10) {
+
             try {
+                this.$emit('set-loading', true);
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.get(`/premier-league/v1/challenge-list`, {
                     headers: {
@@ -111,6 +113,7 @@ export default {
                     }
                 });
                 if (response.data.ok) {
+
                     this.datas = response.data.data;
                     this.gameWeek = response.data.gameWeek;
                     this.season = response.data.season;
@@ -120,12 +123,16 @@ export default {
                     this.pages = response.data.pages;
                     this.maxTotalPoint = response.data.maxTotalPoint;
                     this.avgTotalPoint = response.data.avgTotalPoint;
-                    this.updateLoading(false);
+                    this.$emit('set-loading', false);
+
+                    // this.updateLoading(false);
                 }
             } catch (error) {
+                this.$emit('set-loading', false);
                 console.log(error);
-                this.updateLoading(false);
+                // this.updateLoading(false);
             }
+
         },
         seeDetail(id) {
             this.$router.push({
@@ -140,7 +147,6 @@ export default {
 
     },
     created() {
-        this.updateLoading(true);
         this.facthPlayerListGameWeek()
     }
 };
