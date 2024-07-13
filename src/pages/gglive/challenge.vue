@@ -4,7 +4,7 @@
             <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
 
-        <div >
+        <div>
             <div class="tabs rounded-t-lg ml-3 text-white flex">
                 <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
                 </div>
@@ -62,7 +62,7 @@ export default {
             el.style.transform = 'translateX(100%)';
             el.style.opacity = 0;
             requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease'; // Faster transition
                 el.style.transform = 'translateX(0)';
                 el.style.opacity = 1;
             });
@@ -71,14 +71,13 @@ export default {
             el.style.transform = 'translateX(0)';
             el.style.opacity = 1;
             requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease'; // Faster transition
                 el.style.transform = 'translateX(-100%)';
                 el.style.opacity = 0;
-                setTimeout(done, 500);
+                setTimeout(done, 200); // Adjust timeout to match the transition duration
             });
         },
         setLoading(isLoading) {
-           
             this.loading = isLoading;
         }
     }
@@ -114,7 +113,7 @@ export default {
 
 .slide-enter-active,
 .slide-leave-active {
-    transition: all 2.1s ease;
+    transition: all 0.3s ease; /* Faster transition */
 }
 
 .slide-enter, 

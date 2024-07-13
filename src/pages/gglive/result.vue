@@ -75,7 +75,7 @@ export default {
             el.style.transform = 'translateX(100%)';
             el.style.opacity = 0;
             requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
                 el.style.transform = 'translateX(0)';
                 el.style.opacity = 1;
             });
@@ -84,7 +84,7 @@ export default {
             el.style.transform = 'translateX(0)';
             el.style.opacity = 1;
             requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
                 el.style.transform = 'translateX(-100%)';
                 el.style.opacity = 0;
                 setTimeout(done, 500);
@@ -186,7 +186,7 @@ export default {
 
 .slide-enter-active,
 .slide-leave-active {
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 .slide-enter, 
