@@ -378,7 +378,7 @@ button {
   color: #333;
   border-radius: 0.25rem;
   transition: background-color 0.3s, color 0.3s;
-  background-color: #dccef1;
+  background-color: #d3d2d2;
 }
 
 .menu-link:hover {
