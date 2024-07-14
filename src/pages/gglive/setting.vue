@@ -26,7 +26,6 @@
                                             </path>
                                         </svg>
                                     </label>
-
                                 </div>
                             </div>
                         </div>
@@ -60,6 +59,8 @@
 <script>
 import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
+import heic2any from 'heic2any';
+
 export default {
     data() {
         return {
@@ -73,16 +74,36 @@ export default {
     },
     computed: {
         ...mapGetters('auth', ['userinfo']),
-        // truncatedUsername() {
-        //     return this.userinfo.Email.length > 20
-        //         ? this.userinfo.Email.substring(0, 20) + '...'
-        //         : this.userinfo.Email;
-        // }
     },
     methods: {
         ...mapActions('auth', ['facthUserInfo']),
-        onFileChange(event) {
+        async onFileChange(event) {
             this.selectedFile = event.target.files[0];
+            if (this.selectedFile) {
+                if (this.selectedFile.type === 'image/heic') {
+                    try {
+                        const blob = await heic2any({
+                            blob: this.selectedFile,
+                            toType: 'image/jpeg',
+                            quality: 0.7
+                        });
+                        this.selectedFile = new File([blob], this.selectedFile.name.replace(/\.[^.]+$/, '.jpeg'), { type: 'image/jpeg' });
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.profile.image_url = e.target.result;
+                        };
+                        reader.readAsDataURL(this.selectedFile);
+                    } catch (err) {
+                        console.error('Error converting HEIC to JPEG:', err);
+                    }
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.profile.image_url = e.target.result;
+                    };
+                    reader.readAsDataURL(this.selectedFile);
+                }
+            }
         },
         async updateProfile() {
             try {
@@ -133,7 +154,6 @@ export default {
     },
     mounted() {
         this.facthUserInfo();
-
     }
 };
 </script>
