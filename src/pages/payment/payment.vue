@@ -12,25 +12,56 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
-
+import { api } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
-   
+    data() {
+        return {
+            value: 1,
+        };
+    },
+
     components: {
-      
+
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-        buyTicketN() {
-            this.updateLoading(true);
-            setTimeout(() => {
-                this.updateLoading(false);
-            }, 2000);
+        async buyTicketN() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.post('/premier-league/v1/buy-ticket', {
+                    value: this.value
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+
+                }
+            } catch (error) {
+                Swal.fire({
+                    text: 'บันทึกไม่สำเร็จ' + error.response.data.error,
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+
+                console.log(error);
+            }
         },
     },
     computed: {
         ...mapGetters('loading', ['getLoading']),
-       
-      
+
+
     },
     mounted() {
 
@@ -110,7 +141,7 @@ export default {
     opacity: 0;
 }
 
-.content .logo-bottom-text  {
+.content .logo-bottom-text {
     position: absolute;
     left: 50%;
     top: 40%;
@@ -123,7 +154,7 @@ export default {
     /* letter-spacing: none; */
 }
 
-.content .logo-bottom-text1  {
+.content .logo-bottom-text1 {
     position: absolute;
     left: 50%;
     top: 45%;
