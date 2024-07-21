@@ -88,22 +88,55 @@ export default {
                             quality: 0.7
                         });
                         this.selectedFile = new File([blob], this.selectedFile.name.replace(/\.[^.]+$/, '.jpeg'), { type: 'image/jpeg' });
+                        this.resizeAndConvertImage(this.selectedFile);
+                    } catch (err) {
+                        console.error('Error converting HEIC to JPEG:', err);
+                    }
+                } else {
+                    this.resizeAndConvertImage(this.selectedFile);
+                }
+            }
+        },
+        resizeAndConvertImage(file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const maxWidth = 300;
+                    const maxHeight = 300;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob((blob) => {
+                        const newFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpeg'), { type: 'image/jpeg' });
+                        this.selectedFile = newFile;
                         const reader = new FileReader();
                         reader.onload = (e) => {
                             this.profile.image_url = e.target.result;
                         };
                         reader.readAsDataURL(this.selectedFile);
-                    } catch (err) {
-                        console.error('Error converting HEIC to JPEG:', err);
-                    }
-                } else {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        this.profile.image_url = e.target.result;
-                    };
-                    reader.readAsDataURL(this.selectedFile);
-                }
-            }
+                    }, 'image/jpeg', 0.8);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
         },
         async updateProfile() {
             try {
@@ -118,7 +151,12 @@ export default {
                             'Authorization': `Bearer ${access_token}`
                         }
                     });
-                    this.profile.image_url = uploadResponse.data.image_url;
+                    if (uploadResponse.data.ok) {
+                        this.profile.image_url = uploadResponse.data.image_url;
+                    } else {
+                        alert('Error uploading profile image', uploadResponse.data.error);
+                        return;
+                    }
                 }
 
                 await api.post('/premier-league/v1/user-update', {
