@@ -159,17 +159,20 @@ export default {
                     }
                 }
 
-                await api.post('/premier-league/v1/user-update', {
+                const updateData = {
                     name: this.profile.name,
                     phone: this.profile.phone,
-                    image_url: this.profile.image_url
-                },
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${access_token}`
-                        }
+                };
+
+                if (this.selectedFile) {
+                    updateData.image_url = this.profile.image_url;
+                }
+
+                await api.post('/premier-league/v1/user-update', updateData, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
                     }
-                );
+                });
                 alert('Profile updated successfully');
             } catch (error) {
                 console.error('Error updating profile:', error);
