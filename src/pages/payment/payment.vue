@@ -1,28 +1,31 @@
 <template>
-    <div class="card mt-2" @click="buyTicketN()">
-        <div class="border"></div>
-        <div class="content">
-            <span class="logo-bottom-text"><i class="fas fa-ticket-alt text-gray-400"></i> PUDEE </span>
-            <span class="logo-bottom-text1">ตั๋วปกติ 100 บาท </span>
+    <div>
+        <div class="card mt-2" @click="buyTicketN()">
+            <div class="border"></div>
+            <div class="content">
+                <span class="logo-bottom-text"><i class="fas fa-ticket-alt text-gray-400"></i> PUDEE </span>
+                <span class="logo-bottom-text1">ตั๋วปกติ 100 บาท </span>
+            </div>
+            <span class="bottom-text">คลิกเพื่อชำระเงิน</span>
         </div>
-        <span class="bottom-text">คลิกเพื่อชำระเงิน</span>
+        <div v-if="qrCode">
+            <h2>Scan the QR Code to Pay</h2>
+            <img :src="`data:image/svg+xml;base64,${qrCode}`" alt="QR Code">
+        </div>
     </div>
 </template>
 
 <script>
-
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
+
 export default {
     data() {
         return {
             value: 1,
+            qrCode: null, // เพิ่มตัวแปรนี้เพื่อเก็บ base64 QR code
         };
-    },
-
-    components: {
-
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
@@ -37,7 +40,7 @@ export default {
                     }
                 });
                 if (response.data.ok) {
-
+                    this.qrCode = response.data.qrCodeBase64; // เก็บ base64 QR code
                 }
             } catch (error) {
                 Swal.fire({
@@ -58,16 +61,9 @@ export default {
             }
         },
     },
-    computed: {
-        ...mapGetters('loading', ['getLoading']),
-
-
-    },
-    mounted() {
-
-    },
 };
 </script>
+
 <style scoped>
 .card {
     height: 140px;
@@ -77,25 +73,20 @@ export default {
     place-content: center;
     border-radius: 10px;
     overflow: hidden;
-
 }
-
 #logo-main,
 #logo-second {
     height: 100%;
 }
-
 #logo-main {
     fill: #bd9f67;
 }
-
 #logo-second {
     padding-bottom: 10px;
     fill: none;
     stroke: #bd9f67;
     stroke-width: 1px;
 }
-
 .border {
     position: absolute;
     inset: 0px;
@@ -103,7 +94,6 @@ export default {
     opacity: 0;
     transform: rotate(10deg);
 }
-
 .bottom-text {
     position: absolute;
     left: 50%;
@@ -117,22 +107,17 @@ export default {
     opacity: 0;
     letter-spacing: 7px;
 }
-
-
 .content .logo {
     height: 35px;
     position: relative;
     width: 33px;
     overflow: hidden;
 }
-
 .content .logo .logo1 {
     height: 33px;
     position: absolute;
     left: 0;
 }
-
-
 .content .logo .trail {
     position: absolute;
     right: 0;
@@ -140,7 +125,6 @@ export default {
     width: 100%;
     opacity: 0;
 }
-
 .content .logo-bottom-text {
     position: absolute;
     left: 50%;
@@ -150,10 +134,8 @@ export default {
     color: #bd9f67;
     padding-left: 8px;
     font-size: 18px;
-
     /* letter-spacing: none; */
 }
-
 .content .logo-bottom-text1 {
     position: absolute;
     left: 50%;
@@ -163,28 +145,21 @@ export default {
     color: #bd9f67;
     padding-left: 8px;
     font-size: 15px;
-
     /* letter-spacing: none; */
 }
-
-
-
 .card .logo {
     width: 134px;
 }
-
 .card .border {
     inset: 15px;
     opacity: 1;
     transform: rotate(0);
     border-radius: 10px;
 }
-
 .card .bottom-text {
     letter-spacing: 3px;
     opacity: 1;
 }
-
 .card .content .logo-bottom-text {
     letter-spacing: 1.5px;
 }
