@@ -38,7 +38,7 @@
                         </g>
                     </svg>
                 </button>
-                <button aria-label="Log in with Twitter" class="icon" @click="loginWithFacebook">
+                <!-- <button aria-label="Log in with Twitter" class="icon" @click="loginWithFacebook">
                     <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
                         width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -57,7 +57,7 @@
                         <g />
                         <g />
                     </svg>
-                </button>
+                </button> -->
                 <button aria-label="Log in with GitHub" class="icon" @click="loginWithLine">
                     <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
                         <g id="_x32_00-line">
