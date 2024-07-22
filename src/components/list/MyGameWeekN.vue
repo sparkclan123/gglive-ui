@@ -51,7 +51,7 @@ export default {
             try {
                 this.$emit('set-loading', true);
                 const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/game-week-player-user', {
+                const response = await api.get('/premier-league/v1/game-week-player-user-n', {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
                     },
@@ -78,7 +78,7 @@ export default {
                 return;
             }
             let id = data.id;
-            this.$router.push({ name: 'pitch-detail', params: { id } });
+            this.$router.push({ name: 'pitch-detail-n', params: { id } });
         },
     },
     created() {
