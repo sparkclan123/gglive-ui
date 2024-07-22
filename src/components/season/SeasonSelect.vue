@@ -59,7 +59,7 @@
             <span class="big-text text-green-500">
               <NumberDisplay :number="gameWeek.reward" />
             </span>
-            <span class="regular-text text-green-500">เงินรางวัลสูงสุด</span>
+            <span class="regular-text text-green-500">รางวัล</span>
           </div>
         </div>
       </div>

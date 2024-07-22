@@ -1,8 +1,7 @@
 <template>
     <div>
-        <div class="lg:w-[80%] md:w-[90%] xs:w-[96%] mx-auto flex gap-4">
-            <div
-                class="lg:w-[88%] md:w-[80%] sm:w-[88%] xs:w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
+        <div class=" mx-auto flex gap-4">
+            <div class="w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
                 <div>
                     <h1
                         class="lg:text-xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">
@@ -46,7 +45,7 @@
                                     placeholder="080xxxxxxx" id="phone">
                             </div>
                         </div>
-                        <div class="w-full rounded-lg bg-green-500 mt-4 text-white text-lg font-semibold">
+                        <div class="w-full rounded-lg bg-green-500 mt-2 text-white text-lg font-semibold">
                             <button type="submit" class="w-full p-4">บันทึก</button>
                         </div>
                     </form>
@@ -60,7 +59,7 @@
 import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
 import heic2any from 'heic2any';
-
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -139,6 +138,27 @@ export default {
             reader.readAsDataURL(file);
         },
         async updateProfile() {
+
+            const result = await Swal.fire({
+                title: 'กรุณาอ่าน!',
+                text: 'คุณต้องการบันทึกข้อมูลใช่หรือไม่',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ยืนยัน',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+
+            if (!result.isConfirmed) {
+                return;
+            }
+
             try {
                 const access_token = localStorage.getItem('access_token');
                 if (this.selectedFile) {
@@ -154,7 +174,21 @@ export default {
                     if (uploadResponse.data.ok) {
                         this.profile.image_url = uploadResponse.data.image_url;
                     } else {
-                        alert('Error uploading profile image', uploadResponse.data.error);
+                        Swal.fire({
+                            text: 'Error uploading profile image',
+                            showCancelButton: true,
+                            cancelButtonText: 'ยกเลิก',
+                            showConfirmButton: false,
+                            customClass: {
+                                cancelButton: 'btn-cancel',
+                                popup: 'popup-custom',
+                                title: 'text-custom',
+                                htmlContainer: 'text-custom'
+                            },
+                            buttonsStyling: false,
+                        });
+                        console.error('Error uploading profile image:', uploadResponse.data.error);
+                        // alert('Error uploading profile image', uploadResponse.data.error);
                         return;
                     }
                 }
@@ -173,9 +207,35 @@ export default {
                         'Authorization': `Bearer ${access_token}`
                     }
                 });
-                alert('Profile updated successfully');
+                Swal.fire({
+                    text: 'อัพเดทข้อมูลสำเร็จ',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยืนยัน',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                // alert('Profile updated successfully');
             } catch (error) {
                 console.error('Error updating profile:', error);
+                Swal.fire({
+                    text: 'Error updating profile',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
             }
         }
     },

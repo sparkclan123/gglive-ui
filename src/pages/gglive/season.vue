@@ -10,11 +10,11 @@
 
         <!-- Tabs -->
         <div class="tabs rounded-t-lg   flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="activeTab = 'tab1'">เกมวีคปกติ
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="activeTab = 'tab2'">เกมวีค VIP
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">เกมวีค VIP
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="activeTab = 'tab3'">กติกา</div>
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">กติกา</div>
         </div>
 
         <!-- Content -->
@@ -56,6 +56,10 @@ export default {
     methods: {
         // ...mapActions('loading', ['updateLoading']),
         // ...mapActions('season', ['fetchSeasons']),
+        SetactiveTab(tab) {
+            this.activeTab = tab;
+            localStorage.setItem('season-select-tab', tab);
+        },
         ruleSeasonChallenge() {
             // Implement your logic here
         },
@@ -72,6 +76,10 @@ export default {
         // ...mapGetters('season', ['getSeasons'])
     },
     created() {
+        let has_result_tab = localStorage.getItem('season-select-tab');
+        if (has_result_tab) {
+            this.activeTab = has_result_tab;
+        }
         // this.updateLoading(true);
         // this.getSeason();
     }
@@ -108,4 +116,5 @@ export default {
 .no-top-left-radius {
     border-top-left-radius: 0;
 }
+
 </style>

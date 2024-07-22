@@ -231,7 +231,6 @@ export default {
     background: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 85%) 15% 55%, hsl(0, 0%, 70%) 70%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: "Courier Prime", monospace;
     filter: drop-shadow(0 0.05rem hsla(0, 0%, 0%, 0.3));
 }
 
@@ -260,7 +259,7 @@ export default {
 
 .card__exp-date,
 .card__name {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
 }
 
 .card__exp-date {

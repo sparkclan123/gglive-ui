@@ -318,7 +318,7 @@ export default {
                 inputPlaceholder: 'กรุณาใส่ชื่อทีมของคุณ',
                 showCancelButton: true,
                 cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ยืนยัน (1ตั๋วเงิน)',
+                confirmButtonText: 'ยืนยัน',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',

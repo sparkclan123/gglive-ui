@@ -8,6 +8,9 @@
                 <div class="notiglow"></div>
                 <div class="notiborderglow"></div>
                 <div class="notititle">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}</div>
+                <div class="notibody">
+                    เกมวีคปกติ
+                </div>
             </div>
             <Pagination :page="data.page" :pages="data.pages" @page-change="fetchGameWeeks" />
         </div>
@@ -48,7 +51,6 @@ export default {
     height: 70px;
     border-radius: 1rem;
     overflow: hidden;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 16px;
     --gradient: linear-gradient(to bottom, #cdf4d9, #78e79b, #6fcf8d);
     --color: #f3f3f3;
@@ -76,7 +78,6 @@ export default {
 .notititle {
     color: var(--color);
     padding: 0.65rem 0.25rem 0.4rem 1.25rem;
-    font-weight: 500;
     font-size: 1rem;
     z-index: 5;
 }

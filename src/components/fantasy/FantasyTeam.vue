@@ -6,7 +6,7 @@
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
                     <img src="/public/assets/logonew.png" alt="icon" class="mr-1 w-7 h-7">
-                    <span class="mr-auto">เกมวีค {{ getGameWeek.week }}</span>
+                    <span class="mr-auto">เกมวีค {{ getGameWeek.week }} <i class="fas fa-ticket-alt text-yellow-400"></i> <span class="text-yellow-400 text-xs">x 1</span></span>
                     <button @click="toggleClass('all')" class="sc-iftxFb isQEzW">
                         รายชื่อผู้เล่น
                         <div ml="1" class="sc-csKJxZ dviEZq">
@@ -319,7 +319,7 @@ export default {
                 inputPlaceholder: 'กรุณาใส่ชื่อทีมของคุณ',
                 showCancelButton: true,
                 cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ยืนยัน (1ตั๋วเงิน)',
+                confirmButtonText: 'ยืนยัน (x1ตั๋ว)',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
