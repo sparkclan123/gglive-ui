@@ -78,7 +78,7 @@
         <Pagination :page="page" :pages="pages" @page-change="facthPlayerListGameWeek" />
     </div>
     <div v-else>
-        <div class="group duration-500  ">
+        <div v-show="showCommingSoon" class="group duration-500  ">
             <div
                 class=" relative rounded-md  h-36   bg-gradient-to-r from-zinc-900 to-zinc-700  text-gray-50 flex flex-col justify-center items-center gap-1 before:-skew-x-12  before:rounded-2xl  before:absolute before:content['']  before:bg-neutral-700 before:right-3 before:top-0 before:w-72 before:h-32 before:-z-10">
                 <span class="text-3xl font-bold">Comming Soon </span>
@@ -94,6 +94,7 @@ import { api } from '@axios_inst';
 export default {
     data() {
         return {
+            showCommingSoon: false,
             season: null,
             gameWeek: null,
             maxTotalPoint: 0,
@@ -134,12 +135,20 @@ export default {
                     this.avgTotalPoint = response.data.avgTotalPoint;
                     this.$emit('set-loading', false);
 
+                    if (this.gameWeek === null){
+                        setTimeout(() => {
+                            this.showCommingSoon = true;
+                        }, 5000);
+                    }
+
                     // this.updateLoading(false);
                 }
             } catch (error) {
                 console.log('error', error);
                 this.$emit('set-loading', false);
-
+                setTimeout(() => {
+                    this.showCommingSoon = true;
+                }, 1000);
                 // this.updateLoading(false);
             }
 

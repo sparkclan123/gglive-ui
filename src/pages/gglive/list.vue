@@ -1,126 +1,134 @@
 <template>
-    <div v-if="userinfo">
-        <div class="card">
-            <div class="card__info">
-                <div class="card__logo">
-
-                    <span class="left">
-
-                        รายการ ทีมของคุณ
-                    </span>
-                    <span class="right">คะเเนนสะสม</span>
-                </div>
-                <div class="card__type mt-1 text-green-500">0</div>
-                <div class="card__number">
-
-                </div>
-                <div class="card__valid-thru" aria-label="Valid thru"></div>
-                <div class="card__exp-date"><time datetime="2038-01"></time></div>
-
-                <div class="logo-container mt-4">
-                    <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
-                        class="logo rounded-full shadow-lg">
-
-                </div>
-                <div class="card__name mt-4 ml-1" aria-label="Dee Stroyer">{{ truncatedUsername }}</div>
-
-                <button
-                    class="card__vendor bg-green-500 hover:bg-green-700 text-gray-700 font-bold py-1 px-2 rounded text-xs ">
-                    เเลกคะเเนน
-                </button>
-
-            </div>
+    <div>
+        <div v-show="loading">
+            <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
-        <!-- component -->
-        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
-            v-for="data in datas" @click="seeDetailAndEdit(data)">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <div class=" w-7 h-7  ">
-                        <img class="w-7 h-7 " src="/public/assets/logonew.png" />
+        <div v-if="userinfo">
+            <div class="card">
+                <div class="card__info">
+                    <div class="card__logo">
+
+                        <span class="left">
+
+                            รายการ ทีมของคุณ
+                        </span>
+                        <span class="right">คะเเนนสะสม</span>
                     </div>
-                    <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
-                        <DateFormatted :dateString="data.created_at" />
+                    <div class="card__type mt-1 text-green-500">0</div>
+                    <div class="card__number">
+
                     </div>
+                    <div class="card__valid-thru" aria-label="Valid thru"></div>
+                    <div class="card__exp-date"><time datetime="2038-01"></time></div>
+
+                    <div class="logo-container mt-4">
+                        <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
+                            class="logo rounded-full shadow-lg">
+
+                    </div>
+                    <div class="card__name mt-4 ml-1" aria-label="Dee Stroyer">{{ truncatedUsername }}</div>
+
+                    <button
+                        class="card__vendor bg-green-500 hover:bg-green-700 text-gray-700 font-bold py-1 px-2 rounded text-xs ">
+                        เเลกคะเเนน
+                    </button>
+
                 </div>
-                <div class="flex items-center space-x-4" v-if="data.is_vip">
-                    <div class="text-orange-600 font-bold cursor-pointer">
+            </div>
+            <div>
+                <div class="tabs rounded-t-lg ml-3 text-white flex">
+                    <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">
+                        เกมวีคปกติ
+                    </div>
+                    <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
+                        เกมวีค
                         VIP
                     </div>
                 </div>
-            </div>
-            <div class="flex items-center justify-between">
-                <div class="mt-4 text-gray-800  text-xs space-x-4">
-                    ชื่อทีม: {{ data.name }}
-                </div>
-                <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
-                    คะเเนนรวม: <span class="text-green-800"> {{ data.total_point }} </span>
+                <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
+                    <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
+                        <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading"></component>
+                    </transition>
                 </div>
             </div>
         </div>
-        <Pagination :page="page" :pages="pages" @page-change="fetchDataMyGameWeek" />
     </div>
+    <!-- component -->
+
 </template>
 
 <script>
 import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
+import MyGameWeekN from '../../components/list/MyGameWeekN.vue';
+import MyGameWeek from '../../components/list/MyGameWeek.vue';
 export default {
     data() {
         return {
-            datas: [],
-            total: 0,
-            page: 1,
-            limit: 10,
-            pages: 1,
+            activeTab: 'tab1',
+            loading: false,
         };
+    },
+    components: {
+        MyGameWeek,
+        MyGameWeekN,
     },
     computed: {
         ...mapGetters('auth', ['userinfo']),
         truncatedUsername() {
-            return this.userinfo.Email.length > 20
-                ? this.userinfo.Email.substring(0, 20) + '..'
-                : this.userinfo.Email;
+            let name = '';
+            if (this.userinfo.Email && this.userinfo.Email.length > 0) {
+                name = this.userinfo.Email;
+            } else {
+                name = this.userinfo.Username;
+            }
+            return name.length > 20
+                ? name.substring(0, 20) + '..'
+                : name;
         },
+        currentTabComponent() {
+            switch (this.activeTab) {
+                case 'tab1':
+                    return 'MyGameWeekN';
+                case 'tab2':
+                    return 'MyGameWeek';
+                default:
+                    return 'MyGameWeekN';
+            }
+        }
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-        async fetchDataMyGameWeek(page = 1, limit = 10) {
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/game-week-player-user', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        page: page,
-                        limit: limit
-                    }
-                });
-                if (response.data.ok) {
-                    this.datas = response.data.data;
-                    this.total = response.data.total;
-                    this.page = response.data.page;
-                    this.limit = response.data.limit;
-                    this.pages = response.data.pages;
-                    this.updateLoading(false);
-                }
-            } catch (error) {
-                console.log(error);
-                this.updateLoading(false);
-            }
+        SetactiveTab(tab) {
+            this.activeTab = tab;
         },
-        seeDetailAndEdit(data) {
-            if (!data) {
-                return;
-            }
-            let id = data.id;
-            this.$router.push({ name: 'pitch-detail', params: { id } });
+        beforeEnter(el) {
+            el.style.transform = 'translateX(100%)';
+            el.style.opacity = 0;
+            requestAnimationFrame(() => {
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease'; // Faster transition
+                el.style.transform = 'translateX(0)';
+                el.style.opacity = 1;
+            });
         },
+        leave(el, done) {
+            el.style.transform = 'translateX(0)';
+            el.style.opacity = 1;
+            requestAnimationFrame(() => {
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease'; // Faster transition
+                el.style.transform = 'translateX(-100%)';
+                el.style.opacity = 0;
+                setTimeout(done, 200); // Adjust timeout to match the transition duration
+            });
+        },
+        setLoading(isLoading) {
+            this.loading = isLoading;
+        },
+
+
     },
     created() {
-        this.updateLoading(true);
-        this.fetchDataMyGameWeek();
+
     },
 
 };
@@ -297,5 +305,55 @@ export default {
     position: relative;
     width: 40px;
     height: 40px;
+}
+
+.tabs {
+    display: flex;
+    font-size: 0.7rem;
+}
+
+.tab-item {
+    margin-right: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #37003c;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.tab-item.active {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.tab-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: all 0.3s ease;
+    /* Faster transition */
+}
+
+.slide-enter,
+.slide-leave-to {
+    opacity: 0;
+}
+
+.slide-enter {
+    transform: translateX(100%);
+}
+
+.slide-leave-active {
+    transform: translateX(-100%);
+}
+
+.slide-enter-to {
+    transform: translateX(0);
+    opacity: 1;
 }
 </style>
