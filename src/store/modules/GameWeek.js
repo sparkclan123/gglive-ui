@@ -5,7 +5,8 @@ const selectGameWeek = {
     state: {
         gameWeek: null,
         gameWeekPlayer: null,
-        gameWeekPercentPlayer: null
+        gameWeekPercentPlayer: null,
+        gameWeekPercentPlayerN: null
     },
     getters: {
         getGameWeek(state) {
@@ -16,6 +17,9 @@ const selectGameWeek = {
         },
         getGameWeekPercentPlayer(state) {
             return state.gameWeekPercentPlayer;
+        },
+        getGameWeekPercentPlayerN(state) {
+            return state.gameWeekPercentPlayerN;
         }
 
     },
@@ -28,6 +32,9 @@ const selectGameWeek = {
         },
         setGameWeekPercentPlayer(state, gameWeekPercentPlayer) {
             state.gameWeekPercentPlayer = gameWeekPercentPlayer;
+        },
+        setGameWeekPercentPlayerN(state, gameWeekPercentPlayerN) {
+            state.gameWeekPercentPlayerN = gameWeekPercentPlayerN;
         },
 
 
@@ -42,6 +49,9 @@ const selectGameWeek = {
         },
         async setGameWeekPlayerPercent({ commit }, gameWeekPercentPlayer) {
             commit('setGameWeekPercentPlayer', gameWeekPercentPlayer);
+        },
+        async setGameWeekPlayerPercentN({ commit }, gameWeekPercentPlayerN) {
+            commit('setGameWeekPercentPlayerN', gameWeekPercentPlayerN);
         }
 
     }

@@ -8,9 +8,7 @@
                 <div class="notiglow"></div>
                 <div class="notiborderglow"></div>
                 <div class="notititle">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}</div>
-                <div class="notibody">ทีมที่ชนะเงินรางวัล
-                    <Numberformat class="text-green-400" :value="data.reward" :decimal="1" /> {{ data.who_win }}
-                </div>
+                
             </div>
             <Pagination :page="data.page" :pages="data.pages" @page-change="fetchGameWeeks" />
         </div>
@@ -32,7 +30,7 @@ export default {
     methods: {
         seeDetailGameWeek(data) {
             this.$router.push({
-                name: 'result-list-gameweek',
+                name: 'result-list-gameweek-n',
                 params: {
                     gameWeekID: data.id
                 }

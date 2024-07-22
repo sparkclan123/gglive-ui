@@ -4,11 +4,8 @@
             <div class="container mx-auto flex justify-center items-center relative" @click="facthTicket()">
                 <img src="/public/assets/logo.webp" alt="Logo" class="h-10">
                 <div class="absolute right-0 flex items-center  mr-4">
-                    <i class="fas fa-ticket-alt text-gray-400"></i>
-                    <span class="ml-1 mr-2 text-gray-200 text-xs">{{ getTicket }}</span>
-
                     <i class="fas fa-ticket-alt text-yellow-400"></i>
-                    <span class="ml-1 text-yellow-200 text-xs">0</span>
+                    <span class="ml-1 mr-2 text-yellow-200 text-xs">{{ getTicket }}</span>
                 </div>
              
             </div>

@@ -3,8 +3,8 @@
         <div class="tabs rounded-t-lg ml-3 text-white flex">
             <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">โปรเเกรม
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">รายการย้อนหลัง(ปกติ)</div>
-            <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">ย้อนหลัง(ปกติ)</div> -->
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">รายการ(ปกติ)</div>
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">รายการ(VIP)</div>
         </div>
         <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
             <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
@@ -17,6 +17,8 @@
 <script>
 import Result from '../../components/result/result.vue';
 import ResultGameweek from '../../components/result/gameweek.vue';
+import ResultGameweekVip from '../../components/result/gameweekVip.vue';
+
 import { api } from '@axios_inst';
 import { mapActions } from 'vuex';
 
@@ -38,7 +40,8 @@ export default {
     },
     components: {
         Result,
-        ResultGameweek
+        ResultGameweek,
+        ResultGameweekVip
     },
     computed: {
         currentTabComponent() {
@@ -48,7 +51,7 @@ export default {
                 case 'tab2':
                     return 'ResultGameweek';
                 case 'tab3':
-                    return 'ResultGameweek';
+                    return 'ResultGameweekVip';
                 default:
                     return 'Result';
             }

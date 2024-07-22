@@ -36,12 +36,12 @@
                                 </p>
                             </div>
                         </th>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
+                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
                                 คะเเนน</p>
                         </th>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
+                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
                                 วันที่</p>
@@ -60,11 +60,11 @@
                                     {{ data.name }}</p>
                             </div>
                         </td>
-                        <td class="p-1 border-b border-blue-gray-50 pl-4">
+                        <td class="p-1 border-b border-blue-gray-50 pl-4 text-left">
                             <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
                                 {{ data.total_point }}</p>
                         </td>
-                        <td class="p-1 border-b border-blue-gray-50">
+                        <td class="p-1 border-b border-blue-gray-50 text-left">
                             <p
                                 class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
                                 <DateFormatted :dateString="data.created_at" />
@@ -112,7 +112,7 @@ export default {
             try {
                 this.$emit('set-loading', true);
                 const access_token = localStorage.getItem('access_token');
-                const response = await api.get(`/premier-league/v1/challenge-list`, {
+                const response = await api.get(`/premier-league/v1/challenge-list-n`, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
                     },
@@ -146,7 +146,7 @@ export default {
         },
         seeDetail(id) {
             this.$router.push({
-                name: 'challenge-detail',
+                name: 'challenge-detail-n',
                 params: {
                     id: id
                 }

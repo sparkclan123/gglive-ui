@@ -8,18 +8,24 @@ import Login from '../pages/login.vue';
 import Home from '../pages/home.vue';
 import SeasonSelect from '../pages/gglive/season.vue';
 import GgLive from '../pages/gglive/index.vue';
+import GgLiveDetail from '../pages/gglive-detail/gglive-detail.vue';
 import List from '../pages/gglive/list.vue';
 import Challenge from '../pages/gglive/challenge.vue';
 import Result from '../pages/gglive/result.vue';
 import ResultlistGameWeek from '../pages/gglive/result-gameweek-list.vue';
+import ResultlistGameWeekN from '../pages/gglive/result-gameweek-list-n.vue';
 import News from '../pages/gglive/news.vue';
 import Payments from '../pages/payment/payment.vue';
 
 
 import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
-import GgLiveDetail from '../pages/gglive-detail/gglive-detail.vue';
+import ChallengeDetailN from '../pages/gglive-detail/challenge-detail-n.vue';
+
 
 import Setting from '../pages/gglive/setting.vue';
+
+import GgLiveN from '../pages/gglive/indexn.vue';
+import GgLiveDetailN from '../pages/gglive-detail/gglive-detail-n.vue';
 
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
@@ -57,6 +63,11 @@ const routes = [
                 component: GgLive,
             },
             {
+                path: 'pitch-n/:seasonID/:gameWeekID',
+                name: 'pitch-n',
+                component: GgLiveN,
+            },
+            {
                 path: 'list',
                 name: 'list',
                 component: List,
@@ -66,16 +77,26 @@ const routes = [
                 name: 'challenge',
                 component: Challenge,
             },
-            
+
             {
                 path: 'pitch-detail/:id',
                 name: 'pitch-detail',
                 component: GgLiveDetail,
             },
             {
+                path: 'pitch-detail-n/:id',
+                name: 'pitch-detail-n',
+                component: GgLiveDetailN,
+            },
+            {
                 path: 'challenge-detail/:id',
                 name: 'challenge-detail',
                 component: ChallengeDetail,
+            },
+            {
+                path: 'challenge-detail-n/:id',
+                name: 'challenge-detail-n',
+                component: ChallengeDetailN,
             },
             {
                 path: 'news',
@@ -93,6 +114,11 @@ const routes = [
                 name: 'result-list-gameweek',
                 component: ResultlistGameWeek,
             },
+            {
+                path: 'result-list-gameweek-n/:gameWeekID',
+                name: 'result-list-gameweek-n',
+                component: ResultlistGameWeekN,
+            },
 
             {
                 path: 'payments',
@@ -105,9 +131,9 @@ const routes = [
                 name: 'setting',
                 component: Setting,
             },
-            
+
         ],
-    }, 
+    },
     {
         path: '/:pathMatch(.*)*',
         component: NotFound,

@@ -40,7 +40,7 @@
             WEEK{{ gameWeek.week }}
           </div>
           <div class="social-media">
-            <i class="fas fa-ticket-alt text-gray-400"></i>
+
           </div>
         </div>
       </div>
@@ -68,14 +68,14 @@
     <div class="flex justify-center mt-1">
       <div v-if="gameWeek.start_date > currentTime">
         <span class="text-red-900 font-bold text-shadow-md ml-6"> เริ่มจัดทีมได้ในอีก</span>
-        <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'"/>
+        <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'" />
       </div>
       <div v-else>
         <span class="text-green-900 font-bold text-shadow-md ml-6">เหลือเวลาจัดทีมอีก</span>
-        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" :classadj="'text-green-900'"/>
+        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" :classadj="'text-green-900'" />
       </div>
     </div>
-    
+
   </div>
   <div v-else class="group duration-500  ">
     <div
@@ -89,6 +89,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { api } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
   name: 'CardSeason',
   data() {
@@ -105,9 +106,25 @@ export default {
     ...mapActions('selectGameWeek', ['setGameWeek']),
     ...mapActions('season', ['fetchSeasons']),
     selectSeason() {
+      if (this.myTeam > 0) {
+        Swal.fire({
+          text: 'คุณได้ทำการสร้างทีมของสัปดาห์นี้แล้ว',
+          showCancelButton: true,
+          cancelButtonText: 'ยกเลิก',
+          showConfirmButton: false,
+          customClass: {
+            cancelButton: 'btn-cancel',
+            popup: 'popup-custom',
+            title: 'text-custom',
+            htmlContainer: 'text-custom'
+          },
+          buttonsStyling: false,
+        });
+        return;
+      }
       let seasonID = this.getSeasons.id;
       let gameWeekID = this.gameWeek.id;
-      this.$router.push({ name: 'pitch', params: { seasonID, gameWeekID } })
+      this.$router.push({ name: 'pitch-n', params: { seasonID, gameWeekID } })
     },
     ruleSeasonChallenge() {
       // Implement your logic here
@@ -115,7 +132,7 @@ export default {
     async getGameWeek() {
       try {
         const access_token = localStorage.getItem('access_token');
-        const response = await api.get('/premier-league/v1/game-week', {
+        const response = await api.get('/premier-league/v1/game-week-n', {
           headers: {
             'Authorization': `Bearer ${access_token}`
           }
