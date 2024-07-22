@@ -20,7 +20,7 @@
                 <span class="title text-green-500">{{ getMain.total_point }} คะเเนน</span>
                 <div class="row row1">
                     <div class="item">
-                        <span class="big-text text-gray-200">เกมวีค{{ getMain.week }}</span>
+                        <span class="big-text text-gray-200">เกมวีค{{ getMain.week }} <i class="fas fa-ticket-alt text-yellow-400"></i> </span>
                         <span class="regular-text text-gray-200">(คะเเนน)</span>
                     </div>
                     <div class="item">

@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
+        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer" style="background: rgb(255 254 251);;"
             v-for="data in datas" @click="seeDetailAndEdit(data)">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
                     <div class=" w-7 h-7  ">
                         <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                     </div>
-                    <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
+                    <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }} <i class="fas fa-ticket-alt text-yellow-400"></i>
                         <DateFormatted :dateString="data.created_at" />
                     </div>
                 </div>

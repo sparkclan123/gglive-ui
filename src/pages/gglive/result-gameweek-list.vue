@@ -20,7 +20,7 @@
             </div>
             <div class="bottom-section">
 
-                <span class="titlesm text-sm text-yellow-300">เงินรางวัลอันดับ 1</span>
+                <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
                 <span class="title text-green-500">
                     <NumberDisplay :number="gameWeek.reward" /> บาท
                 </span>

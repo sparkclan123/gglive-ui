@@ -8,7 +8,6 @@
                 <div class="notiglow"></div>
                 <div class="notiborderglow"></div>
                 <div class="notititle">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}</div>
-                
             </div>
             <Pagination :page="data.page" :pages="data.pages" @page-change="fetchGameWeeks" />
         </div>
@@ -39,20 +38,21 @@ export default {
     }
 };
 </script>
+
 <style scoped>
 .notification {
     display: flex;
     flex-direction: column;
     isolation: isolate;
     position: relative;
-
     height: 70px;
     border-radius: 1rem;
     overflow: hidden;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 16px;
     --gradient: linear-gradient(to bottom, #cdf4d9, #78e79b, #6fcf8d);
-    --color: #f3f3f3
+    --color: #f3f3f3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add this line for shadow */
 }
 
 .notification:before {
@@ -70,22 +70,16 @@ export default {
     inset: 0.65rem auto 0.65rem 0.5rem;
     border-radius: 0.125rem;
     background: var(--gradient);
-
     z-index: 4;
 }
-
-
 
 .notititle {
     color: var(--color);
     padding: 0.65rem 0.25rem 0.4rem 1.25rem;
     font-weight: 500;
     font-size: 1rem;
-
     z-index: 5;
 }
-
-
 
 .notibody {
     color: #f3f3f3;
@@ -93,8 +87,6 @@ export default {
     font-size: 13px;
     z-index: 5;
 }
-
-
 
 .notiglow,
 .notiborderglow {
@@ -104,7 +96,6 @@ export default {
     transform: translate(-50%, -50%);
     background: radial-gradient(circle closest-side at center, white, transparent);
     opacity: 0;
-
 }
 
 .notiglow {

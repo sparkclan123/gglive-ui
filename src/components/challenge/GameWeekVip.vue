@@ -2,13 +2,13 @@
     <div v-if="gameWeek">
         <div class="card cursor-pointer">
             <div class="bottom-section">
-                <span class="titlesm text-sm text-yellow-300">เงินรางวัลอันดับ 1</span>
+                <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
                 <span class="title text-green-500">
                     <NumberDisplay :number="gameWeek.reward" /> บาท
                 </span>
                 <div class="row row1">
                     <div class="item">
-                        <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }}</span>
+                        <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} <i class="fas fa-ticket-alt text-yellow-400"></i></span> 
                         <span class="regular-text text-gray-200">(คะเเนน)</span>
                     </div>
                     <div class="item">

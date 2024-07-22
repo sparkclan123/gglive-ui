@@ -8,7 +8,7 @@
             <div class="tabs rounded-t-lg ml-3 text-white flex">
                 <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
                 </div>
-                <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">เกมวีค VIP
+                <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
                 </div>
                 <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">กติกา</div>
             </div>

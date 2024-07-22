@@ -36,13 +36,13 @@
                 </div>
             </div>
             <div>
-                <div class="tabs rounded-t-lg ml-3 text-white flex">
+                <div class="tabs rounded-t-lg ml-3 text-white flex mt-2">
                     <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">
                         เกมวีคปกติ
                     </div>
                     <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
                         เกมวีค
-                        VIP
+                        VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
                     </div>
                 </div>
                 <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">

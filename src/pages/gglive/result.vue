@@ -4,7 +4,7 @@
             <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">โปรเเกรม
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">รายการ(ปกติ)</div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">รายการ(VIP)</div>
+            <div style="padding: 10px 10px 10px 10px;" class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">รายการ(VIP) <i class="fas fa-ticket-alt text-yellow-400"></i></div>
         </div>
         <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
             <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">

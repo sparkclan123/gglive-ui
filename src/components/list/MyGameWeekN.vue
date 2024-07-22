@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
+        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer" style="background: aliceblue;"
             v-for="data in datas" @click="seeDetailAndEdit(data)">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
