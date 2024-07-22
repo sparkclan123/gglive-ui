@@ -18,7 +18,7 @@
             <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" />
 
         </div>
-        <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16" />
+        <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16  shadow-2xl	" />
     </div>
 </template>
 

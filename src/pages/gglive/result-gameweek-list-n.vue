@@ -22,7 +22,7 @@
 
                 <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
                 <span class="title text-green-500">
-                    <NumberDisplay :number="gameWeek.reward" /> บาท
+                    <NumberDisplay :number="gameWeek.reward" /> ใบ
                 </span>
                 <div class="row row1">
                     <div class="item">

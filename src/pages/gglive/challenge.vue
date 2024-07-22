@@ -6,11 +6,14 @@
 
         <div>
             <div class="tabs rounded-t-lg ml-3 text-white flex">
-                <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
+                <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">
+                    เกมวีคปกติ
                 </div>
-                <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
+                <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">เกมวีค
+                    VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
                 </div>
-                <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">กติกา</div>
+                <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">กติกา
+                </div>
             </div>
             <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
                 <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
@@ -38,7 +41,7 @@ export default {
         ChallengeGameWeek,
         ChallengeGameWeekVip,
         Rule,
-        
+
     },
     computed: {
         currentTabComponent() {
@@ -57,6 +60,7 @@ export default {
     methods: {
         SetactiveTab(tab) {
             this.activeTab = tab;
+            localStorage.setItem('challenge-tab', tab);
         },
         beforeEnter(el) {
             el.style.transform = 'translateX(100%)';
@@ -79,6 +83,12 @@ export default {
         },
         setLoading(isLoading) {
             this.loading = isLoading;
+        }
+    },
+    created() {
+        let has_result_tab = localStorage.getItem('challenge-tab');
+        if (has_result_tab) {
+            this.activeTab = has_result_tab;
         }
     }
 };
@@ -113,10 +123,11 @@ export default {
 
 .slide-enter-active,
 .slide-leave-active {
-    transition: all 0.3s ease; /* Faster transition */
+    transition: all 0.3s ease;
+    /* Faster transition */
 }
 
-.slide-enter, 
+.slide-enter,
 .slide-leave-to {
     opacity: 0;
 }

@@ -101,6 +101,7 @@ export default {
         ...mapActions('loading', ['updateLoading']),
         SetactiveTab(tab) {
             this.activeTab = tab;
+            localStorage.setItem('list-tab', tab);
         },
         beforeEnter(el) {
             el.style.transform = 'translateX(100%)';
@@ -128,7 +129,10 @@ export default {
 
     },
     created() {
-
+        let has_result_tab = localStorage.getItem('list-tab');
+        if (has_result_tab) {
+            this.activeTab = has_result_tab;
+        }
     },
 
 };
