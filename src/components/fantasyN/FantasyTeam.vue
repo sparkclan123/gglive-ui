@@ -1,7 +1,7 @@
 <template>
-    <div class="dxRBog pb-4" v-if="getGameWeek && getGameWeek.status == 'active'" >
+    <div class="dxRBog pb-4" v-if="getGameWeek && getGameWeek.status == 'active'">
 
-        <div :class="['kigSry', isToggled ? 'liIqzj' : '']" >
+        <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
             <!-- page 1 -->
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
@@ -22,12 +22,10 @@
                 <!-- <span @click="toggleClass">click</span> -->
                 <div class="dsbthN custom-btn shadow-xl">
                     <div class="eVUsqz">
-                        <button @click="saveTeam()"
-                            class="bg-emerald-600 bg-opacity-100 hover:bg-opacity-10 text-emerald-50 hover:text-emerald-50 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                        <button @click="saveTeam()" class="button_new">
                             บันทึกทีม
                         </button>
-                        <button @click="resetTeam()"
-                            class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-4 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs flex items-center">
+                        <button @click="resetTeam()" class="button_new_reset">
                             รีเซ็ต
                         </button>
                         <button class="font-bold text-gray-300  py-2 px-1 text-xs items-center">
@@ -154,7 +152,7 @@
             </div>
             <!-- page 2 -->
             <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 max-h-fit !overflow-y-hidden">
-                <div class="eWuGMX " >
+                <div class="eWuGMX ">
                     <div class="sc-CrZHp hvBVYx">
                         <button @click="toggleClassBack" class="sc-iftxFb isQEzW">กลับ<div ml="1"
                                 class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="15"
@@ -165,7 +163,7 @@
                                 </svg></div></button>
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
-                        @showTeamLimitModal="alertTeamLimit" :position="position"  />
+                        @showTeamLimitModal="alertTeamLimit" :position="position" />
                 </div>
             </div>
         </div>
@@ -436,6 +434,60 @@ export default {
 </script>
 
 <style scoped>
+.button_new {
+    font-size: 14px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    will-change: box-shadow, transform;
+    background: radial-gradient(100% 100% at 100% 0%, #47d04c 0%, #1a771d 100%);
+    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+    padding: 0 1em;
+    border-radius: 0.3em;
+    color: #fff;
+    height: 2.3em;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.button_new {
+    box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #155717;
+    transform: translateY(-0.1em);
+}
+
+.button_new:active {
+    box-shadow: inset 0px 0.1em 0.6em #155717;
+    transform: translateY(0em);
+}
+
+.button_new_reset {
+    font-size: 14px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    will-change: box-shadow, transform;
+    background: radial-gradient(100% 100% at 100% 0%, #d04747 0%, #771a1a 100%);
+    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+    padding: 0 1em;
+    border-radius: 0.3em;
+    color: #fff;
+    height: 2.3em;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.button_new_reset {
+    box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #571515;
+    transform: translateY(-0.1em);
+}
+
+.button_new_reset:active {
+    box-shadow: inset 0px 0.1em 0.6em #571515;
+    transform: translateY(0em);
+}
+
 .captain-badge {
     position: absolute;
     top: 0;
