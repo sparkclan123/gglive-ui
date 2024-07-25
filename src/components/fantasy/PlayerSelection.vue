@@ -8,7 +8,8 @@
                     <div class="flex items-center mb-1 text-gray-100 text-xs">
                         <label for="switch" class="mr-2">ทีม</label>
                         <div class="checkbox-wrapper-35 flex items-center">
-                            <input v-model="is_check" name="switch" id="switch" type="checkbox" class="switch">
+                            <input v-model="is_check_player"  name="switch"
+                                id="switch" type="checkbox" class="switch">
                             <label for="switch" class="flex items-center">
                                 <span class="switch-x-text text-gray-200">นักเตะ </span>
                                 <span class="switch-x-toggletext flex items-center ">
@@ -136,7 +137,7 @@ export default {
     name: 'PlayerSelection',
     data() {
         return {
-            is_check: true,
+            is_check_player: true,
             currentPage: 1,
             playersPerPage: 10,
             selectedTeam: 'view',
@@ -177,11 +178,13 @@ export default {
             if (this.maxCost < 1) {
                 this.maxCost = null;
             }
+            // is_injured
             return this.getGameWeekPlayer.filter(player => {
                 return (
                     (this.selectedTeam === 'view' || player.team_id === this.selectedTeam) &&
                     (this.selectedPosition === '' || player.position === this.selectedPosition) &&
                     (!this.maxCost || player.price <= this.maxCost) &&
+                    (this.is_check_player ? player.is_ban === false && player.is_injured === false : true) &&
                     (this.searchTerm === '' || player.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
                 );
             }).sort((a, b) => {
@@ -204,6 +207,7 @@ export default {
     },
     methods: {
         ...mapActions('playerSelect', ['addPlayer', 'removePlayer']),
+
         truncateText(text) {
             if (text.length > 13) {
                 return text.slice(0, 13) + '...';
@@ -385,10 +389,12 @@ export default {
         position(newPosition) {
             this.selectedPosition = newPosition === 'all' ? '' : newPosition;
             this.filterPlayers();
-        }
+        },
+
     },
     mounted() {
         this.checkTeamsData();
+       
     }
 };
 </script>
@@ -408,9 +414,10 @@ export default {
     overflow-y: auto;
     /* เปิดการเลื่อนในแนวตั้ง */
 }
-.checkbox-wrapper-35 .switch + label .switch-x-text {
-  display: block;
-  margin-right: .3em;
+
+.checkbox-wrapper-35 .switch+label .switch-x-text {
+    display: block;
+    margin-right: .3em;
 }
 
 .checkbox-wrapper-35 .switch {
