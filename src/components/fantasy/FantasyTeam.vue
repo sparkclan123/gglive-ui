@@ -4,12 +4,11 @@
         <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
             <!-- page 1 -->
             <div class="elHRfu ">
-                <div class="sc-CrZHp hvBVYx flex items-center">
+                <div class=" hvBVYx flex items-center">
                     <img src="/public/assets/logonew.png" alt="icon" class="mr-1 w-7 h-7">
                     <span class="mr-auto">เกมวีค {{ getGameWeek.week }} <i
-                            class="fas fa-ticket-alt text-yellow-400"></i> <span class="text-yellow-400 text-xs">x
-                            1</span></span>
-                    <button @click="toggleClass('all')" class="sc-iftxFb isQEzW">
+                            class="fas fa-ticket-alt text-yellow-400"></i> <span class="text-yellow-400 text-xs "> VIP </span></span>
+                    <button @click="toggleClass('all')" class="hvBVYx_non sc-iftxFb isQEzW ">
                         รายชื่อผู้เล่น
                         <div ml="1" class="sc-csKJxZ dviEZq">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 20"
@@ -155,8 +154,8 @@
             <!-- page 2 -->
             <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 max-h-fit !overflow-y-hidden">
                 <div class="eWuGMX ">
-                    <div class="sc-CrZHp hvBVYx">
-                        <button @click="toggleClassBack" class="sc-iftxFb isQEzW">กลับ<div ml="1"
+                    <div class=" hvBVYx">
+                        <button @click="toggleClassBack" class="sc-iftxFb isQEzW hvBVYx_non">กลับ<div ml="1"
                                 class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="15"
                                     viewBox="0 0 24 15" color="primary" class=" gPCpFh flMINk">
                                     <path
@@ -902,9 +901,14 @@ export default {
 }
 
 @media (min-width: 64em) {
-    .hvBVYx {
+
+    /* .hvBVYx {
         display: none;
+    } */
+    .hvBVYx_non {
+        visibility: hidden;
     }
+
 }
 
 .dviEZq {
