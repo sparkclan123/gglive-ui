@@ -1,100 +1,86 @@
 <template>
-    <div class="flex flex-col items-center justify-center pt-20 m-2">
-        <!-- <CountDown datenow="2023-12-31T23:59:00" starttime="2024-01-02T18:00:00" /> -->
-        <div class="w-full max-w-lg p-8 space-y-6 bg-white rounded-lg shadow-lg sm:w-96">
+    <div>
+        <div v-show="loading">
+            <LodingSceen style="display: flex; justify-content: space-around;" />
+        </div>
+        <div class="image-container p-2" v-if="!check_token">
+            <img src="/public/assets/first.jpeg" alt="Logo" class="responsive-image">
+        </div>
+        <div class="flex flex-col items-center justify-center pt-20 m-2" v-else>
 
-            <div class="container mx-auto flex justify-center">
-                <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
-            </div>
-            <div>
-                <label for="username" class="block text-sm font-medium text-gray-500">ชื่อผู้ใช้งาน</label>
-                <input
-                    class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                    id="username" type="text" placeholder="username" v-model="username">
-            </div>
-            <div>
-                <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน</label>
-                <input
-                    class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                    id="password" type="password" placeholder="**********" v-model="password">
-            </div>
-            <button @click="loginform()"
-                class="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:shadow-outline">
-                เข้าสู่ระบบ
-            </button>
+            <div class="w-full max-w-lg p-8 space-y-6 bg-white rounded-lg shadow-lg sm:w-96">
 
-            <div class="social-icons">
-                <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
-                    <svg version="1.1" viewBox="0 0 150 150" width="50" height="50" class="fill-current">
-                        <g>
-                            <path class="st14"
-                                d="M120,76.1c0-3.1-0.3-6.3-0.8-9.3H75.9v17.7h24.8c-1,5.7-4.3,10.7-9.2,13.9l14.8,11.5   C115,101.8,120,90,120,76.1L120,76.1z" />
-                            <path class="st15"
-                                d="M75.9,120.9c12.4,0,22.8-4.1,30.4-11.1L91.5,98.4c-4.1,2.8-9.4,4.4-15.6,4.4c-12,0-22.1-8.1-25.8-18.9   L34.9,95.6C42.7,111.1,58.5,120.9,75.9,120.9z" />
-                            <path class="st12"
-                                d="M50.1,83.8c-1.9-5.7-1.9-11.9,0-17.6L34.9,54.4c-6.5,13-6.5,28.3,0,41.2L50.1,83.8z" />
-                            <path class="st13"
-                                d="M75.9,47.3c6.5-0.1,12.9,2.4,17.6,6.9L106.6,41C98.3,33.2,87.3,29,75.9,29.1c-17.4,0-33.2,9.8-41,25.3   l15.2,11.8C53.8,55.3,63.9,47.3,75.9,47.3z" />
-                        </g>
-                    </svg>
-                </button>
-                <!-- <button aria-label="Log in with Twitter" class="icon" @click="loginWithFacebook">
-                    <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
-                        width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g>
-                            <path
-                                d="M32,30c0,1.104-0.896,2-2,2H2c-1.104,0-2-0.896-2-2V2c0-1.104,0.896-2,2-2h28c1.104,0,2,0.896,2,2V30z"
-                                fill="#3B5998" />
-                            <path
-                                d="M22,32V20h4l1-5h-5v-2c0-2,1.002-3,3-3h2V5c-1,0-2.24,0-4,0c-3.675,0-6,2.881-6,7v3h-4v5h4v12H22z"
-                                fill="#FFFFFF" id="f" />
-                        </g>
-                        <g />
-                        <g />
-                        <g />
-                        <g />
-                        <g />
-                        <g />
-                    </svg>
+                <div class="container mx-auto flex justify-center">
+                    <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
+                </div>
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-500">ชื่อผู้ใช้งาน</label>
+                    <input
+                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
+                        id="username" type="text" placeholder="username" v-model="username">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน</label>
+                    <input
+                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
+                        id="password" type="password" placeholder="**********" v-model="password">
+                </div>
+                <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
+                    <button type="submit" class="w-full button-save" @click="loginform()">เข้าสู่ระบบ</button>
+                </div>
+                <!-- <button @click="loginform()"
+                    class="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:shadow-outline">
+                    เข้าสู่ระบบ
                 </button> -->
-                <button aria-label="Log in with GitHub" class="icon" @click="loginWithLine">
-                    <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
-                        <g id="_x32_00-line">
+
+                <div class="social-icons">
+                    <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
+                        <svg version="1.1" viewBox="0 0 150 150" width="50" height="50" class="fill-current">
                             <g>
-                                <path
-                                    d="M475.999,116.242v280.204c-0.098,44-36.142,79.65-80.24,79.553H115.555    c-44.001-0.098-79.652-36.24-79.554-80.241V115.554c0.099-43.999,36.241-79.65,80.241-79.553h280.205    C440.445,36.1,476.098,72.144,475.999,116.242z"
-                                    style="fill:#39AE41;" />
-                                <path
-                                    d="M415.501,236.651c0-71.695-71.895-130.034-160.188-130.034    c-88.295,0-160.188,58.339-160.188,130.034c0,64.231,56.965,118.054,133.963,128.269c18.76,4.025,16.599,10.902,12.376,36.141    c-0.688,4.027-3.241,15.814,13.848,8.646c17.089-7.171,92.223-54.313,125.91-93.01    C404.401,291.159,415.501,265.331,415.501,236.651z"
-                                    style="fill:#FEFEFE;" />
+                                <path class="st14"
+                                    d="M120,76.1c0-3.1-0.3-6.3-0.8-9.3H75.9v17.7h24.8c-1,5.7-4.3,10.7-9.2,13.9l14.8,11.5   C115,101.8,120,90,120,76.1L120,76.1z" />
+                                <path class="st15"
+                                    d="M75.9,120.9c12.4,0,22.8-4.1,30.4-11.1L91.5,98.4c-4.1,2.8-9.4,4.4-15.6,4.4c-12,0-22.1-8.1-25.8-18.9   L34.9,95.6C42.7,111.1,58.5,120.9,75.9,120.9z" />
+                                <path class="st12"
+                                    d="M50.1,83.8c-1.9-5.7-1.9-11.9,0-17.6L34.9,54.4c-6.5,13-6.5,28.3,0,41.2L50.1,83.8z" />
+                                <path class="st13"
+                                    d="M75.9,47.3c6.5-0.1,12.9,2.4,17.6,6.9L106.6,41C98.3,33.2,87.3,29,75.9,29.1c-17.4,0-33.2,9.8-41,25.3   l15.2,11.8C53.8,55.3,63.9,47.3,75.9,47.3z" />
+                            </g>
+                        </svg>
+                    </button>
+                    <button aria-label="Log in with GitHub" class="icon" @click="loginWithLine">
+                        <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
+                            <g id="_x32_00-line">
                                 <g>
                                     <path
-                                        d="M300,202.081h-11.194c-1.771,0-3.145,1.375-3.145,3.143v41.446l-32.018-43.214     c-0.492-0.884-1.571-1.375-2.553-1.375h-11.098c-1.768,0-3.143,1.375-3.143,3.143v69.831c0,1.767,1.375,3.144,3.143,3.144h11.195     c1.769,0,3.143-1.377,3.143-3.144v-41.447l32.018,43.214c0.493,0.688,1.476,1.276,2.555,1.276h11.196     c1.768,0,3.143-1.375,3.143-3.144v-69.828C303.241,203.456,301.769,201.982,300,202.081z"
+                                        d="M475.999,116.242v280.204c-0.098,44-36.142,79.65-80.24,79.553H115.555    c-44.001-0.098-79.652-36.24-79.554-80.241V115.554c0.099-43.999,36.241-79.65,80.241-79.553h280.205    C440.445,36.1,476.098,72.144,475.999,116.242z"
                                         style="fill:#39AE41;" />
                                     <path
-                                        d="M222.705,201.982H211.51c-1.769,0-3.143,1.375-3.143,3.144v69.828     c0,1.769,1.375,3.144,3.143,3.144h11.195c1.769,0,3.143-1.375,3.143-3.144v-69.828     C225.848,203.456,224.474,201.982,222.705,201.982z"
-                                        style="fill:#39AE41;" />
-                                    <path
-                                        d="M195.697,260.52h-30.544v-55.394c0-1.769-1.375-3.144-3.144-3.144h-11.196     c-1.769,0-3.143,1.375-3.143,3.144v69.828c0,0.886,0.295,1.573,0.883,2.16c0.59,0.493,1.277,0.887,2.161,0.887H195.6     c1.767,0,3.142-1.375,3.142-3.144V263.66C198.742,261.99,197.366,260.52,195.697,260.52z"
-                                        style="fill:#39AE41;" />
-                                    <path
-                                        d="M362.169,219.464c1.77,0,3.143-1.374,3.143-3.142v-11.196c-0.098-1.67-1.472-3.144-3.143-3.144     h-44.884c-1.669,0-3.142,1.375-3.142,3.144v69.828c0,1.672,1.374,3.144,3.142,3.144h44.884c1.77,0,3.143-1.375,3.143-3.144     V263.76c0-1.77-1.373-3.144-3.143-3.144h-30.543V248.83h30.543c1.77,0,3.143-1.375,3.143-3.143v-11.295     c0-1.767-1.373-3.143-3.143-3.143h-30.543v-11.786H362.169z"
-                                        style="fill:#39AE41;" />
+                                        d="M415.501,236.651c0-71.695-71.895-130.034-160.188-130.034    c-88.295,0-160.188,58.339-160.188,130.034c0,64.231,56.965,118.054,133.963,128.269c18.76,4.025,16.599,10.902,12.376,36.141    c-0.688,4.027-3.241,15.814,13.848,8.646c17.089-7.171,92.223-54.313,125.91-93.01    C404.401,291.159,415.501,265.331,415.501,236.651z"
+                                        style="fill:#FEFEFE;" />
+                                    <g>
+                                        <path
+                                            d="M300,202.081h-11.194c-1.771,0-3.145,1.375-3.145,3.143v41.446l-32.018-43.214     c-0.492-0.884-1.571-1.375-2.553-1.375h-11.098c-1.768,0-3.143,1.375-3.143,3.143v69.831c0,1.767,1.375,3.144,3.143,3.144h11.195     c1.769,0,3.143-1.377,3.143-3.144v-41.447l32.018,43.214c0.493,0.688,1.476,1.276,2.555,1.276h11.196     c1.768,0,3.143-1.375,3.143-3.144v-69.828C303.241,203.456,301.769,201.982,300,202.081z"
+                                            style="fill:#39AE41;" />
+                                        <path
+                                            d="M222.705,201.982H211.51c-1.769,0-3.143,1.375-3.143,3.144v69.828     c0,1.769,1.375,3.144,3.143,3.144h11.195c1.769,0,3.143-1.375,3.143-3.144v-69.828     C225.848,203.456,224.474,201.982,222.705,201.982z"
+                                            style="fill:#39AE41;" />
+                                        <path
+                                            d="M195.697,260.52h-30.544v-55.394c0-1.769-1.375-3.144-3.144-3.144h-11.196     c-1.769,0-3.143,1.375-3.143,3.144v69.828c0,0.886,0.295,1.573,0.883,2.16c0.59,0.493,1.277,0.887,2.161,0.887H195.6     c1.767,0,3.142-1.375,3.142-3.144V263.66C198.742,261.99,197.366,260.52,195.697,260.52z"
+                                            style="fill:#39AE41;" />
+                                        <path
+                                            d="M362.169,219.464c1.77,0,3.143-1.374,3.143-3.142v-11.196c-0.098-1.67-1.472-3.144-3.143-3.144     h-44.884c-1.669,0-3.142,1.375-3.142,3.144v69.828c0,1.672,1.374,3.144,3.142,3.144h44.884c1.77,0,3.143-1.375,3.143-3.144     V263.76c0-1.77-1.373-3.144-3.143-3.144h-30.543V248.83h30.543c1.77,0,3.143-1.375,3.143-3.143v-11.295     c0-1.767-1.373-3.143-3.143-3.143h-30.543v-11.786H362.169z"
+                                            style="fill:#39AE41;" />
+                                    </g>
                                 </g>
                             </g>
-                        </g>
-                        <g id="Layer_1" />
-                    </svg>
-                </button>
+                            <g id="Layer_1" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-
-            <!-- <p class="signup">Don't have an account?
-                <a rel="noopener noreferrer" class="cursor-pointer">Sign up</a>
-            </p> -->
         </div>
     </div>
-
 </template>
 
 <script>
@@ -105,29 +91,34 @@ export default {
     name: 'Login',
     data() {
         return {
+            loading: false,
             username: '',
-            password: ''
+            password: '',
+            check_token: false
         }
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('alert', ['addNotification']),
         async loginform() {
+
             if (!this.username || !this.password) {
                 this.addNotification({ type: 'error', message: 'Please fill in all fields' });
                 return;
             }
+            this.loading = true;
             try {
                 const response = await api.post('/premier-league/v1/login', {
                     username: this.username,
                     password: this.password,
                     app_key: 'pudee'
                 });
+                this.loading = false;
                 this.addNotification({ type: 'success', message: 'Login successful' });
                 localStorage.setItem('access_token', response.data.tokenString);
                 window.location.href = '/season-select';
             } catch (error) {
-
+                this.loading = false;
                 this.addNotification({ type: 'error', message: error.response.data.error });
                 localStorage.removeItem('access_token');
             }
@@ -139,6 +130,7 @@ export default {
             })
         },
         loginWithGoogle() {
+            this.loading = true;
             window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/login';
         },
@@ -161,7 +153,7 @@ export default {
         },
         loginWithLine() {
 
-
+            this.loading = true;
             window.location.href = `https://api-service.pudee-club.com/api/premier-league/auth/line/login`;
 
             // window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/line/login';
@@ -212,8 +204,13 @@ export default {
         const urlParams = new URLSearchParams(window.location.search);
         const uuid = urlParams.get('uuid');
         const username = urlParams.get('username');
+        const has_token = urlParams.get('token');
         if (uuid && username) {
             this.loginuuid(uuid, username);
+        }
+
+        if (has_token == "0632724459") {
+            this.check_token = true;
         }
 
         this.updateLoading(false);
@@ -222,6 +219,58 @@ export default {
 </script>
 
 <style scoped>
+.button-save {
+    font-size: 18px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    will-change: box-shadow, transform;
+    background: radial-gradient(100% 100% at 100% 0%, #6af984 0%, #15720e 100%);
+    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+    padding: 0 2em;
+    border-radius: 0.3em;
+    color: #fff;
+    height: 2.6em;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.button-save {
+    box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #0f580a;
+    transform: translateY(-0.1em);
+}
+
+.button-save:active {
+    box-shadow: inset 0px 0.1em 0.6em #0f580a;
+    transform: translateY(0em);
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* ปรับให้ container สูงเต็มหน้าจอ */
+    overflow: hidden;
+    /* ป้องกันการล้น */
+}
+
+.responsive-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 15px;
+    /* เพิ่มมุมโค้ง */
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8),
+        /* เงาด้านล่าง */
+        -10px -10px 20px rgba(255, 255, 255, 0.3);
+    /* เงาด้านบน */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    /* เพิ่มขอบบางๆ เพื่อความสมจริง */
+    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    /* เพิ่มเอฟเฟกต์ 3D */
+}
+
 .social-icons {
     display: flex;
     justify-content: center;
