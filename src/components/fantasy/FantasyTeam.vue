@@ -444,7 +444,7 @@ export default {
     border: 0;
     cursor: pointer;
     will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #47d04c 0%, #1a771d 100%);
+    background: radial-gradient(100% 100% at 100% 0%, #4ba44e 0%, #1a771d 100%);
     box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
     padding: 0 1em;
     border-radius: 0.3em;
@@ -471,7 +471,7 @@ export default {
     border: 0;
     cursor: pointer;
     will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #d04747 0%, #771a1a 100%);
+    background: radial-gradient(100% 100% at 100% 0%, #ad3d3d 0%, #771a1a 100%);
     box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
     padding: 0 1em;
     border-radius: 0.3em;

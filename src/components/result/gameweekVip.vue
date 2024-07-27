@@ -58,7 +58,7 @@ export default {
 .cus-bg-card {
     background-color: #f6f6f6;
     border-radius: 10px;
-    box-shadow: 2px 4px 2px #e8b201;
+    box-shadow: 2px 2px 2px #e8b201;
     transition: box-shadow 0.3s ease;
 }
 </style>

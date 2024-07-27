@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class=" mx-auto flex gap-4">
-            <div class="w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center dark:bg-gray-800/40">
+            <div class="w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center bg-gray-800/40">
                 <div>
                     <h1
-                        class="lg:text-xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 dark:text-white">
+                        class="lg:text-xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 text-white">
                         ข้อมูลส่วนตัว
                     </h1>
                     <form @submit.prevent="updateProfile">
@@ -30,18 +30,18 @@
                         </div>
                         <div class="flex flex-col gap-2 justify-center w-full">
                             <div class="w-full mb-4 mt-6">
-                                <label for="name" class="mb-2 dark:text-gray-300">ชื่อ</label>
+                                <label for="name" class="mb-2 text-gray-300">ชื่อ</label>
                                 <input v-model="profile.name" type="text"
-                                    class="mt-2 p-2 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-200 border-gray-600 bg-gray-800"
                                     placeholder="ชื่อ" id="name">
                             </div>
                             <div class="w-full mb-4 mt-6">
-                                <label for="phone" class="dark:text-gray-300">เบอร์โทร<span
+                                <label for="phone" class="text-gray-300">เบอร์โทร<span
                                         class="text-red-500">*</span></label>
-                                <div class="text-xs text-gray-500 dark:text-gray-400">
+                                <div class="text-xs text-gray-500 text-gray-400">
                                     สำคัญใช้ในการติดต่อกรณีได้รับเงินรางวัล</div>
                                 <input v-model="profile.phone" type="text"
-                                    class="mt-2 p-2 w-full border-2 rounded-lg dark:text-gray-200 dark:border-gray-600 dark:bg-gray-800"
+                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-200 border-gray-600 bg-gray-800"
                                     placeholder="080xxxxxxx" id="phone">
                             </div>
                         </div>
