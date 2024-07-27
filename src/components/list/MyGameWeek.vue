@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer" style="background: rgb(255 254 251);;"
+        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
             v-for="data in datas" @click="seeDetailAndEdit(data)">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
+            <div class="flex items-center font-semibold justify-between">
+                <div class="flex items-center space-x-1">
                     <div class=" w-7 h-7  ">
                         <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                     </div>
@@ -88,3 +88,12 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.cus-bg-card {
+    background-color: #f6f6f6;
+    border-radius: 10px;
+    box-shadow: 2px 4px 2px #e8b201;
+    transition: box-shadow 0.3s ease;
+}
+</style>

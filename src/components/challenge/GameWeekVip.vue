@@ -1,5 +1,5 @@
 <template>
-    <div v-if="gameWeek">
+    <div v-if="gameWeek" class="p-1">
         <div class="card cursor-pointer">
             <div class="bottom-section">
                 <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
