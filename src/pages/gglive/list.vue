@@ -4,37 +4,19 @@
             <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
         <div v-if="userinfo">
-            <div class="card">
-                <div class="card__info">
-                    <div class="card__logo">
+            <div style="margin-bottom: -30px;">
 
-                        <span class="left">
-
-                            รายการ ทีมของคุณ
-                        </span>
-                        <span class="right">คะเเนนสะสม</span>
-                    </div>
-                    <div class="card__type mt-1 text-green-500">0</div>
-                    <div class="card__number">
-
-                    </div>
-                    <div class="card__valid-thru" aria-label="Valid thru"></div>
-                    <div class="card__exp-date"><time datetime="2038-01"></time></div>
-
-                    <div class="logo-container mt-4">
-                        <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
-                            class="logo rounded-full shadow-lg">
-
-                    </div>
-                    <div class="card__name mt-4 ml-1" aria-label="Dee Stroyer">{{ truncatedUsername }}</div>
-
-                    <button
-                        class="card__vendor bg-green-500 hover:bg-green-700 text-gray-700 font-bold py-1 px-2 rounded text-xs ">
-                        เเลกคะเเนน
-                    </button>
-
+                <div class="card">
+                    <div class="heading text-gray-700">{{ truncatedUsername }}</div>
+                    <div class="details">รายละเอียดการเเข่งขันของคุณ.<br>ทั้งเกมวีคกติ, เเละเกมวีค <span class="text-yellow-600">VIP</span>.</div>
+                  
                 </div>
+                <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
+                    class="glasses rounded-full shadow-lg">
+
+
             </div>
+            
             <div>
                 <div class="tabs rounded-t-lg ml-3 text-white flex mt-2">
                     <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">
@@ -139,160 +121,47 @@ export default {
 </script>
 
 <style scoped>
-
-.card,
-.card__chip {
-    overflow: hidden;
-    position: relative;
-}
-
-.card,
-.card__chip-texture,
-
-
 .card {
-    background-image: linear-gradient(to bottom, #8141b157, #b077db57);
-    border-radius: 0.5em;
-    box-shadow: 0 0 0 hsl(0, 0%, 80%),
-        0 0 0 hsl(0, 0%, 100%),
-        -0.2rem 0 0.75rem 0 hsla(0, 0%, 0%, 0.3);
-    color: hsl(0, 0%, 100%);
-    /* width: 10.3em; */
-    height: 6.8em;
-
+    position: relative;
+    top: 2em;
+    /* width: 12.5em; */
+    height: 6.4em;
+    background: rgb(239, 236, 251);
+    transition: .4s ease-in-out;
+    border-radius: 15px;
+    box-shadow: rgba(228, 228, 228, 0.07) 0px 1px 1px, rgba(224, 223, 223, 0.07) 0px 2px 2px, rgba(211, 210, 210, 0.07) 0px 4px 4px, rgba(228, 227, 227, 0.07) 0px 8px 8px, rgba(252, 252, 252, 0.07) 0px 16px 16px;
+    overflow: hidden;
 }
 
-.card__info,
-.card__chip-texture,
-
-
-.card__chip-texture,
-
-.card__info {
-    font: 0.75em/1 "DM Sans", sans-serif;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 0.75rem;
-    inset: 0;
-}
-
-.card__logo,
-.card__number {
-    width: 100%;
-}
-
-
-
-.card__logo {
+.heading {
+    position: relative;
     font-weight: bold;
-    font-style: italic;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    font-size: 1.1em;
+    padding-top: 0.2em;
+    padding-left: 4em;
 }
 
-.card__chip {
-    background-image: linear-gradient(hsl(0, 0%, 70%), hsl(0, 0%, 80%));
-    border-radius: 0.2rem;
-    box-shadow: 0 0 0 0.05rem hsla(0, 0%, 0%, 0.5) inset;
-    width: 1.25rem;
-    height: 1.25rem;
-    transform: translate3d(0, 0, 0);
+.details {
+    position: relative;
+    color: black;
+    font-size: 0.6em;
+    padding-top: 2em;
+    padding-left: 2em;
 }
 
-.card__chip-lines {
-    width: 100%;
-    height: auto;
+
+.glasses {
+    position: relative;
+    top: -6em;
+    left: -0.5em;
+    width: 70px;
+    height: 70px;
 }
 
-.card__chip-texture {
-    background-image: linear-gradient(-80deg, hsla(0, 0%, 100%, 0), hsla(0, 0%, 100%, 0.6) 48% 52%, hsla(0, 0%, 100%, 0));
-}
 
-.card__type {
-    align-self: flex-end;
-    margin-left: auto;
-}
 
-.card__digit-group,
-.card__exp-date,
-.card__name {
-    background: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 85%) 15% 55%, hsl(0, 0%, 70%) 70%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0.05rem hsla(0, 0%, 0%, 0.3));
-}
 
-.card__number {
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-}
 
-.card__valid-thru,
-.card__name {
-    text-transform: uppercase;
-}
-
-.card__valid-thru,
-.card__exp-date {
-    /* margin-bottom: 0.25rem; */
-    width: 50%;
-}
-
-/* .card__valid-thru {
-    font-size: 0.3rem;
-    padding-right: 0.25rem;
-    text-align: right;
-} */
-
-.card__exp-date,
-.card__name {
-    font-size: 0.7rem;
-}
-
-.card__exp-date {
-    padding-left: 0.25rem;
-}
-
-/* .card__name {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 6.25rem;
-} */
-
-.card__vendor,
-.card__vendor:before,
-.card__vendor:after {
-    position: absolute;
-}
-
-.card__vendor {
-    right: 0.575rem;
-    bottom: 1.15rem;
-    width: 5.55rem;
-    height: 1.5rem;
-}
-
-.card__vendor:before,
-.card__vendor:after {
-    border-radius: 50%;
-    content: "";
-    display: block;
-    top: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-.card__vendor-sr {
-    clip: rect(1px, 1px, 1px, 1px);
-    overflow: hidden;
-    position: absolute;
-    width: 1px;
-    height: 1px;
-}
 
 .logo-container {
     position: relative;
