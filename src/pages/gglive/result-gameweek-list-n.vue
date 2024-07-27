@@ -55,12 +55,12 @@
                                     </p>
                                 </div>
                             </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <p
                                     class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
                                     คะเเนน</p>
                             </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <p
                                     class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
                                     วันที่</p>
