@@ -51,6 +51,7 @@ const selectGameWeek = {
             commit('setGameWeekPercentPlayer', gameWeekPercentPlayer);
         },
         async setGameWeekPlayerPercentN({ commit }, gameWeekPercentPlayerN) {
+          
             commit('setGameWeekPercentPlayerN', gameWeekPercentPlayerN);
         }
 

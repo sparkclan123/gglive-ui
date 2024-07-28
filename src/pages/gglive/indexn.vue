@@ -93,22 +93,27 @@ export default {
         ...mapGetters('season', ['getSeasons']),
         ...mapGetters('selectGameWeek', ['getGameWeek'])
     },
-    created() {
+    async created() {
         this.updateLoading(true);
 
         this.seasonID = this.$route.params.seasonID;
         this.gameWeekID = this.$route.params.gameWeekID;
-        Promise.all([this.fetchData(this.seasonID, this.gameWeekID), this.fetchDataPlayerPercent(this.seasonID, this.gameWeekID), this.fetchDataTeams()])
-            .then(() => {
-                setTimeout(() => {
-                    this.updateLoading(false);
-                }, 50);
-            })
-            .catch((error) => {
-                setTimeout(() => {
-                    this.updateLoading(false);
-                }, 50);
-            });
+        try {
+            await Promise.all([
+                this.fetchData(this.seasonID, this.gameWeekID),
+                this.fetchDataTeams(),
+                this.fetchDataPlayerPercent(this.seasonID, this.gameWeekID),
+            ]);
+        } catch (error) {
+            console.log('Error loading data:', error);
+            setTimeout(() => {
+                this.updateLoading(false);
+            }, 50);
+        } finally {
+            setTimeout(() => {
+                this.updateLoading(false);
+            }, 50);
+        }
     },
 
 }

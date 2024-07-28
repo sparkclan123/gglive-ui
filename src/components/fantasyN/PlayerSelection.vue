@@ -110,8 +110,8 @@
                             <Numberformat :value="player.price" :decimal="1" />
                         </td>
                         <td class=" py-1 px-2 border-b border-gray-400 text-gray-900"
-                            v-if="getGameWeekPercentPlayer && getGameWeekPercentPlayer[player.player_id]">
-                            <Numberformat :value="getGameWeekPercentPlayer[player.player_id]" :decimal="1" />%
+                            v-if="getGameWeekPercentPlayerN && getGameWeekPercentPlayerN[player.player_id]">
+                            <Numberformat :value="getGameWeekPercentPlayerN[player.player_id]" :decimal="1" />%
                         </td>
                         <td class=" py-1 px-2 border-b border-gray-400 text-gray-900" v-else>0.0%</td>
                         <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.yellows_card }}
@@ -164,7 +164,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('GameWeek', ['getGameWeekPlayer', 'getGameWeekPercentPlayer']),
+        ...mapGetters('GameWeek', ['getGameWeekPlayer', 'getGameWeekPercentPlayerN']),
         ...mapGetters('Teams', ['getTeams']),
         ...mapGetters('playerSelect', ['getGKP', 'getDEF', 'getMID', 'getFWD']),
         positionOptions() {
