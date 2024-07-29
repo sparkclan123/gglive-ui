@@ -27,7 +27,7 @@
                         VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
                     </div>
                 </div>
-                <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
+                <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container ">
                     <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
                         <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading"></component>
                     </transition>
@@ -121,6 +121,9 @@ export default {
 </script>
 
 <style scoped>
+.bg-fixcolor-p {
+    background-color: #f6f6f8;
+}
 .card {
     position: relative;
     top: 2em;
@@ -184,7 +187,7 @@ export default {
 }
 
 .tab-item.active {
-    background-color: white;
+    background-color: #f6f6f8;
     color: rgb(0, 0, 0);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;

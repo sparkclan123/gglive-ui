@@ -8,7 +8,7 @@
                         <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                     </div>
                     <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
-                        <DateFormatted :dateString="data.created_at" />
+                        <DateFormatted :dateString="data.created_at" class="font-thin "/>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4" v-if="data.is_vip">
@@ -21,7 +21,7 @@
                 <div class="mt-4 text-gray-800  text-xs space-x-4">
                     ชื่อทีม: {{ data.name }}
                 </div>
-                <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
+                <div class="mt-4 text-gray-800   text-sm space-x-4">
                     คะเเนนรวม: <span class="text-green-800"> {{ data.total_point }} </span>
                 </div>
             </div>
@@ -91,7 +91,7 @@ export default {
 
 <style scoped>
 .cus-bg-card {
-    background-color: #f6f6f6;
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 2px 2px 2px #8341ca;
     transition: box-shadow 0.3s ease;

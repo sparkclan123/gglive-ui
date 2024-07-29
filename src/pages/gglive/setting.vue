@@ -28,21 +28,48 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col gap-2 justify-center w-full">
-                            <div class="w-full mb-4 mt-6">
+                        <div class="flex flex-col justify-center w-full">
+                            <div class="w-full mb-2 mt-4">
                                 <label for="name" class="mb-2 text-gray-300">ชื่อ</label>
                                 <input v-model="profile.name" type="text"
                                     class="mt-2 p-2 w-full border-2 rounded-lg text-gray-200 border-gray-600 bg-gray-800"
                                     placeholder="ชื่อ" id="name">
                             </div>
-                            <div class="w-full mb-4 mt-6">
+                            <div class="w-full mb-2 mt-4">
                                 <label for="phone" class="text-gray-300">เบอร์โทร<span
                                         class="text-red-500">*</span></label>
-                                <div class="text-xs text-gray-500 text-gray-400">
+                                <div class="text-xs text-red-300">
                                     สำคัญใช้ในการติดต่อกรณีได้รับเงินรางวัล</div>
                                 <input v-model="profile.phone" type="text"
                                     class="mt-2 p-2 w-full border-2 rounded-lg text-gray-200 border-gray-600 bg-gray-800"
                                     placeholder="080xxxxxxx" id="phone">
+                            </div>
+                            <div class="w-full mb-2 mt-4">
+                                <label for="bank_type" class="text-gray-300">ประเภทบัญชี<span
+                                        class="text-red-500">*</span></label>
+                                <div class="text-xs  text-red-300">
+                                    สำคัญใช้ในการติดต่อกรณีได้รับเงินรางวัล</div>
+                                <select v-model="profile.bank_type" id="bank_type"
+                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-100 border-gray-600 bg-gray-800">
+                                    <option value="">เลือกประเภทบัญชี</option>
+                                    <option value="พร้อมเพย์">พร้อมเพย์</option>
+                                    <option value="ธนาคารกสิกร">ธนาคารกสิกร</option>
+                                    <option value="ธนาคารไทยพานิช">ธนาคารไทยพานิช</option>
+                                    <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
+                                    <option value="ธนาคารกรุงศรี">ธนาคารกรุงศรี</option>
+                                    <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
+                                    <option value="ธนาคารออมสิน">ธนาคารออมสิน</option>
+                                    <!-- Add other banks as needed -->
+                                </select>
+                            </div>
+                            <div class="w-full mb-2 mt-4">
+                                <label for="bank_account" class="text-gray-300">เลขบัญชี รับเงินรางวัล<span
+                                        class="text-red-500">*</span></label>
+                                <div class="text-xs  text-red-300">
+                                    สำคัญใช้ในการติดต่อกรณีได้รับเงินรางวัล</div>
+                                <input v-model="profile.bank_account" type="text"
+                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-100 border-gray-600 bg-gray-800"
+                                    placeholder="xxxxx-xxxxx-xxx" id="bank_account">
                             </div>
                         </div>
                         <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
@@ -66,7 +93,9 @@ export default {
             profile: {
                 name: '',
                 phone: '',
-                image_url: ''
+                image_url: '',
+                bank_account: '',
+                bank_type: ''
             },
             selectedFile: null
         };
@@ -188,7 +217,6 @@ export default {
                             buttonsStyling: false,
                         });
                         console.error('Error uploading profile image:', uploadResponse.data.error);
-                        // alert('Error uploading profile image', uploadResponse.data.error);
                         return;
                     }
                 }
@@ -196,6 +224,8 @@ export default {
                 const updateData = {
                     name: this.profile.name,
                     phone: this.profile.phone,
+                    bank_account: this.profile.bank_account,
+                    bank_type: this.profile.bank_type,
                 };
 
                 if (this.selectedFile) {
@@ -220,7 +250,6 @@ export default {
                     },
                     buttonsStyling: false,
                 });
-                // alert('Profile updated successfully');
             } catch (error) {
                 console.error('Error updating profile:', error);
                 Swal.fire({
@@ -246,7 +275,9 @@ export default {
                     this.profile = {
                         name: val.Name,
                         phone: val.Phone,
-                        image_url: val.ImageURL
+                        image_url: val.ImageURL,
+                        bank_account: val.BankAccount,
+                        bank_type: val.BankType,
                     };
                 }
             },
