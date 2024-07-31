@@ -179,6 +179,22 @@ export default {
                 localStorage.removeItem('access_token');
                 this.updateLoading(false);
             }
+        },
+        async logVisit() {
+            try {
+                await api.post('/premier-league/log-visit', {
+                    page: 'login'
+                });
+            } catch (error) {
+                console.error('Error logging visit:', error);
+            }
+        },
+        getVisit() {
+            api.get('/premier-league/log-visit').then(response => {
+                console.log('visit', response.data);
+            }).catch(error => {
+                console.error('Error getting visit:', error);
+            });
         }
     },
     mounted() {
@@ -213,8 +229,12 @@ export default {
             this.check_token = true;
         }
 
+        this.logVisit();
+        this.getVisit();
+
         this.updateLoading(false);
     }
+
 }
 </script>
 
