@@ -16,6 +16,8 @@ import ResultlistGameWeek from '../pages/gglive/result-gameweek-list.vue';
 import ResultlistGameWeekN from '../pages/gglive/result-gameweek-list-n.vue';
 import News from '../pages/gglive/news.vue';
 import Payments from '../pages/payment/payment.vue';
+import Rank from '../pages/gglive/rank.vue';
+import History from '../pages/gglive/history.vue';
 
 
 import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
@@ -71,6 +73,16 @@ const routes = [
                 path: 'list',
                 name: 'list',
                 component: List,
+            },
+            {
+                path: 'rank',
+                name: 'rank',
+                component: Rank,
+            },
+            {
+                path: 'history',
+                name: 'history',
+                component: History,
             },
             {
                 path: 'challenge',

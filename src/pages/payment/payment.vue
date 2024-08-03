@@ -1,5 +1,59 @@
 <template>
     <div>
+        <!-- <div v-show="loading">
+            <LodingSceen style="display: flex; justify-content: space-around;" />
+        </div> -->
+        <div class="master-container">
+            <div class="card cart">
+                <label class="title">Your cart</label>
+                <div class="products">
+                    <div class="product">
+                        <img src="../../../public/assets/logo.webp" alt="QR Code">
+                        <div>
+                            <span>Cheese Burger</span>
+                            <p>Extra Spicy</p>
+                            <p>No mayo</p>
+                        </div>
+                        <div class="quantity">
+                            <button @click="adjustValue('-')" >
+                                <svg fill="none" viewBox="0 0 24 24" height="14" width="14"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
+                                        stroke="#47484b" d="M20 12L4 12"></path>
+                                </svg>
+                            </button>
+                            <label>{{ value }}</label>
+                            <button @click="adjustValue('+')">
+                                <svg fill="none" viewBox="0 0 24 24" height="14" width="14"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5"
+                                        stroke="#47484b" d="M12 4V20M20 12H4"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <label class="price small">฿{{sumValue}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card checkout">
+                <label class="title">Checkout</label>
+                <div class="details">
+                    <span>Your cart subtotal:</span>
+                    <span>47.99$</span>
+                    <span>Discount through applied coupons:</span>
+                    <span>3.99$</span>
+                    <span>Shipping fees:</span>
+                    <span>4.99$</span>
+                </div>
+                <div class="checkout--footer">
+                    <label class="price"><sup>$</sup>57.99</label>
+                    <button class="checkout-btn">Checkout</button>
+                </div>
+            </div>
+        </div>
+
+        <!--         
         <div class="card mt-2" @click="buyTicketN()">
             <div class="border"></div>
             <div class="content">
@@ -11,7 +65,7 @@
         <div v-if="qrCode">
             <h2>Scan the QR Code to Pay</h2>
             <img :src="`data:image/svg+xml;base64,${qrCode}`" alt="QR Code">
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -27,8 +81,20 @@ export default {
             qrCode: null, // เพิ่มตัวแปรนี้เพื่อเก็บ base64 QR code
         };
     },
+    computed: {
+        sumValue() {
+            return this.value * 100.00;
+        }
+    },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        adjustValue(operator) {
+            if (operator === '+') {
+                this.value++;
+            } else if (operator === '-' && this.value > 1) {
+                this.value--;
+            }
+        },
         async buyTicketN() {
             try {
                 const access_token = localStorage.getItem('access_token');
@@ -64,103 +130,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.card {
-    height: 140px;
-    background: #243137;
-    position: relative;
-    display: grid;
-    place-content: center;
-    border-radius: 10px;
-    overflow: hidden;
-}
-#logo-main,
-#logo-second {
-    height: 100%;
-}
-#logo-main {
-    fill: #bd9f67;
-}
-#logo-second {
-    padding-bottom: 10px;
-    fill: none;
-    stroke: #bd9f67;
-    stroke-width: 1px;
-}
-.border {
-    position: absolute;
-    inset: 0px;
-    border: 2px solid #8f4cb6;
-    opacity: 0;
-    transform: rotate(10deg);
-}
-.bottom-text {
-    position: absolute;
-    left: 50%;
-    bottom: 13px;
-    transform: translateX(-50%);
-    font-size: 6px;
-    text-transform: uppercase;
-    padding: 0px 5px 0px 8px;
-    color: #bd9f67;
-    background: #243137;
-    opacity: 0;
-    letter-spacing: 7px;
-}
-.content .logo {
-    height: 35px;
-    position: relative;
-    width: 33px;
-    overflow: hidden;
-}
-.content .logo .logo1 {
-    height: 33px;
-    position: absolute;
-    left: 0;
-}
-.content .logo .trail {
-    position: absolute;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-}
-.content .logo-bottom-text {
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
-    margin-top: 0px;
-    color: #bd9f67;
-    padding-left: 8px;
-    font-size: 18px;
-    /* letter-spacing: none; */
-}
-.content .logo-bottom-text1 {
-    position: absolute;
-    left: 50%;
-    top: 45%;
-    transform: translate(-50%, -50%);
-    margin-top: 15px;
-    color: #bd9f67;
-    padding-left: 8px;
-    font-size: 15px;
-    /* letter-spacing: none; */
-}
-.card .logo {
-    width: 134px;
-}
-.card .border {
-    inset: 15px;
-    opacity: 1;
-    transform: rotate(0);
-    border-radius: 10px;
-}
-.card .bottom-text {
-    letter-spacing: 3px;
-    opacity: 1;
-}
-.card .content .logo-bottom-text {
-    letter-spacing: 1.5px;
-}
-</style>
