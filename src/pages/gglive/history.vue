@@ -3,8 +3,8 @@
         <div v-show="loading">
             <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
-        <div class="contant_style">
-            <div class="walletBalanceCard mb-2 mt-1" v-if="datas" v-for="data in datas">
+        <div class="contant_style" >
+            <div class="walletBalanceCard mb-2 mt-1" v-if="datas.length > 0"  v-for="data in datas">
                 <div class="svgwrapper">
                     <svg viewBox="0 0 256 256" width="34" height="64"
                         v-if="data.Status === 'buy_ticket' || data.Status === 'resive_reward_ticket'" id="ticket">
@@ -60,6 +60,11 @@
                 </div>
 
 
+            </div>
+            <div v-else>
+                <div class="flex justify-center items-center h-64">
+                    <span class="text-gray-400">ไม่มีข้อมูล</span>
+                </div>
             </div>
         </div>
         <Pagination :page="page" :pages="pages" @page-change="facthTransections" />
