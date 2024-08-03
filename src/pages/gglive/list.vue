@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="heading text-gray-700">{{ truncatedUsername }}</div>
                     <div class="details">รายละเอียดการเเข่งขันของคุณ.<br>ทั้งเกมวีคกติ, เเละเกมวีค <span class="text-yellow-600">VIP</span>.</div>
-                  
+                    
                 </div>
                 <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
                     class="glasses rounded-full shadow-lg">

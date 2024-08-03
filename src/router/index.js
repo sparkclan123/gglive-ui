@@ -15,6 +15,7 @@ import Result from '../pages/gglive/result.vue';
 import ResultlistGameWeek from '../pages/gglive/result-gameweek-list.vue';
 import ResultlistGameWeekN from '../pages/gglive/result-gameweek-list-n.vue';
 import News from '../pages/gglive/news.vue';
+import Rule from '../pages/gglive/ruleweb.vue';
 import Payments from '../pages/payment/payment.vue';
 import Rank from '../pages/gglive/rank.vue';
 import History from '../pages/gglive/history.vue';
@@ -114,6 +115,11 @@ const routes = [
                 path: 'news',
                 name: 'news',
                 component: News,
+            },
+            {
+                path: 'rule',
+                name: 'rule',
+                component: Rule,
             },
 
             {

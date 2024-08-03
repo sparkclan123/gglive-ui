@@ -249,6 +249,7 @@ export default {
   height: 100%;
   aspect-ratio: 1;
   padding: 7px 0 7px 15px;
+  width: 200px;
 }
 
 .card .top-section .icons .logo .top-section {
