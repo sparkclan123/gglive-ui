@@ -6,8 +6,8 @@
         <div class="contant_style">
             <div class="walletBalanceCard mb-2 mt-1" v-if="datas" v-for="data in datas">
                 <div class="svgwrapper">
-                    <svg  viewBox="0 0 256 256" width="44" height="64"
-                        v-if="data.Status === 'buy_ticket' || data.Status === 'resive_reward_ticket' " id="ticket">
+                    <svg viewBox="0 0 256 256" width="34" height="64"
+                        v-if="data.Status === 'buy_ticket' || data.Status === 'resive_reward_ticket'" id="ticket">
                         <linearGradient id="a" x1="127.999" x2="127.999" y1="21.35" y2="238.728"
                             gradientUnits="userSpaceOnUse">
                             <stop offset="0" stop-color="#f9aa2d"></stop>
@@ -29,86 +29,33 @@
                         </path><text fill="#2C330D" font-family="'ArialRoundedMTBold'" font-size="34.732"
                             transform="matrix(.8163 -.6453 .6202 .7845 87.393 181.58)">PuDee</text>
                     </svg>
-
-                    <svg 
-                        viewBox="0 0 64 64" width="44" height="64" id="money"  v-if="data.Status === 'resive_reward_money'">
-                        <defs>
-                            <linearGradient id="c" x1="35" x2="35" y1="47" y2="11" gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#009e77"></stop>
-                                <stop offset="1" stop-color="#00d291"></stop>
-                            </linearGradient>
-                            <linearGradient id="d" x1="33" x2="33" y1="47" y2="15" gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#00684e"></stop>
-                                <stop offset="1" stop-color="#009c6b"></stop>
-                            </linearGradient>
-
-                            <linearGradient id="a" x1="48" x2="61" y1="17.5" y2="17.5" gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#ffe37c"></stop>
-                                <stop offset="1" stop-color="#ffc337"></stop>
-                            </linearGradient>
-                            
-                            <linearGradient id="e" x1="9" x2="22" xlink:href="#a"></linearGradient>
-                            <linearGradient id="f" y1="40.5" y2="40.5" xlink:href="#a"></linearGradient>
-                            <linearGradient id="b" x1="52.5" x2="52.5" y1="47" y2="34.39"
-                                gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#f7c944"></stop>
-                                <stop offset="1" stop-color="#f7b314"></stop>
-                            </linearGradient>
-                            <linearGradient id="g" x1="52.7" x2="52.7" y1="23.61" y2="15" xlink:href="#b">
-                            </linearGradient>
-                            <linearGradient id="h" x1="15.3" x2="15.3" y1="24" y2="15" xlink:href="#b"></linearGradient>
-                            <linearGradient id="i" x1="29" x2="29" y1="53" y2="17" xlink:href="#c"></linearGradient>
-                            <linearGradient id="j" x1="42" x2="55" y1="23.5" y2="23.5" xlink:href="#a"></linearGradient>
-                            <linearGradient id="k" x1="3" x2="16" y1="23.5" y2="23.5" xlink:href="#a"></linearGradient>
-                            <linearGradient id="l" x1="3" x2="16" y1="46.5" y2="46.5" xlink:href="#a"></linearGradient>
-                            <linearGradient id="m" x1="42" x2="55" y1="46.5" y2="46.5" xlink:href="#a"></linearGradient>
-                            <linearGradient id="n" x1="24" x2="34" y1="35" y2="35" xlink:href="#a"></linearGradient>
-                        </defs>
-                        <g>
-                            <rect width="52" height="36" x="9" y="11" fill="url(#c)" rx="5"></rect>
-                            <path fill="url(#d)"
-                                d="M50,15H9.1A5.47,5.47,0,0,0,9,16V42a5,5,0,0,0,5,5H56a5.47,5.47,0,0,0,1-.1V22A7,7,0,0,0,50,15Z">
-                            </path>
-                            <path fill="url(#a)"
-                                d="M56,11h-8c0,.33,0,.66,0,1A12,12,0,0,0,60,24c.34,0,.67,0,1-.05V16A5,5,0,0,0,56,11Z">
-                            </path>
-                            <path fill="url(#e)"
-                                d="M9,16v8c.33,0,.66.05,1,.05A12,12,0,0,0,22,12c0-.34,0-.67-.05-1H14A5,5,0,0,0,9,16Z">
-                            </path>
-                            <path fill="url(#f)"
-                                d="M61,34.05c-.33,0-.66,0-1,0A12,12,0,0,0,48,46c0,.34,0,.67,0,1h8a5,5,0,0,0,5-5Z">
-                            </path>
-                            <path fill="url(#b)"
-                                d="M57,34.39A12,12,0,0,0,48,46c0,.34,0,.67,0,1h8a5.47,5.47,0,0,0,1-.1Z"></path>
-                            <path fill="url(#g)" d="M57,23.61V22a7,7,0,0,0-7-7H48.39A12,12,0,0,0,57,23.61Z"></path>
-                            <path fill="url(#h)"
-                                d="M21.61,15H9.1A5.47,5.47,0,0,0,9,16v8c.33,0,.66.05,1,.05A12,12,0,0,0,21.61,15Z">
-                            </path>
-                            <rect width="52" height="36" x="3" y="17" fill="url(#i)" rx="5"></rect>
-                            <path fill="url(#j)"
-                                d="M50,17h-8c0,.33,0,.66,0,1A12,12,0,0,0,54,30c.34,0,.67,0,1-.05V22A5,5,0,0,0,50,17Z">
-                            </path>
-                            <path fill="url(#k)"
-                                d="M3,22v8c.33,0,.66.05,1,.05A12,12,0,0,0,16,18c0-.34,0-.67-.05-1H8A5,5,0,0,0,3,22Z">
-                            </path>
-                            <path fill="url(#l)"
-                                d="M4,40c-.34,0-.67,0-1,0v8a5,5,0,0,0,5,5h8c0-.33.05-.66.05-1A12,12,0,0,0,4,40Z"></path>
-                            <path fill="url(#m)"
-                                d="M55,40.05c-.33,0-.66,0-1,0A12,12,0,0,0,42,52c0,.34,0,.67,0,1h8a5,5,0,0,0,5-5Z">
-                            </path>
-                            <path fill="url(#n)"
-                                d="M30.2,34H30V30.4h.2A1.81,1.81,0,0,1,32,32.2h2a3.8,3.8,0,0,0-3.8-3.8H30V26.2H28v2.2h-.2a3.8,3.8,0,0,0,0,7.6H28v3.6h-.2A1.81,1.81,0,0,1,26,37.8H24a3.8,3.8,0,0,0,3.8,3.8H28v2.2h2V41.6h.2a3.8,3.8,0,0,0,0-7.6Zm-2.4,0a1.8,1.8,0,0,1,0-3.6H28V34Zm2.4,5.6H30V36h.2a1.8,1.8,0,1,1,0,3.6Z">
-                            </path>
-                        </g>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="34" height="64" id="money" v-if="data.Status === 'resive_reward_money'">
+                        <rect width="58" height="30" x="3" y="17" fill="#49b170" rx="3"></rect>
+                        <path fill="#00913e"
+                            d="M55,26a3,3,0,0,1-3-3,1,1,0,0,0-1-1H13a1,1,0,0,0-1,1,3,3,0,0,1-3,3,1,1,0,0,0-1,1V37a1,1,0,0,0,1,1,3,3,0,0,1,3,3,1,1,0,0,0,1,1H51a1,1,0,0,0,1-1,3,3,0,0,1,3-3,1,1,0,0,0,1-1V27A1,1,0,0,0,55,26Z">
+                        </path>
+                        <circle cx="32" cy="32" r="8" fill="#fff042"></circle>
+                        <circle cx="18" cy="32" r="3" fill="#f7a600"></circle>
+                        <circle cx="46" cy="32" r="3" fill="#f7a600"></circle>
+                        <path fill="#f7a600"
+                            d="M32.67,31H31.33c-.15,0-.33-.21-.33-.5s.18-.5.33-.5h2a1,1,0,0,0,0-2H33V25a1,1,0,0,0-2,0v3a2.51,2.51,0,0,0,.33,5h1.34c.15,0,.33.21.33.5s-.18.5-.33.5h-2a1,1,0,0,0,0,2H31v3a1,1,0,0,0,2,0V36a2.51,2.51,0,0,0-.33-5Z">
+                        </path>
+                        <path fill="#f7a600"
+                            d="M32,40a8,8,0,1,1,6.57-12.55A7.85,7.85,0,0,1,40,32,8,8,0,0,1,32,40Zm0-14.77A6.77,6.77,0,1,0,38.77,32,6.79,6.79,0,0,0,32,25.23Z">
+                        </path>
                     </svg>
+            
                 </div>
 
                 <div class="balancewrapper">
-                    <span class="balanceHeading">{{ data.Detail }} {{ data.Receive }} <DateFormatted :dateString="data.CreatedAt"/></span>
-                    <p class="balance" :class="data.Status == 'resive_reward_money' ||  data.Status == 'resive_reward_ticket' ? 'text-green-400' : 'text-red-200' ">
-                        <span id="currency" v-if=" data.Currency == 'THB'">฿</span>
+                    <span class="balanceHeading">{{ data.Detail }} {{ data.Receive }}
+                        <DateFormatted :dateString="data.CreatedAt" />
+                    </span>
+                    <p class="balance"
+                        :class="data.Status == 'resive_reward_money' || data.Status == 'resive_reward_ticket' ? 'text-green-400' : 'text-red-200'">
+                        <span id="currency" v-if="data.Currency == 'THB'">฿</span>
                         <Numberformat :value="data.Amount" :decimal="2" />
-                        <span id="currency" v-if=" data.Currency == 'Ticket'">ใบ</span>
+                        <span id="currency" v-if="data.Currency == 'Ticket'">ใบ</span>
                     </p>
                 </div>
 
