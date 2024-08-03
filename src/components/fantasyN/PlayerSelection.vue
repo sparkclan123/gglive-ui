@@ -272,6 +272,7 @@ export default {
                 });
                 if (result.isConfirmed) {
                     this.removePlayer({ player, position: positionState });
+                    this.$emit('remove-player', player.id);
                 }
             } else {
                 const emptySpotIndex = playersInPosition.findIndex(p => p.id === null);

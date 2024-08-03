@@ -1,84 +1,123 @@
 <template>
-    <div class="flex flex-col items-center justify-center">
-      <div class="bg-white p-1 rounded-lg shadow-lg" :class="classadj">
-        <div class="flex flex-row gap-4">
-          <div class="text-center">
-            <div class="text-2xl font-bold countdown-number">{{ days }}</div>
-            <div class="text-sm">วัน</div>
+  <div class="flex flex-col items-center justify-center mt-2" :class="classadj">
+    <div class="" :class="classadj">
+      <div class="flex flex-row gap-4">
+        <div class="text-center">
+          <div class="countdown-number">
+            <span class="top">{{ days }}</span>
+            <span class="bottom">วัน</span>
           </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold countdown-number">{{ hours }}</div>
-            <div class="text-sm">ชั่วโมง</div>
+        </div>
+        <div class="text-center">
+          <div class="countdown-number">
+            <span class="top">{{ hours }}</span>
+            <span class="bottom">ชั่วโมง</span>
           </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold countdown-number">{{ minutes }}</div>
-            <div class="text-sm">นาที</div>
+        </div>
+        <div class="text-center">
+          <div class="countdown-number">
+            <span class="top">{{ minutes }}</span>
+            <span class="bottom">นาที</span>
           </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold countdown-number">{{ seconds }}</div>
-            <div class="text-sm">วินาที</div>
+         
+        </div>
+        <div class="text-center">
+          <div class="countdown-number">
+            <span class="top">{{ seconds }}</span>
+            <span class="bottom">วินาที</span>
           </div>
+         
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      datenow: {
-        type: String,
-        required: true,
-      },
-      endtime: {
-        type: String,
-        required: true,
-      },
-      classadj: {
-        type: String,
-        default: '',
-      },
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    datenow: {
+      type: String,
+      required: true,
     },
-    data() {
-      return {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-        targetTime: null,
-        currentTime: null,
-      };
+    endtime: {
+      type: String,
+      required: true,
     },
-    mounted() {
-      this.currentTime = new Date(this.datenow).getTime();
-      this.targetTime = new Date(this.endtime).getTime();
-      this.updateCountdown();
-      setInterval(this.updateCountdown, 1000);
+    classadj: {
+      type: String,
+      default: '',
     },
-    methods: {
-      updateCountdown() {
-        this.currentTime += 1000; // เพิ่มเวลาปัจจุบันทีละ 1 วินาที
-        const distance = this.targetTime - this.currentTime;
-  
-        if (distance > 0) {
-          this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        } else {
-          this.days = 0;
-          this.hours = 0;
-          this.minutes = 0;
-          this.seconds = 0;
-        }
-      },
+  },
+  data() {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      targetTime: null,
+      currentTime: null,
+    };
+  },
+  mounted() {
+    this.currentTime = new Date(this.datenow).getTime();
+    this.targetTime = new Date(this.endtime).getTime();
+    this.updateCountdown();
+    setInterval(this.updateCountdown, 1000);
+  },
+  methods: {
+    updateCountdown() {
+      this.currentTime += 1000; // เพิ่มเวลาปัจจุบันทีละ 1 วินาที
+      const distance = this.targetTime - this.currentTime;
+
+      if (distance > 0) {
+        this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      } else {
+        this.days = 0;
+        this.hours = 0;
+        this.minutes = 0;
+        this.seconds = 0;
+      }
     },
-  };
-  </script>
-  
-  <style scoped>
-  .countdown-number {
-    transition: transform 1s ease-out;
-  }
-  </style>
-  
+  },
+};
+</script>
+
+<style scoped>
+.countdown-number {
+  position: relative;
+  height: 60px;
+  width: 50px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), inset 2px 4px 0 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: bold 2em 'Lato', sans-serif;
+}
+
+.countdown-number .top,
+.countdown-number .bottom {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.countdown-number .top {
+  top: 0;
+}
+
+.countdown-number .bottom {
+  bottom: 0;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+
+
+
+</style>

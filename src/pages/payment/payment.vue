@@ -159,6 +159,7 @@ export default {
                 });
                 if (response.data.ok) {
                     this.qrCode = response.data.qrCodeBase64; // เก็บ base64 QR code
+                    this.getPaymentPending('nosetqr');
                     this.disable = false;
                     this.loading = false;
                 }
@@ -189,7 +190,7 @@ export default {
             link.click();
             document.body.removeChild(link);
         },
-        async getPaymentPending() {
+        async getPaymentPending(value) {
             try {
                 this.loading = true;
                 const access_token = localStorage.getItem('access_token');
@@ -200,6 +201,10 @@ export default {
                 });
                 if (response.data.ok) {
                     this.payment = response.data.payment;
+                    if (value === 'nosetqr') {
+                        this.loading = false;
+                        return;
+                    }
                     this.qrCode = response.data.qrCodeBase64;
                     this.loading = false;
                 }
@@ -356,7 +361,7 @@ export default {
 .button-save {
     width: 50%;
     margin: 0 auto;
-    font-size: 18px;
+    font-size: 15px;
     display: inline-block;
     outline: 0;
     border: 0;
@@ -387,11 +392,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .qr-code {
-    max-width: 200px;
+    max-width: 240px;
     width: 100%;
     height: auto;
     margin-bottom: 10px;
