@@ -2,9 +2,32 @@
     <div>
 
         <div class="flex items-center m-2">
-            <button @click="toggleModel" class="bg-green-700 text-white px-3 py-1 rounded ml-2 text-xs">สร้าง</button>
+            <button @click="toggleModel" class="bg-green-700 text-white px-3 py-1 rounded ml-1 text-xs">สร้าง</button>
             <button @click="toggleModelJoin"
-                class="bg-yellow-700 text-white px-3 py-1 rounded ml-2 text-xs">เข้าร่วม</button>
+                class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">เข้าร่วม</button>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" id="info" class="ml-2" width="24" height="24"
+                @click="showinformation">
+                <g>
+                    <circle cx="260" cy="260" r="230" fill="#f04d3d"></circle>
+                    <path fill="#b43a2e"
+                        d="M353.89257,164.16667,160.16991,349.62733,297.45829,486.91572A230.12211,230.12211,0,0,0,486.95608,297.23017Z">
+                    </path>
+                    <circle cx="260" cy="260" r="134.167" fill="#fff"></circle>
+                    <path fill="#d4dde0"
+                        d="M145,260A134.0751,134.0751,0,0,1,269.58333,126.31706c-3.17787-.22519-6.34814-.48373-9.58333-.48373a134.16667,134.16667,0,0,0,0,268.33334c3.23519,0,6.40546-.25854,9.58333-.48373A134.0751,134.0751,0,0,1,145,260Z">
+                    </path>
+                    <rect width="38.333" height="115" x="240.833" y="231.25" fill="#fbae04" rx="19.167" ry="19.167">
+                    </rect>
+                    <path fill="#fe9c0f"
+                        d="M250.41667,327.08333V250.41667a19.12154,19.12154,0,0,1,14.375-18.48875,18.93344,18.93344,0,0,0-23.95834,18.48875v76.66666a18.93344,18.93344,0,0,0,23.95834,18.48875A19.12154,19.12154,0,0,1,250.41667,327.08333Z">
+                    </path>
+                    <circle cx="260" cy="183.333" r="19.167" fill="#fbae04"></circle>
+                    <path fill="#fe9c0f"
+                        d="M250.41667,183.33333a19.12153,19.12153,0,0,1,14.375-18.48874,19.16854,19.16854,0,1,0,0,36.97749A19.12154,19.12154,0,0,1,250.41667,183.33333Z">
+                    </path>
+                </g>
+            </svg>
         </div>
 
 
@@ -54,7 +77,8 @@
                         <td class="p-1 border-b border-blue-gray-50 text-left">
                             <p
                                 class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
-                                <button @click="seeMatchDetail(match.id, match.game_week_id)" class="bg-yellow-800 text-white px-3 py-1 rounded text-xs">รายละเอียด</button>
+                                <button @click="seeMatchDetail(match.id, match.game_week_id)"
+                                    class="bg-yellow-800 text-white px-3 py-1 rounded text-xs">รายละเอียด</button>
                             </p>
                         </td>
 
@@ -84,6 +108,27 @@ export default {
         };
     },
     methods: {
+        showinformation() {
+            Swal.fire({
+                icon: 'info',
+                html: `
+    <div class="text-custom" style="text-align: left;">
+      <p> - การจัดการเเข่งขันเองสามารถสร้างได้ไม่เกิน 2 การเเข่งขันต่อ 1 เกมวีคที่กำลังเปิดอยู่เท่านั้น</p>
+      <p> - คุณสามารถสร้างเเข่งขันของคุณเอง หรือเข้าร่วมเเข่งขันของเพื่อนๆของคุณได้</p>
+      <p> - ทางเราไม่มีส่วนเกี่ยวข้องใดๆทั้งสิ้นในการจัดการเเข่งขันของคุณ นอกจากการตัดสินคะเเนน จากระบบ</p>
+    </div>
+  `,
+                showConfirmButton: true,
+                confirmButtonText: 'เข้าใจเเล้ว',
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    confirmButton: 'btn-confirm',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+            });
+        },
         async seeMatchDetail(id, gameWeekID) {
             console.log(id);
             this.$router.push({

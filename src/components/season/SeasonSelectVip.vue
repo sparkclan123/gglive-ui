@@ -33,11 +33,12 @@
       <div class="confetti-piece"></div>
     </div>
 
-    <div class="card cursor-pointer">
-      <div class="top-section  bg-img" @click="selectSeason()">
+    <div class="card ">
+      <div class="top-section  bg-img cursor-pointer" @click="selectSeason()">
         <div class="icons">
           <div class="logo shsojvp text-yellow-50" style="display: flex; align-items: center;">
-             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" style="margin-left: -8px;" viewBox="0 0 512 512" width="20" height="20" id="star">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" style="margin-left: -8px;" viewBox="0 0 512 512"
+              width="20" height="20" id="star">
               <polygon fill="#ffd759"
                 points="102.6 494.1 137 320.1 6 200.5 182.1 179.5 255.3 17.9 329.7 178.9 506 198.6 375.9 319.2 411.6 492.9 256.8 406.4">
               </polygon>
@@ -57,6 +58,7 @@
       </div>
       <div class="bottom-section">
         <span class="title">season {{ getSeasons.label }}</span>
+        <button class="titlebtn bg-yellow-400  px-3 py-1 rounded text-xs" style="color: black;" @click="rewardDetail">รายละเอียดรางวัล</button>
         <div class="row row1">
           <div class="item">
             <span class="big-text">{{ allPlayer }}</span>
@@ -117,6 +119,9 @@ export default {
     ...mapActions('selectGameWeek', ['setGameWeek']),
     ...mapActions('season', ['fetchSeasons']),
     ...mapActions('ticket', ['facthTicket']),
+    rewardDetail() {
+      this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id } });
+    },
     selectSeason() {
       this.facthTicket();
       if (this.getTicket == 0) {
@@ -316,7 +321,6 @@ export default {
   fill: #1e1037;
 }
 
-
 .card .bottom-section {
   margin-top: 1px;
   padding: 10px 5px;
@@ -329,6 +333,15 @@ export default {
   color: white;
   text-align: center;
   letter-spacing: 2px;
+}
+
+.card .bottom-section .titlebtn {
+  display: block;
+  color: white;
+  text-align: center;
+  letter-spacing: 1px;
+  margin: 10px auto; /* เพิ่ม margin เพื่อให้อยู่ตรงกลาง */
+  width: fit-content; /* ปรับความกว้างให้เหมาะสม */
 }
 
 .card .bottom-section .row {

@@ -23,6 +23,8 @@ import History from '../pages/gglive/history.vue';
 import SelfMatchDetail from '../pages/gglive/selfMatchDetail.vue';
 import SelfMatchDetailPick from '../pages/gglive/selfMatchDetailPickUp.vue';
 
+import Reward from '../pages/gglive/reward-detail.vue';
+
 
 
 
@@ -126,6 +128,13 @@ const routes = [
                 name: 'self-match-detail-pick',
                 component: SelfMatchDetailPick,
             },
+            {
+                path: 'reward-detail/:id',
+                name: 'reward-detail',
+                component: Reward,
+            },
+
+            
             {
                 path: 'news',
                 name: 'news',

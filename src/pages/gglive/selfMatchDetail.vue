@@ -35,70 +35,8 @@
                                 <span class="regular-text text-gray-200">(คะเเนน)</span>
                             </div>
                             <div class="item_2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="36" height="36"
-                                    fill="none" @click="addTeamInMatch" viewBox="0 0 183 183" id="add">
-                                    <g filter="url(#filter0_iiii_2_67)">
-                                        <path fill="url(#paint0_linear_2_67)"
-                                            d="M125.29 0H57.7102C25.886 0 0 25.9278 0 57.7521V125.29C0 157.114 25.886 183 57.7102 183H125.29C157.114 183 183 157.114 183 125.29V57.7521C183 25.9278 157.114 0 125.29 0V0ZM131.897 98.9438C131.897 99.7383 131.27 100.407 130.475 100.407H100.031C99.2365 100.407 98.5674 101.035 98.5674 101.829V132.274C98.5674 133.068 97.9401 133.737 97.1456 133.737H86.6908C85.8963 133.737 85.2271 133.068 85.2271 132.274V101.829C85.2271 101.035 84.5999 100.407 83.8053 100.407H53.3611C52.5665 100.407 51.9392 99.7383 51.9392 98.9438V88.489C51.9392 87.6945 52.5665 87.0672 53.3611 87.0672H83.8053C84.5999 87.0672 85.2271 86.4399 85.2271 85.6453V55.2011C85.2271 54.4065 85.8963 53.7374 86.6908 53.7374H97.1456C97.9401 53.7374 98.5674 54.4065 98.5674 55.2011V85.6453C98.5674 86.4399 99.2365 87.0672 100.031 87.0672H130.475C131.27 87.0672 131.897 87.6945 131.897 88.489V98.9438Z">
-                                        </path>
-                                    </g>
-                                    <defs>
-                                        <linearGradient id="paint0_linear_2_67" x1="28.03" x2="95.248" y1="22.752"
-                                            y2="170.035" gradientUnits="userSpaceOnUse">
-                                            <stop stop-color="#50F"></stop>
-                                            <stop offset="1" stop-color="#EB01FF"></stop>
-                                        </linearGradient>
-                                        <filter id="filter0_iiii_2_67" width="200" height="197" x="-7" y="-4"
-                                            color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-                                            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
-                                            <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape">
-                                            </feBlend>
-                                            <feColorMatrix in="SourceAlpha" result="hardAlpha"
-                                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
-                                            <feOffset dx="5" dy="5"></feOffset>
-                                            <feGaussianBlur stdDeviation="5"></feGaussianBlur>
-                                            <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic">
-                                            </feComposite>
-                                            <feColorMatrix
-                                                values="0 0 0 0 0.995833 0 0 0 0 0.951851 0 0 0 0 0.951851 0 0 0 0.25 0">
-                                            </feColorMatrix>
-                                            <feBlend in2="shape" result="effect1_innerShadow_2_67"></feBlend>
-                                            <feColorMatrix in="SourceAlpha" result="hardAlpha"
-                                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
-                                            <feOffset dx="-7" dy="-4"></feOffset>
-                                            <feGaussianBlur stdDeviation="5"></feGaussianBlur>
-                                            <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic">
-                                            </feComposite>
-                                            <feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0">
-                                            </feColorMatrix>
-                                            <feBlend in2="effect1_innerShadow_2_67" result="effect2_innerShadow_2_67">
-                                            </feBlend>
-                                            <feColorMatrix in="SourceAlpha" result="hardAlpha"
-                                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
-                                            <feOffset dx="10" dy="10"></feOffset>
-                                            <feGaussianBlur stdDeviation="7.5"></feGaussianBlur>
-                                            <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic">
-                                            </feComposite>
-                                            <feColorMatrix
-                                                values="0 0 0 0 0.895833 0 0 0 0 0.73309 0 0 0 0 0.73309 0 0 0 0.25 0">
-                                            </feColorMatrix>
-                                            <feBlend in2="effect2_innerShadow_2_67" result="effect3_innerShadow_2_67">
-                                            </feBlend>
-                                            <feColorMatrix in="SourceAlpha" result="hardAlpha"
-                                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"></feColorMatrix>
-                                            <feOffset dx="10" dy="10"></feOffset>
-                                            <feGaussianBlur stdDeviation="5"></feGaussianBlur>
-                                            <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic">
-                                            </feComposite>
-                                            <feColorMatrix
-                                                values="0 0 0 0 0.941667 0 0 0 0 0.745486 0 0 0 0 0.745486 0 0 0 0.2 0">
-                                            </feColorMatrix>
-                                            <feBlend in2="effect3_innerShadow_2_67" result="effect4_innerShadow_2_67">
-                                            </feBlend>
-                                        </filter>
-                                    </defs>
-                                </svg>
-
+                                <button @click="addTeamInMatch"
+                                    class="bg-green-600 text-white px-4 py-1 rounded text-md">เพิ่ม</button>
                                 <!-- <span class="regular-text text-gray-200">เพิ่มทีม</span> -->
                             </div>
                             <div class="item">
@@ -136,15 +74,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="data in games" :key="i">
-                                <td class="p-1 border-b border-blue-gray-50 cursor-pointer">
+                            <tr v-for="data in games" :key="i" >
+                                <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data)">
                                     <div class="flex items-center gap-3">
                                         <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
                                             alt="userimage"
                                             class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
                                         <p
                                             class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
-                                            {{ data.name }}</p>
+                                            {{ data.name }}</p> <i class="fas fa-ticket-alt text-yellow-400" v-if="data.vip"></i>
                                     </div>
                                 </td>
                                 <td class="p-1 border-b border-blue-gray-50 pl-4">
@@ -191,6 +129,25 @@ export default {
         };
     },
     methods: {
+        seeDetail(data) {
+            if (data.vip == 1) {
+                this.$router.push({
+                    name: 'challenge-detail',
+                    params: {
+                        id: data.id
+                    }
+                });
+            }
+            if (data.vip == 0) {
+                this.$router.push({
+                    name: 'challenge-detail-n',
+                    params: {
+                        id: data.id
+                    }
+                });
+            }
+            
+        },
         async addTeamInMatch() {
             // Swal.fire({
             //     title: 'เพิ่มทีม',
