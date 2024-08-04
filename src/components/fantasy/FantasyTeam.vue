@@ -68,19 +68,13 @@
 
                 <div class="alert-container" role="alert">
                     <div v-show="isCaptain === 'none'"
-                        class="alert-content p-1 w-full bg-red-900 items-center text-red-100 leading-none rounded-full flex inline-flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 96 96"
-                            class="mr-1" id="alert-circle">
-                            <path fill="url(#paint0_linear_980_3703)" fill-rule="evenodd"
-                                d="M47.5 11.5C27.6178 11.5 11.5 27.6178 11.5 47.5C11.5 67.3823 27.6178 83.5 47.5 83.5C67.3823 83.5 83.5 67.3823 83.5 47.5C83.5 27.6178 67.3823 11.5 47.5 11.5ZM6.5 47.5C6.5 24.8563 24.8563 6.5 47.5 6.5C70.1437 6.5 88.5 24.8563 88.5 47.5C88.5 70.1437 70.1437 88.5 47.5 88.5C24.8563 88.5 6.5 70.1437 6.5 47.5ZM48 34.5C49.3807 34.5 50.5 35.6193 50.5 37V48.5C50.5 49.8807 49.3807 51 48 51C46.6193 51 45.5 49.8807 45.5 48.5V37C45.5 35.6193 46.6193 34.5 48 34.5ZM48 59.6992C49.3807 59.6992 50.5 58.5799 50.5 57.1992C50.5 55.8185 49.3807 54.6992 48 54.6992C46.6193 54.6992 45.5 55.8185 45.5 57.1992C45.5 58.5799 46.6193 59.6992 48 59.6992Z"
-                                clip-rule="evenodd"></path>
-                            <defs>
-                                <linearGradient id="paint0_linear_980_3703" x1="47.5" x2="47.5" y1="6.5" y2="88.5"
-                                    gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#FF1F00"></stop>
-                                    <stop offset="1" stop-color="#FF8A00"></stop>
-                                </linearGradient>
-                            </defs>
+                        class="alert-content p-1 w-full bg-red-200 items-center text-red-900 leading-none rounded-full flex inline-flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="alert" width="20" height="20" class="mr-1 ml-1">
+                            <g>
+                                <path
+                                    d="M22.56 16.3 14.89 3.58a3.43 3.43 0 0 0-5.78 0L1.44 16.3a3 3 0 0 0-.05 3A3.37 3.37 0 0 0 4.33 21h15.34a3.37 3.37 0 0 0 2.94-1.66 3 3 0 0 0-.05-3.04zM12 17a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm1-4a1 1 0 0 1-2 0V9a1 1 0 0 1 2 0z">
+                                </path>
+                            </g>
                         </svg>
                         <span class="mr-2 text-left flex-auto text-sm">กรุณาเลือกกับตันทีมก่อนบันทึก</span>
                     </div>
@@ -188,7 +182,7 @@
                                 </svg></div></button>
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
-                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan"/>
+                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan" />
                 </div>
             </div>
         </div>
@@ -470,14 +464,16 @@ export default {
 
 <style scoped>
 .alert-container {
-  height: 26px; /* กำหนดความสูงคงที่สำหรับช่องที่แสดงข้อความ */
-  width: 100%;
+    height: 26px;
+    /* กำหนดความสูงคงที่สำหรับช่องที่แสดงข้อความ */
+    width: 100%;
 }
 
 .alert-content {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
+
 .button_new {
     font-size: 14px;
     display: inline-block;

@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import { api } from '@axios_inst';
 export default {
     data() {

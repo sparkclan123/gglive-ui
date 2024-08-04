@@ -8,15 +8,16 @@
 
                 <div class="card">
                     <div class="heading text-gray-700">{{ truncatedUsername }}</div>
-                    <div class="details">รายละเอียดการเเข่งขันของคุณ.<br>ทั้งเกมวีคกติ, เเละเกมวีค <span class="text-yellow-600">VIP</span>.</div>
-                    
+                    <div class="details">รายละเอียดการเเข่งขันของคุณ.<br>ทั้งเกมวีคกติ, เเละเกมวีค <span
+                            class="text-yellow-600">VIP</span>.</div>
+
                 </div>
                 <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
                     class="glasses rounded-full shadow-lg">
 
 
             </div>
-            
+
             <div>
                 <div class="tabs rounded-t-lg ml-3 text-white flex mt-2">
                     <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">
@@ -25,6 +26,9 @@
                     <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
                         เกมวีค
                         VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
+                    </div>
+                    <div class="tab-item_2" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">
+                        จัดการเเข่งเอง
                     </div>
                 </div>
                 <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container ">
@@ -44,6 +48,7 @@ import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
 import MyGameWeekN from '../../components/list/MyGameWeekN.vue';
 import MyGameWeek from '../../components/list/MyGameWeek.vue';
+import SelfMatch from '../../components/list/SelfMatch.vue';
 export default {
     data() {
         return {
@@ -54,6 +59,7 @@ export default {
     components: {
         MyGameWeek,
         MyGameWeekN,
+        SelfMatch
     },
     computed: {
         ...mapGetters('auth', ['userinfo']),
@@ -74,6 +80,8 @@ export default {
                     return 'MyGameWeekN';
                 case 'tab2':
                     return 'MyGameWeek';
+                case 'tab3':
+                    return 'SelfMatch';
                 default:
                     return 'MyGameWeekN';
             }
@@ -124,6 +132,7 @@ export default {
 .bg-fixcolor-p {
     background-color: #f6f6f8;
 }
+
 .card {
     position: relative;
     top: 2em;
@@ -185,6 +194,23 @@ export default {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
+
+.tab-item_2 {
+    margin-right: 3px;
+    padding: 10px 10px;
+    cursor: pointer;
+    background-color: #37003c;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.tab-item_2.active {
+    background-color: #f6f6f8;
+    color: rgb(0, 0, 0);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
 
 .tab-item.active {
     background-color: #f6f6f8;
