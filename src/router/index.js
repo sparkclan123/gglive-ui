@@ -20,6 +20,11 @@ import Payments from '../pages/payment/payment.vue';
 import Rank from '../pages/gglive/rank.vue';
 import History from '../pages/gglive/history.vue';
 
+import SelfMatchDetail from '../pages/gglive/selfMatchDetail.vue';
+import SelfMatchDetailPick from '../pages/gglive/selfMatchDetailPickUp.vue';
+
+
+
 
 import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
 import ChallengeDetailN from '../pages/gglive-detail/challenge-detail-n.vue';
@@ -110,6 +115,16 @@ const routes = [
                 path: 'challenge-detail-n/:id',
                 name: 'challenge-detail-n',
                 component: ChallengeDetailN,
+            },
+            {
+                path: 'self-match-detail/:id/:gameWeekID',
+                name: 'self-match-detail',
+                component: SelfMatchDetail,
+            },
+            {
+                path: 'self-match-detail-pick',
+                name: 'self-match-detail-pick',
+                component: SelfMatchDetailPick,
             },
             {
                 path: 'news',

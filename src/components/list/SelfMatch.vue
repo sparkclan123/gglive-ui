@@ -54,7 +54,7 @@
                         <td class="p-1 border-b border-blue-gray-50 text-left">
                             <p
                                 class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
-                                <button class="bg-yellow-800 text-white px-3 py-1 rounded text-xs">รายละเอียด</button>
+                                <button @click="seeMatchDetail(match.id, match.game_week_id)" class="bg-yellow-800 text-white px-3 py-1 rounded text-xs">รายละเอียด</button>
                             </p>
                         </td>
 
@@ -84,6 +84,16 @@ export default {
         };
     },
     methods: {
+        async seeMatchDetail(id, gameWeekID) {
+            console.log(id);
+            this.$router.push({
+                name: 'self-match-detail',
+                params: {
+                    id: id,
+                    gameWeekID: gameWeekID
+                }
+            });
+        },
         async facthAllSelfMatch(page = 1, limit = 10) {
             try {
                 this.$emit('set-loading', true);
