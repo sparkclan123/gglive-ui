@@ -129,7 +129,7 @@ const routes = [
                 component: SelfMatchDetailPick,
             },
             {
-                path: 'reward-detail/:id',
+                path: 'reward-detail/:id/:type',
                 name: 'reward-detail',
                 component: Reward,
             },

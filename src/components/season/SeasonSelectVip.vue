@@ -58,7 +58,8 @@
       </div>
       <div class="bottom-section">
         <span class="title">season {{ getSeasons.label }}</span>
-        <button class="titlebtn bg-yellow-400  px-3 py-1 rounded text-xs" style="color: black;" @click="rewardDetail">รายละเอียดรางวัล</button>
+        <button class="titlebtn bg-yellow-400  px-3 py-1 rounded text-xs" style="color: black;"
+          @click="rewardDetail">รายละเอียดรางวัล</button>
         <div class="row row1">
           <div class="item">
             <span class="big-text">{{ allPlayer }}</span>
@@ -120,7 +121,7 @@ export default {
     ...mapActions('season', ['fetchSeasons']),
     ...mapActions('ticket', ['facthTicket']),
     rewardDetail() {
-      this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id } });
+      this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "VIP" } });
     },
     selectSeason() {
       this.facthTicket();
@@ -340,8 +341,10 @@ export default {
   color: white;
   text-align: center;
   letter-spacing: 1px;
-  margin: 10px auto; /* เพิ่ม margin เพื่อให้อยู่ตรงกลาง */
-  width: fit-content; /* ปรับความกว้างให้เหมาะสม */
+  margin: 10px auto;
+  /* เพิ่ม margin เพื่อให้อยู่ตรงกลาง */
+  width: fit-content;
+  /* ปรับความกว้างให้เหมาะสม */
 }
 
 .card .bottom-section .row {
