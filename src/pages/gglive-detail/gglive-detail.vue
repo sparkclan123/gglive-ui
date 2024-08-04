@@ -127,12 +127,20 @@ export default {
             getMain: null,
             avgTotalPoint: 0,
             maxTotalPoint: 0,
+            isNavigating: false,
         };
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
         route_back() {
-            this.$router.push({ name: 'list' });
+            if (!this.isNavigating) {
+                this.isNavigating = true;
+                this.$router.go(-1);
+                setTimeout(() => {
+                    this.isNavigating = false;
+                }, 1000);
+            }
+            // this.$router.push({ name: 'list' });
         },
         async fetchGameWeekDetail() {
             try {

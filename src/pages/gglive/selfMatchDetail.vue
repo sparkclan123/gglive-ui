@@ -187,12 +187,94 @@ export default {
             isNavigating: false,
             gameWeek: null,
             season: null,
+            teamCode: null
         };
     },
     methods: {
         async addTeamInMatch() {
-            this.$router.push({ name: 'self-match-detail-pick' });
+            // Swal.fire({
+            //     title: 'เพิ่มทีม',
+            //     text: 'กรอกโค้ดทีมที่ต้องการเพิ่ม',
+            //     input: 'text',
+            //     inputPlaceholder: 'กรอกโค้ดการเเข่งขัน',
+            //     showCancelButton: true,
+            //     confirmButtonText: 'เข้าร่วม',
+            //     cancelButtonText: 'ยกเลิก',
+            //     customClass: {
+            //         input: 'swal-input', // Add custom class for input
+            //         cancelButton: 'btn-cancel',
+            //         confirmButton: 'btn-confirm',
+            //         popup: 'popup-custom',
+            //         title: 'text-custom',
+            //         htmlContainer: 'text-custom'
+            //     },
+            //     buttonsStyling: false,
+            //     preConfirm: (teamCode) => {
+            //         if (!teamCode) {
+            //             Swal.showValidationMessage('กรุณากรอกโค้ดการเเข่งขัน');
+            //         }
+            //         return teamCode;
+            //     }
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            //         this.teamCode = result.value;
+            //         this.addTeamCode();
+            //     }
+            // });
+            this.$router.push({ name: 'self-match-detail-pick', params: { id: this.matchID } });
         },
+
+        async addTeamCode() {
+            try {
+                this.loading = true;
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.post(`/premier-league/v1/create-self_match_sub`,
+                    {
+                        self_match_id: this.matchID,
+                        code: this.teamCode,
+                    },
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${access_token}`
+                        },
+                    }
+                );
+                if (response.data.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'เข้าร่วมการเเข่งขันเรียบร้อย',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            confirmButton: 'btn-confirm',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                    });
+                    this.fetchSelfMatchSubByID();
+                    this.loading = false;
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    text: error.response.data.error,
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+
+                this.loading = false;
+            }
+        },
+
         route_back() {
             if (!this.isNavigating) {
                 this.isNavigating = true;
