@@ -8,7 +8,7 @@
         </div>
         <div class="flex flex-col items-center justify-center pt-20 m-2" v-else>
 
-            <div class="w-full max-w-lg p-8 space-y-6 bg-white rounded-lg shadow-lg sm:w-96">
+            <div class="w-full max-w-lg p-8 space-y-2 bg-white rounded-lg shadow-lg sm:w-96">
 
                 <div class="container mx-auto flex justify-center">
                     <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
@@ -25,6 +25,7 @@
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                         id="password" type="password" placeholder="**********" v-model="password">
                 </div>
+                
                 <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
                     <button type="submit" class="w-full button-save" @click="loginform()">เข้าสู่ระบบ</button>
                 </div>
@@ -32,7 +33,9 @@
                     class="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:shadow-outline">
                     เข้าสู่ระบบ
                 </button> -->
-
+                <div>
+                    <label class="block text-sm font-medium text-gray-500" @click="route_register">สมัคสมาชิก</label>
+                </div>
                 <div class="social-icons">
                     <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
                         <svg version="1.1" viewBox="0 0 150 150" width="50" height="50" class="fill-current">
@@ -100,6 +103,9 @@ export default {
     methods: {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('alert', ['addNotification']),
+        route_register(){
+            this.$router.push('/register');
+        },
         async loginform() {
 
             if (!this.username || !this.password) {

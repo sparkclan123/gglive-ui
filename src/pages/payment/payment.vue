@@ -31,14 +31,30 @@
                     <button class="addmoney" @click="adjustValue('+')"><span class="plussign">เพิ่ม</span></button>
                 </div>
             </div>
-            <div class="button-container mt-2">
-                <button type="submit" class="button-save" @click="buyTicketN()">สนับสนุนเรา</button>
-            </div>
 
             <div v-if="qrCode" class="qr-code-container">
                 <h2 class="mb-2 text-gray-800 font-semibold">เเคปรูปที่หน้าจอ</h2>
-                <img :src="`data:image/svg+xml;base64,${qrCode}`" alt="QR Code" class="qr-code">
+                <img :src="`data:image/svg+xml;base64,${qrCode}`" alt="QR Code" class="qr-code drop-shadow-xl ">
                 <!-- <button @click="downloadQRCode" class="download-button">บันทึกรูป</button> -->
+            </div>
+
+            <div
+            class="qr-code-container">
+                <img :src="imageSelect ? imageSelect : 'default-image.jpg'" alt="Profile Picture"
+                class="qr-code drop-shadow-xl ">
+            </div>
+
+            <div class="button-container mt-2">
+                <input type="file" name="slip" id="upload_slip" hidden @change="onFileChange">
+                <label for="upload_slip" class="flex items-center justify-center cursor-pointer">
+                    <div class="cssbuttons-io-button flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
+                        </svg>
+                        <span>อัฟโหลด สลิป</span>
+                    </div>
+                </label>
             </div>
 
             <div class="walletBalanceCard mb-2 mt-2" v-if="payment">
@@ -56,8 +72,6 @@
                             </linearGradient>
                         </defs>
                     </svg>
-
-
                 </div>
 
                 <div class="balancewrapper_2">
@@ -83,7 +97,9 @@ export default {
             value: 1,
             qrCode: null, // เพิ่มตัวแปรนี้เพื่อเก็บ base64 QR code
             disable: false,
-            payment: null
+            payment: null,
+            selectedFile: null,
+            imageSelect: null,
         };
     },
     computed: {
@@ -98,6 +114,67 @@ export default {
             } else if (operator === '-' && this.value > 1) {
                 this.value--;
             }
+        },
+        async onFileChange(event) {
+            this.selectedFile = event.target.files[0];
+            if (this.selectedFile) {
+                if (this.selectedFile.type === 'image/heic') {
+                    try {
+                        const blob = await heic2any({
+                            blob: this.selectedFile,
+                            toType: 'image/jpeg',
+                            quality: 0.7
+                        });
+                        this.selectedFile = new File([blob], this.selectedFile.name.replace(/\.[^.]+$/, '.jpeg'), { type: 'image/jpeg' });
+                        this.resizeAndConvertImage(this.selectedFile);
+                    } catch (err) {
+                        console.error('Error converting HEIC to JPEG:', err);
+                    }
+                } else {
+                    this.resizeAndConvertImage(this.selectedFile);
+                }
+            }
+        },
+        resizeAndConvertImage(file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const maxWidth = 600;
+                    const maxHeight = 600;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob((blob) => {
+                        const newFile = new File([blob], file.name.replace(/\.[^.]+$/, '.jpeg'), { type: 'image/jpeg' });
+                        this.selectedFile = newFile;
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            this.imageSelect = e.target.result;
+                        };
+                        reader.readAsDataURL(this.selectedFile);
+                    }, 'image/jpeg', 0.8);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
         },
         async buyTicketN() {
             if (this.disable) {
@@ -415,5 +492,34 @@ export default {
 
 .download-button:hover {
     background-color: #145a0c;
+}
+
+/* From Uiverse.io by adamgiebl */
+.cssbuttons-io-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0.7em 1.4em 0.7em 1.1em;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(0deg, rgba(20, 167, 62, 1) 0%, rgba(102, 247, 113, 1) 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+}
+
+.cssbuttons-io-button svg {
+    margin-right: 6px;
+}
+
+.cssbuttons-io-button:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+
+.cssbuttons-io-button:active {
+    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
 }
 </style>
