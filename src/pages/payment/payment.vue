@@ -32,30 +32,40 @@
                 </div>
             </div>
 
-            <div v-if="qrCode" class="qr-code-container">
-                <h2 class="mb-2 text-gray-800 font-semibold">เเคปรูปที่หน้าจอ</h2>
-                <img :src="`data:image/svg+xml;base64,${qrCode}`" alt="QR Code" class="qr-code drop-shadow-xl ">
+            <div  class="qr-code-container">
+                <h2 class="mb-2 text-gray-800 font-semibold">กรุณาโอนเงินตามจำนวน
+                    <Numberformat :value="sumValue" :decimal="2" />
+                </h2>
+
+                <img :src="payurl" alt="QR Code" class="qr-code drop-shadow-xl ">
                 <!-- <button @click="downloadQRCode" class="download-button">บันทึกรูป</button> -->
             </div>
 
-            <div
-            class="qr-code-container">
-                <img :src="imageSelect ? imageSelect : 'default-image.jpg'" alt="Profile Picture"
-                class="qr-code drop-shadow-xl ">
+            <div class="flex items-center space-x-4">
+                <div class="w-16 h-16 bg-blue-300/20 overflow-hidden flex-shrink-0">
+                    <img :src="imageSelect ? imageSelect : 'default-image.jpg'"
+                        class="w-full h-full object-cover drop-shadow-xl" alt="slip image">
+                </div>
+                <div class="button-container2">
+                    <input type="file" name="slip" id="upload_slip" hidden @change="onFileChange">
+                    <label for="upload_slip" class="flex items-center justify-center cursor-pointer">
+                        <div class="cssbuttons-io-button flex items-center">
+
+                            <span>อัฟโหลด สลิป</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="button-container2">
+                    <button @click="buyTicketN" class="flex items-center justify-center cursor-pointer">
+                        <div class="cssbuttons-io-button2 flex items-center">
+
+                            <span>บันทึกรายการ</span>
+                        </div>
+                    </button>
+                </div>
             </div>
 
-            <div class="button-container mt-2">
-                <input type="file" name="slip" id="upload_slip" hidden @change="onFileChange">
-                <label for="upload_slip" class="flex items-center justify-center cursor-pointer">
-                    <div class="cssbuttons-io-button flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
-                        </svg>
-                        <span>อัฟโหลด สลิป</span>
-                    </div>
-                </label>
-            </div>
+
 
             <div class="walletBalanceCard mb-2 mt-2" v-if="payment">
                 <div class="svgwrapper">
@@ -75,7 +85,8 @@
                 </div>
 
                 <div class="balancewrapper_2">
-                    <span class="balanceHeading_2">ตั๋ว {{ payment?.value }}ใบ {{ payment?.amount / 100 }}฿</span>
+                    <span class="balanceHeading_2" v-if="payment.payment_method === 'promptpay'">ตั๋ว {{ payment?.value }}ใบ {{ payment?.amount / 100 }}฿</span>
+                    <span class="balanceHeading_2" v-if="payment.payment_method === 'own_pay'">ตั๋ว {{ payment?.value }}ใบ {{ payment?.amount  }}฿</span>
                     <p class="balance_2">
                         มีรายการรอดำเนินการ 1รายการ
                     </p>
@@ -93,6 +104,7 @@ import Swal from 'sweetalert2';
 export default {
     data() {
         return {
+            payurl: "https://image-lobby.sgp1.digitaloceanspaces.com/IMG_7776.JPG",
             loading: false,
             value: 1,
             qrCode: null, // เพิ่มตัวแปรนี้เพื่อเก็บ base64 QR code
@@ -123,7 +135,7 @@ export default {
                         const blob = await heic2any({
                             blob: this.selectedFile,
                             toType: 'image/jpeg',
-                            quality: 0.7
+                            quality: 0.8
                         });
                         this.selectedFile = new File([blob], this.selectedFile.name.replace(/\.[^.]+$/, '.jpeg'), { type: 'image/jpeg' });
                         this.resizeAndConvertImage(this.selectedFile);
@@ -142,8 +154,8 @@ export default {
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    const maxWidth = 600;
-                    const maxHeight = 600;
+                    const maxWidth = 400;
+                    const maxHeight = 800;
                     let width = img.width;
                     let height = img.height;
 
@@ -225,20 +237,24 @@ export default {
                     return;
                 }
 
+                if (this.selectedFile) {
 
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.post('/premier-league/v1/buy-ticket', {
-                    value: parseInt(this.value)
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
+                    const formData = new FormData();
+                    formData.append('value', parseInt(this.value));
+                    if (this.selectedFile) {
+                        formData.append('slip', this.selectedFile);
                     }
-                });
-                if (response.data.ok) {
-                    this.qrCode = response.data.qrCodeBase64; // เก็บ base64 QR code
-                    this.getPaymentPending('nosetqr');
-                    this.disable = false;
-                    this.loading = false;
+
+                    const access_token = localStorage.getItem('access_token');
+                    const response = await api.post('/premier-league/v1/buy-ticket-own', formData, {
+                        headers: {
+                            'Authorization': `Bearer ${access_token}`
+                        }
+                    });
+                    if (response.data.ok) {
+                        this.getPaymentPending();
+                        this.loading = false;
+                    }
                 }
             } catch (error) {
                 Swal.fire({
@@ -259,30 +275,17 @@ export default {
                 console.log(error);
             }
         },
-        downloadQRCode() {
-            const link = document.createElement('a');
-            link.href = `data:image/svg+xml;base64,${this.qrCode}`;
-            link.download = 'qrcode.svg';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        },
-        async getPaymentPending(value) {
+        async getPaymentPending() {
             try {
                 this.loading = true;
                 const access_token = localStorage.getItem('access_token');
-                const response = await api.get(`/premier-league/v1/charge`, {
+                const response = await api.get(`/premier-league/v1/charge-own`, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
                     }
                 });
                 if (response.data.ok) {
-                    this.payment = response.data.payment;
-                    if (value === 'nosetqr') {
-                        this.loading = false;
-                        return;
-                    }
-                    this.qrCode = response.data.qrCodeBase64;
+                    this.payment = response.data.data;
                     this.loading = false;
                 }
             } catch (error) {
@@ -500,13 +503,13 @@ export default {
     align-items: center;
     font-family: inherit;
     font-weight: 500;
-    font-size: 16px;
-    padding: 0.7em 1.4em 0.7em 1.1em;
+    font-size: 13px;
+    padding: 0.5em 0.8em 0.5em 0.8em;
     color: white;
     background: #ad5389;
-    background: linear-gradient(0deg, rgba(20, 167, 62, 1) 0%, rgba(102, 247, 113, 1) 100%);
+    background: linear-gradient(0deg, rgb(15, 96, 133) 0%, rgb(64, 118, 168) 100%);
     border: none;
-    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    box-shadow: 0 0.7em 1.5em -0.5em #1482a798;
     letter-spacing: 0.05em;
     border-radius: 20em;
 }
@@ -516,10 +519,50 @@ export default {
 }
 
 .cssbuttons-io-button:hover {
-    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+    box-shadow: 0 0.5em 1.5em -0.5em #1485a798;
 }
 
 .cssbuttons-io-button:active {
+    box-shadow: 0 0.3em 1em -0.5em #149ba798;
+}
+
+.cssbuttons-io-button2 {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 0.5em 0.8em 0.5em 0.8em;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(0deg, rgb(15, 133, 48) 0%, rgb(64, 168, 72) 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+}
+
+.cssbuttons-io-button2 svg {
+    margin-right: 6px;
+}
+
+.cssbuttons-io-button2:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+
+.cssbuttons-io-button2:active {
     box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+}
+
+
+
+
+
+.button-container2 label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 100%;
 }
 </style>
