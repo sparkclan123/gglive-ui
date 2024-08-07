@@ -10,6 +10,7 @@
                     <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }} <i class="fas fa-ticket-alt text-yellow-400"></i>
                         <DateFormatted :dateString="data.created_at" class="font-thin "/>
                     </div>
+                    
                 </div>
                 <div class="flex items-center space-x-4" v-if="data.is_vip">
                     <div class="text-orange-600 font-bold cursor-pointer">

@@ -43,14 +43,6 @@
         required: true
       }
     },
-    methods: {
-      setCaptain() {
-        this.$emit('set-captain');
-      },
-      removePlayer() {
-        this.$emit('remove-player');
-      }
-    },
     watch: {
       showAdjustPlayerModal(newVal) {
         if (!newVal) {

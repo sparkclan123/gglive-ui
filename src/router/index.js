@@ -37,6 +37,7 @@ import Setting from '../pages/gglive/setting.vue';
 
 import GgLiveN from '../pages/gglive/indexn.vue';
 import GgLiveDetailN from '../pages/gglive-detail/gglive-detail-n.vue';
+import GgLiveDetailEdit from '../pages/gglive-detail/gglive-detail-edit.vue';
 
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
@@ -113,6 +114,11 @@ const routes = [
                 path: 'pitch-detail-n/:id',
                 name: 'pitch-detail-n',
                 component: GgLiveDetailN,
+            },
+            {
+                path: 'pitch-detail-edit/:id/:type',
+                name: 'pitch-detail-edit',
+                component: GgLiveDetailEdit,
             },
             {
                 path: 'challenge-detail/:id',
