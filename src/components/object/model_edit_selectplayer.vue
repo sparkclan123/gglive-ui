@@ -1,5 +1,5 @@
 <template>
-  <div role="presentation" class="fixed inset-0 z-[10000] bg-black/60 duration-300 overflow-hidden"
+  <div role="presentation" class="fixed inset-0 z-[1000] bg-black/60 duration-300 overflow-hidden"
     @click.self.prevent="$emit('close-modal')" :class="{
       '!bg-black/0 pointer-events-none': !showAdjustPlayerModal,
     }">
@@ -121,8 +121,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Swal from 'sweetalert2';
 export default {
-  props: ['showAdjustPlayerModal', 'players', 'position'],
+  props: ['showAdjustPlayerModal', 'players', 'position', 'detailPlayer'],
   data() {
     return {
       is_check_player: true,
@@ -197,7 +198,47 @@ export default {
   },
   methods: {
     async selectPlayer(player) {
-      this.$emit('change-player', player);
+      if (this.detailPlayer) {
+        let player_name_old = this.detailPlayer.name;
+        let player_name_new = player.name;
+        let svgArrow = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" id="back-arrow">
+                    <g fill="none" fill-rule="evenodd">
+                        <rect width="24" height="24"></rect>
+                        <g fill="#2CBD3E" transform="translate(1 1)">
+                            <circle cx="11" cy="11" r="9" fill-opacity=".24"></circle>
+                            <path fill-rule="nonzero" d="M10,13.5857864 L10,6 C10,5.44771525 10.4477153,5 11,5 C11.5522847,5 12,5.4477153 12,6 L12,13.5857864 L14.2928932,11.2928932 C14.6834175,10.9023689 15.3165825,10.9023689 15.7071068,11.2928932 C16.0976311,11.6834175 16.0976311,12.3165825 15.7071068,12.7071068 L11.7071068,16.7071068 C11.3165825,17.0976311 10.6834175,17.0976311 10.2928932,16.7071068 L6.29289322,12.7071068 C5.90236893,12.3165825 5.90236893,11.6834175 6.29289322,11.2928932 C6.68341751,10.9023689 7.31658249,10.9023689 7.70710678,11.2928932 L10,13.5857864 Z M22,11 C22,17.0751322 17.0751322,22 11,22 C4.92486775,22 3.01561176e-16,17.0751322 6.7355574e-16,11 C1.0455503e-15,4.92486775 4.92486775,0 11,0 C17.0751322,0 22,4.92486775 22,11 Z M20,11 C20,6.02943725 15.9705627,2 11,2 C6.02943725,2 2,6.02943725 2,11 C2,15.9705627 6.02943725,20 11,20 C15.9705627,20 20,15.9705627 20,11 Z" transform="rotate(90 11 11)"></path>
+                        </g>
+                    </g>
+                </svg>
+            `;
+
+        const { value: confirm } = await Swal.fire({
+          title: 'ยืนยันการเปลี่ยนผู้เล่น',
+          html: `<div style="display: flex; align-items: center; justify-content: center;">
+                             <span>${player_name_old} </span>
+                            ${svgArrow}
+                             <span> ${player_name_new}</span>
+                           
+                       </div>`,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'ใช่, เปลี่ยนผู้เล่น!',
+          cancelButtonText: 'ยกเลิก',
+          customClass: {
+            cancelButton: 'btn-cancel',
+            title: 'text-custom',
+            htmlContainer: 'text-custom',
+            popup: 'popup-custom swal2-top'
+          },
+        });
+
+        if (confirm) {
+          this.$emit('change-player', player);
+        }
+        return;
+      }
     },
     truncateText(text) {
       if (text.length > 13) {
@@ -254,6 +295,9 @@ export default {
 </script>
 
 <style scoped>
+.swal2-top {
+    z-index: 2000 !important;
+}
 /* we will explain what these classes do next! */
 .v-enter-active,
 .v-leave-active {

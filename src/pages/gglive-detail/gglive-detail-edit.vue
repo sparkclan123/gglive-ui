@@ -117,7 +117,7 @@
                 @set-captain="setCaptan" @change-player="ChangePlayer" />
 
             <ModelEditSelectPlayer :showAdjustPlayerModal="showAdjustPlayerModalSelect" :players="players"
-                :position="position" @close-modal="showAdjustPlayerModalSelect = false" @set-captain="setCaptan"
+                :position="position" :detailPlayer="detailPlayer" @close-modal="showAdjustPlayerModalSelect = false" @set-captain="setCaptan"
                 @change-player="ChangePlayerSelect" />
         </div>
     </div>
@@ -148,6 +148,7 @@ export default {
             is_captan: null,
             players: [],
             position: null,
+            playernameOld: null,
 
         };
     },
