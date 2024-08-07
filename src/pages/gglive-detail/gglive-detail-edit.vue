@@ -178,7 +178,6 @@ export default {
         ...mapActions('Teams', ['setTeams']),
         async setCaptan() {
             this.loading = true;
-            this.is_captan = this.detailPlayer.player_id;
             this.showAdjustPlayerModal = false;
             try {
                 const access_token = localStorage.getItem('access_token');
@@ -194,6 +193,7 @@ export default {
                 });
                 if (response.data.ok) {
                     this.loading = false;
+                    this.is_captan = this.detailPlayer.player_id;
                     Swal.fire({
                         icon: 'success',
                         text: 'ตั้งเป็นกัปตันสำเร็จ',
