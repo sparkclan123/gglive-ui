@@ -34,7 +34,7 @@
     </div>
 
     <div class="card cursor-pointer">
-      <div class="top-section  bg-img" @click="selectSeason()">
+      <div class="top-section  bg-img11" @click="selectSeason()">
         <div class="icons">
           <div class="logo shsojvp">
             WEEK{{ gameWeek.week }}
@@ -187,9 +187,9 @@ export default {
   /* ต้องการสำหรับการแสดง SVG */
 }
 
-.bg-img {
+.bg-img1 {
   flex: 1 1 0%;
-  background-image: url('/public/assets/logonew32x32.png'), url('/public/assets/bgChc.png');
+  background-image: url('/public/assets/logonew32x32.png'), url('/public/assets/bgChcN.png');
   background-repeat: no-repeat, no-repeat;
   background-position: 5px 8px, right bottom;
   background-size: 35px 35px, 130px 75px;
@@ -224,7 +224,7 @@ export default {
   right: 0;
   width: 160px;
   height: 90px;
-  background: url('/public/assets/bgChc.png') no-repeat;
+  background: url('/public/assets/bgChcN.png') no-repeat;
   background-size: contain;
 }
 

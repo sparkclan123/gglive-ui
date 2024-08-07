@@ -32,16 +32,24 @@
                 </div>
             </div>
 
-            <div  class="qr-code-container">
+            <div class="qr-code-container">
                 <h2 class="mb-2 text-gray-800 font-semibold">กรุณาโอนเงินตามจำนวน
                     <Numberformat :value="sumValue" :decimal="2" />
                 </h2>
+                <div class="mb-2 text-gray-800 font-semibold">
+                    <div class="flex justify-between">
+                        <img src="/public/assets/kbank.jpg"
+                            class="w-5 h-5 object-cover drop-shadow-xl rounded-full mr-2" alt="slip image" >
+                        <button class="copyaccount mr-2" @click="copyaccount"><span class="plussign ">คัดลอก เลข บช</span></button>
+                        <button class="copyslip" @click="downloadQRCode"><span class="plussign">บันทึก qr</span></button>
+                    </div>
+                </div>
 
                 <img :src="payurl" alt="QR Code" class="qr-code drop-shadow-xl ">
                 <!-- <button @click="downloadQRCode" class="download-button">บันทึกรูป</button> -->
             </div>
 
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4 m-2">
                 <div class="w-16 h-16 bg-blue-300/20 overflow-hidden flex-shrink-0">
                     <img :src="imageSelect ? imageSelect : 'default-image.jpg'"
                         class="w-full h-full object-cover drop-shadow-xl" alt="slip image">
@@ -85,8 +93,10 @@
                 </div>
 
                 <div class="balancewrapper_2">
-                    <span class="balanceHeading_2" v-if="payment.payment_method === 'promptpay'">ตั๋ว {{ payment?.value }}ใบ {{ payment?.amount / 100 }}฿</span>
-                    <span class="balanceHeading_2" v-if="payment.payment_method === 'own_pay'">ตั๋ว {{ payment?.value }}ใบ {{ payment?.amount  }}฿</span>
+                    <span class="balanceHeading_2" v-if="payment.payment_method === 'promptpay'">ตั๋ว {{ payment?.value
+                        }}ใบ {{ payment?.amount / 100 }}฿</span>
+                    <span class="balanceHeading_2" v-if="payment.payment_method === 'own_pay'">ตั๋ว {{ payment?.value
+                        }}ใบ {{ payment?.amount }}฿</span>
                     <p class="balance_2">
                         มีรายการรอดำเนินการ 1รายการ
                     </p>
@@ -120,6 +130,33 @@ export default {
         }
     },
     methods: {
+        downloadQRCode() {
+            const link = document.createElement('a');
+            link.href = this.payurl;
+            link.download = 'QRCode.jpg';
+            link.click();
+        },
+        copyaccount(){
+            navigator.clipboard.writeText('asdasdasd').then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'คัดลอก!',
+                    text: 'คัดลอกเลขบัญชีเรียบร้อย',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+            }).catch(err => {
+                console.log('Something went wrong', err);
+            });
+
+        },
         adjustValue(operator) {
             if (operator === '+') {
                 this.value++;
@@ -192,6 +229,24 @@ export default {
             if (this.disable) {
                 return;
             }
+
+            if (!this.selectedFile) {
+                Swal.fire({
+                    text: 'กรุณาอัพโหลดสลิป',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
             this.disable = true;
             this.loading = true;
             const result = await Swal.fire({
@@ -272,7 +327,6 @@ export default {
                 });
                 this.disable = false;
                 this.loading = false;
-                console.log(error);
             }
         },
         async getPaymentPending() {
@@ -405,6 +459,35 @@ export default {
     padding: 1px 15px;
     border-radius: 20px;
     background-color: #b63923;
+    color: white;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.copyaccount {
+    padding: 1px 15px;
+    border-radius: 20px;
+    background-color: #2340b6;
+    color: white;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copyslip {
+    padding: 1px 15px;
+    border-radius: 20px;
+    background-color: #5623b6;
     color: white;
     border: none;
     font-size: 12px;
