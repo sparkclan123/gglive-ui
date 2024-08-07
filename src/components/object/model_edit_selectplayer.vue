@@ -1,12 +1,11 @@
 <template>
   <div role="presentation" class="fixed inset-0 z-[10000] bg-black/60 duration-300 overflow-hidden"
-   @click.self.prevent="$emit('close-modal')" :class="{
-    '!bg-black/0 pointer-events-none': !showAdjustPlayerModal,
-   }">
+    @click.self.prevent="$emit('close-modal')" :class="{
+      '!bg-black/0 pointer-events-none': !showAdjustPlayerModal,
+    }">
     <Transition>
-      <main v-if="showAdjustPlayerModal"  class="fixed inset-x-0 bottom-0 max-h-[90dvh] rounded-t-lg flex flex-col" >
-        <div
-          class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">   
+      <main v-if="showAdjustPlayerModal" class="fixed inset-x-0 bottom-0 max-h-[90dvh] rounded-t-lg flex flex-col">
+        <div class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">
           <div class="sticky top-0 bg-[#1e1036] p-4 !rounded-t-xl">
             <div class="flex flex-wrap gap-4 mb-4  ">
               <div class="flex-1 min-w-[100px]">
@@ -38,10 +37,11 @@
               </div>
               <div class="flex-1 min-w-[100px]">
                 <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง
-    
+
                 </label>
-                <select v-model="selectedPosition" @change="filterPlayers"
-                  class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
+
+                <select :value="position"
+                  class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm" disabled>
                   <option value="">ทุกตำเเหน่ง</option>
                   <option v-for="option in optionsPosition" :key="option.value" :value="option.value">
                     {{ option.name }}
@@ -60,16 +60,15 @@
                 <input type="number" placeholder="Max cost" v-model="maxCost" @input="filterPlayers"
                   class="p-1 border rounded w-full text-gray-600 text-sm">
               </div>
-    
+
             </div>
-          </div>  
-  
+          </div>
+
           <div class="px-4 flex-1">
             <table class="min-w-full bg-gray-300 rounded-lg text-xs min-h-[500px]">
               <thead>
                 <tr>
-    
-                  <th class="w-[1%] text-left text-gray-900 border-b border-gray-400"></th>
+
                   <th class="w-1/3 py-1 pl-2 text-left text-gray-900 border-b border-gray-400">นักเตะ</th>
                   <!-- <th class=" py-1 pl-2 text-left text-gray-900 border-b border-gray-400">ทีม</th> -->
                   <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">ราคา</th>
@@ -79,7 +78,35 @@
                 </tr>
               </thead>
               <tbody>
-                {{ players }}
+                <tr v-for="player in paginatedPlayers" :key="player.id" class="bg-gray-50">
+                  <td class="w-1/3 py-1 px-2 border-b border-r border-gray-400 text-gray-900 cursor-pointer"
+                    @click="selectPlayer(player)">
+                    <div class="flex items-center">
+                      <img :src="getShirtImage(player)" alt="team logo" class="w-6 h-8 mr-2">
+                      <div class="truncate">
+                        <div>{{ truncateText(player.name) }}</div>
+                        <div class="text-xs text-gray-600">{{ player.position }} <span style="font-size: 9px;">{{
+      player.team_vs }}</span></div>
+                      </div>
+                    </div>
+                  </td>
+                  <!-- <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">
+                        <div class="flex items-center">
+                            <img :src="`/public/assets/team/${player.team_code}.png`" alt="team logo" class="w-4 h-4 mr-1">
+                        </div>
+                    </td> -->
+                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">
+                    <Numberformat :value="player.price" :decimal="1" />
+                  </td>
+                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900"
+                    v-if="getGameWeekPercentPlayer && getGameWeekPercentPlayer[player.player_id]">
+                    <Numberformat :value="getGameWeekPercentPlayer[player.player_id]" :decimal="1" />%
+                  </td>
+                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900" v-else>0.0%</td>
+                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.yellows_card }}
+                  </td>
+                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.reds_card }}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -93,15 +120,16 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
-  props: ['showAdjustPlayerModal', 'players'],
+  props: ['showAdjustPlayerModal', 'players', 'position'],
   data() {
     return {
       is_check_player: true,
       currentPage: 1,
-      playersPerPage: 10,
+      playersPerPage: 50,
       selectedTeam: 'view',
-      selectedPosition: this.position == 'all' ? '' : this.position,
+      selectedPosition: this.position,
       sortBy: 'total_points',
       maxCost: null,
       searchTerm: '',
@@ -134,7 +162,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('Teams', ['getTeams']),
     filteredPlayers() {
+
       if (this.maxCost < 1) {
         this.maxCost = null;
       }
@@ -142,7 +172,7 @@ export default {
       return this.players.filter(player => {
         return (
           (this.selectedTeam === 'view' || player.team_id === this.selectedTeam) &&
-          (this.selectedPosition === '' || player.position === this.selectedPosition) &&
+          (this.position === '' || player.position === this.position) &&
           (!this.maxCost || player.price <= this.maxCost) &&
           (this.is_check_player ? player.is_ban === false && player.is_injured === false : true) &&
           (this.searchTerm === '' || player.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
@@ -157,9 +187,9 @@ export default {
       });
     },
     paginatedPlayers() {
-      const start = (this.currentPage - 1) * this.pageSize;
-      const end = start + this.pageSize;
-      return this.players.slice(start, end);
+      const start = (this.currentPage - 1) * this.playersPerPage;
+      const end = start + this.playersPerPage;
+      return this.filteredPlayers.slice(start, end);
     },
     totalPages() {
       return Math.ceil(this.filteredPlayers.length / this.playersPerPage);
@@ -167,7 +197,7 @@ export default {
   },
   methods: {
     async selectPlayer(player) {
-
+      this.$emit('change-player', player);
     },
     truncateText(text) {
       if (text.length > 13) {
@@ -178,9 +208,6 @@ export default {
     },
     handlePageChange(page) {
       this.currentPage = page;
-    },
-    select_player() {
-      this.$emit('select-player');
     },
     stripTeamCode(teamCode) {
       return teamCode.replace('t', '');
@@ -198,10 +225,30 @@ export default {
           this.$emit('close-modal');
         }, 300);
       }
-    }
+    },
+    updateTeamOptions() {
+      const teams = this.getTeams;
+      if (teams && Array.isArray(teams)) {
+        this.options.find(option => option.label === 'Teams').options = teams.map(team => ({
+          name: team.name,
+          value: team.team_id
+        }));
+      } else {
+        console.error('getTeams is null or not an array');
+      }
+    },
+    checkTeamsData() {
+      if (this.getTeams && Array.isArray(this.getTeams)) {
+        this.updateTeamOptions();
+      } else {
+        console.error('Teams data is not available yet');
+        setTimeout(this.checkTeamsData, 1000);
+      }
+    },
   },
-  created() {
-    console.log('players', this.players);
+  mounted() {
+    this.checkTeamsData();
+
   }
 };
 </script>

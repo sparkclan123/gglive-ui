@@ -1,127 +1,127 @@
 <template>
-    <div class="dxRBog" v-if="getMain">
-        <div class="card cursor-pointer">
-            <div class="top-section  ">
-                <div class="icons">
-                    <div class="absolute top-0 left-0 m-2 flex items-center cursor-pointer shsojvp text-gray-200"
-                        @click="route_back()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 12"
-                            class="svg-white mr-1">
-                            <path
-                                d="M23.9996,7.4946 C23.9786,7.0416 23.8296,6.5696 23.4816,6.2506 C23.4816,6.2506 23.4806,6.2496 23.4806,6.2496 L18.4596,1.2256 L17.7526,0.5176 C17.4346,0.1986 16.9586,0.0016 16.5096,-0.0004 C16.0766,-0.0004 15.5616,0.1906 15.2656,0.5176 C14.9596,0.8526 14.7296,1.2916 14.7486,1.7616 C14.7686,2.2296 14.9276,2.6676 15.2656,3.0056 L17.9916,5.7336 C17.9916,5.7336 2.6226,5.7246 1.7966,5.7346 L1.7616,5.7346 C1.3076,5.7346 0.8386,5.9316 0.5186,6.2526 C0.2116,6.5586 -0.0164,7.0556 0.0006,7.4966 C0.0216,7.9496 0.1696,8.4226 0.5176,8.7406 C0.8656,9.0596 1.2886,9.2576 1.7616,9.2566 L17.9986,9.2566 L15.2646,11.9936 C14.9456,12.3116 14.7496,12.7866 14.7476,13.2376 C14.7476,13.6686 14.9376,14.1846 15.2646,14.4816 C15.5996,14.7866 16.0376,15.0166 16.5076,14.9986 C16.9736,14.9746 17.4136,14.8186 17.7506,14.4816 L22.7766,9.4516 L23.4856,8.7436 C23.6656,8.5626 23.7936,8.3486 23.8776,8.1186 C23.9576,7.9146 24.0076,7.6996 23.9996,7.4946"
-                                transform="matrix(-1 0 0 1 24 0)"></path>
-                        </svg>
-                        <span class="text-gray-200 font-bold text-xs">กลับ</span>
-                    </div>
-
-                </div>
-            </div>
-            <div class="bottom-section">
-                <span class="title text-green-500">{{ getMain.name }} </span>
-                <div class="row row1">
-                    <div class="item">
-                        <span class="text-xs">งบทั้งหมด</span>
-                        <span class="big-text text-gray-200">
-                            <NumberDisplay number="80" />$
-                        </span>
-                        <span class="text-xs">ใช้ไป </span>
-                        <span class="regular-text text-gray-200">
-                            <NumberDisplay :number="priceSum" />$
-                        </span>
-                    </div>
-                    <div class="item flex flex-col items-center">
-                        <span class="text-xs mb-2">เเก้ไขทีมของคุณ</span>
-                        <button class="btn-fix item-center"><span class="plussign">เเก้ไข</span></button>
-                    </div>
-                    <div class="item flex justify-center items-center">
-                        <!-- Empty item for spacing -->
-                    </div>
-                </div>
-            </div>
+    <div>
+        <div v-show="loading">
+            <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
-
-        <div>
-            <div class="elHRfu ">
-                <div class="imodPj custom-btn shadow-xl">
-                    <div class="iA-dheQ">
-
-                        <div class="gRFNix">
-                            <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
-                                <button type="button" @click="adjustPlayer(GKP)" class="fBGUqJ">
-                                    <picture class="relative">
-                                        <source type="image/webp">
-                                        <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
-                                        <span v-if="GKP.player_id == is_captan" class="captain-badge">C</span>
-                                    </picture>
-
-                                    <div class=" gTayAP">
-                                        <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
-                                        <div class=" fQREvA">{{ GKP.points }}</div>
-                                    </div>
-                                </button>
-                            </div>
-
+        <div class="dxRBog" v-if="getMain">
+            <div class="card cursor-pointer">
+                <div class="top-section  ">
+                    <div class="icons">
+                        <div class="absolute top-0 left-0 m-2 flex items-center cursor-pointer shsojvp text-gray-200"
+                            @click="route_back()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 12"
+                                class="svg-white mr-1">
+                                <path
+                                    d="M23.9996,7.4946 C23.9786,7.0416 23.8296,6.5696 23.4816,6.2506 C23.4816,6.2506 23.4806,6.2496 23.4806,6.2496 L18.4596,1.2256 L17.7526,0.5176 C17.4346,0.1986 16.9586,0.0016 16.5096,-0.0004 C16.0766,-0.0004 15.5616,0.1906 15.2656,0.5176 C14.9596,0.8526 14.7296,1.2916 14.7486,1.7616 C14.7686,2.2296 14.9276,2.6676 15.2656,3.0056 L17.9916,5.7336 C17.9916,5.7336 2.6226,5.7246 1.7966,5.7346 L1.7616,5.7346 C1.3076,5.7346 0.8386,5.9316 0.5186,6.2526 C0.2116,6.5586 -0.0164,7.0556 0.0006,7.4966 C0.0216,7.9496 0.1696,8.4226 0.5176,8.7406 C0.8656,9.0596 1.2886,9.2576 1.7616,9.2566 L17.9986,9.2566 L15.2646,11.9936 C14.9456,12.3116 14.7496,12.7866 14.7476,13.2376 C14.7476,13.6686 14.9376,14.1846 15.2646,14.4816 C15.5996,14.7866 16.0376,15.0166 16.5076,14.9986 C16.9736,14.9746 17.4136,14.8186 17.7506,14.4816 L22.7766,9.4516 L23.4856,8.7436 C23.6656,8.5626 23.7936,8.3486 23.8776,8.1186 C23.9576,7.9146 24.0076,7.6996 23.9996,7.4946"
+                                    transform="matrix(-1 0 0 1 24 0)"></path>
+                            </svg>
+                            <span class="text-gray-200 font-bold text-xs">กลับ</span>
                         </div>
-                        <div class="gRFNix">
-                            <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
-                                <button type="button" @click="adjustPlayer(DEF)" class="fBGUqJ">
-                                    <picture class="relative">
-                                        <source type="image/webp">
-                                        <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
-                                        <span v-if="DEF.player_id == is_captan" class="captain-badge">C</span>
-                                    </picture>
-                                    <div class=" gTayAP">
-                                        <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
-                                        <div class=" fQREvA">{{ DEF.points }}</div>
-                                    </div>
-                                </button>
-                            </div>
 
+                    </div>
+                </div>
+                <div class="bottom-section">
+                    <span class="title text-green-500">{{ getMain.name }} </span>
+                    <div class="row row1">
+                        <div class="item">
+                            <span class="text-xs">งบทั้งหมด</span>
+                            <span class="big-text text-gray-200">
+                                <NumberDisplay number="80" />$
+                            </span>
+                            <span class="text-xs">ใช้ไป </span>
+                            <span class="regular-text text-gray-200">
+                                <NumberDisplay :number="priceSum" />$
+                            </span>
                         </div>
-                        <div class="gRFNix">
-                            <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
-                                <button type="button" @click="adjustPlayer(MID)" class="fBGUqJ">
-                                    <picture class="relative">
-                                        <source type="image/webp">
-                                        <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
-                                        <span v-if="MID.player_id == is_captan" class="captain-badge">C</span>
-                                    </picture>
+                      
+                    </div>
+                </div>
+            </div>
 
-                                    <div class=" gTayAP">
-                                        <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
-                                        <div class=" fQREvA">{{ MID.points }}</div>
-                                    </div>
-                                </button>
+            <div>
+                <div class="elHRfu ">
+                    <div class="imodPj custom-btn shadow-xl">
+                        <div class="iA-dheQ">
+
+                            <div class="gRFNix">
+                                <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
+                                    <button type="button" @click="adjustPlayer(GKP)" class="fBGUqJ">
+                                        <picture class="relative">
+                                            <source type="image/webp">
+                                            <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
+                                            <span v-if="GKP.player_id == is_captan" class="captain-badge">C</span>
+                                        </picture>
+
+                                        <div class=" gTayAP">
+                                            <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
+                                            <div class=" fQREvA">{{ GKP.price }}</div>
+                                        </div>
+                                    </button>
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="gRFNix">
-                            <div class="hWtxro" v-for="(FWD, i) in getFWD" :key="i">
-                                <button type="button" @click="adjustPlayer(FWD)" class="fBGUqJ">
-                                    <picture class="relative">
-                                        <source type="image/webp">
-                                        <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
-                                        <span v-if="FWD.player_id == is_captan" class="captain-badge">C</span>
-                                    </picture>
+                            <div class="gRFNix">
+                                <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
+                                    <button type="button" @click="adjustPlayer(DEF)" class="fBGUqJ">
+                                        <picture class="relative">
+                                            <source type="image/webp">
+                                            <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
+                                            <span v-if="DEF.player_id == is_captan" class="captain-badge">C</span>
+                                        </picture>
+                                        <div class=" gTayAP">
+                                            <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
+                                            <div class=" fQREvA">{{ DEF.price }}</div>
+                                        </div>
+                                    </button>
+                                </div>
 
-                                    <div class=" gTayAP">
-                                        <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
-                                        <div class=" fQREvA">{{ FWD.points }}</div>
-                                    </div>
-                                </button>
+                            </div>
+                            <div class="gRFNix">
+                                <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
+                                    <button type="button" @click="adjustPlayer(MID)" class="fBGUqJ">
+                                        <picture class="relative">
+                                            <source type="image/webp">
+                                            <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
+                                            <span v-if="MID.player_id == is_captan" class="captain-badge">C</span>
+                                        </picture>
+
+                                        <div class=" gTayAP">
+                                            <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
+                                            <div class=" fQREvA">{{ MID.price }}</div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="gRFNix">
+                                <div class="hWtxro" v-for="(FWD, i) in getFWD" :key="i">
+                                    <button type="button" @click="adjustPlayer(FWD)" class="fBGUqJ">
+                                        <picture class="relative">
+                                            <source type="image/webp">
+                                            <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
+                                            <span v-if="FWD.player_id == is_captan" class="captain-badge">C</span>
+                                        </picture>
+
+                                        <div class=" gTayAP">
+                                            <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
+                                            <div class=" fQREvA">{{ FWD.price }}</div>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <ModelEdit :showAdjustPlayerModal="showAdjustPlayerModal"
-            :playerName="detailPlayer ? detailPlayer.name : 'Player'" @close-modal="showAdjustPlayerModal = false"
-            @set-captain="setCaptan" @change-player="ChangePlayer" />
+            <ModelEdit :showAdjustPlayerModal="showAdjustPlayerModal"
+                :playerName="detailPlayer ? detailPlayer.name : 'Player'" @close-modal="showAdjustPlayerModal = false"
+                @set-captain="setCaptan" @change-player="ChangePlayer" />
 
-        <ModelEditSelectPlayer :showAdjustPlayerModal="showAdjustPlayerModalSelect"
-            :players="players" @close-modal="showAdjustPlayerModalSelect = false"
-            @set-captain="setCaptan" @change-player="ChangePlayer" />
+            <ModelEditSelectPlayer :showAdjustPlayerModal="showAdjustPlayerModalSelect" :players="players"
+                :position="position" @close-modal="showAdjustPlayerModalSelect = false" @set-captain="setCaptan"
+                @change-player="ChangePlayerSelect" />
+        </div>
     </div>
+
 </template>
 
 
@@ -130,9 +130,11 @@ import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
 import ModelEdit from '../../components/object/model_edit.vue';
 import ModelEditSelectPlayer from '../../components/object/model_edit_selectplayer.vue';
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
+            loading: false,
             showAdjustPlayerModal: false,
             showAdjustPlayerModalSelect: false,
             type: null,
@@ -145,6 +147,7 @@ export default {
             isNavigating: false,
             is_captan: null,
             players: [],
+            position: null,
 
         };
     },
@@ -172,18 +175,156 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-        setCaptan() {
+        ...mapActions('Teams', ['setTeams']),
+        async setCaptan() {
+            this.loading = true;
             this.is_captan = this.detailPlayer.player_id;
             this.showAdjustPlayerModal = false;
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.put('/premier-league/v1/game-week-player-user-detail-edit-captant', {
+                    captain: 1,
+                    game_main_id: this.getMain.id,
+                    game_id: this.detailPlayer.id,
+                    type: this.type,
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.loading = false;
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'ตั้งเป็นกัปตันสำเร็จ',
+                        showCancelButton: true,
+                        cancelButtonText: 'ยืนยัน',
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                        buttonsStyling: false,
+                    });
+
+                }
+            } catch (error) {
+                this.loading = false;
+                console.log(error);
+                Swal.fire({
+                    text: error.response.data.error,
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+            }
+
         },
         adjustPlayer(player) {
             this.detailPlayer = player;
             this.showAdjustPlayerModal = true;
         },
         ChangePlayer() {
+            this.position = this.detailPlayer.position;
             this.showAdjustPlayerModal = false;
             this.showAdjustPlayerModalSelect = true;
-            
+        },
+        async ChangePlayerSelect(player) {
+
+            this.showAdjustPlayerModalSelect = false;
+            // this.position = this.detailPlayer.position;
+            // this.showAdjustPlayerModal = false;
+
+            const totalPlayersInTeam = [
+                ...this.getGKP,
+                ...this.getDEF,
+                ...this.getMID,
+                ...this.getFWD
+            ];
+
+            // filter เอาเฉพาะข้อมูลนักเเตะที่ไม่ใช้ของที่เรากดเลื่อก จะได้เหลือ นักเเตะ 10 คน เพราะจะต้องเอาตัวใหม่ไปเเทนที่
+            const filterSelectPlayer = totalPlayersInTeam.filter(p => p.player_id !== this.detailPlayer.player_id);
+
+            const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code).length;
+
+            // .filter(p => p.team_code === player.team_code).length;
+            if (totalPlayerNewfilter >= 3) {
+                Swal.fire({
+                    text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+            this.loading = true;
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.put('/premier-league/v1/game-week-player-user-detail-edit', {
+                    old_player_id: this.detailPlayer.player_id,
+                    new_player_id: player.player_id,
+                    game_main_id: this.getMain.id,
+                    game_id: this.detailPlayer.id,
+                    type: this.type,
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.loading = false;
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'เปลี่ยนนักเตะสำเร็จ',
+                        showCancelButton: true,
+                        cancelButtonText: 'ยืนยัน',
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                        buttonsStyling: false,
+                    });
+
+                    this.fetchGameWeekDetail();
+                }
+            } catch (error) {
+                console.log(error);
+                this.loading = false;
+                Swal.fire({
+                    text: error.response.data.error,
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+
+            }
+
         },
         route_back() {
             if (!this.isNavigating) {
@@ -194,6 +335,24 @@ export default {
                 }, 1000);
             }
             // this.$router.push({ name: 'list' });
+        },
+        async fetchDataTeams() {
+
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/teams', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.setTeams(response.data.teams);
+                } else {
+                    console.error('Failed to fetch teams data');
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
         async fetchGameWeekDetail() {
             try {
@@ -272,6 +431,7 @@ export default {
         this.type = this.$route.params.type;
         this.updateLoading(true);
         this.fetchGameWeekDetail();
+        this.fetchDataTeams();
     },
 
 };
