@@ -27,9 +27,9 @@
 
       <!-- <div class="top-section  bg-img cursor-pointer" @click="selectSeason()"> -->
       <div class="top-section cursor-pointer" @click="selectSeason()">
-        <video ref="videoPlayer" @ended="handleVideoEnd" class="video-banner" autoplay muted preload="auto">
-          <source src="https://image-lobby.sgp1.digitaloceanspaces.com/vdopudee3.mp4" type="video/mp4">
-        </video>
+        <img :src="webpSrc" class="video-banner"
+          alt="Animated Banner" />
+
         <div class="icons">
           <div class="logo shsojvp text-yellow-50" style="display: flex; align-items: center;">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" style="margin-left: -8px;" viewBox="0 0 512 512"
@@ -112,6 +112,7 @@ export default {
       myTeam: 0,
       currentTime: null,
       is_time_up: false,
+      webpSrc: "https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp",
     };
   },
   methods: {
@@ -119,6 +120,12 @@ export default {
     ...mapActions('selectGameWeek', ['setGameWeek']),
     ...mapActions('season', ['fetchSeasons']),
     ...mapActions('ticket', ['facthTicket']),
+    resetWebP() {
+      this.webpSrc = "";
+      this.$nextTick(() => {
+        this.webpSrc = `https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp?${new Date().getTime()}`;
+      });
+    },
     handleVideoEnd() {
       this.videoPlaying = false;
     },
@@ -227,6 +234,7 @@ export default {
     ...mapGetters('ticket', ['getTicket']),
   },
   mounted() {
+    this.resetWebP();
     setTimeout(() => {
       this.showConfetti = false;
     }, 5000);

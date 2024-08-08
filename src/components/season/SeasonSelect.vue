@@ -35,6 +35,8 @@
 
     <div class="card cursor-pointer">
       <div class="top-section  bg-img11" @click="selectSeason()">
+        <img :src="webpSrc" class="video-banner" alt="Animated Banner" />
+
         <div class="icons">
           <div class="logo shsojvp">
             WEEK{{ gameWeek.week }}
@@ -74,7 +76,8 @@
       </div>
       <div v-else>
         <span class="text-green-900 text-shadow-md text-nd ml-12">เหลือเวลาจัดทีมอีก</span>
-        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp" :classadj="'text-green-900'" />
+        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp"
+          :classadj="'text-green-900'" />
       </div>
     </div>
 
@@ -101,7 +104,8 @@ export default {
       allPlayer: 0,
       myTeam: 0,
       currentTime: null,
-      is_time_up: false
+      is_time_up: false,
+      webpSrc: "https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp",
     };
   },
   methods: {
@@ -172,17 +176,25 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+    resetWebP() {
+      this.webpSrc = "";
+      this.$nextTick(() => {
+        this.webpSrc = `https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp?${new Date().getTime()}`;
+      });
+    },
 
   },
   computed: {
     ...mapGetters('season', ['getSeasons'])
   },
   mounted() {
+    this.resetWebP();
     setTimeout(() => {
       this.showConfetti = false;
     }, 5000);
   },
+
   created() {
     this.updateLoading(true);
     Promise.all([this.fetchSeasons(), this.getGameWeek()])
@@ -229,7 +241,7 @@ export default {
 
 
 .card .top-section {
-  height: 120px;
+  height: 150px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -238,15 +250,39 @@ export default {
   overflow: hidden;
 }
 
-.card .top-section::after {
-  content: '';
+.video-banner {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 160px;
-  height: 90px;
-  background: url('/public/assets/bgChcN.png') no-repeat;
-  background-size: contain;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
+}
+
+@media (min-width: 410px) {
+  .card .top-section {
+    height: 250px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+}
+
+@media (min-width: 768px) {
+  .card .top-section {
+    height: 320px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    position: relative;
+    overflow: hidden;
+  }
 }
 
 .card .top-section .border {
