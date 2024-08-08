@@ -235,10 +235,11 @@ export default {
             this.showAdjustPlayerModal = true;
         },
         ChangePlayer() {
+            document.body.style.overflow = 'hidden';
             this.position = this.detailPlayer.position;
             this.showAdjustPlayerModal = false;
             this.showAdjustPlayerModalSelect = true;
-             document.body.style.overflow = 'hidden';
+            
         },
         async ChangePlayerSelect(player) {
             document.body.style.overflow = '';
