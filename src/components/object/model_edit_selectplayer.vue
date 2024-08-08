@@ -158,7 +158,9 @@ export default {
   watch: {
     showAdjustPlayerModal(newVal) {
       if (!newVal) {
+        document.body.style.overflow = '';
         this.fadeOut();
+        
       }
     }
   },

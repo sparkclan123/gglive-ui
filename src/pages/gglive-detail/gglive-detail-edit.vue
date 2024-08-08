@@ -238,9 +238,10 @@ export default {
             this.position = this.detailPlayer.position;
             this.showAdjustPlayerModal = false;
             this.showAdjustPlayerModalSelect = true;
+             document.body.style.overflow = 'hidden';
         },
         async ChangePlayerSelect(player) {
-
+            document.body.style.overflow = '';
             this.showAdjustPlayerModalSelect = false;
             // this.position = this.detailPlayer.position;
             // this.showAdjustPlayerModal = false;
@@ -434,6 +435,9 @@ export default {
         this.fetchGameWeekDetail();
         this.fetchDataTeams();
     },
+    mounted() {
+       
+    }
 
 };
 </script>
@@ -507,7 +511,7 @@ export default {
 
 .card .bottom-section {
     margin-top: 1px;
-    padding: 10px 5px;
+    /* padding: 10px 5px; */
 }
 
 .card .bottom-section .title {
@@ -521,7 +525,7 @@ export default {
 .card .bottom-section .row {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .card .bottom-section .row .item {
