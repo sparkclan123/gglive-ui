@@ -73,8 +73,8 @@
         <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'" />
       </div>
       <div v-else>
-        <span class="text-green-900 text-shadow-md text-xl ml-12">เหลือเวลาจัดทีมอีก</span>
-        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" :classadj="'text-green-900'" />
+        <span class="text-green-900 text-shadow-md text-nd ml-12">เหลือเวลาจัดทีมอีก</span>
+        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp" :classadj="'text-green-900'" />
       </div>
     </div>
 
@@ -100,17 +100,38 @@ export default {
       gameWeek: null,
       allPlayer: 0,
       myTeam: 0,
-      currentTime: null
+      currentTime: null,
+      is_time_up: false
     };
   },
   methods: {
     ...mapActions('loading', ['updateLoading']),
     ...mapActions('selectGameWeek', ['setGameWeek']),
     ...mapActions('season', ['fetchSeasons']),
+    handleTimeUp() {
+      this.is_time_up = true;
+    },
     rewardDetail() {
       this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "N" } });
     },
     selectSeason() {
+      if (this.is_time_up) {
+        Swal.fire({
+          title: 'เวลาจัดทีมหมดแล้ว',
+          text: 'กรุณาเข้าร่วมการแข่งขันในครั้งถัดไป',
+          icon: 'error',
+          confirmButtonText: 'ตกลง',
+          customClass: {
+            confirmButton: 'btn-confirm',
+            popup: 'popup-custom',
+            title: 'text-custom',
+            htmlContainer: 'text-custom'
+          },
+          buttonsStyling: false,
+        });
+        return;
+      }
+
       if (this.myTeam > 0) {
         Swal.fire({
           text: 'คุณได้ทำการสร้างทีมของสัปดาห์นี้แล้ว',

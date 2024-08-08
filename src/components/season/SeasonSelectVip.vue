@@ -1,15 +1,5 @@
 <template>
-  <!-- Content for Tab 1 -->
-  <!-- <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4" v-if="gameWeek">
-          <div @click="selectSeason()" class="bg-color-h sha p-4 text-center bg-img cursor-pointer">
-              <h2 class="text-xl font-bold mb-2 text-gray-100">
-                  Game Week #{{ gameWeek.week }}<br>ฤดูกาล <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
-              getSeasons.label }}</span>
-              </h2>
-              <p style="color: lemonchiffon;">Fantasy Challenge is coming.</p>
-          </div>
-          
-      </div> -->
+
   <div v-if="gameWeek">
     <div class="confetti" v-if="showConfetti">
       <div class="confetti-piece"></div>
@@ -34,7 +24,12 @@
     </div>
 
     <div class="card ">
-      <div class="top-section  bg-img cursor-pointer" @click="selectSeason()">
+
+      <!-- <div class="top-section  bg-img cursor-pointer" @click="selectSeason()"> -->
+      <div class="top-section cursor-pointer" @click="selectSeason()">
+        <video ref="videoPlayer" @ended="handleVideoEnd" class="video-banner" autoplay muted preload="auto">
+          <source src="https://image-lobby.sgp1.digitaloceanspaces.com/vdopudee3.mp4" type="video/mp4">
+        </video>
         <div class="icons">
           <div class="logo shsojvp text-yellow-50" style="display: flex; align-items: center;">
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" style="margin-left: -8px;" viewBox="0 0 512 512"
@@ -82,11 +77,13 @@
     <div class="flex justify-center mt-1">
       <div v-if="gameWeek.start_date > currentTime">
         <span class="text-red-900  text-xl text-shadow-md ml-14"> เริ่มจัดทีมได้ในอีก</span>
-        <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'" />
+        <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" @time-up="handleTimeUp"
+          :classadj="'text-red-900'" />
       </div>
       <div v-else>
         <span class="text-green-900 text-shadow-md text-xl ml-12">เหลือเวลาจัดทีมอีก</span>
-        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" :classadj="'text-green-900'" />
+        <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp"
+          :classadj="'text-green-900'" />
       </div>
     </div>
 
@@ -108,11 +105,13 @@ export default {
   name: 'CardSeason',
   data() {
     return {
+      videoPlaying: true,
       showConfetti: true,
       gameWeek: null,
       allPlayer: 0,
       myTeam: 0,
-      currentTime: null
+      currentTime: null,
+      is_time_up: false,
     };
   },
   methods: {
@@ -120,10 +119,32 @@ export default {
     ...mapActions('selectGameWeek', ['setGameWeek']),
     ...mapActions('season', ['fetchSeasons']),
     ...mapActions('ticket', ['facthTicket']),
+    handleVideoEnd() {
+      this.videoPlaying = false;
+    },
+    handleTimeUp() {
+      this.is_time_up = true;
+    },
     rewardDetail() {
       this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "VIP" } });
     },
     selectSeason() {
+      if (this.is_time_up) {
+        Swal.fire({
+          title: 'เวลาจัดทีมหมดแล้ว',
+          text: 'กรุณาเข้าร่วมการแข่งขันในครั้งถัดไป',
+          icon: 'error',
+          confirmButtonText: 'ตกลง',
+          customClass: {
+            confirmButton: 'btn-confirm',
+            popup: 'popup-custom',
+            title: 'text-custom',
+            htmlContainer: 'text-custom'
+          },
+          buttonsStyling: false,
+        });
+        return;
+      }
       this.facthTicket();
       if (this.getTicket == 0) {
         Swal.fire({
@@ -256,7 +277,7 @@ export default {
 
 
 .card .top-section {
-  height: 120px;
+  height: 150px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -265,16 +286,43 @@ export default {
   overflow: hidden;
 }
 
-.card .top-section::after {
-  content: '';
+.video-banner {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 160px;
-  height: 90px;
-  background: url('/public/assets/bgChc.png') no-repeat;
-  background-size: contain;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
 }
+
+@media (min-width: 410px) {
+  .card .top-section {
+    height: 250px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+}
+
+@media (min-width: 768px) {
+  .card .top-section {
+    height: 320px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+
+}
+
 
 .card .top-section .border {
   border-bottom-right-radius: 10px;

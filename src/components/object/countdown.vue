@@ -80,6 +80,7 @@ export default {
         this.hours = 0;
         this.minutes = 0;
         this.seconds = 0;
+        this.$emit('time-up');
       }
     },
   },
