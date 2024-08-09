@@ -71,11 +71,11 @@
 
     <div class="flex justify-center mt-1">
       <div v-if="gameWeek.start_date > currentTime">
-        <span class="text-red-900  text-xl text-shadow-md ml-14"> เริ่มจัดทีมได้ในอีก</span>
+        <span class="text-red-900  text-md text-shadow-md ml-14"> เริ่มจัดทีมได้ในอีก</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'" />
       </div>
       <div v-else>
-        <span class="text-green-900 text-shadow-md text-nd ml-12">เหลือเวลาจัดทีมอีก</span>
+        <span class="text-green-900 text-shadow-md text-md ml-14">เหลือเวลาจัดทีมอีก</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp"
           :classadj="'text-green-900'" />
       </div>
@@ -105,7 +105,7 @@ export default {
       myTeam: 0,
       currentTime: null,
       is_time_up: false,
-      webpSrc: "https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp",
+      webpSrc: "https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloopN.webp",
     };
   },
   methods: {
@@ -180,7 +180,7 @@ export default {
     resetWebP() {
       this.webpSrc = "";
       this.$nextTick(() => {
-        this.webpSrc = `https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp?${new Date().getTime()}`;
+        this.webpSrc = `https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloopN.webp?${new Date().getTime()}`;
       });
     },
 

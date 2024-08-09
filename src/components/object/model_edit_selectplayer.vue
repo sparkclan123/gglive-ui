@@ -64,8 +64,8 @@
             </div>
           </div>
 
-          <div class="px-4 flex-1">
-            <table class="min-w-full bg-gray-300 rounded-lg text-xs min-h-[500px]">
+          <div class="px-4 flex-1 min-h-[300px]">
+            <table class="min-w-full bg-gray-300 rounded-lg text-xs">
               <thead>
                 <tr>
 

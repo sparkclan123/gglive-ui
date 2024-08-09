@@ -1,7 +1,7 @@
 <template>
-    <div class="dxRBog pb-4" v-if="getGameWeek && getGameWeek.status == 'active'">
+    <div class="dxRBog pb-4 " v-if="getGameWeek && getGameWeek.status == 'active'">
 
-        <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
+        <div :class="['kigSry', isToggled ? 'liIqzj' : '']" >
             <!-- page 1 -->
             <div class="elHRfu ">
                 <div class=" hvBVYx flex items-center">
@@ -170,8 +170,8 @@
                 </div>
             </div>
             <!-- page 2 -->
-            <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 max-h-fit !overflow-y-hidden">
-                <div class="eWuGMX ">
+            <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 h-full border-4 border-red-500 !overflow-y-hidden">
+                <div class="eWuGMX">
                     <div class=" hvBVYx">
                         <button @click="toggleClassBack" class="sc-iftxFb isQEzW hvBVYx_non">กลับ<div ml="1"
                                 class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="15"
@@ -584,6 +584,7 @@ export default {
 
 .elHRfu {
     padding: 0.5rem;
+    /* padding-bottom: 60px; */
 
 }
 

@@ -576,6 +576,7 @@ export default {
 
 .elHRfu {
     padding: 0.5rem;
+    padding-bottom: 60px;
 
 }
 
