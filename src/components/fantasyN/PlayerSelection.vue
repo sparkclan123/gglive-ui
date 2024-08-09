@@ -183,12 +183,12 @@ export default {
                     (this.searchTerm === '' || player.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
                 );
             }).sort((a, b) => {
-                if (this.sortBy === 'total_points') {
-                    return b.total_point - a.total_point;
-                } else if (this.sortBy === 'price') {
+                // if (this.sortBy === 'total_points') {
+                //     return b.total_point - a.total_point;
+                // } else if (this.sortBy === 'price') {
                     return b.price - a.price;
-                }
-                return 0;
+                // }
+                // return 0;
             });
         },
         paginatedPlayers() {

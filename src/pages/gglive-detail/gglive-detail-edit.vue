@@ -24,14 +24,12 @@
                     <span class="title text-green-500">{{ getMain.name }} </span>
                     <div class="row row1">
                         <div class="item">
-                            <span class="text-xs">งบทั้งหมด</span>
-                            <span class="big-text text-gray-200">
-                                <NumberDisplay number="80" />$
+                            <span class="text-xs">งบทั้งหมด </span>
+                            <span class="text-xs text-gray-200">
+                                <NumberDisplay number="80" /> ใช้ไป  <NumberDisplay :number="-priceSum" />
                             </span>
-                            <span class="text-xs">ใช้ไป </span>
-                            <span class="regular-text text-gray-200">
-                                <NumberDisplay :number="priceSum" />$
-                            </span>
+                            <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม<DateFormatted :dateString="getMain.created_at " /></span>
+                           
                         </div>
                       
                     </div>
@@ -537,7 +535,7 @@ export default {
 }
 
 .card .bottom-section .row .item .big-text {
-    font-size: 15px;
+
     display: block;
 }
 

@@ -254,7 +254,28 @@ export default {
             });
         },
         resetTeam() {
-            this.updateFormation();
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: "คุณจะล้างข้อมูลนักเตะ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, รีเซ็ต!',
+                cancelButtonText: 'ยกเลิก',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.updateFormation();
+                }
+            })
         },
         toggleClass(position) {
             this.position = position;
@@ -332,7 +353,7 @@ export default {
             this.disable = true;
             const result = await Swal.fire({
                 title: 'กรุณาอ่าน!',
-                text: 'บันทึกเเล้วจะไม่สามารถเเก้ไข หรือลบได้',
+                text: 'บันทึกเเล้วต้องการเเก้ไขให้ไปที่เมนูรายการ',
                 input: 'text',
                 inputPlaceholder: 'กรุณาใส่ชื่อทีมของคุณ',
                 showCancelButton: true,

@@ -361,7 +361,7 @@ export default {
             this.disable = true;
             const result = await Swal.fire({
                 title: 'กรุณาอ่าน!',
-                text: 'บันทึกเเล้วจะไม่สามารถเเก้ไข หรือลบได้',
+                text: 'บันทึกเเล้วต้องการเเก้ไขให้ไปที่เมนูรายการ',
                 input: 'text',
                 inputPlaceholder: 'กรุณาใส่ชื่อทีมของคุณ',
                 showCancelButton: true,
