@@ -113,7 +113,7 @@ export default {
                 icon: 'info',
                 html: `
     <div class="text-custom" style="text-align: left;">
-      <p> - การจัดการเเข่งขันเองสามารถสร้างได้ไม่เกิน 2 การเเข่งขันต่อ 1 เกมวีคที่กำลังเปิดอยู่เท่านั้น</p>
+      <p> - การจัดการเเข่งขันเองสามารถสร้างได้ไม่เกิน 3 การเเข่งขันต่อ 1 เกมวีคที่กำลังเปิดอยู่เท่านั้น</p>
       <p> - คุณสามารถสร้างเเข่งขันของคุณเอง หรือเข้าร่วมเเข่งขันของเพื่อนๆของคุณได้</p>
       <p> - ทางเราไม่มีส่วนเกี่ยวข้องใดๆทั้งสิ้นในการจัดการเเข่งขันของคุณ นอกจากการตัดสินคะเเนน จากระบบ</p>
     </div>
@@ -197,6 +197,7 @@ export default {
             });
         },
         async toggleModel() {
+
             Swal.fire({
                 title: 'สร้างการเเข่งขัน',
                 text: 'สร้างการเเข่งขันของคุณเเละเพื่อนๆของคุณ',
@@ -216,8 +217,8 @@ export default {
                 buttonsStyling: false,
                 preConfirm: (teamName) => {
                     // ไม่เกิน 15 ตัวอักษร
-                    if (teamName.length > 15) {
-                        Swal.showValidationMessage('ชื่อการเเข่งขันต้องไม่เกิน 15 ตัวอักษร');
+                    if (teamName.length > 20) {
+                        Swal.showValidationMessage('ชื่อการเเข่งขันต้องไม่เกิน 20 ตัวอักษร');
                     }
                     if (!teamName) {
                         Swal.showValidationMessage('กรุณากรอกชื่อการเเข่งขัน');
@@ -229,7 +230,10 @@ export default {
                     this.teamName = result.value;
                     this.confirmCreateMatch();
                 }
+            }).catch((error) => {
+                console.log(error);
             });
+
         },
         async joinMatch() {
             try {
@@ -302,6 +306,19 @@ export default {
             } catch (error) {
                 console.log("asdasdas", error.data);
                 this.$emit('set-loading', false);
+                Swal.fire({
+                    icon: 'error',
+                    text: error.response.data.error,
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
             }
         },
         copyToClipboard(code) {

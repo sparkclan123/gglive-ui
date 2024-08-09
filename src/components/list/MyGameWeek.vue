@@ -13,7 +13,7 @@
                     </div>
 
                 </div>
-                <svg @click.stop="edit(data.id)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                <svg v-if="gameWeek && gameWeek.id == data.week_id" @click.stop="edit(data.id)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                     viewBox="0 0 24 24" id="edit">
                     <path fill="#5E94FF" fill-rule="evenodd"
                         d="M4 4.75C3.30964 4.75 2.75 5.30964 2.75 6V20C2.75 20.6904 3.30964 21.25 4 21.25H18C18.6904 21.25 19.25 20.6904 19.25 20V9.5C19.25 9.08579 19.5858 8.75 20 8.75C20.4142 8.75 20.75 9.08579 20.75 9.5V20C20.75 21.5188 19.5188 22.75 18 22.75H4C2.48122 22.75 1.25 21.5188 1.25 20V6C1.25 4.48122 2.48122 3.25 4 3.25H14.5C14.9142 3.25 15.25 3.58579 15.25 4C15.25 4.41421 14.9142 4.75 14.5 4.75H4Z"
@@ -51,6 +51,7 @@
 import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
 export default {
+    props:['gameWeek'],
     data() {
         return {
             datas: [],

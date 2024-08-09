@@ -33,7 +33,7 @@
                 </div>
                 <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container ">
                     <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
-                        <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading"></component>
+                        <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading" :gameWeek="gameWeek"></component>
                     </transition>
                 </div>
             </div>
@@ -54,6 +54,7 @@ export default {
         return {
             activeTab: 'tab1',
             loading: false,
+            gameWeek: {},
         };
     },
     components: {
@@ -115,10 +116,25 @@ export default {
         setLoading(isLoading) {
             this.loading = isLoading;
         },
-
+        async getGameWeek() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/game-week-only', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.gameWeek = response.data.gameWeek;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
 
     },
     created() {
+        this.getGameWeek();
         let has_result_tab = localStorage.getItem('list-tab');
         if (has_result_tab) {
             this.activeTab = has_result_tab;
