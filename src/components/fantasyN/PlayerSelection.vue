@@ -96,8 +96,11 @@
                                 <img :src="getShirtImage(player)" alt="team logo" class="w-6 h-8 mr-2">
                                 <div class="truncate">
                                     <div>{{ truncateText(player.name) }}</div>
-                                    <div class="text-xs text-gray-600">{{ player.position }} <span
-                                            style="font-size: 9px;">{{ player.team_vs }}</span></div>
+                                    <div class="text-xs text-gray-600">{{ player.position }}
+                                        <span style="font-size: 9px;margin-right: 3px;" class="text-yellow-800">
+                                            {{ key_team[player.team_code] }}</span>
+                                        <span style="font-size: 9px;">{{ player.team_vs }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </td>
@@ -159,6 +162,59 @@ export default {
                 { name: 'Midfielders', value: 'M' },
                 { name: 'Forwards', value: 'F' }
             ],
+            key_team: {
+                "t3": "ARS",
+                "t7": "AVL",
+                "t37": "BAR",
+                "t41": "BIR",
+                "t5": "BLB",
+                "t92": "BLP",
+                "t30": "BOL",
+                "t91": "BOU",
+                "t55": "BRA",
+                "t94": "BRE",
+                "t36": "BHA",
+                "t90": "BUR",
+                "t97": "CAR",
+                "t33": "CHA",
+                "t8": "CHE",
+                "t9": "COV",
+                "t31": "CRY",
+                "t24": "DER",
+                "t11": "EVE",
+                "t54": "FUL",
+                "t38": "HUD",
+                "t88": "HUL",
+                "t40": "IPS",
+                "t2": "LEE",
+                "t13": "LEI",
+                "t14": "LIV",
+                "t102": "LUT",
+                "t43": "MCI",
+                "t1": "MUN",
+                "t25": "MID",
+                "t4": "NEW",
+                "t45": "NOR",
+                "t17": "NFO",
+                "t105": "OLD",
+                "t47": "POR",
+                "t52": "QPR",
+                "t108": "RDG",
+                "t49": "SHU",
+                "t19": "SHW",
+                "t20": "SOU",
+                "t110": "STK",
+                "t56": "SUN",
+                "t80": "SWA",
+                "t46": "SWI",
+                "t6": "TOT",
+                "t57": "WAT",
+                "t35": "WBA",
+                "t21": "WHU",
+                "t111": "WIG",
+                "t1736": "WIM",
+                "t39": "WOL"
+            }
 
 
         };
@@ -186,7 +242,7 @@ export default {
                 // if (this.sortBy === 'total_points') {
                 //     return b.total_point - a.total_point;
                 // } else if (this.sortBy === 'price') {
-                    return b.price - a.price;
+                return b.price - a.price;
                 // }
                 // return 0;
             });
