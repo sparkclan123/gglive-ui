@@ -1,7 +1,7 @@
 <template>
-    <div class="dxRBog pb-4 " v-if="getGameWeek && getGameWeek.status == 'active'">
+    <div class="dxRBog pb-4" v-if="getGameWeek && getGameWeek.status == 'active'">
 
-        <div :class="['kigSry', isToggled ? 'liIqzj' : '']" >
+        <div :class="['kigSry', isToggled ? 'liIqzj' : '']">
             <!-- page 1 -->
             <div class="elHRfu ">
                 <div class=" hvBVYx flex items-center">
@@ -170,8 +170,8 @@
                 </div>
             </div>
             <!-- page 2 -->
-            <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 h-full border-4 border-red-500 !overflow-y-hidden">
-                <div class="eWuGMX">
+            <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 max-h-fit !overflow-y-hidden">
+                <div class="eWuGMX ">
                     <div class=" hvBVYx">
                         <button @click="toggleClassBack" class="sc-iftxFb isQEzW hvBVYx_non">กลับ<div ml="1"
                                 class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="15"
@@ -258,7 +258,29 @@ export default {
             });
         },
         resetTeam() {
-            this.updateFormation();
+            Swal.fire({
+                title: 'คุณแน่ใจหรือไม่?',
+                text: "คุณจะล้างข้อมูลนักเตะ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, รีเซ็ต!',
+                cancelButtonText: 'ยกเลิก',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.updateFormation();
+                }
+            })
+           
         },
         toggleClass(position) {
             this.position = position;
@@ -584,7 +606,7 @@ export default {
 
 .elHRfu {
     padding: 0.5rem;
-    /* padding-bottom: 60px; */
+    padding-bottom: 20px;
 
 }
 
