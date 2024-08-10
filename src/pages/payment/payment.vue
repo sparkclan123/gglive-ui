@@ -41,7 +41,6 @@
                         <img src="/public/assets/kbank.jpg"
                             class="w-5 h-5 object-cover drop-shadow-xl rounded-full mr-2" alt="slip image" >
                         <button class="copyaccount mr-2" @click="copyaccount"><span class="plussign ">คัดลอก เลข บช</span></button>
-                        <button class="copyslip" @click="downloadQRCode"><span class="plussign">บันทึก qr</span></button>
                     </div>
                 </div>
 
@@ -137,7 +136,7 @@ export default {
             link.click();
         },
         copyaccount(){
-            navigator.clipboard.writeText('asdasdasd').then(() => {
+            navigator.clipboard.writeText('1903512276').then(() => {
                 Swal.fire({
                     icon: 'success',
                     title: 'คัดลอก!',

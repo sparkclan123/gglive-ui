@@ -104,10 +104,13 @@
             <a @click="sideMenu('history')" class="menu-link"> <i class="fas fa-history mr-2"></i>ประวัติการทำรายการ</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('rule')"  class="menu-link"><i class="fas fa-book mr-2"></i> กติการะบบ</a>
+            <a @click="sideMenu('rule')" class="menu-link"><i class="fas fa-book mr-2"></i> กติการะบบ</a>
           </li>
           <li class="menu-item">
             <a @click="sideMenu('setting')" class="menu-link"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
+          </li>
+          <li class="menu-item">
+            <a @click="versionInfo" class="menu-link"> <i class="fas fa-info mr-2"></i> version update</a>
           </li>
           <li class="menu-item">
             <a @click="logout()" class="menu-link-red"> <i class="fas fa-sign-out-alt mr-2"></i> logout</a>
@@ -193,6 +196,19 @@ export default {
     },
   },
   methods: {
+    versionInfo() {
+      Swal.fire({
+        title: 'Version 1.0.8',
+        text: 'update สามารถ จัดทีมการเเข่งขันกับเพื่อนได้',
+        confirmButtonText: 'ปิด',
+        customClass: {
+          cancelButton: 'btn-cancel',
+          popup: 'popup-custom',
+          title: 'text-custom',
+          htmlContainer: 'text-custom'
+        },
+      });
+    },
     showRule() {
       this.isMenuOpen = !this.isMenuOpen;
       const rulesHtml = `
