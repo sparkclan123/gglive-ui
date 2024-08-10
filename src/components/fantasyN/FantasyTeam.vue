@@ -371,6 +371,9 @@ export default {
                     if (!value) {
                         return 'กรุณาใส่ชื่อทีมของคุณ';
                     }
+                    if (value.length > 18) {
+                        return 'ชื่อทีมต้องไม่เกิน 18 ตัวอักษร';
+                    }
                 }
             });
 

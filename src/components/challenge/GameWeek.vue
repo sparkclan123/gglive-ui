@@ -108,6 +108,7 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        
         async facthPlayerListGameWeek(page = 1, limit = 10) {
 
             try {
