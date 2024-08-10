@@ -98,7 +98,7 @@
             <a @click="sideMenu('rank')" class="menu-link"> <i class="fa fa-star mr-2"></i> เกมจัดอันดับ</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('payments')" class="menu-link"> <i class="fas fa-ticket-alt mr-2"></i> ซื้อตั๋ว</a>
+            <a @click="sideMenu('payments')" class="menu-link"> <i class="fas fa-ticket-alt text-yellow-700 mr-2"></i> สนับสนุนเรา</a>
           </li>
           <li class="menu-item">
             <a @click="sideMenu('history')" class="menu-link"> <i class="fas fa-history mr-2"></i>ประวัติการทำรายการ</a>
@@ -148,7 +148,7 @@
             </svg>
           </a>
 
-          <a href="https://facebook.com" class="contact-icon">
+          <a href="https://www.facebook.com/profile.php?id=61563548004280" class="contact-icon">
             <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
               width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink">

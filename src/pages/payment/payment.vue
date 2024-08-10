@@ -36,17 +36,22 @@
                 <h2 class="mb-2 text-gray-800 font-semibold">กรุณาโอนเงินตามจำนวน
                     <Numberformat :value="sumValue" :decimal="2" />
                 </h2>
+                <span class="text-xs mb-2 text-red-800 font-semibold">*สามารถคัดลอกเลขบันชี เเทนการเเสกน qr ได้</span>
                 <div class="mb-2 text-gray-800 font-semibold">
                     <div class="flex justify-between">
                         <img src="/public/assets/kbank.jpg"
-                            class="w-5 h-5 object-cover drop-shadow-xl rounded-full mr-2" alt="slip image" >
-                        <button class="copyaccount mr-2" @click="copyaccount"><span class="plussign ">คัดลอก เลข บช</span></button>
+                            class="w-5 h-5 object-cover drop-shadow-xl rounded-full mr-2" alt="slip image">
+                        <button class="copyaccount mr-2" @click="copyaccount"><span class="plussign ">คัดลอก เลข
+                                บช</span></button>
                     </div>
                 </div>
 
                 <img :src="payurl" alt="QR Code" class="qr-code drop-shadow-xl ">
                 <!-- <button @click="downloadQRCode" class="download-button">บันทึกรูป</button> -->
             </div>
+
+            <span class="text-xs mb-2 text-red-800 font-semibold">*เมื่อโอนเงินเเล้ว upload สลิป เเล้วทำการ บันทึกรายการ</span> <br>
+            <span class="text-xs mb-2 text-red-800 font-semibold">*กรุณาตรวจสอบการเลือกตั๋วของท่านต้องตรงกับจำนวน</span>
 
             <div class="flex items-center space-x-4 m-2">
                 <div class="w-16 h-16 bg-blue-300/20 overflow-hidden flex-shrink-0">
@@ -135,7 +140,7 @@ export default {
             link.download = 'QRCode.jpg';
             link.click();
         },
-        copyaccount(){
+        copyaccount() {
             navigator.clipboard.writeText('1903512276').then(() => {
                 Swal.fire({
                     icon: 'success',
@@ -243,7 +248,7 @@ export default {
                     },
                     buttonsStyling: false,
                 });
-                
+
                 return;
             }
 
@@ -308,8 +313,8 @@ export default {
                     });
                     if (response.data.ok) {
                         this.selectedFile = null,
-                        this.imageSelect = null,
-                        this.getPaymentPending();
+                            this.imageSelect = null,
+                            this.getPaymentPending();
                         this.disable = false;
                         this.loading = false;
                     }
