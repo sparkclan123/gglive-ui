@@ -240,8 +240,8 @@ export default {
             this.check_token = true;
         }
 
-        this.logVisit();
-        this.getVisit();
+        // this.logVisit();
+        // this.getVisit();
 
         this.updateLoading(false);
     }
