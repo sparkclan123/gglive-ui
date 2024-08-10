@@ -3,8 +3,9 @@
         <div v-show="loading">
             <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
-        <div class="contant_style" >
-            <div class="walletBalanceCard mb-2 mt-1" v-if="datas.length > 0"  v-for="data in datas">
+        <div class="contant_style">
+            <div class="walletBalanceCard mb-2 mt-1" v-if="datas.length > 0" v-for="data in datas"
+                @click="seeDetail(data)">
                 <div class="svgwrapper">
                     <svg viewBox="0 0 256 256" width="34" height="64"
                         v-if="data.Status === 'buy_ticket' || data.Status === 'resive_reward_ticket'" id="ticket">
@@ -29,7 +30,8 @@
                         </path><text fill="#2C330D" font-family="'ArialRoundedMTBold'" font-size="34.732"
                             transform="matrix(.8163 -.6453 .6202 .7845 87.393 181.58)">PuDee</text>
                     </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="34" height="64" id="money" v-if="data.Status === 'resive_reward_money'">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="34" height="64" id="money"
+                        v-if="data.Status === 'resive_reward_money'">
                         <rect width="58" height="30" x="3" y="17" fill="#49b170" rx="3"></rect>
                         <path fill="#00913e"
                             d="M55,26a3,3,0,0,1-3-3,1,1,0,0,0-1-1H13a1,1,0,0,0-1,1,3,3,0,0,1-3,3,1,1,0,0,0-1,1V37a1,1,0,0,0,1,1,3,3,0,0,1,3,3,1,1,0,0,0,1,1H51a1,1,0,0,0,1-1,3,3,0,0,1,3-3,1,1,0,0,0,1-1V27A1,1,0,0,0,55,26Z">
@@ -44,11 +46,30 @@
                             d="M32,40a8,8,0,1,1,6.57-12.55A7.85,7.85,0,0,1,40,32,8,8,0,0,1,32,40Zm0-14.77A6.77,6.77,0,1,0,38.77,32,6.79,6.79,0,0,0,32,25.23Z">
                         </path>
                     </svg>
-            
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" id="cancel"
+                        v-if="data.Status === 'cancel_payment'">
+                        <g transform="translate(0 -1028.362)">
+                            <circle cx="657.054" cy="437.094" r="15.268" fill="#ef4c45" fill-rule="evenodd"
+                                transform="translate(-504.421 696.821) scale(.78596)"></circle>
+                            <path
+                                style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;block-progression:tb"
+                                fill="#df2209"
+                                d="M14.525 23.717a12 12 0 0 0 .686-.154 12 12 0 0 0 1.137-.38 12 12 0 0 0 1.095-.488 12 12 0 0 0 1.041-.597 12 12 0 0 0 .975-.698 12 12 0 0 0 .902-.793 12 12 0 0 0 .817-.877 12 12 0 0 0 .726-.955 12 12 0 0 0 .627-1.021 12 12 0 0 0 .522-1.08 12 12 0 0 0 .412-1.127 12 12 0 0 0 .26-1.016l-7.13-7.129A6.478 6.478 0 0 0 12 5.496a6.478 6.478 0 0 0-4.596 1.906A6.482 6.482 0 0 0 5.496 12a6.48 6.48 0 0 0 1.908 4.596l7.121 7.12z"
+                                color="#000" font-family="sans-serif" font-weight="400"
+                                transform="translate(0 1028.362)"></path>
+                            <path
+                                style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-transform:none;block-progression:tb"
+                                fill="#fff"
+                                d="M8.498 1.994c1.662 0 3.324.635 4.596 1.906a6.494 6.494 0 0 1 0 9.194 6.491 6.491 0 0 1-9.192 0 6.48 6.48 0 0 1-1.879-5.219A6.482 6.482 0 0 1 3.903 3.9a6.478 6.478 0 0 1 4.595-1.906zm2.467 3.522c-.001 0-.003 0-.004.002a.506.506 0 0 0-.342.152L8.496 7.79 6.375 5.67a.506.506 0 0 0-.357-.152c-.397-.002-.635.584-.35.859l2.121 2.121-2.121 2.121c-.383.368.34 1.09.707.707l2.121-2.12 2.123 2.12c.368.383 1.09-.34.707-.707l-2.12-2.121 2.12-2.121c.29-.278.04-.874-.361-.861Z"
+                                color="#000" font-family="sans-serif" font-weight="400" overflow="visible"
+                                transform="translate(3.503 1031.865)"></path>
+                        </g>
+                    </svg>
                 </div>
 
                 <div class="balancewrapper">
-                    <span class="balanceHeading">{{ data.Detail }} {{ data.Receive }}
+                    <span class="balanceHeading"><span v-if="data.Status !== 'cancel_payment'">{{ data.Detail }}</span>
+                        {{ data.Receive }}
                         <DateFormatted :dateString="data.CreatedAt" />
                     </span>
                     <p class="balance"
@@ -73,6 +94,7 @@
 
 <script>
 import { api } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -85,6 +107,29 @@ export default {
         };
     },
     methods: {
+        seeDetail(data) {
+            Swal.fire({
+                title: 'รายละเอียด',
+                html: `
+                    <div class="text-left">
+                        <p>รายละเอียด: ${data.Detail}</p>
+                        <p>จำนวน: ${data.Amount}</p>
+                        <p>สถานะ: ${data.Status}</p>
+                        <p>วันที่: ${data.CreatedAt}</p>
+                    </div>
+                `,
+                showCloseButton: true,
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'ปิด',
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom',
+                    popup: 'popup-custom swal2-top'
+                },
+            })
+        },
         async facthTransections(page = 1, limit = 10) {
             try {
                 this.loading = true;

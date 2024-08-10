@@ -244,6 +244,7 @@ export default {
                     },
                     buttonsStyling: false,
                 });
+                
                 return;
             }
 
@@ -307,7 +308,10 @@ export default {
                         }
                     });
                     if (response.data.ok) {
+                        this.selectedFile = null,
+                        this.imageSelect = null,
                         this.getPaymentPending();
+                        this.disable = false;
                         this.loading = false;
                     }
                 }
@@ -586,7 +590,7 @@ export default {
     align-items: center;
     font-family: inherit;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
     padding: 0.5em 0.8em 0.5em 0.8em;
     color: white;
     background: #ad5389;
@@ -614,7 +618,7 @@ export default {
     align-items: center;
     font-family: inherit;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 12px;
     padding: 0.5em 0.8em 0.5em 0.8em;
     color: white;
     background: #ad5389;
