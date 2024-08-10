@@ -13,7 +13,7 @@
                 <div class="container mx-auto flex justify-center">
                     <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
                 </div>
-                <div>
+                <!-- <div>
                     <label for="username" class="block text-sm font-medium text-gray-500">ชื่อผู้ใช้งาน</label>
                     <input
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
@@ -28,14 +28,19 @@
                 
                 <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
                     <button type="submit" class="w-full button-save" @click="loginform()">เข้าสู่ระบบ</button>
-                </div>
-                <!-- <button @click="loginform()"
-                    class="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-800 focus:outline-none focus:shadow-outline">
-                    เข้าสู่ระบบ
-                </button> -->
+                </div> -->
+
                 <div>
-                    <label class="block text-sm font-medium text-gray-500" @click="route_register">สมัคสมาชิก</label>
+                    <label class="block text-sm font-medium text-red-500">**ระบบสมัคสมาชิกจะเปิดทำการภายในวันที่ 13-15 นี้ครับ</label>
                 </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-green-800">**ท่านสามารถ login ผ่าน google,line เพื่อเข้าระบบก่อนได้ครับ</label>
+                </div>
+                
+                <!-- <div>
+                    <label class="block text-sm font-medium text-gray-500" @click="route_register">สมัคสมาชิก</label>
+                </div> -->
                 <div class="social-icons">
                     <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
                         <svg version="1.1" viewBox="0 0 150 150" width="50" height="50" class="fill-current">
