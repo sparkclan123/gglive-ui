@@ -31,7 +31,7 @@
                 </div> -->
 
                 <div>
-                    <label class="block text-sm font-medium text-red-500">**ระบบสมัคสมาชิกจะเปิดทำการภายในวันที่ 13-15 นี้ครับ</label>
+                    <label class="block text-sm font-medium text-red-500">**ระบบสมัครสมาชิกจะเปิดทำการภายในวันที่ 13-15 นี้ครับ</label>
                 </div>
 
                 <div>
