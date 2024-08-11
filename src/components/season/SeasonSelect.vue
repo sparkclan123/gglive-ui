@@ -61,9 +61,9 @@
           </div>
           <div class="item">
             <span class="big-text text-green-500">
-              <NumberDisplay :number="gameWeek.reward" />
+              <NumberDisplay :number="gameWeek.reward2" /> ใบ
             </span>
-            <span class="regular-text text-green-500">รางวัล</span>
+            <span class="regular-text text-green-500">รางวัลตั๋ว</span>
           </div>
         </div>
       </div>
