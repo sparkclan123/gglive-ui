@@ -117,8 +117,9 @@
           </li>
 
         </ul>
-        <div class="contact-us">
-          <a href="https://line.me" class="contact-icon">
+        <div class="contact-us flex flex-col items-center">
+          <span class="text-xs  text-green-700 font-semibold">ID:@pudee</span>
+          <a href="https://lin.ee/bltN2Lk" class="contact-icon">
             <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
               <g id="_x32_00-line">
                 <g>
@@ -147,7 +148,7 @@
               <g id="Layer_1" />
             </svg>
           </a>
-
+          <span class="text-xs mb-1 text-green-700 font-semibold">PuDee Club</span>
           <a href="https://www.facebook.com/profile.php?id=61563548004280" class="contact-icon">
             <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
               width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -441,7 +442,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  /* gap: 10px; */
   padding: 5px;
   background-color: #f9f9f9;
   border-radius: 10px;

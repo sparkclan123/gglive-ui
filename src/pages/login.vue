@@ -3,10 +3,10 @@
         <div v-show="loading">
             <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>
-        <div class="image-container p-2" v-if="!check_token">
+        <!-- <div class="image-container p-2" v-if="!check_token">
             <img src="/public/assets/first.jpeg" alt="Logo" class="responsive-image">
-        </div>
-        <div class="flex flex-col items-center justify-center pt-20 m-2" v-else>
+        </div> -->
+        <div class="flex flex-col items-center justify-center pt-20 m-2">
 
             <div class="w-full max-w-lg p-8 space-y-2 bg-white rounded-lg shadow-lg sm:w-96">
 

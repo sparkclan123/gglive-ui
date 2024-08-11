@@ -76,7 +76,8 @@
                     </button>
                 </div>
             </div>
-
+            <span class="text-xs mb-2 text-red-800 font-semibold">*เวลาทำการในการปรับยอดตั๋ว  <span class="text-green-700">06:00(เช้า)-23:59</span> หากมีการบันทึกก่อนหรือหลังเวลาทำการทางเราจะดำเนินการให้ภายในเวลาทำการถัดไปครับ</span><br>
+            <span class="text-xs mb-2 text-red-800 font-semibold">*สอบถามข้อมูลเพิ่มเติม LINE   <span class="text-green-700">@pudee</span> </span>
 
 
             <div class="walletBalanceCard mb-2 mt-2" v-if="payment">

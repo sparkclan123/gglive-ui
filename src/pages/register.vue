@@ -64,7 +64,7 @@ export default {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('alert', ['addNotification']),
         async register() {
-
+            return;
             if (!this.name || !this.username || !this.password || !this.confirm_password) {
                 this.addNotification({ type: 'error', message: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
                 return;
