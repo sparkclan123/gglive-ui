@@ -9,14 +9,18 @@
                 <div class="date m-2">{{ formatDate(date) }}</div>
                 <div class="match-results">
                     <div class="match" v-for="match in matches" :key="match.id">
+                        
                         <div class="team-wrapper text-xs font-bold mr-2" style="justify-content: end;">
                             <div>{{ truncateTeamName(match.team1) }}</div>
                         </div>
+                       
                         <div class="score-container">
+                            <!-- <div > 02:00</div> -->
                             <div class="score">{{ match.score1 }} - {{ match.score2 }}</div>
+                          
                         </div>
                         <div class="team-wrapper text-xs font-bold ml-2" style="justify-content: start;">
-                            <div>{{ truncateTeamName(match.team2) }}</div>
+                            <div>{{ truncateTeamName(match.team2) }}</div> 
                         </div>
                     </div>
                 </div>
@@ -78,7 +82,7 @@ export default {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
-    text-align: left;
+    text-align: center; /* Center the date */
     width: 100%;
 }
 
@@ -98,7 +102,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 120px;
+    width: 150px; /* Increase width for better centering */
     text-align: center;
     white-space: nowrap;
 }
@@ -107,17 +111,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 .score {
-    width: 70px;
+    width: 50px;
     text-align: center;
     background-color: #37003c;
     color: white;
     font-weight: bold;
     border-radius: 10px;
-    padding: 5px;
+    padding: 2px;
     white-space: nowrap;
 }
 </style>
