@@ -50,7 +50,8 @@
                 <!-- <button @click="downloadQRCode" class="download-button">บันทึกรูป</button> -->
             </div>
 
-            <span class="text-xs mb-2 text-red-800 font-semibold">*เมื่อโอนเงินเเล้ว upload สลิป เเล้วทำการ บันทึกรายการ</span> <br>
+            <span class="text-xs mb-2 text-red-800 font-semibold">*เมื่อโอนเงินเเล้ว upload สลิป เเล้วทำการ
+                บันทึกรายการ</span> <br>
             <span class="text-xs mb-2 text-red-800 font-semibold">*กรุณาตรวจสอบการเลือกตั๋วของท่านต้องตรงกับจำนวน</span>
 
             <div class="flex items-center space-x-4 m-2">
@@ -76,11 +77,14 @@
                     </button>
                 </div>
             </div>
-            <span class="text-xs mb-2 text-red-800 font-semibold">*เวลาทำการในการปรับยอดตั๋ว  <span class="text-green-700">06:00(เช้า)-23:59</span> หากมีการบันทึกก่อนหรือหลังเวลาทำการทางเราจะดำเนินการให้ภายในเวลาทำการถัดไปครับ</span><br>
-            <span class="text-xs mb-2 text-red-800 font-semibold">*สอบถามข้อมูลเพิ่มเติม LINE   <span class="text-green-700">@pudee</span> </span>
+            <span class="text-xs mb-2 text-red-800 font-semibold">*เวลาทำการในการปรับยอดตั๋ว <span
+                    class="text-green-700">06:00(เช้า)-23:59</span>
+                หากมีการบันทึกก่อนหรือหลังเวลาทำการทางเราจะดำเนินการให้ภายในเวลาทำการถัดไปครับ</span><br>
+            <span class="text-xs mb-2 text-red-800 font-semibold">*สอบถามข้อมูลเพิ่มเติม LINE <span
+                    class="text-green-700">@pudee</span> </span>
 
 
-            <div class="walletBalanceCard mb-2 mt-2" v-if="payment">
+            <div class="walletBalanceCard mb-2 mt-2" v-if="payment" @click="refresh">
                 <div class="svgwrapper">
                     <svg xmlns="http://www.w3.org/2000/svg" width="97" height="96" fill="none" viewBox="0 0 97 96"
                         id="clock-fast-forward">
@@ -99,9 +103,12 @@
 
                 <div class="balancewrapper_2">
                     <span class="balanceHeading_2" v-if="payment.payment_method === 'promptpay'">ตั๋ว {{ payment?.value
-                        }}ใบ {{ payment?.amount / 100 }}฿</span>
+                        }}ใบ {{ payment?.amount / 100 }}฿ </span>
                     <span class="balanceHeading_2" v-if="payment.payment_method === 'own_pay'">ตั๋ว {{ payment?.value
-                        }}ใบ {{ payment?.amount }}฿</span>
+                        }}ใบ {{ payment?.amount }}฿
+                        <span v-if="isRefreshing"> (รอ {{ countdown }} วินาที)</span>
+                        <span v-else> (กดเพื่อ refresh)</span>
+                    </span>
                     <p class="balance_2">
                         มีรายการรอดำเนินการ 1รายการ
                     </p>
@@ -127,6 +134,8 @@ export default {
             payment: null,
             selectedFile: null,
             imageSelect: null,
+            isRefreshing: false,
+            countdown: 10,
         };
     },
     computed: {
@@ -135,6 +144,25 @@ export default {
         }
     },
     methods: {
+        ...mapActions('ticket', ['facthTicket']),
+        refresh() {
+            if (this.isRefreshing) return;
+
+            this.isRefreshing = true;
+            this.getPaymentPending();
+            this.facthTicket();
+            this.startCountdown();
+        },
+        startCountdown() {
+            this.countdown = 10;
+            const interval = setInterval(() => {
+                this.countdown--;
+                if (this.countdown === 0) {
+                    clearInterval(interval);
+                    this.isRefreshing = false;
+                }
+            }, 1000);
+        },
         downloadQRCode() {
             const link = document.createElement('a');
             link.href = this.payurl;
@@ -352,6 +380,7 @@ export default {
                     this.loading = false;
                 }
             } catch (error) {
+                this.payment = null;
                 console.log('error', error);
                 this.loading = false;
 
