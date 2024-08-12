@@ -40,25 +40,11 @@
                         </button> -->
 
                     </div>
-                    <div class="kznjgV">
-                        <div class="jrXxIw cgwdFl">
-                            <div
-                                class="bg-white bg-opacity-100 hover:bg-opacity-10 text-gray-600 hover:text-gray-300 py-2 px-5 rounded-lg shadow-xl transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs ceLkmB">
-                                <label for="formation" class="kISBiI">
-                                    <div><span class=" jeDXjk">เลือกรูปแบบ</span></div>
-                                </label>
-                                <select id="formation" class="eiPequ text-xs" @change="updateFormation"
-                                    v-model="selectedFormation">
-                                    <option value="1-3-4-3" aria-selected="true" class="">3-4-3</option>
-                                    <option value="1-3-5-2" aria-selected="false" class="">3-5-2</option>
-                                    <option value="1-4-3-3" aria-selected="false" class="">4-3-3</option>
-                                    <option value="1-4-4-2" aria-selected="false" class="">4-4-2</option>
-                                    <option value="1-4-5-1" aria-selected="false" class="">4-5-1</option>
-                                    <option value="1-5-2-3" aria-selected="false" class="">5-2-3</option>
-                                    <option value="1-5-3-2" aria-selected="false" class="">5-3-2</option>
-                                    <option value="1-5-4-1" aria-selected="false" class="">5-4-1</option>
-                                </select>
-                            </div>
+                    <div class="">
+                        <div class=" flex-container">
+                            <label for="formation" class="text-gray-300">**กองหลังต้องมีอย่างน้อย 3 คน </label>
+                            <label for="formation" class="text-gray-300">**กองกลางต้องมีอย่างน้อย 2 คน </label>
+                            <label for="formation" class="text-gray-300">**กองหน้าต้องมีอย่างน้อย 1 คน </label>
                         </div>
                     </div>
                 </div>
@@ -88,11 +74,14 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
+                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="GKP.id === null">
-                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
+                                        <div class="gvQQRY "
+                                            :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
+                                            เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
@@ -109,11 +98,14 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
+                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="DEF.id === null">
-                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
+                                        <div class="gvQQRY "
+                                            :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
+                                            เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
@@ -130,11 +122,14 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
+                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="MID.id === null">
-                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
+                                        <div class="gvQQRY "
+                                            :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
+                                            เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
@@ -150,11 +145,14 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR">
+                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
+                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="FWD.id == isCaptain" class="captain-badge">C</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="FWD.id === null">
-                                        <div class="gvQQRY text-gray-800">เพิ่ม</div>
+                                        <div class="gvQQRY "
+                                            :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
+                                            เพิ่ม</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
@@ -208,7 +206,7 @@ export default {
         return {
             showPlayerList: false,
             isToggled: false,
-            selectedFormation: '1-3-4-3',
+            selectedFormation: '1-5-5-3',
             loading: true,
             position: 'all',
 
@@ -253,6 +251,21 @@ export default {
                 buttonsStyling: false,
             });
         },
+        alertTeamAllLimit() {
+            Swal.fire({
+                text: 'ไม่สามารถเลือกนักเตะได้เกิน 11 คน',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+        },
         resetTeam() {
             Swal.fire({
                 title: 'คุณแน่ใจหรือไม่?',
@@ -278,6 +291,10 @@ export default {
             })
         },
         toggleClass(position) {
+            if (this.totalPlayerCount >= 11) {
+                this.alertTeamAllLimit();
+                return;
+            }
             this.position = position;
             this.isToggled = true;
         },
@@ -350,6 +367,156 @@ export default {
             if (this.disable) {
                 return;
             }
+
+            let countGKP = 0;
+            for (let i = 0; i < this.getGKP.length; i++) {
+                if (this.getGKP[i].id != null) {
+                    countGKP++;
+                }
+            }
+
+            let countDiff = 0;
+            for (let i = 0; i < this.getDEF.length; i++) {
+                if (this.getDEF[i].id != null) {
+                    countDiff++;
+                }
+            }
+
+            let countMid = 0;
+            for (let i = 0; i < this.getMID.length; i++) {
+                if (this.getMID[i].id != null) {
+                    countMid++;
+                }
+            }
+
+            let countFWD = 0;
+            for (let i = 0; i < this.getFWD.length; i++) {
+                if (this.getFWD[i].id != null) {
+                    countFWD++;
+                }
+            }
+            if (countGKP < 1) {
+                Swal.fire({
+                    text: 'กรุณาเลือกผู้รักษาประตูอย่างน้อย 1 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (countDiff < 3) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกองหลังอย่างน้อย 3 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (countMid < 2) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกองกลางอย่างน้อย 2 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (countFWD < 1) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกองหน้าอย่างน้อย 1 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (this.remainingAmount < 0) {
+                Swal.fire({
+                    text: 'จำนวนเงินไม่เพียงพอ',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                this.disable = false;
+                return;
+            }
+            if (this.totalPlayerCount !== 11) {
+                Swal.fire({
+                    text: 'กรุณาเลือกนักเตะให้ครบ 11 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+
+                this.disable = false;
+                return;
+            }
+            if (!this.checkHasCaptan()) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกับตันทีม',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+
+                this.disable = false;
+                return;
+            }
+
             this.disable = true;
             const result = await Swal.fire({
                 title: 'กรุณาอ่าน!',
@@ -384,22 +551,6 @@ export default {
 
             const teamName = result.value;
             if (!teamName) {
-                this.disable = false;
-                return;
-            }
-
-            if (this.remainingAmount < 0) {
-                this.addNotification({ type: 'error', message: 'จำนวนเงินการซื้อนักเตะของคุณไม่เพียงพอ' });
-                this.disable = false;
-                return;
-            }
-            if (this.totalPlayerCount !== 11) {
-                this.addNotification({ type: 'error', message: 'กรุณาเลือกนักเตะให้ครบ 11 คน' });
-                this.disable = false;
-                return;
-            }
-            if (!this.checkHasCaptan()) {
-                this.addNotification({ type: 'error', message: 'กรุณาเลือกกับตันทีม' });
                 this.disable = false;
                 return;
             }
@@ -587,7 +738,7 @@ export default {
     padding: 0.2rem;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
-    background-image: linear-gradient(to right, rgb(220, 201, 255), rgb(253 250 255));
+
 
 }
 
@@ -840,12 +991,16 @@ export default {
     }
 }
 
-@media (min-width: 64em) {
-    .kznjgV {
-        flex: 0 0 23%;
-    }
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+
 }
 
+.flex-container label {
+    flex: 1 1 calc(50% - 1rem);
+}
 
 .ceLkmB {
     position: relative;

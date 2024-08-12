@@ -26,12 +26,15 @@
                         <div class="item">
                             <span class="text-xs">งบทั้งหมด </span>
                             <span class="text-xs text-gray-200">
-                                <NumberDisplay number="80" /> ใช้ไป  <NumberDisplay :number="-priceSum" />
+                                <NumberDisplay number="80" /> ใช้ไป
+                                <NumberDisplay :number="-priceSum" />
                             </span>
-                            <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม<DateFormatted :dateString="getMain.created_at " /></span>
-                           
+                            <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม
+                                <DateFormatted :dateString="getMain.created_at" />
+                            </span>
+
                         </div>
-                      
+
                     </div>
                 </div>
             </div>
@@ -115,8 +118,8 @@
                 @set-captain="setCaptan" @change-player="ChangePlayer" />
 
             <ModelEditSelectPlayer :showAdjustPlayerModal="showAdjustPlayerModalSelect" :players="players"
-                :position="position" :detailPlayer="detailPlayer" @close-modal="showAdjustPlayerModalSelect = false" @set-captain="setCaptan"
-                @change-player="ChangePlayerSelect" />
+                :position="position" :detailPlayer="detailPlayer" @close-modal="showAdjustPlayerModalSelect = false"
+                @set-captain="setCaptan" @change-player="ChangePlayerSelect" />
         </div>
     </div>
 
@@ -237,7 +240,7 @@ export default {
             this.position = this.detailPlayer.position;
             this.showAdjustPlayerModal = false;
             this.showAdjustPlayerModalSelect = true;
-            
+
         },
         async ChangePlayerSelect(player) {
             document.body.style.overflow = '';
@@ -378,11 +381,11 @@ export default {
                     this.getFWD = datas.filter(player => player.position === 'F').sort((a, b) => a.sort - b.sort);
                     this.getMain = response.data.playerGameMain;
                     this.fetchData(response.data.playerGameMain.season_id, response.data.playerGameMain.week_id);
-                    this.updateLoading(false);
+
                 }
             } catch (error) {
                 console.log(error);
-                this.updateLoading(false);
+
             }
         },
         getShirtImage(player) {
@@ -426,16 +429,27 @@ export default {
             }
         },
 
+
+
     },
     created() {
+
         this.id = this.$route.params.id;
         this.type = this.$route.params.type;
+
         this.updateLoading(true);
-        this.fetchGameWeekDetail();
-        this.fetchDataTeams();
+        Promise.all([this.fetchGameWeekDetail(), this.fetchDataTeams()])
+            .then(() => {
+                this.updateLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error loading data:', error);
+                this.updateLoading(false);
+            });
+
     },
     mounted() {
-       
+
     }
 
 };

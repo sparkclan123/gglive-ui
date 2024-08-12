@@ -5,6 +5,7 @@
     }">
     <Transition>
       <main v-if="showAdjustPlayerModal" class="fixed inset-x-0 bottom-0 max-h-[90dvh] rounded-t-lg flex flex-col">
+
         <div class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">
           <div class="sticky top-0 bg-[#1e1036] p-4 !rounded-t-xl">
             <div class="flex flex-wrap gap-4 mb-4  ">
@@ -40,8 +41,8 @@
 
                 </label>
 
-                <select :value="position"
-                  class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm" disabled>
+                <select v-model="selectedPosition" @change="filterPlayers"
+                  class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
                   <option value="">ทุกตำเเหน่ง</option>
                   <option v-for="option in optionsPosition" :key="option.value" :value="option.value">
                     {{ option.name }}
@@ -72,7 +73,7 @@
                   <th class="w-1/3 py-1 pl-2 text-left text-gray-900 border-b border-gray-400">นักเตะ</th>
                   <!-- <th class=" py-1 pl-2 text-left text-gray-900 border-b border-gray-400">ทีม</th> -->
                   <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">ราคา</th>
-                  <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">%</th>
+                  <!-- <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">%</th> -->
                   <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟨</th>
                   <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟥</th>
                 </tr>
@@ -101,11 +102,11 @@
                   <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">
                     <Numberformat :value="player.price" :decimal="1" />
                   </td>
-                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900"
+                  <!-- <td class=" py-1 px-2 border-b border-gray-400 text-gray-900"
                     v-if="getGameWeekPercentPlayer && getGameWeekPercentPlayer[player.player_id]">
                     <Numberformat :value="getGameWeekPercentPlayer[player.player_id]" :decimal="1" />%
                   </td>
-                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900" v-else>0.0%</td>
+                  <td class=" py-1 px-2 border-b border-gray-400 text-gray-900" v-else>0.0%</td> -->
                   <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.yellows_card }}
                   </td>
                   <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">{{ player.reds_card }}</td>
@@ -117,6 +118,8 @@
         <div class="sticky bottom-0 bg-[#1e1036] p-3">
           <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" />
         </div>
+
+
       </main>
     </Transition>
   </div>
@@ -129,11 +132,12 @@ export default {
   props: ['showAdjustPlayerModal', 'players', 'position', 'detailPlayer'],
   data() {
     return {
+      isDataReady: false,
       is_check_player: true,
       currentPage: 1,
       playersPerPage: 50,
       selectedTeam: 'view',
-      selectedPosition: this.position,
+      selectedPosition: '',
       sortBy: 'total_points',
       maxCost: null,
       searchTerm: '',
@@ -218,12 +222,16 @@ export default {
         this.fadeOut();
 
       }
+    },
+    position(newPosition) {
+      this.selectedPosition = newPosition;
+
     }
   },
   computed: {
     ...mapGetters('Teams', ['getTeams']),
     filteredPlayers() {
-
+      console.log(this.selectedPosition)
       if (this.maxCost < 1) {
         this.maxCost = null;
       }
@@ -231,7 +239,7 @@ export default {
       return this.players.filter(player => {
         return (
           (this.selectedTeam === 'view' || player.team_id === this.selectedTeam) &&
-          (this.position === '' || player.position === this.position) &&
+          (this.selectedPosition === '' || player.position === this.selectedPosition) &&
           (!this.maxCost || player.price <= this.maxCost) &&
           (this.is_check_player ? player.is_ban === false && player.is_injured === false : true) &&
           (this.searchTerm === '' || player.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
@@ -253,6 +261,10 @@ export default {
     },
   },
   methods: {
+    filterPlayers() {
+      this.handlePageChange(1);
+     
+    },
     async selectPlayer(player) {
       if (this.detailPlayer) {
         let player_name_old = this.detailPlayer.name;
@@ -343,9 +355,9 @@ export default {
       }
     },
   },
-  mounted() {
-    this.checkTeamsData();
-
+  async mounted() {
+    await this.checkTeamsData();
+    this.isDataReady = true;
   }
 };
 </script>
