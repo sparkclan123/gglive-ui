@@ -175,7 +175,7 @@ export default {
             return sum;
         },
         remainingAmount() {
-            return (80 - this.priceSum).toFixed(2);
+            return 80 - this.priceSum;
         },
     },
     methods: {

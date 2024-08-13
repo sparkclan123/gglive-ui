@@ -38,7 +38,7 @@
               </div>
               <div class="flex-1 min-w-[100px]">
                 <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง
-                  <span class="text-green-400">คงเหลือ {{ remainingAmount }}$</span>
+                  <span class="text-green-400">คงเหลือ {{ (remainingAmount + detailPlayer.price).toFixed(2) }}$</span>
                 </label>
 
                 <select v-model="selectedPosition" @change="filterPlayers"

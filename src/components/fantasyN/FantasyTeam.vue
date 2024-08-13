@@ -177,7 +177,8 @@
                                 </svg></div></button>
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
-                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan" :remainingAmount="remainingAmount"/>
+                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan"
+                        :remainingAmount="remainingAmount" />
                 </div>
             </div>
         </div>
@@ -620,7 +621,7 @@ export default {
             return validPlayers.reduce((total, player) => total + player.price, 0);
         },
         remainingAmount() {
-            return this.amount - this.totalPrice;
+            return (this.amount - this.totalPrice).toFixed(2);
         }
     },
     created() {
