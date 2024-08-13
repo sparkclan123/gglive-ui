@@ -199,8 +199,8 @@ export default {
   methods: {
     versionInfo() {
       Swal.fire({
-        title: 'Version 1.0.8',
-        text: 'update สามารถ จัดทีมการเเข่งขันกับเพื่อนได้',
+        title: 'Version 1.0.10',
+        text: 'การ update จัดทีมเเบบสามารถเลือกตำเเหน่งได้เอง, เเละการเเก้ไขนักเตะสามารถเเก้ไขตำเเหน่งได้, เพิ่มราคาคงเหลือจังหวะเลือกนักเตะ, fix bug',
         confirmButtonText: 'ปิด',
         customClass: {
           cancelButton: 'btn-cancel',

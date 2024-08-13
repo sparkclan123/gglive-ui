@@ -38,7 +38,7 @@
               </div>
               <div class="flex-1 min-w-[100px]">
                 <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง
-
+                  <span class="text-green-400">คงเหลือ {{ remainingAmount }}$</span>
                 </label>
 
                 <select v-model="selectedPosition" @change="filterPlayers"
@@ -129,7 +129,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 export default {
-  props: ['showAdjustPlayerModal', 'players', 'position', 'detailPlayer'],
+  props: ['showAdjustPlayerModal', 'players', 'position', 'detailPlayer', 'remainingAmount'],
   data() {
     return {
       isDataReady: false,
@@ -263,9 +263,44 @@ export default {
   methods: {
     filterPlayers() {
       this.handlePageChange(1);
-     
+
     },
     async selectPlayer(player) {
+
+      if (player.is_ban || player.is_injured) {
+        Swal.fire({
+          text: 'นักเตะนี้ไม่สามารถเล่นได้',
+          showCancelButton: true,
+          cancelButtonText: 'ยกเลิก',
+          showConfirmButton: false,
+          customClass: {
+            cancelButton: 'btn-cancel',
+            popup: 'popup-custom',
+            title: 'text-custom',
+            htmlContainer: 'text-custom'
+          },
+          buttonsStyling: false,
+        });
+        return;
+      }
+   
+      if (player.price - this.detailPlayer.price > this.remainingAmount) {
+        Swal.fire({
+          text: 'งบไม่เพียงพอ',
+          showCancelButton: true,
+          cancelButtonText: 'ยกเลิก',
+          showConfirmButton: false,
+          customClass: {
+            cancelButton: 'btn-cancel',
+            popup: 'popup-custom',
+            title: 'text-custom',
+            htmlContainer: 'text-custom'
+          },
+          buttonsStyling: false,
+        });
+        return;
+      }
+
       if (this.detailPlayer) {
         let player_name_old = this.detailPlayer.name;
         let player_name_new = player.name;

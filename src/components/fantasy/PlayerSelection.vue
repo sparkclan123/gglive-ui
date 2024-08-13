@@ -21,6 +21,7 @@
                                 </span>
                             </label>
                         </div>
+                      
                     </div>
                     <select v-model="selectedTeam" @change="filterPlayers"
                         class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
@@ -30,10 +31,11 @@
                             </option>
                         </optgroup>
                     </select>
+                    
                 </div>
                 <div class="flex-1 min-w-[100px]">
-                    <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง
-
+                    <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง ,
+                        <span class="text-green-400">คงเหลือ {{ remainingAmount }}$</span> 
                     </label>
                     <select v-model="selectedPosition" @change="filterPlayers"
                         class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
@@ -135,7 +137,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 export default {
-    props: ['position'],
+    props: ['position','remainingAmount'],
     name: 'PlayerSelection',
     data() {
         return {

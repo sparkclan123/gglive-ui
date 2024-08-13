@@ -119,7 +119,7 @@
 
             <ModelEditSelectPlayer :showAdjustPlayerModal="showAdjustPlayerModalSelect" :players="players"
                 :position="position" :detailPlayer="detailPlayer" @close-modal="showAdjustPlayerModalSelect = false"
-                @set-captain="setCaptan" @change-player="ChangePlayerSelect" />
+                @set-captain="setCaptan" @change-player="ChangePlayerSelect" :remainingAmount="remainingAmount"/>
         </div>
     </div>
 
@@ -173,7 +173,10 @@ export default {
                 sum += player.price;
             });
             return sum;
-        }
+        },
+        remainingAmount() {
+            return (80 - this.priceSum).toFixed(2);
+        },
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),

@@ -102,14 +102,14 @@ export default {
             datas: [],
             total: 0,
             page: 1,
-            limit: 10,
+            limit: 30,
             pages: 1,
         };
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
         
-        async facthPlayerListGameWeek(page = 1, limit = 10) {
+        async facthPlayerListGameWeek(page = 1, limit = 30) {
 
             try {
                 this.$emit('set-loading', true);

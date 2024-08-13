@@ -177,7 +177,7 @@
                                 </svg></div></button>
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
-                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan" />
+                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan" :remainingAmount="remainingAmount"/>
                 </div>
             </div>
         </div>
