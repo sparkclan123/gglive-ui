@@ -27,6 +27,9 @@ import SelfMatchDetailPick from '../pages/gglive/selfMatchDetailPickUp.vue';
 import Reward from '../pages/gglive/reward-detail.vue';
 
 
+import PlayerPointDetail from '../pages/gglive/player-point-detail.vue';
+import PlayerPointDetailTable from '../pages/gglive-detail/table-player-point.vue';
+
 
 
 import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
@@ -145,8 +148,16 @@ const routes = [
                 name: 'reward-detail',
                 component: Reward,
             },
-
-
+            {
+                path: 'player-detail-point',
+                name: 'player-detail-point',
+                component: PlayerPointDetail,
+            },
+            {
+                path: 'player-detail-point-table/:id',
+                name: 'player-detail-point-table',
+                component: PlayerPointDetailTable,
+            },
             {
                 path: 'news',
                 name: 'news',
