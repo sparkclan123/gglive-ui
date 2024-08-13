@@ -29,7 +29,7 @@
                     <div class="row row1">
                         <div class="item">
                             <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} <i class="fas fa-ticket-alt text-yellow-400"></i></span>
-                            <span class="regular-text text-gray-200">(คะเเนน)</span>
+                            <span class="regular-text text-gray-200"><Numberformat :value="total" :decimal="0"/> (ทีม)</span>
                         </div>
                         <div class="item">
                             <span class="big-text text-green-400">{{ maxTotalPoint }} สูงสุด</span>

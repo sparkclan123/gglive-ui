@@ -146,7 +146,7 @@ const routes = [
                 component: Reward,
             },
 
-            
+
             {
                 path: 'news',
                 name: 'news',
@@ -217,6 +217,7 @@ router.beforeEach(async (to, from, next) => {
                 await api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } });
                 // await store.dispatch('ticket/facthTicket'); // 
                 next();
+                window.scrollTo(0, 0);
             } catch (error) {
                 localStorage.removeItem('token');
                 next({ name: 'login' });

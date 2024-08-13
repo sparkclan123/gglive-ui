@@ -1002,11 +1002,12 @@ export default {
 .flex-container {
     display: flex;
     flex-wrap: wrap;
+    font-size: 10px;
   
 }
 
 .flex-container label {
-    flex: 1 1 calc(50% - 1rem);
+    flex: 1 1 calc(50% - 0.5rem);
 }
 .ceLkmB {
     position: relative;
