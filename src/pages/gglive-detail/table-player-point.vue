@@ -1,6 +1,6 @@
 <template>
     <div class="contant_style">
-        <div  class="fixcontant">
+        <div class="fixcontant">
 
             <div class="card cursor-pointer">
                 <div class="top-section">
@@ -21,11 +21,11 @@
                 </div>
                 <div class="bottom-section">
 
-                    <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
-                  
+                    <span class="titlesm text-sm text-yellow-300">รายละเอียดคะเเนนนักเตะ</span>
+
                 </div>
             </div>
-            <div class="p-4 overflow-scroll px-0">
+            <div class="p-4 overflow-scroll px-0" v-if="getGameWeekPlayer">
                 <table class="w-full min-w-max table-auto text-left">
                     <thead>
                         <tr>
@@ -52,10 +52,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
-                            <td class="p-1 border-b border-blue-gray-50 cursor-pointer" >
+                        <tr v-for="player in paginatedPlayers" :key="player">
+                            <td class="p-1 border-b border-blue-gray-50 cursor-pointer">
                                 <div class="flex items-center gap-3">
-                                    
+
                                     <p
                                         class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
                                         zxc</p>
@@ -63,12 +63,12 @@
                             </td>
                             <td class="p-1 border-b border-blue-gray-50 pl-4">
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
-                                  xxx</p>
+                                    xxx</p>
                             </td>
                             <td class="p-1 border-b border-blue-gray-50">
                                 <p
                                     class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
-                                   xxx
+                                    xxx
                                 </p>
                             </td>
 
@@ -76,7 +76,7 @@
                     </tbody>
                 </table>
             </div>
-            <Pagination :page="page" :pages="pages" @page-change="facthPlayerListGameWeekPoint" />
+            <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" />
         </div>
     </div>
 </template>
@@ -87,13 +87,12 @@ import { api } from '@axios_inst';
 export default {
     data() {
         return {
-            gameWeek: null,
-            datas: [],
-            total: 0,
-            page: 1,
-            limit: 30,
-            pages: 1,
+            currentPage: 1,
+            playersPerPage: 10,
+            getGameWeekPlayer: null,
+
             gameWeekID: this.$route.params.id,
+            seasonID: this.$route.params.seasonID,
             isNavigating: false
         };
     },
@@ -108,38 +107,50 @@ export default {
                 }, 1000);
             }
         },
+        handlePageChange(page) {
+            this.currentPage = page;
+        },
         async facthPlayerListGameWeekPoint(page = 1, limit = 30) {
+
             try {
+                const intSeasonID = parseInt(this.seasonID, 10);
+                const intGameWeekID = parseInt(this.gameWeekID, 10);
+
                 const access_token = localStorage.getItem('access_token');
-                const response = await api.get(`/premier-league/v1/gameweek-point-table/${this.gameWeekID}`, {
+                const response = await api.get('/premier-league/v1/game-week-player', {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
                     },
                     params: {
-                        page: page,
-                        limit: limit
+                        seasonID: intSeasonID,
+                        gameWeekID: intGameWeekID
                     }
                 });
                 if (response.data.ok) {
-                    this.datas = response.data.data;
-                    this.gameWeek = response.data.gameWeek;
-                    this.season = response.data.season;
-                    this.total = response.data.total;
-                    this.page = response.data.page;
-                    this.limit = response.data.limit;
-                    this.pages = response.data.pages;
-                 
+                    this.getGameWeekPlayer = response.data.players;
                     this.updateLoading(false);
                 }
             } catch (error) {
                 console.log(error);
                 this.updateLoading(false);
             }
+
         },
 
     },
     computed: {
-
+        filteredPlayers() {
+            return this.getGameWeekPlayer
+        },
+        paginatedPlayers() {
+            const start = (this.currentPage - 1) * this.playersPerPage;
+            const end = start + this.playersPerPage;
+            return this.filteredPlayers.slice(start, end);
+        },
+        totalPages() {
+            if (!this.filteredPlayers) return 0;
+            return Math.ceil(this.filteredPlayers.length / this.playersPerPage);
+        },
     },
     created() {
         this.updateLoading(true);
@@ -154,6 +165,7 @@ export default {
     border-radius: 10px;
     padding: 5px;
 }
+
 .fixcontant {
     position: relative;
     background-color: white;

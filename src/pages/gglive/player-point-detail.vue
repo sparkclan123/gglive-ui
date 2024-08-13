@@ -117,7 +117,8 @@ export default {
             this.$router.push({
                 name: 'player-detail-point-table',
                 params: {
-                    id: data.id
+                    id: data.id,
+                    seasonID: data.season_id,
                 }
             });
         },

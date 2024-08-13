@@ -154,7 +154,7 @@ const routes = [
                 component: PlayerPointDetail,
             },
             {
-                path: 'player-detail-point-table/:id',
+                path: 'player-detail-point-table/:id/:seasonID',
                 name: 'player-detail-point-table',
                 component: PlayerPointDetailTable,
             },
