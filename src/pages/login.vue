@@ -52,7 +52,9 @@
                     </div>
                 </div>
 
-
+                <div class="">
+                    <span class="text-gray-600 text-xs">หรือเข้าสู่ระบบด้วย</span>
+                </div>
                 <div class="social-icons">
                     <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
                         <svg version="1.1" viewBox="0 0 150 150" width="50" height="50" class="fill-current">

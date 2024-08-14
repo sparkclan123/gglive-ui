@@ -12,7 +12,8 @@
                     <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
                 </div>
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-500">เบอร์สำหรับเข้าสู่ระบบ</label>
+                    <label for="phone" class="block text-sm font-medium text-gray-500">เบอร์สำหรับเข้าสู่ระบบ
+                        ex:0810000000</label>
                     <input :class="{ 'border-red-500': phoneError }"
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                         id="phone" type="tel" placeholder="เบอร์โทร" v-model="phonenum">
@@ -39,14 +40,18 @@
                         id="name" type="text" placeholder="ชื่อ" v-model="name">
                 </div>
 
-                <div class="otp-container">
+                <div class="">
                     <label for="otp" class="block text-sm font-medium text-gray-500">OTP</label>
-                    <div class="flex space-x-2">
-                        <input v-for="(digit, index) in otpDigits" :key="index" :class="{ 'border-red-500': otpError }"
+
+                    <input :class="{ 'border-red-500': otpError }"
+                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
+                        id="otp" type="tel" placeholder="OTP" v-model="otp">
+
+                    <!-- <input v-for="(digit, index) in otpDigits" :key="index" :class="{ 'border-red-500': otpError }"
                             class="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                             type="tel" maxlength="1" v-model="otpDigits[index]" @input="moveFocus(index, $event)"
-                            @keydown.backspace="handleBackspace(index, $event)">
-                    </div>
+                            @keydown.backspace="handleBackspace(index, $event)"> -->
+
                     <p v-if="otpError" class="text-red-500 text-xs italic">กรุณากรอก OTP ให้ถูกต้อง</p>
                 </div>
 
@@ -143,7 +148,7 @@ export default {
             if (this.otpCountdown > 0) return;
 
 
-            this.updateLoading(true);
+            this.loading = true;
             try {
                 const response = await api.post('/premier-league/auth/callotp', {
                     phone_number: this.phonenum,
@@ -162,14 +167,14 @@ export default {
                     });
                 }
 
-                this.updateLoading(false);
+                this.loading = false;
 
             } catch (error) {
                 this.addNotification({
                     type: 'error',
                     message: 'ส่ง OTP ไม่สำเร็จ',
                 });
-                this.updateLoading(false);
+                this.loading = false;
             }
         },
         async loginform() {
@@ -198,7 +203,7 @@ export default {
             if (!result.isConfirmed) {
                 return;
             }
-
+            this.loading = true;
             try {
                 const response = await api.post('/premier-league/auth/registerOtp', {
                     phone_number: this.phonenum,
@@ -215,7 +220,7 @@ export default {
                     this.$router.push('/login');
                 }
 
-                this.updateLoading(false);
+                this.loading = false;
 
             } catch (error) {
                 Swal.fire({
@@ -231,7 +236,7 @@ export default {
                     },
                     buttonsStyling: false,
                 });
-                this.updateLoading(false);
+                this.loading = false;
             }
 
             // Implement form submission logic here
@@ -239,7 +244,7 @@ export default {
         },
     },
     mounted() {
-        this.updateLoading(true);
+        this.loading = true;
         let access_token = localStorage.getItem('access_token');
         if (access_token) {
             console.log('access_token', localStorage.getItem('access_token'));
@@ -259,7 +264,7 @@ export default {
             window.location.href = '/lobby';
         }
 
-        this.updateLoading(false);
+        this.loading = false;
     }
 }
 </script>
