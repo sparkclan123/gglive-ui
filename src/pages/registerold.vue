@@ -5,9 +5,7 @@
         </div>
 
         <div class="flex flex-col items-center justify-center pt-20 m-2">
-
             <div class="w-full max-w-lg p-8 space-y-2 bg-white rounded-lg shadow-lg sm:w-96">
-
                 <div class="container mx-auto flex justify-center">
                     <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
                 </div>
@@ -18,29 +16,30 @@
                         id="name" type="text" placeholder="ชื่อ" v-model="name">
                 </div>
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-500">เบอร์สำหรับเข้าสู่ระบบ</label>
+                    <label for="username" class="block text-sm font-medium text-gray-500">ชื่อในการ login</label>
                     <input
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="phone" type="tel" placeholder="เบอร์โทร" v-model="phonenum">
+                        id="username" type="text" placeholder="username" v-model="username">
                 </div>
                 <div>
-                    <label for="otp" class="block text-sm font-medium text-gray-500">OTP</label>
+                    <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน</label>
                     <input
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="otp" type="tal" placeholder="**********" v-model="otp">
+                        id="password" type="password" placeholder="password" v-model="password">
                 </div>
-                <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
-                    <button type="submit" class="w-full button-save1" @click="callOtp()">sendOTP</button>
+                <div>
+                    <label for="confirm_password" class="block text-sm font-medium text-gray-500">คอนเฟิมรหัสผ่าน</label>
+                    <input
+                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
+                        id="confirm_password" type="password" placeholder="confirm_password" v-model="confirm_password">
                 </div>
-                <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
-                    <button type="submit" class="w-full button-save" @click="loginform()">เข้าสู่ระบบ</button>
+                <div class="w-full rounded-lg mt-2 text-white text-lg font-semibold">
+                    <button type="submit" class="w-full button-save" @click="register()">สมัครสมาชิก</button>
                 </div>
                 <!-- กลับสู่หน้า Login -->
                 <div class="text-center mt-4">
-                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">กลับสู่หน้า
-                        Login</router-link>
+                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">กลับสู่หน้า Login</router-link>
                 </div>
-
             </div>
         </div>
     </div>
@@ -48,36 +47,51 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { api, apiMine } from '@axios_inst';
+import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
 export default {
-    name: 'Login',
+    name: 'Register',
     data() {
         return {
             loading: false,
             name: '',
-            phonenum: '',
-            otp: '',
+            username: '',
+            password: '',
+            confirm_password: ''
         }
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('alert', ['addNotification']),
-        async loginform() {
-
-            if (!this.username || !this.password) {
-                this.addNotification({ type: 'error', message: 'Please fill in all fields' });
+        async register() {
+            return;
+            if (!this.name || !this.username || !this.password || !this.confirm_password) {
+                this.addNotification({ type: 'error', message: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
                 return;
             }
+
+            
+
+            if (this.password.length < 6) {
+                this.addNotification({ type: 'error', message: 'รหัสผ่านต้องมากกว่า 6 ตัว' });
+                return;
+            }
+
+            if (this.password !== this.confirm_password) {
+                this.addNotification({ type: 'error', message: 'Passwords do not match' });
+                return;
+            }
+
             this.loading = true;
             try {
-                const response = await api.post('/premier-league/v1/login', {
+                const response = await api.post('/premier-league/v1/register', {
+                    name: this.name,
                     username: this.username,
                     password: this.password,
                     app_key: 'pudee'
                 });
                 this.loading = false;
-                this.addNotification({ type: 'success', message: 'Login successful' });
+                this.addNotification({ type: 'success', message: 'Registration successful' });
                 localStorage.setItem('access_token', response.data.tokenString);
                 window.location.href = '/season-select';
             } catch (error) {
@@ -86,128 +100,7 @@ export default {
                 localStorage.removeItem('access_token');
             }
         },
-        login() {
-            this.$store.dispatch('login', {
-                username: this.username,
-                password: this.password
-            })
-        },
-        loginWithGoogle() {
-            this.loading = true;
-            window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/login';
-            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/login';
-        },
-        loginWithFacebook() {
-            Swal.fire({
-                text: 'เปิด login ได้เเค่ google กับ line เท่านั้น',
-                showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
-                showConfirmButton: false,
-                customClass: {
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
-            // window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/facebook/login';
-            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/facebook/login';
-        },
-        loginWithLine() {
-
-            this.loading = true;
-            window.location.href = `https://api-service.pudee-club.com/api/premier-league/auth/line/login`;
-
-            // window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/line/login';
-            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/line/login';
-        },
-        generateState() {
-            return Math.random().toString(36).substring(2);
-        },
-
-        async callOtp() {
-            this.updateLoading(true);
-            try {
-                const response = await api.post('/premier-league/auth/callotp', {
-                    phone_number: this.phonenum,
-                });
-
-                this.updateLoading(false);
-
-            } catch (error) {
-
-                this.updateLoading(false);
-            }
-        },
-        async loginuuid(uuid, username) {
-            this.updateLoading(true);
-            try {
-                const response = await api.post('/premier-league/v1/login-uuid', {
-                    uuid: uuid,
-                    username: username,
-                    app_key: 'pudee'
-                });
-                this.addNotification({ type: 'success', message: 'Login successful' });
-                localStorage.setItem('access_token', response.data.tokenString);
-                this.updateLoading(false);
-                window.location.href = '/season-select';
-            } catch (error) {
-                this.addNotification({ type: 'error', message: error.response.data.error });
-                localStorage.removeItem('access_token');
-                this.updateLoading(false);
-            }
-        },
-        async logVisit() {
-            try {
-                await api.post('/premier-league/log-visit', {
-                    page: 'login'
-                });
-            } catch (error) {
-                console.error('Error logging visit:', error);
-            }
-        },
-        getVisit() {
-            api.get('/premier-league/log-visit').then(response => {
-                console.log('visit', response.data);
-            }).catch(error => {
-                console.error('Error getting visit:', error);
-            });
-        }
-    },
-    mounted() {
-        let access_token = localStorage.getItem('access_token');
-        if (access_token) {
-            console.log('access_token', localStorage.getItem('access_token'));
-            api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
-                .then(response => {
-                    window.location.href = '/season-select';
-                })
-                .catch(error => {
-                    localStorage.removeItem('token');
-                });
-        }
-
-        const user_params = JSON.parse(localStorage.getItem('user_params'));
-        const token = user_params['access_token'];
-        if (token) {
-            localStorage.setItem('access_token', token);
-            window.location.href = '/lobby';
-        }
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const uuid = urlParams.get('uuid');
-        const username = urlParams.get('username');
-        const has_token = urlParams.get('token');
-        if (uuid && username) {
-            this.loginuuid(uuid, username);
-        }
-
-
-
-        this.updateLoading(false);
     }
-
 }
 </script>
 

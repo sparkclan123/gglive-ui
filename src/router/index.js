@@ -6,6 +6,7 @@ import LoginLayout from '../layouts/LoginLayout.vue';
 
 import Login from '../pages/login.vue';
 import Register from '../pages/register.vue';
+import ResetPassword from '../pages/resetPassword.vue';
 import Home from '../pages/home.vue';
 import SeasonSelect from '../pages/gglive/season.vue';
 import GgLive from '../pages/gglive/index.vue';
@@ -47,6 +48,7 @@ import { api } from '@axios_inst';
 
 const routes = [
     {
+        
         path: '/login',
         component: LoginLayout,
         children: [
@@ -59,6 +61,11 @@ const routes = [
                 path: '/register',
                 name: 'register',
                 component: Register,
+            },
+            {
+                path: '/reset-password',
+                name: 'reset-password',
+                component: ResetPassword,
             },
         ],
     },

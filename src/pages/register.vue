@@ -5,41 +5,69 @@
         </div>
 
         <div class="flex flex-col items-center justify-center pt-20 m-2">
+
             <div class="w-full max-w-lg p-8 space-y-2 bg-white rounded-lg shadow-lg sm:w-96">
+
                 <div class="container mx-auto flex justify-center">
                     <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
                 </div>
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-500">ชื่อ</label>
-                    <input
+                    <label for="phone" class="block text-sm font-medium text-gray-500">เบอร์สำหรับเข้าสู่ระบบ</label>
+                    <input :class="{ 'border-red-500': phoneError }"
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="name" type="text" placeholder="ชื่อ" v-model="name">
+                        id="phone" type="tel" placeholder="เบอร์โทร" v-model="phonenum">
+                    <p v-if="phoneError" class="text-red-500 text-xs italic">กรุณากรอกเบอร์โทร 10 หลักให้ถูกต้อง</p>
                 </div>
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-500">ชื่อในการ login</label>
-                    <input
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username" type="text" placeholder="username" v-model="username">
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน</label>
-                    <input
+                    <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน <span
+                            class="text-red-700">**ต้องมากกว่า 4 ตัว </span> </label>
+                    <input :class="{ 'border-red-500': passwordError }"
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                         id="password" type="password" placeholder="password" v-model="password">
                 </div>
                 <div>
-                    <label for="confirm_password" class="block text-sm font-medium text-gray-500">คอนเฟิมรหัสผ่าน</label>
-                    <input
+                    <label for="confirm_password" class="block text-sm font-medium text-gray-500">ยืนยันรหัสผ่าน</label>
+                    <input :class="{ 'border-red-500': confirmPasswordError }"
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                         id="confirm_password" type="password" placeholder="confirm_password" v-model="confirm_password">
+                    <p v-if="confirmPasswordError" class="text-red-500 text-xs italic">รหัสผ่านและการยืนยันไม่ตรงกัน</p>
+                </div>
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-500">ชื่อ</label>
+                    <input :class="{ 'border-red-500': nameError }"
+                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
+                        id="name" type="text" placeholder="ชื่อ" v-model="name">
+                </div>
+
+                <div class="otp-container">
+                    <label for="otp" class="block text-sm font-medium text-gray-500">OTP</label>
+                    <div class="flex space-x-2">
+                        <input v-for="(digit, index) in otpDigits" :key="index" :class="{ 'border-red-500': otpError }"
+                            class="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
+                            type="tel" maxlength="1" v-model="otpDigits[index]" @input="moveFocus(index, $event)"
+                            @keydown.backspace="handleBackspace(index, $event)">
+                    </div>
+                    <p v-if="otpError" class="text-red-500 text-xs italic">กรุณากรอก OTP ให้ถูกต้อง</p>
+                </div>
+
+                <div class="w-full rounded-lg mt-2 text-white text-lg font-semibold">
+                    <p v-if="otpCountdown > 0" class="text-center text-gray-500 text-xs mt-2 mb-2">
+                        โปรดรอ {{ otpCountdown }} วินาทีก่อนที่จะขอรหัส OTP ใหม่
+                    </p>
+                    <button :disabled="otpCountdown > 0" type="submit" class="w-full button-save1" @click="callOtp">
+                        ขอรหัส OTP
+                    </button>
+
                 </div>
                 <div class="w-full rounded-lg mt-2 text-white text-lg font-semibold">
-                    <button type="submit" class="w-full button-save" @click="register()">สมัครสมาชิก</button>
+                    <button type="submit" class="w-full button-save" @click="loginform">สมัครสมาชิก</button>
                 </div>
                 <!-- กลับสู่หน้า Login -->
                 <div class="text-center mt-4">
-                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">กลับสู่หน้า Login</router-link>
+                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">กลับสู่หน้า
+                        Login</router-link>
                 </div>
+
             </div>
         </div>
     </div>
@@ -50,61 +78,208 @@ import { mapActions } from 'vuex'
 import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
 export default {
-    name: 'Register',
+    name: 'Login',
     data() {
         return {
             loading: false,
             name: '',
-            username: '',
+            phonenum: '',
             password: '',
-            confirm_password: ''
+            confirm_password: '',
+            otpDigits: ['', '', '', '', '', ''],
+            otp: '',
+            phoneError: false,
+            passwordError: false,
+            confirmPasswordError: false,
+            nameError: false,
+            otpError: false,
+            otpCountdown: 0,
+            countdownTimer: null
         }
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('alert', ['addNotification']),
-        async register() {
-            return;
-            if (!this.name || !this.username || !this.password || !this.confirm_password) {
-                this.addNotification({ type: 'error', message: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
-                return;
+
+        moveFocus(index, event) {
+            const nextInput = event.target.nextElementSibling;
+            if (nextInput && event.target.value) {
+                nextInput.focus();
             }
-
-            
-
-            if (this.password.length < 6) {
-                this.addNotification({ type: 'error', message: 'รหัสผ่านต้องมากกว่า 6 ตัว' });
-                return;
-            }
-
-            if (this.password !== this.confirm_password) {
-                this.addNotification({ type: 'error', message: 'Passwords do not match' });
-                return;
-            }
-
-            this.loading = true;
-            try {
-                const response = await api.post('/premier-league/v1/register', {
-                    name: this.name,
-                    username: this.username,
-                    password: this.password,
-                    app_key: 'pudee'
-                });
-                this.loading = false;
-                this.addNotification({ type: 'success', message: 'Registration successful' });
-                localStorage.setItem('access_token', response.data.tokenString);
-                window.location.href = '/season-select';
-            } catch (error) {
-                this.loading = false;
-                this.addNotification({ type: 'error', message: error.response.data.error });
-                localStorage.removeItem('access_token');
+            this.otp = this.otpDigits.join('');
+        },
+        handleBackspace(index, event) {
+            const prevInput = event.target.previousElementSibling;
+            if (prevInput && !event.target.value) {
+                prevInput.focus();
             }
         },
+        validateOtp() {
+            this.otpError = this.otpDigits.includes('');
+
+        },
+        validateInputs() {
+            this.phoneError = this.phonenum.length !== 10;
+            this.passwordError = this.password === '' || this.password.length < 4;
+            this.confirmPasswordError = this.password !== this.confirm_password;
+            this.nameError = this.name === '' || this.name.length > 50;
+            this.otpError = this.otp === '' || this.otp.length !== 6;
+        },
+        startOtpCountdown() {
+            this.otpCountdown = 300; // 5 minutes in seconds
+            this.countdownTimer = setInterval(() => {
+                if (this.otpCountdown > 0) {
+                    this.otpCountdown--;
+                } else {
+                    clearInterval(this.countdownTimer);
+                    this.countdownTimer = null;
+                }
+            }, 1000);
+        },
+        async callOtp() {
+            this.validateInputs();
+            if (this.phoneError) return;
+
+            if (this.otpCountdown > 0) return;
+
+
+            this.updateLoading(true);
+            try {
+                const response = await api.post('/premier-league/auth/callotp', {
+                    phone_number: this.phonenum,
+                });
+
+                if (response.data.ok) {
+                    this.addNotification({
+                        type: 'success',
+                        message: 'ส่ง OTP สำเร็จ',
+                    });
+                    this.startOtpCountdown();
+                } else {
+                    this.addNotification({
+                        type: 'error',
+                        message: 'ส่ง OTP ไม่สำเร็จ',
+                    });
+                }
+
+                this.updateLoading(false);
+
+            } catch (error) {
+                this.addNotification({
+                    type: 'error',
+                    message: 'ส่ง OTP ไม่สำเร็จ',
+                });
+                this.updateLoading(false);
+            }
+        },
+        async loginform() {
+            this.validateInputs();
+
+            if (this.phoneError || this.passwordError || this.confirmPasswordError || this.nameError || this.otpError) {
+                return;
+            }
+
+            const result = await Swal.fire({
+                title: 'ยืนยันการสมัครสมาชิก',
+                text: 'คุณต้องการสมัครสมาชิกใช่หรือไม่',
+                showCancelButton: true,
+                confirmButtonText: 'ใช่',
+                cancelButtonText: 'ไม่ใช่',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+
+            if (!result.isConfirmed) {
+                return;
+            }
+
+            try {
+                const response = await api.post('/premier-league/auth/registerOtp', {
+                    phone_number: this.phonenum,
+                    password: this.password,
+                    name: this.name,
+                    otp: this.otp,
+                });
+
+                if (response.data.ok) {
+                    this.addNotification({
+                        type: 'success',
+                        message: 'สมัครสมาชิกสำเร็จ',
+                    });
+                    this.$router.push('/login');
+                }
+
+                this.updateLoading(false);
+
+            } catch (error) {
+                Swal.fire({
+                    text: error.response.data.error,
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                this.updateLoading(false);
+            }
+
+            // Implement form submission logic here
+            // For example: await this.submitRegistration();
+        },
+    },
+    mounted() {
+        this.updateLoading(true);
+        let access_token = localStorage.getItem('access_token');
+        if (access_token) {
+            console.log('access_token', localStorage.getItem('access_token'));
+            api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
+                .then(response => {
+                    window.location.href = '/season-select';
+                })
+                .catch(error => {
+                    localStorage.removeItem('token');
+                });
+        }
+
+        const user_params = JSON.parse(localStorage.getItem('user_params'));
+        const token = user_params['access_token'];
+        if (token) {
+            localStorage.setItem('access_token', token);
+            window.location.href = '/lobby';
+        }
+
+        this.updateLoading(false);
     }
 }
 </script>
 
+
 <style scoped>
+.logo-circle {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.otp-container input {
+    text-align: center;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+}
+
 .button-save1 {
     font-size: 18px;
     display: inline-block;
@@ -157,259 +332,5 @@ export default {
 .button-save:active {
     box-shadow: inset 0px 0.1em 0.6em #0f580a;
     transform: translateY(0em);
-}
-
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* ปรับให้ container สูงเต็มหน้าจอ */
-    overflow: hidden;
-    /* ป้องกันการล้น */
-}
-
-.responsive-image {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 15px;
-    /* เพิ่มมุมโค้ง */
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8),
-        /* เงาด้านล่าง */
-        -10px -10px 20px rgba(255, 255, 255, 0.3);
-    /* เงาด้านบน */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    /* เพิ่มขอบบางๆ เพื่อความสมจริง */
-    background: linear-gradient(145deg, #f0f0f0, #cacaca);
-    /* เพิ่มเอฟเฟกต์ 3D */
-}
-
-.social-icons {
-    display: flex;
-    justify-content: center;
-}
-
-.social-icons .icon {
-    border-radius: 0.125rem;
-    padding: 0.75rem;
-    border: none;
-    background-color: transparent;
-    margin-left: 8px;
-}
-
-.social-icons .icon svg {
-    fill: #202020;
-}
-
-.signup {
-    text-align: center;
-    font-size: 0.75rem;
-    line-height: 1rem;
-    color: rgb(67, 68, 69);
-}
-
-.logo-circle {
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.st0 {
-    fill: #1A73E8;
-}
-
-.st1 {
-    fill: #EA4335;
-}
-
-.st2 {
-    fill: #4285F4;
-}
-
-.st3 {
-    fill: #FBBC04;
-}
-
-.st4 {
-    fill: #34A853;
-}
-
-.st5 {
-    fill: #4CAF50;
-}
-
-.st6 {
-    fill: #1E88E5;
-}
-
-.st7 {
-    fill: #E53935;
-}
-
-.st8 {
-    fill: #C62828;
-}
-
-.st9 {
-    fill: #FBC02D;
-}
-
-.st10 {
-    fill: #1565C0;
-}
-
-.st11 {
-    fill: #2E7D32;
-}
-
-.st12 {
-    fill: #F6B704;
-}
-
-.st13 {
-    fill: #E54335;
-}
-
-.st14 {
-    fill: #4280EF;
-}
-
-.st15 {
-    fill: #34A353;
-}
-
-.st16 {
-    clip-path: url(#SVGID_2_);
-}
-
-.st17 {
-    fill: #188038;
-}
-
-.st18 {
-    opacity: 0.2;
-    fill: #FFFFFF;
-    enable-background: new;
-}
-
-.st19 {
-    opacity: 0.3;
-    fill: #0D652D;
-    enable-background: new;
-}
-
-.st20 {
-    clip-path: url(#SVGID_4_);
-}
-
-.st21 {
-    opacity: 0.3;
-    fill: url(#_45_shadow_1_);
-    enable-background: new;
-}
-
-.st22 {
-    clip-path: url(#SVGID_6_);
-}
-
-.st23 {
-    fill: #FA7B17;
-}
-
-.st24 {
-    opacity: 0.3;
-    fill: #174EA6;
-    enable-background: new;
-}
-
-.st25 {
-    opacity: 0.3;
-    fill: #A50E0E;
-    enable-background: new;
-}
-
-.st26 {
-    opacity: 0.3;
-    fill: #E37400;
-    enable-background: new;
-}
-
-.st27 {
-    fill: url(#Finish_mask_1_);
-}
-
-.st28 {
-    fill: #FFFFFF;
-}
-
-.st29 {
-    fill: #0C9D58;
-}
-
-.st30 {
-    opacity: 0.2;
-    fill: #004D40;
-    enable-background: new;
-}
-
-.st31 {
-    opacity: 0.2;
-    fill: #3E2723;
-    enable-background: new;
-}
-
-.st32 {
-    fill: #FFC107;
-}
-
-.st33 {
-    opacity: 0.2;
-    fill: #1A237E;
-    enable-background: new;
-}
-
-.st34 {
-    opacity: 0.2;
-}
-
-.st35 {
-    fill: #1A237E;
-}
-
-.st36 {
-    fill: url(#SVGID_7_);
-}
-
-.st37 {
-    fill: #FBBC05;
-}
-
-.st38 {
-    clip-path: url(#SVGID_9_);
-    fill: #E53935;
-}
-
-.st39 {
-    clip-path: url(#SVGID_11_);
-    fill: #FBC02D;
-}
-
-.st40 {
-    clip-path: url(#SVGID_13_);
-    fill: #E53935;
-}
-
-.st41 {
-    clip-path: url(#SVGID_15_);
-    fill: #FBC02D;
-}
-
-.cls-1 {
-    fill: #00cf2e;
-}
-
-.cls-2 {
-    fill: #fff;
 }
 </style>
