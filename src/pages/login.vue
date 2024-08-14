@@ -17,7 +17,7 @@
                     <label for="username" class="block text-sm font-medium text-gray-500">เบอร์เข้าระบบ</label>
                     <input
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username" type="text" placeholder="08xxxxxxxx" v-model="username">
+                        id="username" type="tel" placeholder="08xxxxxxxx" v-model="username">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน</label>

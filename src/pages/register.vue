@@ -103,7 +103,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions('loading', ['updateLoading']),
         ...mapActions('alert', ['addNotification']),
 
         moveFocus(index, event) {
@@ -172,10 +171,11 @@ export default {
             } catch (error) {
                 this.addNotification({
                     type: 'error',
-                    message: 'ส่ง OTP ไม่สำเร็จ',
+                    message: error.response?.data?.error || 'เกิดข้อผิดพลาดในการส่ง OTP',
                 });
                 this.loading = false;
             }
+
         },
         async loginform() {
             this.validateInputs();
