@@ -8,8 +8,10 @@
                 </span>
                 <div class="row row1">
                     <div class="item">
-                        <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }}</span> 
-                        <span class="regular-text text-gray-200"> <Numberformat :value="total" :decimal="0"/> (ทีม)</span>
+                        <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }}</span>
+                        <span class="regular-text text-gray-200">
+                            <Numberformat :value="total" :decimal="0" /> (ทีม)
+                        </span>
                     </div>
                     <div class="item">
                         <span class="big-text text-green-400">{{ maxTotalPoint }} สูงสุด</span>
@@ -51,7 +53,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="data in datas" :key="i">
-                        <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data.id)">
+                        <td class="p-1 border-b border-blue-gray-50 cursor-pointer"
+                            @click="seeDetail(data.id, data.user_id)">
                             <div class="flex items-center gap-3">
                                 <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'" alt="userimage"
                                     class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
@@ -82,7 +85,7 @@
             <div
                 class=" relative rounded-md  h-36   bg-gradient-to-r from-zinc-900 to-zinc-700  text-gray-50 flex flex-col justify-center items-center gap-1 before:-skew-x-12  before:rounded-2xl  before:absolute before:content['']  before:bg-neutral-700 before:right-3 before:top-0 before:w-72 before:h-32 before:-z-10">
                 <span class="text-3xl font-bold">Comming Soon </span>
-                <p class="text-amber-300 font-thin">- new game week  -</p>
+                <p class="text-amber-300 font-thin">- new game week -</p>
             </div>
         </div>
     </div>
@@ -91,6 +94,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { api } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -108,7 +112,7 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-        
+
         async facthPlayerListGameWeek(page = 1, limit = 30) {
 
             try {
@@ -136,7 +140,7 @@ export default {
                     this.avgTotalPoint = response.data.avgTotalPoint;
                     this.$emit('set-loading', false);
 
-                    if (this.gameWeek === null){
+                    if (this.gameWeek === null) {
                         setTimeout(() => {
                             this.showCommingSoon = true;
                         }, 5000);
@@ -154,17 +158,60 @@ export default {
             }
 
         },
-        seeDetail(id) {
-            this.$router.push({
-                name: 'challenge-detail-n',
-                params: {
-                    id: id
+        async seeDetail(id, user_id) {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get(`/premier-league/v1/time-now-server`, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    },
+                });
+                console.log(response.data.ok);
+                if (response.data.ok) {
+                    const timeNow = new Date(response.data.date_now);
+                    const timeEnd = new Date(this.gameWeek.end_date);
+
+                    if (timeEnd >= timeNow && user_id != this.userinfo.UserID) {
+                        Swal.fire({
+
+                            title: 'ไม่สามารถดูข้อมูลได้',
+                            text: 'กรุณารอสิ้นสุดการจัดทีมเพื่อดูนักเตะของทีมอื่น',
+                            customClass: {
+                                cancelButton: 'btn-cancel',
+                                popup: 'popup-custom',
+                                title: 'text-custom',
+                                htmlContainer: 'text-custom'
+                            },
+                        });
+                        return;
+                    } else {
+                        this.$router.push({
+                            name: 'challenge-detail-n',
+                            params: {
+                                id: id
+                            }
+                        });
+                    }
                 }
-            });
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'กรุณาลองใหม่อีกครั้ง',
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+            }
+
+
         }
     },
     computed: {
-
+        ...mapGetters('auth', ['userinfo']),
     },
     created() {
 

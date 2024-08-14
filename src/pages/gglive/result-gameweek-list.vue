@@ -22,14 +22,17 @@
                 <div class="bottom-section">
 
                     <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1
-                        </span>
+                    </span>
                     <span class="title text-green-500">
                         <NumberDisplay :number="gameWeek.reward" /> บาท
                     </span>
                     <div class="row row1">
                         <div class="item">
-                            <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} <i class="fas fa-ticket-alt text-yellow-400"></i></span>
-                            <span class="regular-text text-gray-200"><Numberformat :value="total" :decimal="0"/> (ทีม)</span>
+                            <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} <i
+                                    class="fas fa-ticket-alt text-yellow-400"></i></span>
+                            <span class="regular-text text-gray-200">
+                                <Numberformat :value="total" :decimal="0" /> (ทีม)
+                            </span>
                         </div>
                         <div class="item">
                             <span class="big-text text-green-400">{{ maxTotalPoint }} สูงสุด</span>
@@ -71,7 +74,8 @@
                     </thead>
                     <tbody>
                         <tr v-for="data in datas" :key="i">
-                            <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data.id)">
+                            <td class="p-1 border-b border-blue-gray-50 cursor-pointer"
+                                @click="seeDetail(data.id, data.user_id)">
                                 <div class="flex items-center gap-3">
                                     <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
                                         alt="userimage"
@@ -104,6 +108,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { api } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -160,17 +165,62 @@ export default {
                 this.updateLoading(false);
             }
         },
-        seeDetail(id) {
-            this.$router.push({
-                name: 'challenge-detail',
-                params: {
-                    id: id
+        async seeDetail(id, user_id) {
+
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get(`/premier-league/v1/time-now-server`, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    },
+                });
+                console.log(response.data.ok);
+                if (response.data.ok) {
+                    const timeNow = new Date(response.data.date_now);
+                    const timeEnd = new Date(this.gameWeek.end_date);
+                   
+                    if (timeEnd >= timeNow && user_id != this.userinfo.UserID) {
+                        Swal.fire({
+
+                            title: 'ไม่สามารถดูข้อมูลได้',
+                            text: 'กรุณารอสิ้นสุดการจัดทีมเพื่อดูนักเตะของทีมอื่น',
+                            customClass: {
+                                cancelButton: 'btn-cancel',
+                                popup: 'popup-custom',
+                                title: 'text-custom',
+                                htmlContainer: 'text-custom'
+                            },
+                        });
+                        return;
+                    } else {
+                        this.$router.push({
+                            name: 'challenge-detail',
+                            params: {
+                                id: id
+                            }
+                        });
+                    }
                 }
-            });
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'เกิดข้อผิดพลาด',
+                    text: 'กรุณาลองใหม่อีกครั้ง',
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+            }
+
+
+
         }
     },
     computed: {
-
+        ...mapGetters('auth', ['userinfo']),
     },
     created() {
         this.updateLoading(true);
