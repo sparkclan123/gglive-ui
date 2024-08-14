@@ -51,7 +51,7 @@
 
                         </tr>
                     </thead>
-                    <tbody>
+                    <!-- <tbody>
                         <tr v-for="player in paginatedPlayers" :key="player">
                             <td class="p-1 border-b border-blue-gray-50 cursor-pointer">
                                 <div class="flex items-center gap-3">
@@ -73,10 +73,10 @@
                             </td>
 
                         </tr>
-                    </tbody>
+                    </tbody> -->
                 </table>
             </div>
-            <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" />
+            <!-- <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" /> -->
         </div>
     </div>
 </template>
