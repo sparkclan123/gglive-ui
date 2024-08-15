@@ -31,52 +31,145 @@
                         <tr>
                             <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
                                 <div class="flex items-center">
-                                    <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
-                                    <p
-                                        class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                        ชื่อทีม
-                                    </p>
+
                                 </div>
                             </th>
                             <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <p
                                     class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    คะเเนน</p>
+                                    ชื่อนักเตะ</p>
                             </th>
                             <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <p
                                     class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    วันที่</p>
+                                    รวม</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    MVP</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    ลงเล่น</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    ทำประตู</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    แอสซิส</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    Clean Sheet</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    จุดโทษ</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    ใบเหลือง/เเดง</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    ยิงประตูตัวเอง</p>
+                            </th>
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <p
+                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
+                                    เสียประตู</p>
                             </th>
 
                         </tr>
                     </thead>
-                    <!-- <tbody>
+                    <tbody>
                         <tr v-for="player in paginatedPlayers" :key="player">
-                            <td class="p-1 border-b border-blue-gray-50 cursor-pointer">
-                                <div class="flex items-center gap-3">
 
-                                    <p
-                                        class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
-                                        zxc</p>
-                                </div>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <img :src="getShirtImage(player)" class="w-4 h-4" />
+
                             </td>
-                            <td class="p-1 border-b border-blue-gray-50 pl-4">
+                            <td class="p-1 border-b border-blue-gray-50  ">
+                                <p class="block antialiased text-xs leading-normal text-blue-gray-900  font-bold">
+                                    {{ truncateText(player.name) }}</p>
+
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
-                                    xxx</p>
+                                    {{ sumPoint(player)    }} </p>
                             </td>
-                            <td class="p-1 border-b border-blue-gray-50">
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold"
+                                    v-if="player.play_point > 2">
+                                    3</p>
+                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold"
+                                    v-else>
+                                    0</p>
+
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold"
+                                    v-if="player.play_point > 2">
+                                    {{ player.play_point - 3 }}</p>
+                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold" v-else>
+                                    {{ player.play_point }}</p>
+
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
+                                    {{ player.goal_point }}</p>
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
+                                    {{ player.assist_point }}</p>
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
                                 <p
-                                    class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
-                                    xxx
+                                    class="block antialiased font-sans text-xs leading-normal text-green-800 font-bold">
+                                    {{ player.clean_sheet }}
+                                </p>
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p
+                                    class="block antialiased font-sans text-xs leading-normal text-yellow-800 font-bold">
+                                    {{ player.free_kick_point }}
+                                </p>
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p
+                                    class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
+                                    {{ player.card_point }}
+                                </p>
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p
+                                    class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
+                                    {{ player.self_goal_point }}
+                                </p>
+                            </td>
+                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                                <p
+                                    class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
+                                    {{ player.lose_goal_point }}
                                 </p>
                             </td>
 
+
                         </tr>
-                    </tbody> -->
+                    </tbody>
                 </table>
             </div>
-            <!-- <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" /> -->
+            <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" />
         </div>
     </div>
 </template>
@@ -88,7 +181,7 @@ export default {
     data() {
         return {
             currentPage: 1,
-            playersPerPage: 10,
+            playersPerPage: 100,
             getGameWeekPlayer: null,
 
             gameWeekID: this.$route.params.id,
@@ -98,6 +191,24 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        sumPoint(player) {
+            return player.play_point + player.goal_point + player.assist_point + player.clean_sheet + player.free_kick_point + player.card_point + player.self_goal_point + player.lose_goal_point;
+        },
+        truncateText(text) {
+            if (text.length > 13) {
+                return text.slice(0, 13) + '...';
+            } else {
+                return text;
+            }
+        },
+        getShirtImage(player) {
+            const teamCode = this.stripTeamCode(player.team_code);
+            const suffix = player.position === 'G' ? '_1-66' : '-66';
+            return `/assets/shirt/shirt_${teamCode}${suffix}.webp`;
+        },
+        stripTeamCode(teamCode) {
+            return teamCode.replace('t', '');
+        },
         route_back() {
             if (!this.isNavigating) {
                 this.isNavigating = true;
