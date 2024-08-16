@@ -241,7 +241,7 @@ export default {
                 }, 1000);
             }
         },
-        async fetchSelfMatchSubByID(page = 1, limit = 10) {
+        async fetchSelfMatchSubByID(page = 1, limit = 500) {
             try {
                 this.loading = true;
                 const access_token = localStorage.getItem('access_token');

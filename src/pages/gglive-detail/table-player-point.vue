@@ -26,70 +26,222 @@
                 </div>
             </div>
             <div class="p-4 overflow-scroll px-0" v-if="getGameWeekPlayer">
+                <div class="flex flex-wrap gap-4 mb-1 ">
+                    <div class="flex-1 min-w-[100px] ml-1 ">
+                        <label class="block mb-1 text-gray-800 text-xs">ค้นหา..ชื่อนักเตะ</label>
+                        <input type="text" placeholder="Search for player..." v-model="searchTerm"
+                            @input="filterPlayers" class="p-1 border rounded w-full text-gray-600 text-sm">
+                    </div>
+
+                    <div class="flex-1 min-w-[100px]">
+
+                    </div>
+
+
+                </div>
                 <table class="w-full min-w-max table-auto text-left">
                     <thead>
                         <tr>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
-                                <div class="flex items-center">
+                            <!-- ไอคอนเสื้อไม่ต้องการ sorting -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center"></th>
 
+                            <!-- ชื่อนักเตะ -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'name' && sortDirection === 'asc'" @click="sortBy('name')"
+                                        class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'name' && sortDirection === 'desc'" @click="sortBy('name')"
+                                        class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'name'"
+                                        @click="sortBy('name', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        ชื่อนักเตะ
+                                    </p>
                                 </div>
                             </th>
+
+                            <!-- รวม -->
                             <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ชื่อนักเตะ</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    รวม</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    MVP</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ลงเล่น</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ทำประตู</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    แอสซิส</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    Clean Sheet</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    จุดโทษ</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ใบเหลือง/เเดง</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ยิงประตูตัวเอง</p>
-                            </th>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                <p
-                                    class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    เสียประตู</p>
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'sum' && sortDirection === 'asc'" @click="sortBy('sum')"
+                                        class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'sum' && sortDirection === 'desc'" @click="sortBy('sum')"
+                                        class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'sum'"
+                                        @click="sortBy('sum', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        รวม
+                                    </p>
+                                </div>
                             </th>
 
+                            <!-- MVP -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'mvp' && sortDirection === 'asc'" @click="sortBy('mvp')"
+                                        class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'mvp' && sortDirection === 'desc'" @click="sortBy('mvp')"
+                                        class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'mvp'"
+                                        @click="sortBy('mvp', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        MVP
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- ลงเล่น -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'play_point' && sortDirection === 'asc'"
+                                        @click="sortBy('play_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'play_point' && sortDirection === 'desc'"
+                                        @click="sortBy('play_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'play_point'"
+                                        @click="sortBy('play_point', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        ลงเล่น
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- ทำประตู -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'goal_point' && sortDirection === 'asc'"
+                                        @click="sortBy('goal_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'goal_point' && sortDirection === 'desc'"
+                                        @click="sortBy('goal_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'goal_point'"
+                                        @click="sortBy('goal_point', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        ทำประตู
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- แอสซิส -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'assist_point' && sortDirection === 'asc'"
+                                        @click="sortBy('assist_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'assist_point' && sortDirection === 'desc'"
+                                        @click="sortBy('assist_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'assist_point'"
+                                        @click="sortBy('assist_point', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        แอสซิส
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- Clean Sheet -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'clean_sheet' && sortDirection === 'asc'"
+                                        @click="sortBy('clean_sheet')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'clean_sheet' && sortDirection === 'desc'"
+                                        @click="sortBy('clean_sheet')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'clean_sheet'"
+                                        @click="sortBy('clean_sheet', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        Clean Sheet
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- จุดโทษ -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'free_kick_point' && sortDirection === 'asc'"
+                                        @click="sortBy('free_kick_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'free_kick_point' && sortDirection === 'desc'"
+                                        @click="sortBy('free_kick_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'free_kick_point'"
+                                        @click="sortBy('free_kick_point', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        จุดโทษ
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- ใบเหลือง/แดง -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'card_point' && sortDirection === 'asc'"
+                                        @click="sortBy('card_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'card_point' && sortDirection === 'desc'"
+                                        @click="sortBy('card_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'card_point'"
+                                        @click="sortBy('card_point', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        ใบเหลือง/แดง
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- ยิงประตูตัวเอง -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'self_goal_point' && sortDirection === 'asc'"
+                                        @click="sortBy('self_goal_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'self_goal_point' && sortDirection === 'desc'"
+                                        @click="sortBy('self_goal_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'self_goal_point'"
+                                        @click="sortBy('self_goal_point', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        ยิงประตูตัวเอง
+                                    </p>
+                                </div>
+                            </th>
+
+                            <!-- เสียประตู -->
+                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                                <div class="flex items-center">
+                                    <img src="/public/assets/arrowup.png"
+                                        v-if="sortColumn === 'lose_goal_point' && sortDirection === 'asc'"
+                                        @click="sortBy('lose_goal_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowdown.png"
+                                        v-if="sortColumn === 'lose_goal_point' && sortDirection === 'desc'"
+                                        @click="sortBy('lose_goal_point')" class="w-4 cursor-pointer">
+                                    <img src="/public/assets/arrowup.png" v-if="sortColumn !== 'lose_goal_point'"
+                                        @click="sortBy('lose_goal_point', 'asc')" class="w-4 cursor-pointer">
+                                    <p
+                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
+                                        เสียประตู
+                                    </p>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,14 +258,13 @@
                             </td>
                             <td class="p-1 border-b border-blue-gray-50  text-center">
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
-                                    {{ sumPoint(player)    }} </p>
+                                    {{ sumPoint(player) }} </p>
                             </td>
                             <td class="p-1 border-b border-blue-gray-50  text-center">
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold"
                                     v-if="player.play_point > 2">
                                     3</p>
-                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold"
-                                    v-else>
+                                <p class="block antialiased text-xs leading-normal text-green-800  font-bold" v-else>
                                     0</p>
 
                             </td>
@@ -134,32 +285,27 @@
                                     {{ player.assist_point }}</p>
                             </td>
                             <td class="p-1 border-b border-blue-gray-50  text-center">
-                                <p
-                                    class="block antialiased font-sans text-xs leading-normal text-green-800 font-bold">
+                                <p class="block antialiased font-sans text-xs leading-normal text-green-800 font-bold">
                                     {{ player.clean_sheet }}
                                 </p>
                             </td>
                             <td class="p-1 border-b border-blue-gray-50  text-center">
-                                <p
-                                    class="block antialiased font-sans text-xs leading-normal text-yellow-800 font-bold">
+                                <p class="block antialiased font-sans text-xs leading-normal text-yellow-800 font-bold">
                                     {{ player.free_kick_point }}
                                 </p>
                             </td>
                             <td class="p-1 border-b border-blue-gray-50  text-center">
-                                <p
-                                    class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
+                                <p class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
                                     {{ player.card_point }}
                                 </p>
                             </td>
                             <td class="p-1 border-b border-blue-gray-50  text-center">
-                                <p
-                                    class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
+                                <p class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
                                     {{ player.self_goal_point }}
                                 </p>
                             </td>
                             <td class="p-1 border-b border-blue-gray-50  text-center">
-                                <p
-                                    class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
+                                <p class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
                                     {{ player.lose_goal_point }}
                                 </p>
                             </td>
@@ -186,11 +332,25 @@ export default {
 
             gameWeekID: this.$route.params.id,
             seasonID: this.$route.params.seasonID,
-            isNavigating: false
+            isNavigating: false,
+
+            sortColumn: 'sum',
+            sortDirection: 'asc',
+            searchTerm: '',
         };
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        sortBy(column, direction = 'asc') {
+            if (this.sortColumn === column) {
+                // Toggle the sorting direction if the same column is clicked again
+                this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                this.sortColumn = column;
+                this.sortDirection = direction;
+            }
+
+        },
         sumPoint(player) {
             return player.play_point + player.goal_point + player.assist_point + player.clean_sheet + player.free_kick_point + player.card_point + player.self_goal_point + player.lose_goal_point;
         },
@@ -251,7 +411,38 @@ export default {
     },
     computed: {
         filteredPlayers() {
-            return this.getGameWeekPlayer
+            if (!this.getGameWeekPlayer) return [];
+            return this.getGameWeekPlayer.filter(player => {
+                return (
+                    (this.searchTerm === '' || player.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
+                );
+            }).sort((a, b) => {
+                let modifier = this.sortDirection === 'asc' ? 1 : -1;
+                if (this.sortColumn === 'name') {
+                    return a.name.localeCompare(b.name) * modifier;
+                } else if (this.sortColumn === 'sum') {
+                    return (this.sumPoint(a) - this.sumPoint(b)) * modifier;
+                } else if (this.sortColumn === 'mvp') {
+                    return (a.play_point > 2 ? 3 : 0) * modifier;
+                } else if (this.sortColumn === 'play_point') {
+                    return (a.play_point - (a.play_point > 2 ? 3 : 0)) * modifier;
+                } else if (this.sortColumn === 'goal_point') {
+                    return (a.goal_point - b.goal_point) * modifier;
+                } else if (this.sortColumn === 'assist_point') {
+                    return (a.assist_point - b.assist_point) * modifier;
+                } else if (this.sortColumn === 'clean_sheet') {
+                    return (a.clean_sheet - b.clean_sheet) * modifier;
+                } else if (this.sortColumn === 'free_kick_point') {
+                    return (a.free_kick_point - b.free_kick_point) * modifier;
+                } else if (this.sortColumn === 'card_point') {
+                    return (a.card_point - b.card_point) * modifier;
+                } else if (this.sortColumn === 'self_goal_point') {
+                    return (a.self_goal_point - b.self_goal_point) * modifier;
+                } else if (this.sortColumn === 'lose_goal_point') {
+                    return (a.lose_goal_point - b.lose_goal_point) * modifier;
+                }
+            });
+
         },
         paginatedPlayers() {
             const start = (this.currentPage - 1) * this.playersPerPage;
