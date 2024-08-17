@@ -100,7 +100,7 @@ nav img {
 
 .marquee p {
     position: absolute;
-    width: 100%;
+    width:200%;
     height: 100%;
     font-size: 10px;
     margin: 0;

@@ -34,7 +34,15 @@
                     </div>
 
                     <div class="flex-1 min-w-[100px]">
-
+                        <label class="block mb-1 text-gray-800 text-xs">เลือกทีม</label>
+                        <select v-model="selectedTeam" @change="filterPlayers"
+                            class="p-1 border rounded w-full text-gray-600 text-sm">
+                            <optgroup v-for="group in options" :key="group.label" :label="group.label">
+                                <option v-for="option in group.options" :key="option.value" :value="option.value">
+                                    {{ option.name }}
+                                </option>
+                            </optgroup>
+                        </select>
                     </div>
 
 
@@ -326,6 +334,19 @@ import { api } from '@axios_inst';
 export default {
     data() {
         return {
+            selectedTeam: 'view',
+            options: [
+                {
+                    label: 'ตัวเลือก',
+                    options: [
+                        { name: 'ทั้งหมด', value: 'view' }
+                    ]
+                },
+                {
+                    label: 'Teams',
+                    options: []
+                }
+            ],
             currentPage: 1,
             playersPerPage: 100,
             getGameWeekPlayer: null,
@@ -335,8 +356,9 @@ export default {
             isNavigating: false,
 
             sortColumn: 'sum',
-            sortDirection: 'asc',
+            sortDirection: 'desc',
             searchTerm: '',
+            getTeams: []
         };
     },
     methods: {
@@ -399,21 +421,53 @@ export default {
                 });
                 if (response.data.ok) {
                     this.getGameWeekPlayer = response.data.players;
-                    this.updateLoading(false);
+
                 }
             } catch (error) {
                 console.log(error);
-                this.updateLoading(false);
+
             }
 
+        },
+        async fetchDataTeams() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/teams', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.getTeams = response.data.teams;
+                    this.updateTeamOptions()
+                } else {
+                    console.error('Failed to fetch teams data');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        updateTeamOptions() {
+            const teams = this.getTeams;
+            if (teams && Array.isArray(teams)) {
+                this.options.find(option => option.label === 'Teams').options = teams.map(team => ({
+                    name: team.name,
+                    value: team.team_id
+                }));
+            } else {
+                console.error('getTeams is null or not an array');
+            }
         },
 
     },
     computed: {
+
         filteredPlayers() {
             if (!this.getGameWeekPlayer) return [];
             return this.getGameWeekPlayer.filter(player => {
                 return (
+                    (this.selectedTeam === 'view' || player.team_id === this.selectedTeam) &&
+                    (this.is_check_player ? player.is_ban === false && player.is_injured === false : true) &&
                     (this.searchTerm === '' || player.name.toLowerCase().includes(this.searchTerm.toLowerCase()))
                 );
             }).sort((a, b) => {
@@ -453,10 +507,13 @@ export default {
             if (!this.filteredPlayers) return 0;
             return Math.ceil(this.filteredPlayers.length / this.playersPerPage);
         },
+
     },
-    created() {
-        this.updateLoading(true);
-        this.facthPlayerListGameWeekPoint()
+    async created() {
+        await this.updateLoading(true);
+        await this.facthPlayerListGameWeekPoint()
+        await this.fetchDataTeams();
+        await this.updateLoading(false);
     }
 };
 </script>
