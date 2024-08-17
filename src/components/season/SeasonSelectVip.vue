@@ -112,7 +112,7 @@ export default {
       myTeam: 0,
       currentTime: null,
       is_time_up: false,
-      webpSrc: "https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp",
+      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/vdo-pudeeVIP-ezgif.com-video-to-webp-converter.webp",
     };
   },
   methods: {
@@ -123,7 +123,7 @@ export default {
     resetWebP() {
       this.webpSrc = "";
       this.$nextTick(() => {
-        this.webpSrc = `https://image-lobby.sgp1.digitaloceanspaces.com/selectWeekNoloop.webp?${new Date().getTime()}`;
+        this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/vdo-pudeeVIP-ezgif.com-video-to-webp-converter.webp?${new Date().getTime()}`;
       });
     },
     handleVideoEnd() {

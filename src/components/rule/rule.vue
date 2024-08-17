@@ -16,7 +16,7 @@
             </div>
             <div class="rule">
                 <strong>-</strong> คะแนนโบนัสสำหรับนักเตะที่เล่นดี แมนออฟเดอะแมทต์จะได้ <span class="rule-strong"> 3
-                    คะแนน </span>
+                    คะแนน (เราอ้างอิงจากเว็ป whoscored)</span>
             </div>
         </div>
 
@@ -83,7 +83,7 @@
                 <strong>คะแนนใบเหลือง</strong>
             </div>
             <div class="rule">
-                <strong>-</strong> โดนใบเหลือง จะโดนหัก <span class="rule-strong-red"> 1 คะแนน </span>
+                <strong>-</strong>โดนใบเหลือง จะโดนหัก <span class="rule-strong-red"> 1 คะแนน </span>
             </div>
             <div class="rule">
                 <strong>-</strong> โดนใบแดง จะโดนหัก <span class="rule-strong-red"> 3 คะแนน </span>

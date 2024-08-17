@@ -126,7 +126,7 @@ import Swal from 'sweetalert2';
 export default {
     data() {
         return {
-            payurl: "https://image-lobby.sgp1.digitaloceanspaces.com/IMG_7776.JPG",
+            payurl: "https://pudee.sgp1.digitaloceanspaces.com/IMG_7776%20(1).JPG",
             loading: false,
             value: 1,
             qrCode: null, // เพิ่มตัวแปรนี้เพื่อเก็บ base64 QR code
