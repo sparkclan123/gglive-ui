@@ -22,8 +22,8 @@
                             <tr v-for="(team, index) in tablepoint" :key="team.ID">
                                 <td class="py-1 px-1 text-xs border-gray-200 relative">
                                     {{ team.rank }}
-                                    <span v-if="team.rank <= 3" 
-                                          :class="['uu', {'light-blue': team.rank === 1, 'light-green': team.rank === 2, 'light-red': team.rank === 3}]">
+                                    <span
+                                          :class="['uu', {'light-blue': team.rank === 1 ||  team.rank === 2 ||  team.rank === 3 ||  team.rank === 4, 'light-red': team.rank === 18 || team.rank === 19 || team.rank === 20}]">
                                     </span>
                                 </td>
                                 <td class="py-1 px-1 text-xs border-gray-200">{{ team.name }}</td>
@@ -98,24 +98,22 @@ export default {
 }
 
 .uu {
+    display: table-cell;
     border-top-right-radius: 5px;
-    bottom: -5px;
     height: 5px;
     width: 20px;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
+    margin-left: 5px;
 }
 
 .light-blue {
     background-color: #0075ff;
 }
 
-.light-green {
-    background-color: #28a745;
+.light-oregen {
+    background-color: #a75b28;
 }
 
 .light-red {
-    background-color: #dc3545;
+    background-color: #9f202d;
 }
 </style>

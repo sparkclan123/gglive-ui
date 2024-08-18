@@ -14,6 +14,8 @@
                 <component :is="currentTabComponent" :key="activeTab" v-bind="currentTabProps"></component>
             </transition>
         </div>
+
+        
     </div>
 </template>
 
