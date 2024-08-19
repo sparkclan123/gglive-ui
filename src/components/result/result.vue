@@ -1,33 +1,31 @@
 <template>
     <div>
-        <!-- Your existing HTML for displaying results -->
         <div class="flex flex-col items-center">
             <div class="flex justify-center w-full mt-2">
-                <img class="w-8 h-8" src="/public/assets/logonew.png" />
+                <img class="w-8 h-8" src="/public/assets/logonew.png" /> 
+                <span class="mt-1 font-semibold text-gray-600">การเเข่งขัน</span>
             </div>
-            <div class="match-group" v-for="(matches, date) in groupedMatches" :key="date">
+            <div class="match-group " v-for="(matches, date) in groupedMatches" :key="date">
                 <div class="date m-2">{{ formatDate(date) }}</div>
                 <div class="match-results">
-                    <div class="match" v-for="match in matches" :key="match.id">
-                        
-                        <div class="team-wrapper text-xs font-bold mr-2" style="justify-content: end;">
-                            <div>{{ truncateTeamName(match.team1) }}</div>
+                    <div class="match  shadow-lg" v-for="match in matches" :key="match.id">
+                        <div class="team-info">
+                            <div class="team-name">{{ match.team1 }}</div>
+                            <div class="score">{{ match.score1 }}</div>
+                        </div>
+                        <div class="team-info">
+                            <div class="team-name">{{ match.team2 }}</div>
+                            <div class="score">{{ match.score2 }}</div>
                         </div>
                        
-                        <div class="score-container">
-                            <!-- <div > 02:00</div> -->
-                            <div class="score">{{ match.score1 }} - {{ match.score2 }}</div>
-                          
-                        </div>
-                        <div class="team-wrapper text-xs font-bold ml-2" style="justify-content: start;">
-                            <div>{{ truncateTeamName(match.team2) }}</div> 
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 
 <script>
 export default {
@@ -74,54 +72,59 @@ export default {
 
 <style scoped>
 .match-group {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     width: 100%;
 }
 
 .date {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-bottom: 10px;
-    text-align: center; /* Center the date */
+    text-align: left;
+    color: #1e1036;
     width: 100%;
 }
 
 .match-results {
-    text-align: center;
+    text-align: left;
+  
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .match {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-    flex-wrap: nowrap;
+    flex-direction: column;
+    padding: 5px 5px 5px 10px;
+    margin: 2px 0;
+    background-color: #1e1036;
+    border-radius: 10px;
+    position: relative;
 }
 
-.team-wrapper {
+.team-info {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    width: 150px; /* Increase width for better centering */
-    text-align: center;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.team-name {
+    font-size: 0.7rem;
+    color: #FFFFFF;
     white-space: nowrap;
-}
-
-.score-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+    text-align: left;
 }
 
 .score {
-    width: 50px;
-    text-align: center;
-    background-color: #37003c;
-    color: white;
+    padding: 0px 5px;
+    font-size: 0.8rem;
     font-weight: bold;
-    border-radius: 10px;
-    padding: 2px;
-    white-space: nowrap;
+    color: #FFFFFF;
+    text-align: right;
 }
+
+
+
 </style>
