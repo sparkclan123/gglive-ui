@@ -81,7 +81,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(data, i) in datas" :key="i">
+                        <tr v-for="(data, i) in datas" :key="i" :class="data.user_id == userinfo.UserID ? 'bg-blue-100' : ''">
                             <td class="p-0 border-b border-blue-gray-50 text-center">
                                 <p
                                     class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal opacity-70">
