@@ -35,6 +35,10 @@
             <table class="w-full min-w-max table-auto text-left">
                 <thead>
                     <tr>
+                        <th
+                            class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-1 text-center font-normal opacity-7 text-xs">
+                            #
+                        </th>
                         <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
                             <div class="flex items-center">
                                 <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
@@ -58,7 +62,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="data in datas" :key="i">
+                    <tr v-for="(data,i) in datas" :key="i">
+                        <td class="p-0 border-b border-blue-gray-50 text-center">
+                            <p
+                                class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal opacity-70">
+                                {{ (page - 1) * limit + i + 1 }}
+                            </p>
+                        </td>
                         <td class="p-1 border-b border-blue-gray-50 cursor-pointer"
                             @click="seeDetail(data.id, data.user_id)">
                             <div class="flex items-center gap-3">
