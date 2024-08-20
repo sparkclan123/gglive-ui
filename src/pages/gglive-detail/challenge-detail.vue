@@ -22,7 +22,10 @@
                         class="inline-block relative object-center rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain">
                     <span class="title text-gray-200">{{ getMain.name }} </span>
                 </div>
-                <span class="title text-green-500">{{ getMain.total_point }} คะเเนน</span>
+                
+                <span class="title text-green-500 mt-1">{{ getMain.total_point }} คะเเนน</span>
+                <span class="title-fix text-yellow-500">{{ getMain.total_price }}$ งบที่ใช้ไป</span>
+               
             </div>
         </div>
 
@@ -250,6 +253,16 @@ export default {
     text-align: center;
     letter-spacing: 1px;
 }
+
+.card .bottom-section .title-fix {
+    display: block;
+    font-size: 11px;
+    font-weight: bolder;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+
 
 .card .bottom-section .row {
     display: flex;

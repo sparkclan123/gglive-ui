@@ -2,7 +2,13 @@
     <div v-if="gameWeek" class="p-1">
         <div class="card cursor-pointer">
             <div class="bottom-section">
-                <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+                <div class="flex items-center justify-center ">
+                    <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+                    <button class="bg-yellow-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
+                        @click="rewardDetail">
+                        คลิ๊กดูรายละเอียด
+                    </button>
+                </div>
                 <span class="title text-green-500">
                     <NumberDisplay :number="gameWeek.reward2" /> ใบ
                 </span>
@@ -112,7 +118,9 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-
+        rewardDetail() {
+            this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "N" } });
+        },
         async facthPlayerListGameWeek(page = 1, limit = 30) {
 
             try {

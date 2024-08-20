@@ -19,9 +19,15 @@
 
                     </div>
                 </div>
-                <div class="bottom-section">
+                <div class="bottom-section ">
 
-                    <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+                    <div class="flex items-center justify-center mt-2">
+                        <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+                        <button class="bg-yellow-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
+                            @click="rewardDetail">
+                            คลิ๊กดูรายละเอียด
+                        </button>
+                    </div>
                     <span class="title text-green-500">
                         <NumberDisplay :number="gameWeek.reward2" /> ใบ
                     </span>
@@ -125,6 +131,9 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        rewardDetail() {
+            this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "N" } });
+        },
         route_back() {
             if (!this.isNavigating) {
                 this.isNavigating = true;
@@ -171,7 +180,7 @@ export default {
                         'Authorization': `Bearer ${access_token}`
                     },
                 });
-             
+
                 if (response.data.ok) {
                     const timeNow = new Date(response.data.date_now);
                     const timeEnd = new Date(this.gameWeek.end_date);

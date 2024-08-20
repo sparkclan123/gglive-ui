@@ -23,6 +23,7 @@
                     <span class="title text-gray-200">{{ getMain.name }} </span>
                 </div>
                 <span class="title text-green-500">{{ getMain.total_point }} คะเเนน</span>
+                <span class="title-fix text-yellow-500">{{ getMain.total_price }}$ งบที่ใช้ไป</span>
             </div>
         </div>
 
@@ -280,6 +281,14 @@ export default {
 
 .shsojvp {
     font-weight: bold;
+}
+
+.card .bottom-section .title-fix {
+    display: block;
+    font-size: 11px;
+    font-weight: bolder;
+    text-align: center;
+    letter-spacing: 1px;
 }
 
 .captain-badge {

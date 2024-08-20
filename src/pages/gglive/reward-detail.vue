@@ -27,9 +27,9 @@
             </p>
             <p class="mt-4 text-sm text-blue-600 font-medium">ยกตัวอย่าง:</p>
             <p class="mt-2">
-              รางวัลที่ 1: <span class="font-semibold text-green-900">500,000 บาท</span><br />
-              รางวัลที่ 2: <span class="font-semibold text-green-900">50,000 บาท</span><br />
-              รางวัลที่ 3: <span class="font-semibold text-green-900">25,000 บาท</span>
+              รางวัลที่ 1: <span class="font-semibold text-green-900">500,000 </span><br />
+              รางวัลที่ 2: <span class="font-semibold text-green-900">50,000 </span><br />
+              รางวัลที่ 3: <span class="font-semibold text-green-900">25,000 </span>
             </p>
             <p class="mt-4">
               <span class="font-semibold text-yellow-900 ">โปรดทราบว่า </span> <span class="font-semibold text-purple-900 ">  รางวัลอาจมีการเพิ่มขึ้นได้ตลอดเวลา

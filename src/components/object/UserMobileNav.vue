@@ -92,6 +92,7 @@
           <li class="menu-item">
             <a @click="sideMenu('rule')" class="menu-link"><i class="fas fa-book mr-2"></i> กติการะบบ</a>
           </li>
+
           <li class="menu-item">
             <a @click="sideMenu('setting')" class="menu-link"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
           </li>
@@ -238,6 +239,7 @@ export default {
       });
     },
     sideMenu(page) {
+     
       this.activeButton = page;
       this.isMenuOpen = !this.isMenuOpen;
       this.$router.push({ name: page });

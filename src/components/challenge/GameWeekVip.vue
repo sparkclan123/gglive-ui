@@ -1,11 +1,18 @@
 <template>
     <div v-if="gameWeek" class="p-1">
         <div class="card cursor-pointer">
-            <div class="bottom-section">
-                <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+            <div class="bottom-section  ">
+                <div class="flex items-center justify-center ">
+                    <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+                    <button class="bg-yellow-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
+                        @click="rewardDetail">
+                        คลิ๊กดูรายละเอียด
+                    </button>
+                </div>
                 <span class="title text-green-500">
-                    <NumberDisplay :number="gameWeek.reward" /> บาท
+                    <NumberDisplay :number="gameWeek.reward" /> 
                 </span>
+
                 <div class="row row1">
                     <div class="item">
                         <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} <i
@@ -54,7 +61,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="data in datas" :key="i">
-                        <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data.id, data.user_id)">
+                        <td class="p-1 border-b border-blue-gray-50 cursor-pointer"
+                            @click="seeDetail(data.id, data.user_id)">
                             <div class="flex items-center gap-3">
                                 <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'" alt="userimage"
                                     class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
@@ -112,7 +120,9 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-
+        rewardDetail() {
+            this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "VIP" } });
+        },
         async facthPlayerListGameWeek(page = 1, limit = 30) {
             this.showCommingSoon = false;
             try {
