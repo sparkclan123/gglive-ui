@@ -6,7 +6,7 @@
                     <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
                     <button class="bg-yellow-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
                         @click="rewardDetail">
-                        คลิ๊กดูรายละเอียด
+                        ดูรายละเอียด
                     </button>
                 </div>
                 <span class="title text-green-500">
