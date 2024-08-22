@@ -7,9 +7,17 @@
       <main v-if="showAdjustPlayerModal" class="fixed inset-x-0 bottom-0 max-h-[90dvh] rounded-t-lg flex flex-col">
 
         <div class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">
+
           <div class="sticky top-0 bg-[#1e1036] p-4 !rounded-t-xl">
+
+            <button class="close-button" @click="$emit('close-modal')">
+              <span class="close-icon">&times;</span>
+            </button>
+
             <div class="flex flex-wrap gap-4 mb-4  ">
+
               <div class="flex-1 min-w-[100px]">
+
                 <div class="flex items-center mb-1 text-gray-100 text-xs">
                   <label for="switch" class="mr-2">ทีม</label>
                   <div class="checkbox-wrapper-35 flex items-center">
@@ -37,9 +45,12 @@
                 </select>
               </div>
               <div class="flex-1 min-w-[100px]">
+
                 <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง
                   <span class="text-green-400">คงเหลือ {{ (remainingAmount + detailPlayer.price).toFixed(2) }}$</span>
                 </label>
+
+
 
                 <select v-model="selectedPosition" @change="filterPlayers"
                   class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
@@ -283,7 +294,7 @@ export default {
         });
         return;
       }
-   
+
       if (player.price - this.detailPlayer.price > this.remainingAmount) {
         Swal.fire({
           text: 'งบไม่เพียงพอ',
@@ -452,19 +463,28 @@ export default {
   margin: 0;
 }
 
-.close-button-wrap {
-  position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
+.close-button {
+  position: absolute; /* ใช้ absolute เพื่อให้ปุ่มอยู่ตามที่ต้องการ */
+  top: -5px; /* ระยะจากขอบบน */
+  right: 10px; /* ระยะจากขอบขวา */
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  z-index: 1100;
+  padding: 5px;
+  line-height: 1;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.close-button {
-  padding: 0.5rem 0.8rem;
-  border: 0;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.3);
-  line-height: 0;
-  cursor: pointer;
+.close-button:hover {
+  transform: scale(1.2);
+  color: #ff0000;
+}
+
+.close-icon {
+  font-weight: bold;
 }
 
 .close-label {
@@ -553,10 +573,17 @@ export default {
 }
 
 .player-selection {
-  height: 100%;
+  height: calc(100vh - 100px);
   /* ตั้งค่า height ให้เต็มที่ */
   overflow-y: auto;
   /* เปิดการเลื่อนในแนวตั้ง */
+}
+
+main {
+  max-height: calc(100dvh - 50px);
+  /* เพื่อให้มั่นใจว่าเนื้อหาจะไม่ล้น */
+  overflow-y: auto;
+  /* ให้เนื้อหาที่ล้นสามารถเลื่อนดูได้ */
 }
 
 .checkbox-wrapper-35 .switch+label .switch-x-text {

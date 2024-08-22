@@ -56,6 +56,7 @@
                                         <div class=" gTayAP">
                                             <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
                                             <div class=" fQREvA">{{ GKP.price }}</div>
+                                            <div class=" fQREvA_fix" v-if="GKP.team_vs != '' ">{{ GKP.team_vs }}</div>
                                         </div>
                                     </button>
                                 </div>
@@ -72,6 +73,7 @@
                                         <div class=" gTayAP">
                                             <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
                                             <div class=" fQREvA">{{ DEF.price }}</div>
+                                            <div class=" fQREvA_fix" v-if="DEF.team_vs != '' ">{{ DEF.team_vs }}</div>
                                         </div>
                                     </button>
                                 </div>
@@ -89,6 +91,7 @@
                                         <div class=" gTayAP">
                                             <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
                                             <div class=" fQREvA">{{ MID.price }}</div>
+                                            <div class=" fQREvA_fix" v-if="MID.team_vs != '' ">{{ MID.team_vs }}</div>
                                         </div>
                                     </button>
                                 </div>
@@ -105,6 +108,7 @@
                                         <div class=" gTayAP">
                                             <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
                                             <div class=" fQREvA">{{ FWD.price }}</div>
+                                            <div class=" fQREvA_fix" v-if="FWD.team_vs != '' ">{{ FWD.team_vs }}</div>
                                         </div>
                                     </button>
                                 </div>
@@ -1133,6 +1137,7 @@ export default {
 }
 
 
+
 .etyMDj {
     padding: 0.2rem;
     background-color: rgb(55, 0, 60);
@@ -1140,14 +1145,31 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    font-size: 11px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 
 .fQREvA {
-    padding: 0.2rem;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+    padding: 0.1rem;
+    font-size: 11px;
+    /* border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px; */
     background-color: rgba(233, 249, 241, 0.3);
+}
+
+
+.fQREvA_fix {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: rgb(55, 0, 60);
+    color: white;
+    font-size: 6px;
 }
 
 
