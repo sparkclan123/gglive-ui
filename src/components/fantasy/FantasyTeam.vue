@@ -79,6 +79,8 @@
                                         <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
+                                        <span v-if="GKP.id" class="captain-badge-close"
+                                            @click.stop="removePlayerC(GKP)">x</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="GKP.id === null">
                                         <div class="gvQQRY "
@@ -88,7 +90,7 @@
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
                                         <div class=" fQREvA">{{ GKP.price }}</div>
-                                        <div class=" fQREvA_fix" v-if="GKP.team_vs != '' ">{{ GKP.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="GKP.team_vs != ''">{{ GKP.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -104,6 +106,8 @@
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
+                                        <span v-if="DEF.id" class="captain-badge-close"
+                                            @click.stop="removePlayerC(DEF)">x</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="DEF.id === null">
                                         <div class="gvQQRY "
@@ -113,7 +117,7 @@
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
                                         <div class=" fQREvA">{{ DEF.price }}</div>
-                                        <div class=" fQREvA_fix" v-if="DEF.team_vs != '' ">{{ DEF.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="DEF.team_vs != ''">{{ DEF.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -129,6 +133,8 @@
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
+                                        <span v-if="MID.id" class="captain-badge-close"
+                                            @click.stop="removePlayerC(MID)">x</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="MID.id === null">
                                         <div class="gvQQRY "
@@ -138,7 +144,7 @@
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
                                         <div class=" fQREvA">{{ MID.price }}</div>
-                                        <div class=" fQREvA_fix" v-if="MID.team_vs != '' ">{{ MID.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="MID.team_vs != ''">{{ MID.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -153,6 +159,8 @@
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="FWD.id == isCaptain" class="captain-badge">C</span>
+                                        <span v-if="FWD.id" class="captain-badge-close"
+                                            @click.stop="removePlayerC(FWD)">x</span>
                                     </picture>
                                     <div class=" gTayAP" v-if="FWD.id === null">
                                         <div class="gvQQRY "
@@ -162,7 +170,7 @@
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
                                         <div class=" fQREvA">{{ FWD.price }}</div>
-                                        <div class=" fQREvA_fix" v-if="FWD.team_vs != '' ">{{ FWD.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="FWD.team_vs != ''">{{ FWD.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -183,7 +191,8 @@
                                 </svg></div></button>
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
-                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan" :remainingAmount="remainingAmount"/>
+                        @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan"
+                        :remainingAmount="remainingAmount" />
                 </div>
             </div>
         </div>
@@ -335,6 +344,13 @@ export default {
         setCaptan() {
             this.isCaptain = this.detailPlayer.id;
             this.showAdjustPlayerModal = false;
+        },
+        removePlayerC(player) {
+            const positionState = this.getPositionStateKey(player.position);
+            this.removePlayer({ player, position: positionState });
+            if (player.id == this.isCaptain) {
+                this.isCaptain = 'none';
+            }
         },
         ClickRemovePlayer() {
             let player = this.detailPlayer;
@@ -729,6 +745,29 @@ export default {
     /* เลื่อนป้ายให้เข้ามุม */
 }
 
+.captain-badge-close {
+    position: absolute;
+    top: 0;
+    /* อยู่มุมบนของรูปภาพ */
+    left: -15px;
+    /* อยู่มุมบนขวาของรูปภาพ */
+    background-color: rgb(144, 25, 25);
+    /* พื้นหลังของคำว่า "C" */
+    color: rgb(255, 251, 251);
+    /* สีตัวอักษร */
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    /* ขนาดตัวอักษร */
+    font-weight: bold;
+    transform: translate(50%, -50%);
+    /* เลื่อนป้ายให้เข้ามุม */
+}
+
 .circle-img {
     border-radius: 5%;
     width: 50px;
@@ -1007,12 +1046,13 @@ export default {
     display: flex;
     flex-wrap: wrap;
     font-size: 10px;
-  
+
 }
 
 .flex-container label {
     flex: 1 1 calc(50% - 0.5rem);
 }
+
 .ceLkmB {
     position: relative;
     z-index: 80;
@@ -1311,4 +1351,3 @@ export default {
     }
 }
 </style>
-

@@ -51,6 +51,7 @@
                                             <source type="image/webp">
                                             <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
                                             <span v-if="GKP.player_id == is_captan" class="captain-badge">C</span>
+                                            <span class="captain-badge-close" @click.stop="removePlayer(GKP)">x</span>
                                         </picture>
 
                                         <div class=" gTayAP">
@@ -69,6 +70,7 @@
                                             <source type="image/webp">
                                             <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
                                             <span v-if="DEF.player_id == is_captan" class="captain-badge">C</span>
+                                            <span class="captain-badge-close" @click.stop="removePlayer(DEF)">x</span>
                                         </picture>
                                         <div class=" gTayAP">
                                             <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
@@ -86,6 +88,7 @@
                                             <source type="image/webp">
                                             <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
                                             <span v-if="MID.player_id == is_captan" class="captain-badge">C</span>
+                                            <span class="captain-badge-close" @click.stop="removePlayer(MID)">x</span>
                                         </picture>
 
                                         <div class=" gTayAP">
@@ -103,6 +106,7 @@
                                             <source type="image/webp">
                                             <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
                                             <span v-if="FWD.player_id == is_captan" class="captain-badge">C</span>
+                                            <span class="captain-badge-close">x</span>
                                         </picture>
 
                                         <div class=" gTayAP">
@@ -185,6 +189,9 @@ export default {
     methods: {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('Teams', ['setTeams']),
+        async removePlayer(player) {
+
+        },
         async setCaptan() {
             this.loading = true;
             this.showAdjustPlayerModal = false;
@@ -590,6 +597,30 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 12px;
+    /* ขนาดตัวอักษร */
+    font-weight: bold;
+    transform: translate(50%, -50%);
+    /* เลื่อนป้ายให้เข้ามุม */
+}
+
+
+.captain-badge-close {
+    position: absolute;
+    top: 0;
+    /* อยู่มุมบนของรูปภาพ */
+    left: -15px;
+    /* อยู่มุมบนขวาของรูปภาพ */
+    background-color: rgb(144, 25, 25);
+    /* พื้นหลังของคำว่า "C" */
+    color: rgb(255, 251, 251);
+    /* สีตัวอักษร */
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
     /* ขนาดตัวอักษร */
     font-weight: bold;
     transform: translate(50%, -50%);
