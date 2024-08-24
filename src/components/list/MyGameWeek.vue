@@ -28,6 +28,7 @@
                         d="M12 21.25V22.75H4C2.48122 22.75 1.25 21.5188 1.25 20V6C1.25 4.48122 2.48122 3.25 4 3.25H12V4.75H4C3.30964 4.75 2.75 5.30964 2.75 6V20C2.75 20.6904 3.30964 21.25 4 21.25H12Z"
                         clip-rule="evenodd"></path>
                 </svg>
+               
                 <div class="flex items-center space-x-4" v-if="data.is_vip">
                     <div class="text-orange-600 font-bold cursor-pointer">
                         VIP
@@ -66,6 +67,9 @@ export default {
     methods: {
         edit(id) {
             this.$router.push({ name: 'pitch-detail-edit', params: { id: id, type: "VIP" } });
+        },
+        edit_new(id) {
+            this.$router.push({ name: 'pitch-detail-edit-new', params: { id: id, type: "VIP" } });
         },
         async fetchDataMyGameWeek(page = 1, limit = 20) {
             try {
