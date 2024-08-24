@@ -185,7 +185,8 @@
                 @set-captain="setCaptan" @change-player="ChangePlayer" />
 
             <ModelEditSelectPlayerNew :showAdjustPlayerModal="showAdjustPlayerModalSelect" :players="players"
-                :position="position" :detailPlayer_price="detailPlayer ? detailPlayer.price : 0" @close-modal="showAdjustPlayerModalSelect = false" @set-captain="setCaptan"
+                :position="position" :detailPlayer_price="detailPlayer ? detailPlayer.price : 0"
+                @close-modal="showAdjustPlayerModalSelect = false" @set-captain="setCaptan"
                 @change-player="ChangePlayerSelect" :remainingAmount="remainingAmount" />
         </div>
     </div>
@@ -379,8 +380,8 @@ export default {
             this.showAdjustPlayerModal = true;
         },
         toggleClass(position) {
-            this.detailPlayer  = null;
-            if(this.totalPlayerCount >= 11){
+            this.detailPlayer = null;
+            if (this.totalPlayerCount >= 11) {
                 Swal.fire({
                     text: 'ไม่สามารถเลือกนักเตะเกิน 11 คน',
                     showCancelButton: true,
@@ -404,7 +405,7 @@ export default {
         },
         ChangePlayer() {
 
-            if(this.totalPlayerCount >= 11 && !this.detailPlayer){
+            if (this.totalPlayerCount >= 11 && !this.detailPlayer) {
                 Swal.fire({
                     text: 'ไม่สามารถเลือกนักเตะเกิน 11 คน',
                     showCancelButton: true,
@@ -427,34 +428,70 @@ export default {
             this.showAdjustPlayerModalSelect = true;
 
         },
+
         async ChangePlayerSelect(player) {
 
 
             document.body.style.overflow = '';
             this.showAdjustPlayerModalSelect = false;
-            console.log('totalPlayerNewfilter', player.player_id);
 
+            const totalPlayersInTeam = [
+                ...this.getGKP,
+                ...this.getDEF,
+                ...this.getMID,
+                ...this.getFWD
+            ];
+
+            let checkHas = totalPlayersInTeam.some(p => {
+                if (p.player_id === player.player_id && !p.remove) {
+                    Swal.fire({
+                        text: 'มีนักเตะอยู่แล้ว',
+                        showCancelButton: true,
+                        cancelButtonText: 'ยกเลิก',
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                        buttonsStyling: false,
+                    });
+                    return true;  
+                }
+                return false;
+            });
+
+            if (checkHas) {
+                return;  
+            }
+            
+            const filterSelectPlayer = totalPlayersInTeam.filter(p => p.player_id !== player.player_id);
+
+            const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code).length;
+
+            if (totalPlayerNewfilter >= 3) {
+                Swal.fire({
+                    text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+           
             if (player.position === 'F') {
                 for (let i = 0; i < this.getFWD.length; i++) {
                     let p = this.getFWD[i];
 
-                    if (p.player_id == player.player_id && !p.remove) {
-                        Swal.fire({
-                            text: 'มีนักเตะอยู่แล้ว',
-                            showCancelButton: true,
-                            cancelButtonText: 'ยกเลิก',
-                            showConfirmButton: false,
-                            customClass: {
-                                cancelButton: 'btn-cancel',
-                                popup: 'popup-custom',
-                                title: 'text-custom',
-                                htmlContainer: 'text-custom'
-                            },
-                            buttonsStyling: false,
-                        });
-                        return;
-                    }
-
+                   
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
                         p.name = player.name;
@@ -477,26 +514,11 @@ export default {
                     }
                 }
             }
-            console.log('totalPlayerNewfilter', this.detailPlayer);
+
             if (player.position === 'M') {
                 for (let i = 0; i < this.getMID.length; i++) {
                     let p = this.getMID[i];
-                    if (p.player_id == player.player_id && !p.remove) {
-                        Swal.fire({
-                            text: 'มีนักเตะอยู่แล้ว',
-                            showCancelButton: true,
-                            cancelButtonText: 'ยกเลิก',
-                            showConfirmButton: false,
-                            customClass: {
-                                cancelButton: 'btn-cancel',
-                                popup: 'popup-custom',
-                                title: 'text-custom',
-                                htmlContainer: 'text-custom'
-                            },
-                            buttonsStyling: false,
-                        });
-                        return;
-                    }
+
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
                         p.name = player.name;
@@ -523,22 +545,7 @@ export default {
             if (player.position === 'D') {
                 for (let i = 0; i < this.getDEF.length; i++) {
                     let p = this.getDEF[i];
-                    if (p.player_id == player.player_id && !p.remove) {
-                        Swal.fire({
-                            text: 'มีนักเตะอยู่แล้ว',
-                            showCancelButton: true,
-                            cancelButtonText: 'ยกเลิก',
-                            showConfirmButton: false,
-                            customClass: {
-                                cancelButton: 'btn-cancel',
-                                popup: 'popup-custom',
-                                title: 'text-custom',
-                                htmlContainer: 'text-custom'
-                            },
-                            buttonsStyling: false,
-                        });
-                        return;
-                    }
+
 
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
@@ -566,22 +573,7 @@ export default {
             if (player.position === 'G') {
                 for (let i = 0; i < this.getGKP.length; i++) {
                     let p = this.getGKP[i];
-                    if (p.player_id == player.player_id && !p.remove) {
-                        Swal.fire({
-                            text: 'มีนักเตะอยู่แล้ว',
-                            showCancelButton: true,
-                            cancelButtonText: 'ยกเลิก',
-                            showConfirmButton: false,
-                            customClass: {
-                                cancelButton: 'btn-cancel',
-                                popup: 'popup-custom',
-                                title: 'text-custom',
-                                htmlContainer: 'text-custom'
-                            },
-                            buttonsStyling: false,
-                        });
-                        return;
-                    }
+
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
                         p.name = player.name;
@@ -612,17 +604,17 @@ export default {
             // this.position = this.detailPlayer.position;
             // this.showAdjustPlayerModal = false;
 
-            const totalPlayersInTeam = [
-                ...this.getGKP,
-                ...this.getDEF,
-                ...this.getMID,
-                ...this.getFWD
-            ];
+            // const totalPlayersInTeam = [
+            //     ...this.getGKP,
+            //     ...this.getDEF,
+            //     ...this.getMID,
+            //     ...this.getFWD
+            // ];
 
             // filter เอาเฉพาะข้อมูลนักเเตะที่ไม่ใช้ของที่เรากดเลื่อก จะได้เหลือ นักเเตะ 10 คน เพราะจะต้องเอาตัวใหม่ไปเเทนที่
-            const filterSelectPlayer = totalPlayersInTeam.filter(p => p.player_id !== this.detailPlayer.player_id);
+            // const filterSelectPlayer = totalPlayersInTeam.filter(p => p.player_id !== this.detailPlayer.player_id);
 
-            const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code).length;
+            // const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code).length;
 
 
             // .filter(p => p.team_code === player.team_code).length;
