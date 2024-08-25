@@ -32,6 +32,8 @@
                             <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม
                                 <DateFormatted :dateString="getMain.created_at" />
                             </span>
+                            <button class="btn btn-primary" @click="saveTeamEdit">เเก้ไขทีม</button>
+                            <button class="btn btn-primary" @click="resetTeamEdit">ย้อนหลับ</button>
 
                         </div>
 
@@ -218,7 +220,6 @@ export default {
             is_captan: null,
             players: [],
             position: null,
-            playernameOld: null,
 
             delGKP: [],
             delDEF: [],
@@ -323,56 +324,9 @@ export default {
 
         },
         async setCaptan() {
-            this.loading = true;
-            this.showAdjustPlayerModal = false;
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.put('/premier-league/v1/game-week-player-user-detail-edit-captant', {
-                    captain: 1,
-                    game_main_id: this.getMain.id,
-                    game_id: this.detailPlayer.id,
-                    type: this.type,
-                }, {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    }
-                });
-                if (response.data.ok) {
-                    this.loading = false;
-                    this.is_captan = this.detailPlayer.player_id;
-                    Swal.fire({
-                        icon: 'success',
-                        text: 'ตั้งเป็นกัปตันสำเร็จ',
-                        showCancelButton: true,
-                        cancelButtonText: 'ยืนยัน',
-                        showConfirmButton: false,
-                        customClass: {
-                            cancelButton: 'btn-cancel',
-                            popup: 'popup-custom',
-                            title: 'text-custom',
-                            htmlContainer: 'text-custom'
-                        },
-                        buttonsStyling: false,
-                    });
 
-                }
-            } catch (error) {
-                this.loading = false;
-                console.log(error);
-                Swal.fire({
-                    text: error.response.data.error,
-                    showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
-                    showConfirmButton: false,
-                    customClass: {
-                        cancelButton: 'btn-cancel',
-                        popup: 'popup-custom',
-                        title: 'text-custom',
-                        htmlContainer: 'text-custom'
-                    },
-                    buttonsStyling: false,
-                });
-            }
+            this.showAdjustPlayerModal = false;
+            this.is_captan = this.detailPlayer.player_id;
 
         },
         adjustPlayer(player) {
@@ -428,7 +382,6 @@ export default {
             this.showAdjustPlayerModalSelect = true;
 
         },
-
         async ChangePlayerSelect(player) {
 
 
@@ -441,6 +394,13 @@ export default {
                 ...this.getMID,
                 ...this.getFWD
             ];
+
+            totalPlayersInTeam.map((item) => {
+                if (item.player_id === player.player_id) {
+                    item.remove = false;
+                    return;
+                }
+            });
 
             let checkHas = totalPlayersInTeam.some(p => {
                 if (p.player_id === player.player_id && !p.remove) {
@@ -457,15 +417,15 @@ export default {
                         },
                         buttonsStyling: false,
                     });
-                    return true;  
+                    return true;
                 }
                 return false;
             });
 
             if (checkHas) {
-                return;  
+                return;
             }
-            
+
             const filterSelectPlayer = totalPlayersInTeam.filter(p => p.player_id !== player.player_id);
 
             const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code).length;
@@ -486,12 +446,12 @@ export default {
                 });
                 return;
             }
-           
+
             if (player.position === 'F') {
                 for (let i = 0; i < this.getFWD.length; i++) {
                     let p = this.getFWD[i];
-
                    
+
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
                         p.name = player.name;
@@ -518,7 +478,7 @@ export default {
             if (player.position === 'M') {
                 for (let i = 0; i < this.getMID.length; i++) {
                     let p = this.getMID[i];
-
+                    
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
                         p.name = player.name;
@@ -598,29 +558,41 @@ export default {
             }
             this.detailPlayer = null;
 
-
-
             return;
-            // this.position = this.detailPlayer.position;
-            // this.showAdjustPlayerModal = false;
+        },
+        async saveTeamEdit() {
 
-            // const totalPlayersInTeam = [
-            //     ...this.getGKP,
-            //     ...this.getDEF,
-            //     ...this.getMID,
-            //     ...this.getFWD
-            // ];
+            let countGKP = 0;
+            for (let i = 0; i < this.getGKP.length; i++) {
+                if (this.getGKP[i].player_id != null && !this.getGKP[i].remove) {
+                    countGKP++;
+                }
+            }
 
-            // filter เอาเฉพาะข้อมูลนักเเตะที่ไม่ใช้ของที่เรากดเลื่อก จะได้เหลือ นักเเตะ 10 คน เพราะจะต้องเอาตัวใหม่ไปเเทนที่
-            // const filterSelectPlayer = totalPlayersInTeam.filter(p => p.player_id !== this.detailPlayer.player_id);
+            let countDiff = 0;
+            for (let i = 0; i < this.getDEF.length; i++) {
+                if (this.getDEF[i].player_id != null && !this.getDEF[i].remove) {
+                    countDiff++;
+                }
+            }
 
-            // const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code).length;
+            let countMid = 0;
+            for (let i = 0; i < this.getMID.length; i++) {
+                if (this.getMID[i].player_id != null && !this.getMID[i].remove) {
+                    countMid++;
+                }
+            }
 
+            let countFWD = 0;
+            for (let i = 0; i < this.getFWD.length; i++) {
+                if (this.getFWD[i].player_id != null && !this.getFWD[i].remove) {
+                    countFWD++;
+                }
+            }
 
-            // .filter(p => p.team_code === player.team_code).length;
-            if (totalPlayerNewfilter >= 3) {
+            if (countGKP < 1) {
                 Swal.fire({
-                    text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                    text: 'กรุณาเลือกผู้รักษาประตูอย่างน้อย 1 คน',
                     showCancelButton: true,
                     cancelButtonText: 'ยกเลิก',
                     showConfirmButton: false,
@@ -634,14 +606,121 @@ export default {
                 });
                 return;
             }
-            this.loading = true;
+
+            if (countDiff < 3) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกองหลังอย่างน้อย 3 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (countMid < 2) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกองกลางอย่างน้อย 2 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (countFWD < 1) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกองหน้าอย่างน้อย 1 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (this.remainingAmount < 0) {
+                Swal.fire({
+                    text: 'จำนวนเงินไม่เพียงพอ',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                this.disable = false;
+                return;
+            }
+
+            if (this.totalPlayerCount != 11) {
+                Swal.fire({
+                    text: 'กรุณาเลือกนักเตะให้ครบ 11 คน',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+                return;
+            }
+
+            if (!this.checkHasCaptan()) {
+                Swal.fire({
+                    text: 'กรุณาเลือกกับตันทีม',
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+
+                this.disable = false;
+                return;
+            }
+            
             try {
                 const access_token = localStorage.getItem('access_token');
-                const response = await api.put('/premier-league/v1/game-week-player-user-detail-edit', {
-                    old_player_id: this.detailPlayer.player_id,
-                    new_player_id: player.player_id,
+                const response = await api.put('/premier-league/v1/game-week-player-user-detail-edit-new', {
+                    is_captan: this.is_captan,
+                    getGKP: this.getGKP,
+                    getDEF: this.getDEF,
+                    getMID: this.getMID,
+                    getFWD: this.getFWD,
                     game_main_id: this.getMain.id,
-                    game_id: this.detailPlayer.id,
                     type: this.type,
                 }, {
                     headers: {
@@ -665,7 +744,7 @@ export default {
                         buttonsStyling: false,
                     });
 
-                    this.fetchGameWeekDetail();
+                  
                 }
             } catch (error) {
                 console.log(error);
@@ -704,7 +783,8 @@ export default {
                 ...this.getMID,
                 ...this.getFWD,
             ];
-            const isCaptainValid = allPlayers.some(player => player.id === this.isCaptain);
+
+            const isCaptainValid = allPlayers.some(player => player.player_id === this.is_captan);
             return isCaptainValid;
         },
         async fetchDataTeams() {
@@ -812,6 +892,23 @@ export default {
                 console.log(error);
             }
         },
+        resetTeamEdit(){
+            this.getGKP = [];
+            this.getDEF = [];
+            this.getMID = [];
+            this.getFWD = [];
+            this.getMain = null;
+            this.is_captan = null;
+            this.players = [];
+            this.position = null;
+            this.delGKP = [];
+            this.delDEF = [];
+            this.delMID = [];
+            this.delFWD = [];
+            this.delAllIds = [];
+            this.detailPlayer = null;
+            this.fetchGameWeekDetail()
+        }
 
 
 
