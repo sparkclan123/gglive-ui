@@ -133,7 +133,7 @@ export default {
             datas: [],
             total: 0,
             page: 1,
-            limit: 30,
+            limit: 100,
             pages: 1,
             gameWeekID: this.$route.params.gameWeekID,
             isNavigating: false
@@ -153,7 +153,7 @@ export default {
                 }, 1000);
             }
         },
-        async facthPlayerListGameWeek(page = 1, limit = 30) {
+        async facthPlayerListGameWeek(page = 1, limit = 100) {
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.get(`/premier-league/v1/result-gameweek/${this.gameWeekID}`, {

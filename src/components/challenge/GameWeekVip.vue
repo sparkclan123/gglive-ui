@@ -124,7 +124,7 @@ export default {
             datas: [],
             total: 0,
             page: 1,
-            limit: 30,
+            limit: 100,
             pages: 1,
         };
     },
@@ -133,7 +133,7 @@ export default {
         rewardDetail() {
             this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "VIP" } });
         },
-        async facthPlayerListGameWeek(page = 1, limit = 30) {
+        async facthPlayerListGameWeek(page = 1, limit = 100) {
             this.showCommingSoon = false;
             try {
                 this.$emit('set-loading', true);
@@ -199,7 +199,7 @@ export default {
                         });
                         return;
                     }
-                    
+
                     if (timeEnd >= timeNow && user_id != this.userinfo.UserID) {
                         Swal.fire({
 

@@ -68,7 +68,7 @@ export default {
             datas: [],
             total: 0,
             page: 1,
-            limit: 20,
+            limit: 50,
             pages: 1,
         };
     },
@@ -81,7 +81,7 @@ export default {
         edit_new(id) {
             this.$router.push({ name: 'pitch-detail-edit-new', params: { id: id, type: "N" } });
         },
-        async fetchDataMyGameWeek(page = 1, limit = 20) {
+        async fetchDataMyGameWeek(page = 1, limit = 50) {
             try {
                 this.$emit('set-loading', true);
                 const access_token = localStorage.getItem('access_token');
