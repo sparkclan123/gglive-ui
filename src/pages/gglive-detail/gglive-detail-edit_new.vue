@@ -812,7 +812,7 @@ export default {
                         },
                         buttonsStyling: false,
                     });
-
+                    this.clearData();
 
                 }
             } catch (error) {
@@ -982,6 +982,10 @@ export default {
                 return;
             }
 
+            this.clearData();
+        },
+
+        clearData(){
             this.getGKP = [];
             this.getDEF = [];
             this.getMID = [];
