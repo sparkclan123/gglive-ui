@@ -185,11 +185,21 @@ export default {
                         'Authorization': `Bearer ${access_token}`
                     },
                 });
-                console.log(response.data.ok);
+               
                 if (response.data.ok) {
                     const timeNow = new Date(response.data.date_now);
                     const timeEnd = new Date(this.gameWeek.end_date);
 
+                    if (this.userinfo.UserID === 104){
+                        this.$router.push({
+                            name: 'challenge-detail-n',
+                            params: {
+                                id: id
+                            }
+                        });
+                        return;
+                    }
+                    
                     if (timeEnd >= timeNow && user_id != this.userinfo.UserID) {
                         Swal.fire({
 
