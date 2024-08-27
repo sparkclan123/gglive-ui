@@ -152,7 +152,7 @@
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
-                                        <svg v-if="MID.id " @click.stop="removePlayerC(MID)"
+                                        <svg v-if="MID.id" @click.stop="removePlayerC(MID)"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
                                             class="captain-badge-close">
                                             <path fill="#F94646"
@@ -212,6 +212,35 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="flex flex-col items-center" style="min-height: 100dvh;">
+                    <div class="flex justify-center w-full mt-2">
+                        <span class="mt-1 font-semibold text-gray-600">GameWeek {{ getGameWeek.week }}</span>
+                    </div>
+                    <div class="match-group w-full flex-grow flex items-center justify-center"
+                        v-if="Object.keys(groupedMatches).length === 0">
+                        <span class="text-gray-500">รอโปรแกรม</span>
+                    </div>
+                    <div class="match-group w-full flex-grow" v-else>
+                        <div class="date" v-for="(matches, date) in groupedMatches" :key="date">
+                            {{ formatDate(date) }}
+                            <div class="match-results">
+                                <div class="match shadow-lg" v-for="match in matches" :key="match.id">
+                                    <div class="team-info">
+                                        <div class="team-name">{{ match.team1 }}</div>
+                                        <div class="score">{{ match.score1 }}</div>
+                                    </div>
+                                    <div class="separator"></div>
+                                    <div class="team-info">
+                                        <div class="team-name">{{ match.team2 }}</div>
+                                        <div class="score">{{ match.score2 }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- page 2 -->
             <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 max-h-fit !overflow-y-hidden">
@@ -266,13 +295,39 @@ export default {
             nameteam: '',
             amount: 80.0,
             disable: false,
+            matches: [],
         }
     },
     methods: {
         ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
         ...mapActions('alert', ['addNotification']),
         ...mapActions('ticket', ['facthTicket']),
-
+        async fetchMatches() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get(`/premier-league/v1/result-game-week/${this.$route.params.gameWeekID}`, {
+                    headers: { Authorization: `Bearer ${access_token}` }
+                });
+                if (response.data.ok) {
+                    this.matches = response.data.matches.map(match => ({
+                        id: match.ID,
+                        date: match.DateVs,
+                        team1: match.Team1Name,
+                        score1: match.Score1,
+                        score2: match.Score2,
+                        team2: match.Team2Name,
+                        alt_ids_opta_1: match.Team1Code,
+                        alt_ids_opta_2: match.Team2Code
+                    }));
+                }
+            } catch (error) {
+                console.error('Error fetching matches:', error);
+            }
+        },
+        formatDate(date) {
+            const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(date).toLocaleDateString('en-GB', options);
+        },
         alertPositionfull() {
             Swal.fire({
                 text: 'ไม่สามารถเลือกตำเเหน่งซ้ำกันได้',
@@ -669,6 +724,16 @@ export default {
     computed: {
         ...mapGetters('GameWeek', ['getGameWeek']),
         ...mapGetters('playerSelect', ['getGKP', 'getDEF', 'getMID', 'getFWD']),
+        groupedMatches() {
+            return this.matches.reduce((groups, match) => {
+                const date = match.date;
+                if (!groups[date]) {
+                    groups[date] = [];
+                }
+                groups[date].push(match);
+                return groups;
+            }, {});
+        },
         totalPlayerCount() {
             try {
                 const allPlayers = [...this.getGKP, ...this.getDEF, ...this.getMID, ...this.getFWD];
@@ -688,13 +753,76 @@ export default {
             return (this.amount - this.totalPrice).toFixed(2);
         }
     },
+
     created() {
+        this.fetchMatches();
         this.updateFormation();
     }
 }
 </script>
 
 <style scoped>
+.separator {
+    width: 90%;
+    height: 1px;
+    background-color: #8e8d8d; /* สีของเส้นขั้น */
+    margin: 1px 0; /* ระยะห่างระหว่างเส้นและเนื้อหา */
+}
+.match-group {
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.date {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+    color: #1e1036;
+    width: 100%;
+}
+
+.match-results {
+    text-align: left;
+
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.match {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px 5px 10px;
+    margin: 2px 0;
+    background-color: #1e1036;
+    border-radius: 10px;
+    position: relative;
+}
+
+.team-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.team-name {
+    font-size: 0.7rem;
+    color: #FFFFFF;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.score {
+    padding: 0px 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: right;
+}
+
+
 .alert-container {
     height: 27px;
     /* กำหนดความสูงคงที่สำหรับช่องที่แสดงข้อความ */

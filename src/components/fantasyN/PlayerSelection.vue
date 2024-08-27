@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex flex-col ">
         <div
             class="player-selection bg-color-2 p-4 shadow-lg h-full overflow-y-auto text-gray-200 mt-2 mb-4 rounded-lg shadow-xl">
             <div class="flex flex-wrap gap-4 mb-4 ">
@@ -139,7 +139,7 @@ export default {
         return {
             is_check_player: true,
             currentPage: 1,
-            playersPerPage: 10,
+            playersPerPage: 25,
             selectedTeam: 'view',
             selectedPosition: this.position == 'all' ? '' : this.position,
             sortBy: 'total_points',
@@ -267,6 +267,7 @@ export default {
             }
         },
         handlePageChange(page) {
+            window.scrollTo(0, 50);
             this.currentPage = page;
         },
         getPositionKey(position) {
