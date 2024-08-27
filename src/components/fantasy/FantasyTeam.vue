@@ -236,6 +236,8 @@ export default {
     methods: {
         ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
         ...mapActions('alert', ['addNotification']),
+        ...mapActions('ticket', ['facthTicket']),
+        
         alertPositionfull() {
             Swal.fire({
                 text: 'ไม่สามารถเลือกตำเเหน่งซ้ำกันได้',
@@ -385,6 +387,7 @@ export default {
             return isCaptainValid;
         },
         async saveTeam() {
+
             if (this.getGameWeek.status != "active") {
                 this.addNotification({ type: 'error', message: 'เกมวีคไม่สามารถบันทึกได้' });
                 return;

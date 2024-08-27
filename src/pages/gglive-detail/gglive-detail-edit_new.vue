@@ -32,8 +32,17 @@
                             <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม
                                 <DateFormatted :dateString="getMain.created_at" />
                             </span>
-                            <button class="btn btn-primary" @click="saveTeamEdit">เเก้ไขทีม</button>
-                            <button class="btn btn-primary" @click="resetTeamEdit">ย้อนหลับ</button>
+
+                            <button
+                                class="text-gray-200 bg-green-700 font-bold text-[11px] px-2 py-1 rounded-full shadow-lg hover:bg-green-500 cursor-pointer m-2"
+                                @click.stop="saveTeamEdit">
+                                บันทึกเเก้ไขทีม
+                            </button>
+                            <button
+                                class="text-gray-200 bg-yellow-700 font-bold text-[11px] px-2 py-1 rounded-full shadow-lg hover:bg-yellow-500 cursor-pointer"
+                                @click.stop="resetTeamEdit">
+                                รีเซ็ต
+                            </button>
 
                         </div>
 
@@ -450,7 +459,7 @@ export default {
             if (player.position === 'F') {
                 for (let i = 0; i < this.getFWD.length; i++) {
                     let p = this.getFWD[i];
-                   
+
 
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
@@ -478,7 +487,7 @@ export default {
             if (player.position === 'M') {
                 for (let i = 0; i < this.getMID.length; i++) {
                     let p = this.getMID[i];
-                    
+
                     if (p.remove || this.detailPlayer && p.player_id === this.detailPlayer.player_id) {
                         p.player_id = player.player_id;
                         p.name = player.name;
@@ -711,11 +720,30 @@ export default {
                 this.disable = false;
                 return;
             }
-            
+
+            let confirm = await Swal.fire({
+                text: 'ยืนยันการเปลี่ยนนักเตะ',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ยืนยัน',
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    confirmButton: 'btn-confirm',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+
+            if (!confirm.isConfirmed) {
+                return;
+            }
+
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.put('/premier-league/v1/game-week-player-user-detail-edit-new', {
-                    is_captan: this.is_captan,
+                    is_captain: this.is_captan,
                     getGKP: this.getGKP,
                     getDEF: this.getDEF,
                     getMID: this.getMID,
@@ -744,7 +772,7 @@ export default {
                         buttonsStyling: false,
                     });
 
-                  
+
                 }
             } catch (error) {
                 console.log(error);
@@ -892,7 +920,27 @@ export default {
                 console.log(error);
             }
         },
-        resetTeamEdit(){
+        async resetTeamEdit() {
+
+            let confirm = await Swal.fire({
+                text: 'ยืนยันการรีเซ็ตทีม',
+                showCancelButton: true,
+                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ยืนยัน',
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    confirmButton: 'btn-confirm',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+
+            if (!confirm.isConfirmed) {
+                return;
+            }
+
             this.getGKP = [];
             this.getDEF = [];
             this.getMID = [];
@@ -1074,13 +1122,9 @@ export default {
 .captain-badge-close {
     position: absolute;
     top: 0;
-    /* อยู่มุมบนของรูปภาพ */
-    left: -15px;
-    /* อยู่มุมบนขวาของรูปภาพ */
+    left: -5px;
     background-color: rgb(144, 25, 25);
-    /* พื้นหลังของคำว่า "C" */
     color: rgb(255, 251, 251);
-    /* สีตัวอักษร */
     border-radius: 50%;
     width: 15px;
     height: 15px;
@@ -1088,10 +1132,9 @@ export default {
     align-items: center;
     justify-content: center;
     font-size: 8px;
-    /* ขนาดตัวอักษร */
     font-weight: bold;
-    transform: translate(50%, -50%);
-    /* เลื่อนป้ายให้เข้ามุม */
+    transform: translate(-50%, -50%);
+    /* ปรับจาก 50%, -50% เป็น -50%, -50% */
 }
 
 .circle-img {
