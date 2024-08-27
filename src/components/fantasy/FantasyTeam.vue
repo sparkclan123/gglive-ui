@@ -79,8 +79,19 @@
                                         <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
-                                        <span v-if="GKP.id" class="captain-badge-close"
-                                            @click.stop="removePlayerC(GKP)">x</span>
+
+                                        <svg v-if="GKP.id" @click.stop="removePlayerC(GKP)"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                            class="captain-badge-close">
+                                            <path fill="#F94646"
+                                                d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                            </path>
+                                            <path fill="#E2E2E2"
+                                                d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                            </path>
+                                        </svg>
+
+
                                     </picture>
                                     <div class=" gTayAP" v-if="GKP.id === null">
                                         <div class="gvQQRY "
@@ -106,8 +117,16 @@
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
-                                        <span v-if="DEF.id" class="captain-badge-close"
-                                            @click.stop="removePlayerC(DEF)">x</span>
+                                        <svg v-if="DEF.id" @click.stop="removePlayerC(DEF)"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                            class="captain-badge-close">
+                                            <path fill="#F94646"
+                                                d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                            </path>
+                                            <path fill="#E2E2E2"
+                                                d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                            </path>
+                                        </svg>
                                     </picture>
                                     <div class=" gTayAP" v-if="DEF.id === null">
                                         <div class="gvQQRY "
@@ -133,8 +152,16 @@
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
-                                        <span v-if="MID.id" class="captain-badge-close"
-                                            @click.stop="removePlayerC(MID)">x</span>
+                                        <svg v-if="MID.id " @click.stop="removePlayerC(MID)"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                            class="captain-badge-close">
+                                            <path fill="#F94646"
+                                                d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                            </path>
+                                            <path fill="#E2E2E2"
+                                                d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                            </path>
+                                        </svg>
                                     </picture>
                                     <div class=" gTayAP" v-if="MID.id === null">
                                         <div class="gvQQRY "
@@ -159,8 +186,16 @@
                                         <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="FWD.id == isCaptain" class="captain-badge">C</span>
-                                        <span v-if="FWD.id" class="captain-badge-close"
-                                            @click.stop="removePlayerC(FWD)">x</span>
+                                        <svg v-if="FWD.id" @click.stop="removePlayerC(FWD)"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                            class="captain-badge-close">
+                                            <path fill="#F94646"
+                                                d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                            </path>
+                                            <path fill="#E2E2E2"
+                                                d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                            </path>
+                                        </svg>
                                     </picture>
                                     <div class=" gTayAP" v-if="FWD.id === null">
                                         <div class="gvQQRY "
@@ -237,7 +272,7 @@ export default {
         ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
         ...mapActions('alert', ['addNotification']),
         ...mapActions('ticket', ['facthTicket']),
-        
+
         alertPositionfull() {
             Swal.fire({
                 text: 'ไม่สามารถเลือกตำเเหน่งซ้ำกันได้',
@@ -754,7 +789,6 @@ export default {
     /* อยู่มุมบนของรูปภาพ */
     left: -15px;
     /* อยู่มุมบนขวาของรูปภาพ */
-    background-color: rgb(144, 25, 25);
     /* พื้นหลังของคำว่า "C" */
     color: rgb(255, 251, 251);
     /* สีตัวอักษร */

@@ -68,8 +68,18 @@
                                             <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="GKP.player_id == is_captan" class="captain-badge">C</span>
-                                            <span v-if="GKP.player_id && !GKP.remove" class="captain-badge-close"
-                                                @click.stop="removePlayer(GKP)">x</span>
+
+                                            <svg v-if="GKP.player_id && !GKP.remove" @click.stop="removePlayer(GKP)"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                                class="captain-badge-close">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                            </svg>
+
                                             <span @click.stop="revestPlayer(GKP)" v-if="GKP.player_id && GKP.remove"
                                                 class="captain-badge-close"
                                                 style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
@@ -101,8 +111,19 @@
                                             <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="DEF.player_id == is_captan" class="captain-badge">C</span>
-                                            <span v-if="DEF.player_id && !DEF.remove" class="captain-badge-close"
-                                                @click.stop="removePlayer(DEF)">x</span>
+
+                                            <svg v-if="DEF.player_id && !DEF.remove" @click.stop="removePlayer(DEF)"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                                class="captain-badge-close">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                            </svg>
+
+
                                             <span @click.stop="revestPlayer(DEF)" v-if="DEF.player_id && DEF.remove"
                                                 class="captain-badge-close"
                                                 style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
@@ -134,8 +155,18 @@
                                             <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="MID.player_id == is_captan" class="captain-badge">C</span>
-                                            <span v-if="MID.player_id && !MID.remove" class="captain-badge-close"
-                                                @click.stop="removePlayer(MID)">x</span>
+
+
+                                            <svg v-if="MID.player_id && !MID.remove" @click.stop="removePlayer(MID)"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                                class="captain-badge-close">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                            </svg>
                                             <span @click.stop="revestPlayer(MID)" v-if="MID.player_id && MID.remove"
                                                 class="captain-badge-close"
                                                 style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
@@ -166,8 +197,18 @@
                                             <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="FWD.player_id == is_captan" class="captain-badge">C</span>
-                                            <span @click.stop="removePlayer(FWD)" v-if="FWD.player_id && !FWD.remove"
-                                                class="captain-badge-close">x</span>
+
+                                            <svg v-if="FWD.player_id && !FWD.remove" @click.stop="removePlayer(FWD)"
+                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                                class="captain-badge-close">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                            </svg>
+
                                             <span @click.stop="revestPlayer(FWD)" v-if="FWD.player_id && FWD.remove"
                                                 class="captain-badge-close"
                                                 style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
@@ -437,7 +478,7 @@ export default {
 
             const filterSelectPlayer = totalPlayersInTeam.filter(p => p.player_id !== player.player_id);
 
-            const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code).length;
+            const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code && !p.remove).length;
 
             if (totalPlayerNewfilter >= 3) {
                 Swal.fire({
@@ -1123,11 +1164,10 @@ export default {
     position: absolute;
     top: 0;
     left: -5px;
-    background-color: rgb(144, 25, 25);
     color: rgb(255, 251, 251);
     border-radius: 50%;
-    width: 15px;
-    height: 15px;
+    width: 17px;
+    height: 17px;
     display: flex;
     align-items: center;
     justify-content: center;
