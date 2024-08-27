@@ -13,6 +13,7 @@
                             <div class="team-name">{{ match.team1 }}</div>
                             <div class="score">{{ match.score1 }}</div>
                         </div>
+                        <div class="separator"></div>
                         <div class="team-info">
                             <div class="team-name">{{ match.team2 }}</div>
                             <div class="score">{{ match.score2 }}</div>
@@ -71,6 +72,12 @@ export default {
 </script>
 
 <style scoped>
+.separator {
+    width: 90%;
+    height: 1px;
+    background-color: #8e8d8d; /* สีของเส้นขั้น */
+    margin: 1px 0; /* ระยะห่างระหว่างเส้นและเนื้อหา */
+}
 .match-group {
     margin-bottom: 5px;
     width: 100%;
