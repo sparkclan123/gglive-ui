@@ -192,7 +192,7 @@ export default {
 
                     if (this.userinfo.UserID === 104){
                         this.$router.push({
-                            name: 'challenge-detail-n',
+                            name: 'challenge-detail',
                             params: {
                                 id: id
                             }
