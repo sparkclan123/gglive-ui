@@ -112,7 +112,7 @@ export default {
       myTeam: 0,
       currentTime: null,
       is_time_up: false,
-      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/vdo-pudeeVIP-ezgif.com-video-to-webp-converter.webp",
+      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp",
     };
   },
   methods: {
@@ -123,7 +123,7 @@ export default {
     resetWebP() {
       this.webpSrc = "";
       this.$nextTick(() => {
-        this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/vdo-pudeeVIP-ezgif.com-video-to-webp-converter.webp?${new Date().getTime()}`;
+        this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp?${new Date().getTime()}`;
       });
     },
     handleVideoEnd() {
@@ -276,7 +276,8 @@ export default {
 .card {
 
   border-radius: 20px;
-  background: #1e1037;
+  background: #470101;
+  /* background: #1e1037; */
   padding: 5px;
   overflow: hidden;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
