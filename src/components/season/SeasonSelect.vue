@@ -233,7 +233,7 @@ export default {
 .card {
 
   border-radius: 20px;
-  background: #470101;
+  background: #1e1037;
   /* 1e1037 */
   padding: 5px;
   overflow: hidden;

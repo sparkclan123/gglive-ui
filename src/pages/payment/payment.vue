@@ -36,7 +36,7 @@
                 <h2 class="mb-2 text-gray-800 font-semibold">กรุณาโอนเงินตามจำนวน
                     <Numberformat :value="sumValue" :decimal="2" />
                 </h2>
-                <span class="text-xs mb-2 text-red-800 font-semibold">*สามารถคัดลอกเลขบันชี เเทนการเเสกน qr ได้</span>
+                <span class="text-xs mb-2 text-red-800 font-semibold">*สามารถคัดลอกเลขบัญชี เเทนการเเสกน qr ได้</span>
                 <div class="mb-2 text-gray-800 font-semibold">
                     <div class="flex justify-between">
                         <img src="/public/assets/kbank.jpg"
@@ -64,7 +64,7 @@
                     <label for="upload_slip" class="flex items-center justify-center cursor-pointer">
                         <div class="cssbuttons-io-button flex items-center">
 
-                            <span>อัฟโหลด สลิป</span>
+                            <span>อัพโหลด สลิป</span>
                         </div>
                     </label>
                 </div>
@@ -78,7 +78,7 @@
                 </div>
             </div>
             <span class="text-xs mb-2 text-red-800 font-semibold">*เวลาทำการในการปรับยอดตั๋ว <span
-                    class="text-green-700">06:00(เช้า)-23:59</span>
+                    class="text-green-700">07:00(เช้า)-23:59</span>
                 หากมีการบันทึกก่อนหรือหลังเวลาทำการทางเราจะดำเนินการให้ภายในเวลาทำการถัดไปครับ</span><br>
             <span class="text-xs mb-2 text-red-800 font-semibold">*สอบถามข้อมูลเพิ่มเติม LINE <span
                     class="text-green-700">@pudee</span> </span>
