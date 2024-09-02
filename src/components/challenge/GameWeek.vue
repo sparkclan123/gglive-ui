@@ -77,7 +77,7 @@
                                     <!-- รูปโปรไฟล์หลัก -->
                                     <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
                                         alt="userimage"
-                                        class=" rounded-full w-8 h-8 rounded-lg border border-blue-gray-50  object-contain">
+                                        class="  w-8 h-8  border border-blue-gray-50  object-contain">
 
                                     <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
                                     <img v-if="data.rank_p != ''"
