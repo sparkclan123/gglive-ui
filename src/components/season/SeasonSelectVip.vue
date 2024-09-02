@@ -91,8 +91,7 @@
   <div v-else class="group duration-500  ">
     <div
       class=" relative rounded-2xl  h-36   bg-gradient-to-r from-zinc-900 to-zinc-700  text-gray-50 flex flex-col justify-center items-center gap-1 before:-skew-x-12  before:rounded-2xl  before:absolute before:content['']  before:bg-neutral-700 before:right-3 before:top-0 before:w-72 before:h-32 before:-z-10">
-      <span class="text-3xl font-bold">Comming Soon</span>
-      <p class="text-amber-300 font-thin">- new game week -</p>
+      <img :src="commingSoon" class="video-banner2" alt="Animated Banner"/>
     </div>
   </div>
 </template>
@@ -113,6 +112,7 @@ export default {
       currentTime: null,
       is_time_up: false,
       webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp",
+      commingSoon:"https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
     };
   },
   methods: {
@@ -124,6 +124,12 @@ export default {
       this.webpSrc = "";
       this.$nextTick(() => {
         this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp?${new Date().getTime()}`;
+      });
+    },
+    resetWebPs() {
+      this.commingSoon = "";
+      this.$nextTick(() => {
+        this.commingSoon = `https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp?${new Date().getTime()}`;
       });
     },
     handleVideoEnd() {
@@ -235,6 +241,7 @@ export default {
   },
   mounted() {
     this.resetWebP();
+    this.resetWebPs();
     setTimeout(() => {
       this.showConfetti = false;
     }, 5000);
@@ -332,6 +339,18 @@ export default {
 
 }
 
+.video-banner2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+
+  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
+  /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
+}
 
 .card .top-section .border {
   border-bottom-right-radius: 10px;
