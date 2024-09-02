@@ -97,7 +97,7 @@
                                         <!-- รูปโปรไฟล์หลัก -->
                                         <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
                                             alt="userimage"
-                                            class="  w-8 h-8  border border-blue-gray-50  object-contain">
+                                            class="  w-8 h-8  border-2 border-white  object-contain">
 
                                         <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
                                         <img v-if="data.rank_p != ''"
