@@ -94,13 +94,14 @@
                                 <div class="flex items-center gap-3">
                                     <div class="relative inline-block w-8 h-8">
                                         <!-- รูปโปรไฟล์หลัก -->
+                                     
                                         <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
                                             alt="userimage"
                                             class=" rounded-full w-8 h-8 rounded-lg border border-blue-gray-50  object-contain">
 
                                         <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
                                         <img v-if="data.rank_p != ''"
-                                            :src="'/public/assets/rank_frame/' + data.rank_p + '.png'" alt="rankframe"
+                                            :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'" alt="rankframe"
                                             class="absolute inset-0 w-full h-full object-contain">
                                     </div>
                                     <p

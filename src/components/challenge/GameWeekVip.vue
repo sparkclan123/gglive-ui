@@ -83,7 +83,7 @@
 
                                     <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
                                     <img v-if="data.rank_p != ''"
-                                        :src="'/public/assets/rank_frame/' + data.rank_p + '.png'" alt="rankframe"
+                                        :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'" alt="rankframe"
                                         class="absolute inset-0 w-full h-full object-contain">
                                 </div>
                                 <p
