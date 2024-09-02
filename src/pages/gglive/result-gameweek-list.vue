@@ -55,7 +55,8 @@
                 <table class="w-full min-w-max table-auto text-left">
                     <thead>
                         <tr>
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-1 text-center font-normal opacity-7 text-xs">
+                            <th
+                                class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-1 text-center font-normal opacity-7 text-xs">
                                 #
                             </th>
                             <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
@@ -81,7 +82,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(data,i) in datas" :key="i" :class="data.user_id == userinfo.UserID ? 'bg-blue-100' : ''">
+                        <tr v-for="(data, i) in datas" :key="i"
+                            :class="data.user_id == userinfo.UserID ? 'bg-blue-100' : ''">
                             <td class="p-0 border-b border-blue-gray-50 text-center">
                                 <p
                                     class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal opacity-70">
@@ -91,9 +93,17 @@
                             <td class="p-1 border-b border-blue-gray-50 cursor-pointer"
                                 @click="seeDetail(data.id, data.user_id)">
                                 <div class="flex items-center gap-3">
-                                    <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
-                                        alt="userimage"
-                                        class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
+                                    <div class="relative inline-block w-8 h-8">
+                                        <!-- รูปโปรไฟล์หลัก -->
+                                        <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
+                                            alt="userimage"
+                                            class=" rounded-full w-8 h-8 rounded-lg border border-blue-gray-50  object-contain">
+
+                                        <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
+                                        <img v-if="data.rank_p != ''"
+                                            :src="'/public/assets/rank_frame/' + data.rank_p + '.png'" alt="rankframe"
+                                            class="absolute inset-0 w-full h-full object-contain">
+                                    </div>
                                     <p
                                         class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
                                         {{ data.name }}</p>
