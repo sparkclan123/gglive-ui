@@ -84,10 +84,11 @@
   </div>
   <div v-else class="group duration-500  ">
     <div
-      class=" relative rounded-2xl  h-36   bg-gradient-to-r from-zinc-900 to-zinc-700  text-gray-50 flex flex-col justify-center items-center gap-1 before:-skew-x-12  before:rounded-2xl  before:absolute before:content['']  before:bg-neutral-700 before:right-3 before:top-0 before:w-72 before:h-32 before:-z-10">
-      <img :src="commingSoon" class="video-banner2" alt="Animated Banner"/>
+      class="flex justify-center">
+      <img :src="commingSoon" class="video-banner2" alt="Animated Banner" />
     </div>
   </div>
+
 </template>
 
 <script>
@@ -105,7 +106,7 @@ export default {
       currentTime: null,
       is_time_up: false,
       webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp",
-      commingSoon:"https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
+      commingSoon: "https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
       // webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/vdo-pudeeFREE-ezgif.com-video-to-webp-converter.webp",
     };
   },
@@ -198,7 +199,7 @@ export default {
   mounted() {
     this.resetWebP();
     this.resetWebPs();
-    
+
     setTimeout(() => {
       this.showConfetti = false;
     }, 5000);
@@ -271,16 +272,12 @@ export default {
 }
 
 .video-banner2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 5px;
 
+
+  border-radius: 5px;
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
   /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
+
 }
 
 @media (min-width: 410px) {

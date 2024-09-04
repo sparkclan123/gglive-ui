@@ -1,19 +1,19 @@
 <template>
-    <div class="min-h-screen bg-gradient-to-r rounded-xl  from-purple-950 to-purple-900 text-white p-2">
+    <div class="min-h-screen rounded-xl bg-cover bg-center text-white p-2"
+        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');">
         <!-- Header -->
         <div class="p-4 text-center rounded-lg">
-            <h1 class="text-2xl  font-bold colot-h inline-block pb-1">
+            <h1 class="text-2xl font-bold colot-h inline-block pb-1">
                 <span class="text-gray-200">PuDee Challenge</span>
             </h1>
         </div>
 
-
         <!-- Tabs -->
-        <div class="tabs rounded-t-lg   flex">
+        <div class="tabs rounded-t-lg flex">
             <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
-                
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
+                เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">กติกา</div>
         </div>
@@ -25,9 +25,19 @@
             <!-- Tab Content -->
             <div v-if="activeTab === 'tab1'">
                 <SeasonSelect />
+                <div class="mt-5 flex justify-center">
+                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                </div>
+
+
             </div>
             <div v-if="activeTab === 'tab2'">
                 <SeasonSelectVip />
+                <div class="mt-5 flex justify-center">
+                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                </div>
+
+
             </div>
             <div v-if="activeTab === 'tab3'">
                 <!-- Content for Tab 3 -->
@@ -42,6 +52,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SeasonSelect from '../../components/season/SeasonSelect.vue';
 import SeasonSelectVip from '../../components/season/SeasonSelectVip.vue';
 import Rule from '../../components/rule/rule.vue';
+import Swal from 'sweetalert2';
 export default {
     name: 'Season',
     components: {
@@ -51,46 +62,61 @@ export default {
     },
     data() {
         return {
-            activeTab: 'tab1' // Default active tab
+            activeTab: 'tab1', // Default active tab
+            activity: 'https://pudee.sgp1.digitaloceanspaces.com/activity2.webp'
         };
     },
     methods: {
-        // ...mapActions('loading', ['updateLoading']),
-        // ...mapActions('season', ['fetchSeasons']),
+        clickactivity() {
+            Swal.fire({
+                title: 'กิจกรรม',
+                text: 'กิจกรรม จะเริ่มเร็วๆนี้ จะมีการประกาศล่วงหน้า',
+                confirmButtonText: 'ตกลง',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+            return;
+        },
         SetactiveTab(tab) {
             this.activeTab = tab;
             localStorage.setItem('season-select-tab', tab);
         },
-        ruleSeasonChallenge() {
-            // Implement your logic here
+        resetWebPs() {
+            this.activity = "";
+            this.$nextTick(() => {
+                this.activity = `https://pudee.sgp1.digitaloceanspaces.com/activity2.webp?${new Date().getTime()}`;
+            });
         },
-        // async getSeason() {
-        //     try {
-        //         await this.fetchSeasons();
-        //         this.updateLoading(false);
-        //     } catch (error) {
-        //         this.updateLoading(false);
-        //     }
-        // }
     },
-    computed: {
-        // ...mapGetters('season', ['getSeasons'])
+    mounted() {
+        this.resetWebPs();
     },
     created() {
+
         let has_result_tab = localStorage.getItem('season-select-tab');
         if (has_result_tab) {
             this.activeTab = has_result_tab;
         }
-        // this.updateLoading(true);
-        // this.getSeason();
     }
 };
 </script>
+
 <style scoped>
+.video-banner2 {
+
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
+    /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
+}
+
 .colot-h {
     color: #1e1037;
 }
-
 
 .tabs {
     display: flex;
@@ -104,7 +130,6 @@ export default {
     background-color: #37003c;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-
 }
 
 .tab-item.active {
@@ -116,5 +141,13 @@ export default {
 
 .no-top-left-radius {
     border-top-left-radius: 0;
+}
+
+.bg-cover {
+    background-size: cover;
+}
+
+.bg-center {
+    background-position: center;
 }
 </style>

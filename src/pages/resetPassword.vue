@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div  style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp'); background-size: cover; background-position: center; min-height: 100vh;">
         <div v-show="loading">
             <LodingSceen style="display: flex; justify-content: space-around;" />
         </div>

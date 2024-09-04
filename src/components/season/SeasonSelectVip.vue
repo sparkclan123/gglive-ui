@@ -27,8 +27,7 @@
 
       <!-- <div class="top-section  bg-img cursor-pointer" @click="selectSeason()"> -->
       <div class="top-section cursor-pointer" @click="selectSeason()">
-        <img :src="webpSrc" class="video-banner"
-          alt="Animated Banner" />
+        <img :src="webpSrc" class="video-banner" alt="Animated Banner" />
 
         <div class="icons">
           <div class="logo shsojvp text-yellow-50" style="display: flex; align-items: center;">
@@ -89,9 +88,8 @@
 
   </div>
   <div v-else class="group duration-500  ">
-    <div
-      class=" relative rounded-2xl  h-36   bg-gradient-to-r from-zinc-900 to-zinc-700  text-gray-50 flex flex-col justify-center items-center gap-1 before:-skew-x-12  before:rounded-2xl  before:absolute before:content['']  before:bg-neutral-700 before:right-3 before:top-0 before:w-72 before:h-32 before:-z-10">
-      <img :src="commingSoon" class="video-banner2" alt="Animated Banner"/>
+    <div class="flex justify-center">
+      <img :src="commingSoon" class="video-banner2" alt="Animated Banner" />
     </div>
   </div>
 </template>
@@ -112,7 +110,7 @@ export default {
       currentTime: null,
       is_time_up: false,
       webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp",
-      commingSoon:"https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
+      commingSoon: "https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
     };
   },
   methods: {
@@ -340,16 +338,8 @@ export default {
 }
 
 .video-banner2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   border-radius: 5px;
-
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
-  /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
 }
 
 .card .top-section .border {
