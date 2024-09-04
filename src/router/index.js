@@ -20,7 +20,11 @@ import News from '../pages/gglive/news.vue';
 import Rule from '../pages/gglive/ruleweb.vue';
 import Payments from '../pages/payment/payment.vue';
 import Rank from '../pages/gglive/rank.vue';
+import ExchangeReward from '../pages/gglive/ExchangeReward.vue';
 import History from '../pages/gglive/history.vue';
+
+import Plinko from '../pages/gglive/plinko.vue';
+
 
 import SelfMatchDetail from '../pages/gglive/selfMatchDetail.vue';
 import SelfMatchDetailPick from '../pages/gglive/selfMatchDetailPickUp.vue';
@@ -178,11 +182,22 @@ const routes = [
                 component: News,
             },
             {
+                path: 'exchangereward',
+                name: 'exchangereward',
+                component: ExchangeReward,
+            },
+            
+            {
                 path: 'rule',
                 name: 'rule',
                 component: Rule,
             },
-
+            {
+                path: 'plinko',
+                name: 'plinko',
+                component: Plinko,
+            },
+            
             {
                 path: 'result',
                 name: 'result',
