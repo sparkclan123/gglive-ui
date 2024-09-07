@@ -1,17 +1,147 @@
 <template>
-    <div>
-        <div class="contant_style">
-            <div class="flex justify-center items-center h-64">
-                <span class="text-gray-400"> exchange reward</span>
+    <div >
+        <div class="tabs rounded-t-lg ml-3 text-white flex">
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เเลกของรางวัล
             </div>
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">กติกา</div>
+        </div>
+        <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container  ">
+            <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
+                <component :is="currentTabComponent" :key="activeTab" v-bind="currentTabProps"></component>
+            </transition>
         </div>
     </div>
 </template>
 
+<script>
+import Exchange from '../../components/exchangeReward/exchange.vue';
+import Rule from '../../components/exchangeReward/rule.vue';
+
+import { api } from '@axios_inst';
+import { mapActions } from 'vuex';
+
+export default {
+    name: 'challenge',
+    data() {
+        return {
+            activeTab: 'tab1',
+            resultData: { /* your data for Result component */ },
+            gameweekData: {
+                datas: [],
+                total: 0,
+                page: 1,
+                limit: 10,
+                pages: 1,
+            },
+            matches: []
+        };
+    },
+    components: {
+        Exchange,
+        Rule,
+    },
+    computed: {
+        currentTabComponent() {
+            switch (this.activeTab) {
+                case 'tab1':
+                    return 'Exchange';
+                case 'tab2':
+                    return 'Rule';
+                default:
+                    return 'Exchange';
+            }
+        },
+
+    },
+    methods: {
+        ...mapActions('loading', ['updateLoading']),
+        SetactiveTab(tab) {
+            this.activeTab = tab;
+            localStorage.setItem('result-tab', tab);
+        },
+        beforeEnter(el) {
+            el.style.transform = 'translateX(100%)';
+            el.style.opacity = 0;
+            requestAnimationFrame(() => {
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                el.style.transform = 'translateX(0)';
+                el.style.opacity = 1;
+            });
+        },
+        leave(el, done) {
+            el.style.transform = 'translateX(0)';
+            el.style.opacity = 1;
+            requestAnimationFrame(() => {
+                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                el.style.transform = 'translateX(-100%)';
+                el.style.opacity = 0;
+                setTimeout(done, 500);
+            });
+        },
+
+    },
+    created() {
+       
+        let has_result_tab = localStorage.getItem('exchange-tab');
+        if (has_result_tab) {
+            this.activeTab = has_result_tab;
+        }
+        
+    },
+};
+</script>
+
 <style scoped>
-.contant_style {
-    background-color: white;
-    border-radius: 10px;
-    padding: 5px;
+
+.bg-fixcolor-p {
+    background-color: #f6f6f8;
+}
+.tabs {
+    display: flex;
+    font-size: 0.7rem;
+}
+
+.tab-item {
+    margin-right: 3px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #37003c;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.tab-item.active {
+    background-color: #f6f6f8;
+    color: rgb(0, 0, 0);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.tab-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+    transition: all 0.3s ease;
+}
+
+.slide-enter, 
+.slide-leave-to {
+    opacity: 0;
+}
+
+.slide-enter {
+    transform: translateX(100%);
+}
+
+.slide-leave-active {
+    transform: translateX(-100%);
+}
+
+.slide-enter-to {
+    transform: translateX(0);
+    opacity: 1;
 }
 </style>

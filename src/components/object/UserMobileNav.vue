@@ -80,7 +80,7 @@
         </div>
         <ul class="menu-items">
           <li class="menu-item">
-            <a @click="sideMenu('plinko')" class="menu-link"> <i class="fa fa-star mr-2"></i> plinko</a>
+            <a @click="sideMenu('game')" class="menu-link"> <i class="fas fa-gamepad mr-2"></i> เกมเก็บคะเเนน</a>
           </li>
           <li class="menu-item">
             <a @click="sideMenu('exchangereward')" class="menu-link"> <i class="fa fa-star mr-2"></i> เเลกของรางวัล</a>

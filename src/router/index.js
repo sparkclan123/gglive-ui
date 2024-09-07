@@ -23,6 +23,8 @@ import Rank from '../pages/gglive/rank.vue';
 import ExchangeReward from '../pages/gglive/ExchangeReward.vue';
 import History from '../pages/gglive/history.vue';
 
+
+import Game from '../pages/game/index.vue';
 import Plinko from '../pages/gglive/plinko.vue';
 
 
@@ -192,9 +194,15 @@ const routes = [
                 name: 'rule',
                 component: Rule,
             },
+            
             {
-                path: 'plinko',
-                name: 'plinko',
+                path: 'game',
+                name: 'game',
+                component: Game,
+            },
+            {
+                path: 'game-00001',
+                name: 'game-00001',
                 component: Plinko,
             },
             
