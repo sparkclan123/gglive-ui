@@ -109,7 +109,7 @@ export default {
       myTeam: 0,
       currentTime: null,
       is_time_up: false,
-      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp",
+      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/banner_select.webp",
       commingSoon: "https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
     };
   },
@@ -121,7 +121,7 @@ export default {
     resetWebP() {
       this.webpSrc = "";
       this.$nextTick(() => {
-        this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/manvsliv.webp?${new Date().getTime()}`;
+        this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/banner_select.webp?${new Date().getTime()}`;
       });
     },
     resetWebPs() {
