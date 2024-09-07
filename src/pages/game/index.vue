@@ -3,8 +3,16 @@
         <div class="contant_style">
             <div class="flex justify-center w-full m-1 mt-1">
                 <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span
-                    class="mt-1 font-semibold text-gray-600">เกมเก็บคะเเนน</span>
+                    class="mt-1 font-semibold text-gray-600">เกมเก็บคะเเนน </span>
+                    
             </div>
+            <div class="flex justify-center w-full m-1 mt-1">
+              <span
+                    class="mt-1 font-semibold text-gray-600"> จำนวนรอบที่คุณมี {{ count }} รอบ </span>
+                    
+            </div>
+
+           
             <div class="flex flex-wrap justify-center gap-4 mb-4">
                 <div class="card relative bg-white rounded-lg overflow-hidden shadow-xl">
                     <!-- Red tag and heart icon -->
@@ -34,9 +42,18 @@
 
 <script>
 import Swal from 'sweetalert2';
+import { mapActions } from 'vuex';
+import { api } from '@axios_inst';
+
 export default {
     name: "game",
+    data() {
+        return {
+            count: 0,
+        };
+    },
     methods: {
+        ...mapActions('loading', ['updateLoading']),
         showRule() {
             Swal.fire({
                 title: '<span style="font-size: 18px;">กติกาเกมเก็บคะเเนน</span>', // ปรับขนาด font ของ title
@@ -66,8 +83,45 @@ export default {
             });
         },
         playGame(path) {
+            if (this.count <= 0) {
+                Swal.fire({
+                    text: 'จำนวนรอบไม่เพียงพอสำหรับการเก็บคะเเนน',
+                    icon: 'error',
+                    confirmButtonText: 'ตกลง',
+                    customClass: {
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                }).then(() => {
+                    this.$router.push({ name: 'my-team' });
+                });
+                return;
+            }
             this.$router.push({ name: path });
-        }
+        },
+        async getPoint() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.post('/premier-league/v1/get-free-row',{}, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    },
+                });
+                if (response.data.ok) {
+                    this.count = response.data.count;
+                }
+                this.updateLoading(false);
+            } catch (error) {
+                console.error("Error fetching point:", error);
+                this.updateLoading(false);
+            }
+        },
+    },
+    created() {
+        this.updateLoading(true);
+        this.getPoint();
     }
 };
 </script>

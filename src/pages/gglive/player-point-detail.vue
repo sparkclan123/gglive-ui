@@ -23,7 +23,7 @@
 import WeekPoint from '../../components/detailpoint/weekpoint.vue';
 import TablePoint from '../../components/detailpoint/tablePoint.vue';
 
-import { api } from '@axios_inst';
+
 import { mapActions } from 'vuex';
 
 export default {
