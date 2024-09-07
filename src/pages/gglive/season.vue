@@ -2,9 +2,9 @@
     <div class="min-h-screen rounded-xl bg-cover bg-center text-white p-2"
         style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');">
         <!-- Header -->
-        <div class="p-4 text-center rounded-lg">
-            <h1 class="text-2xl font-bold colot-h inline-block pb-1">
-                <span class="text-gray-200">PuDee Challenge</span>
+        <div class="p-1 text-center rounded-lg relative" > 
+            <h1 class="text-2xl font-bold inline-block pb-1" style="margin-top: -30px;width: 240px;margin-bottom: -10px;" >
+                <img src="https://pudee.sgp1.digitaloceanspaces.com/1.webp" class="logo-img" />
             </h1>
         </div>
 
