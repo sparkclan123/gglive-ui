@@ -19,14 +19,12 @@
             <span class="top">{{ minutes }}</span>
             <span class="bottom">นาที</span>
           </div>
-         
         </div>
         <div class="text-center">
           <div class="countdown-number">
             <span class="top">{{ seconds }}</span>
             <span class="bottom">วินาที</span>
           </div>
-         
         </div>
       </div>
     </div>
@@ -98,7 +96,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font: bold 2em 'Lato', sans-serif;
+  font-family: 'Orbitron', sans-serif;
+  font: bold 2em 'Orbitron', sans-serif;
 }
 
 .countdown-number .top,
@@ -117,8 +116,4 @@ export default {
   margin-bottom: 4px;
   font-size: 12px;
 }
-
-
-
-
 </style>
