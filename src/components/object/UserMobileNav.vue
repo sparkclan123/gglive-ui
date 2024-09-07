@@ -99,9 +99,9 @@
           <li class="menu-item">
             <a @click="sideMenu('setting')" class="menu-link cursor-pointer"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
           </li>
-          <li class="menu-item">
+          <!-- <li class="menu-item">
             <a @click="versionInfo" class="menu-link cursor-pointer"> <i class="fas fa-info mr-2"></i> version update</a>
-          </li>
+          </li> -->
           <li class="menu-item">
             <a @click="logout()" class="menu-link-red cursor-pointer"> <i class="fas fa-sign-out-alt mr-2"></i> logout</a>
           </li>
