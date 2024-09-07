@@ -2,13 +2,13 @@
     <div>
         <div class="contant_style">
             <div class="flex justify-center w-full m-1 mt-1">
-                <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span
+               <span
                     class="mt-1 font-semibold text-gray-600">เกมเก็บคะเเนน </span>
                     
             </div>
             <div class="flex justify-center w-full m-1 mt-1">
               <span
-                    class="mt-1 font-semibold text-gray-600"> จำนวนรอบที่คุณมี {{ count }} รอบ </span>
+                    class="mt-1 text-xs text-gray-600"> จำนวนรอบที่คุณมี {{ count }} รอบ </span>
                     
             </div>
 
