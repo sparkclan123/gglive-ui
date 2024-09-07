@@ -8,7 +8,7 @@
             <div class="flex flex-wrap justify-center gap-4 mb-4">
                 <div class="card relative bg-white rounded-lg overflow-hidden shadow-xl">
                     <!-- Red tag and heart icon -->
-         
+
 
                     <!-- ปุ่ม "กติกา" มุมขวาบน -->
                     <button @click="showRule"
@@ -21,7 +21,7 @@
                         src="https://pudee.sgp1.digitaloceanspaces.com/plinko.webp" alt="Card image">
 
                     <!-- Button with reduced font weight -->
-                    <button
+                    <button @click="playGame('game-00001')"
                         class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-white bg-opacity-30 text-white py-2 px-2 border border-white border-opacity-20 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
                         เล่นทันที
                     </button>
@@ -64,6 +64,9 @@ export default {
                     htmlContainer: 'text-custom'
                 },
             });
+        },
+        playGame(path) {
+            this.$router.push({ name: path });
         }
     }
 };

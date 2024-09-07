@@ -80,30 +80,30 @@
         </div>
         <ul class="menu-items">
           <li class="menu-item">
-            <a @click="sideMenu('game')" class="menu-link"> <i class="fas fa-gamepad mr-2"></i> เกมเก็บคะเเนน</a>
+            <a @click="sideMenu('game')" class="menu-link cursor-pointer"> <i class="fas fa-gamepad mr-2"></i> เกมเก็บคะเเนน</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('exchangereward')" class="menu-link"> <i class="fa fa-star mr-2"></i> เเลกของรางวัล</a>
+            <a @click="sideMenu('exchangereward')" class="menu-link cursor-pointer"> <i class="fa fa-star mr-2"></i> เเลกของรางวัล</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('payments')" class="menu-link"> <i class="fas fa-ticket-alt text-yellow-700 mr-2"></i>
+            <a @click="sideMenu('payments')" class="menu-link cursor-pointer"> <i class="fas fa-ticket-alt text-yellow-700 mr-2"></i>
               สนับสนุนเรา</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('history')" class="menu-link"> <i class="fas fa-history mr-2"></i>ประวัติการทำรายการ</a>
+            <a @click="sideMenu('history')" class="menu-link cursor-pointer"> <i class="fas fa-history mr-2"></i>ประวัติการทำรายการ</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('rule')" class="menu-link"><i class="fas fa-book mr-2"></i> กติการะบบ</a>
+            <a @click="sideMenu('rule')" class="menu-link cursor-pointer"><i class="fas fa-book mr-2"></i> กติการะบบ</a>
           </li>
 
           <li class="menu-item">
-            <a @click="sideMenu('setting')" class="menu-link"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
+            <a @click="sideMenu('setting')" class="menu-link cursor-pointer"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
           </li>
           <li class="menu-item">
-            <a @click="versionInfo" class="menu-link"> <i class="fas fa-info mr-2"></i> version update</a>
+            <a @click="versionInfo" class="menu-link cursor-pointer"> <i class="fas fa-info mr-2"></i> version update</a>
           </li>
           <li class="menu-item">
-            <a @click="logout()" class="menu-link-red"> <i class="fas fa-sign-out-alt mr-2"></i> logout</a>
+            <a @click="logout()" class="menu-link-red cursor-pointer"> <i class="fas fa-sign-out-alt mr-2"></i> logout</a>
           </li>
 
         </ul>
