@@ -19,6 +19,7 @@
 
         <!-- ส่วนของรูปและปุ่มแลกคะแนน -->
         <div class="flex flex-wrap justify-center gap-4 m-2 ">
+            <span class="text-gray-700">update ของรางวัลเร็วๆนี้</span>
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div v-for="(item, index) in items" :key="index"
                     class="card relative bg-white rounded-lg overflow-hidden shadow-xl">
@@ -50,10 +51,10 @@ export default {
         return {
             point: 0,
             items: [
-                { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 10 },
-                { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 20 },
-                { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 30 },
-                { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 40 },
+                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 10 },
+                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 20 },
+                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 30 },
+                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 40 },
             ]
         };
     },
