@@ -1,5 +1,5 @@
 <template>
-    <div class="rules-container">
+    <div class="rules-container m-2">
         <div class="rule-title">
             <strong>กติกาการสะสมและแลกคะแนน</strong>
         </div>
