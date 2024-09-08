@@ -19,22 +19,25 @@
 
         <!-- ส่วนของรูปและปุ่มแลกคะแนน -->
         <div class="flex flex-wrap justify-center gap-4 m-2 ">
-            <span class="text-gray-700">update ของรางวัลเร็วๆนี้</span>
+            <div class="flex flex-wrap justify-center gap-4  p-1 bg-gray-100 rounded-lg shadow-lg">
+                <span class="text-gray-600 font-semibold text-md text-center">
+                    ของรางวัลจะมีการเปลี่ยนเเปลงในอนาคต
+                </span>
+            </div>
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div v-for="(item, index) in items" :key="index"
                     class="card relative bg-white rounded-lg overflow-hidden shadow-xl">
                     <!-- ปุ่ม "กติกา" มุมขวาบน -->
-                    <button
-                        class="absolute top-0 right-0 bg-green-800 text-white text-xs font-semibold py-1 px-2 rounded-bl-lg">
-                        super-sport
+                    <button class="absolute top-0 right-0 bg-purple-900 text-white text-xs py-1 px-2 rounded-bl-lg">
+                        {{ item.detail }}
                     </button>
 
                     <!-- Image with rounded corners -->
                     <img class="w-full h-48 object-cover rounded-lg" :src="item.image" alt="Card image">
 
                     <!-- ปุ่มแลกคะแนน -->
-                    <button
-                        class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-white bg-opacity-30 text-white py-2 px-2 border border-white border-opacity-20 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
+                    <button @click="exchange(item.truepoint)"
+                        class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-white bg-opacity-30 text-green-900 py-2 px-2 border border-white border-opacity-20 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
                         แลก {{ item.points }} คะแนน
                     </button>
                 </div>
@@ -45,20 +48,122 @@
 
 <script>
 import { api } from '@axios_inst';
+import Swal from 'sweetalert2';
 export default {
     name: "exchange",
     data() {
         return {
+            detail: '',
             point: 0,
             items: [
-                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 10 },
-                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 20 },
-                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 30 },
-                // { image: 'https://pudee.sgp1.digitaloceanspaces.com/plinko.webp', points: 40 },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange1.png', points: '4,600', truepoint: 4600, detail: 'เกรด Player เลือกทีมได้' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange2.png', points: '2,900', truepoint: 2900, detail: 'เกรด Replica เลือกทีมได้' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange3.png', points: '1,600', truepoint: 1600, detail: 'เป๋าสะพาย Man utd' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange4.png', points: '1,090', truepoint: 1090, detail: 'เกรดแฟนบอล เลือกทีมได้' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange5.png', points: '1,000', truepoint: 1000, detail: 'หมวก Man utd' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange6.png', points: '750', truepoint: 750, detail: 'หมวก Man city' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange7.png', points: '590', truepoint: 590, detail: 'ผ้าพันคอ Liverpool' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange8.png', points: '250', truepoint: 250, detail: 'แก้วน้ำ Liverpool' },
             ]
         };
     },
     methods: {
+        async exchange(truepoint) {
+
+            const { value: formValues } = await Swal.fire({
+                title: '<h2 style="font-size: 14px;">กรอกรายละเอียดการจัดส่ง</h2>',
+                html:
+                    `<style>
+            .custom-input, .custom-textarea {
+                font-size: 12px;
+                padding: 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .swal2-textarea {
+                resize: none;
+                height: 80px;
+            }
+        </style>
+        <input id="swal-input1" class="swal2-input custom-input" placeholder="ชื่อ">
+        <textarea id="swal-input2" class="swal2-textarea custom-textarea" placeholder="บ้านเลขที่-ที่อยู่-ตำบล-อำเภอ-จังหวัด"></textarea>
+        <input id="swal-input4" class="swal2-input custom-input" placeholder="รหัสไปรษณีย์">
+        <input id="swal-input5" class="swal2-input custom-input" placeholder="เบอร์โทร">`,
+                focusConfirm: false,
+                showCancelButton: true,
+                confirmButtonText: 'แลกของรางวัล',
+                cancelButtonText: 'ยกเลิก',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                preConfirm: () => {
+                    const name = document.getElementById('swal-input1').value;
+                    const address = document.getElementById('swal-input2').value;
+                    const postalCode = document.getElementById('swal-input4').value;
+                    const phone = document.getElementById('swal-input5').value;
+
+                    if (!name || !address || !postalCode || !phone) {
+                        Swal.showValidationMessage('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+                        return;
+                    }
+
+                    return {
+                        name,
+                        address,
+                        postalCode,
+                        phone
+                    };
+                }
+            });
+
+            if (!formValues) {
+                // ถ้าผู้ใช้ยกเลิกหรือไม่ได้กรอกข้อมูล
+                return;
+            }
+
+            // ตรวจสอบว่า formValues ไม่ใช่ undefined และมีข้อมูลทั้งหมด
+            const { name, address, houseNumber, postalCode, phone } = formValues;
+
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.post('/premier-league/v1/exchange', {
+                    point: truepoint,
+                    detail: name + ' ' + address + ' ' + houseNumber + ' ' + postalCode + ' ' + phone
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    },
+                });
+                if (response.data.ok) {
+                    this.getPoint();
+                    Swal.fire({
+                        title: '<h2 style="font-size: 14px;">แลกคะแนนสำเร็จ</h2> ',
+                        text: 'คุณได้ทำการแลกของรางวัลสำเร็จ',
+
+                        customClass: {
+                            confirmButton: 'btn-confirm',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    text: error.response.data.error,
+                    customClass: {
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+
+                });
+            }
+        },
         async getPoint() {
             try {
 
