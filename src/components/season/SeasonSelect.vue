@@ -69,13 +69,14 @@
       </div>
     </div>
 
-    <div class="flex justify-center mt-1">
-      <div v-if="gameWeek.start_date > currentTime">
-        <span class="text-red-900  text-md text-shadow-md ml-14"> เริ่มจัดทีมได้ในอีก</span>
-        <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" :classadj="'text-red-900'" />
+    <div class="flex justify-center items-center mt-1">
+      <div v-if="gameWeek.start_date > currentTime" class="flex flex-col items-center">
+        <span class="text-red-900 text-md text-shadow-md">เริ่มจัดทีมได้ในอีก</span>
+        <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" @time-up="handleTimeUp"
+          :classadj="'text-red-900'" />
       </div>
-      <div v-else>
-        <span class="text-green-900 text-shadow-md text-md ml-14">เหลือเวลาจัดทีมอีก</span>
+      <div v-else class="flex flex-col items-center">
+        <span class="text-green-900 text-shadow-md text-md">เหลือเวลาจัดทีมอีก</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp"
           :classadj="'text-green-900'" />
       </div>
@@ -83,8 +84,7 @@
 
   </div>
   <div v-else class="group duration-500  ">
-    <div
-      class="flex justify-center">
+    <div class="flex justify-center">
       <img :src="commingSoon" class="video-banner2" alt="Animated Banner" />
     </div>
   </div>

@@ -65,7 +65,7 @@ export default {
         },
         formatDate(date) {
             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(date).toLocaleDateString('en-GB', options);
+            return new Date(date).toLocaleDateString('th-TH', options);
         }
     }
 };
