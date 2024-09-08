@@ -26,7 +26,7 @@
             <div v-if="activeTab === 'tab1'">
                 <SeasonSelect />
                 <div class="mt-5 flex justify-center">
-                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                    <img  :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
                 </div>
 
 
@@ -34,7 +34,7 @@
             <div v-if="activeTab === 'tab2'">
                 <SeasonSelectVip />
                 <div class="mt-5 flex justify-center">
-                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                    <img  :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
                 </div>
 
 
@@ -63,24 +63,12 @@ export default {
     data() {
         return {
             activeTab: 'tab1', // Default active tab
-            activity: 'https://pudee.sgp1.digitaloceanspaces.com/activity2.webp'
+            activity: 'https://pudee.sgp1.digitaloceanspaces.com/activity.webp'
         };
     },
     methods: {
         clickactivity() {
-            Swal.fire({
-                title: 'กิจกรรม',
-                text: 'กิจกรรม จะเริ่มเร็วๆนี้ จะมีการประกาศล่วงหน้า',
-                confirmButtonText: 'ตกลง',
-                customClass: {
-                    confirmButton: 'btn-confirm',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
-            return;
+            this.$router.push({ name: 'activity' });
         },
         SetactiveTab(tab) {
             this.activeTab = tab;
@@ -89,7 +77,7 @@ export default {
         resetWebPs() {
             this.activity = "";
             this.$nextTick(() => {
-                this.activity = `https://pudee.sgp1.digitaloceanspaces.com/activity2.webp?${new Date().getTime()}`;
+                this.activity = `https://pudee.sgp1.digitaloceanspaces.com/activity.webp?${new Date().getTime()}`;
             });
         },
     },

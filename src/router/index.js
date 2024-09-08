@@ -37,6 +37,8 @@ import Reward from '../pages/gglive/reward-detail.vue';
 import PlayerPointDetail from '../pages/gglive/player-point-detail.vue';
 import PlayerPointDetailTable from '../pages/gglive-detail/table-player-point.vue';
 
+import Activity from '../pages/activity/index.vue';
+
 
 
 import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
@@ -187,6 +189,11 @@ const routes = [
                 path: 'exchangereward',
                 name: 'exchangereward',
                 component: ExchangeReward,
+            },
+            {
+                path: 'activity',
+                name: 'activity',
+                component: Activity,
             },
             
             {
