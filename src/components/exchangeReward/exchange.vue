@@ -70,25 +70,35 @@ export default {
     methods: {
         async exchange(truepoint) {
 
+            const isSpecialCase = [4600, 2900, 1090].includes(truepoint);
+
             const { value: formValues } = await Swal.fire({
                 title: '<h2 style="font-size: 14px;">กรอกรายละเอียดการจัดส่ง</h2>',
                 html:
                     `<style>
-            .custom-input, .custom-textarea {
-                font-size: 12px;
-                padding: 10px;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .swal2-textarea {
-                resize: none;
-                height: 80px;
-            }
-        </style>
-        <input id="swal-input1" class="swal2-input custom-input" placeholder="ชื่อ">
-        <textarea id="swal-input2" class="swal2-textarea custom-textarea" placeholder="บ้านเลขที่-ที่อยู่-ตำบล-อำเภอ-จังหวัด"></textarea>
-        <input id="swal-input4" class="swal2-input custom-input" placeholder="รหัสไปรษณีย์">
-        <input id="swal-input5" class="swal2-input custom-input" placeholder="เบอร์โทร">`,
+                        .custom-input, .custom-textarea {
+                            font-size: 12px;
+                            padding: 10px;
+                            width: 100%;
+                            box-sizing: border-box;
+                        }
+                        .swal2-textarea {
+                            resize: none;
+                            height: 80px;
+                        }
+                        .swal2-input {
+                            overflow: hidden; /* ป้องกันการเลื่อนซ้ายขวา */
+                        }
+                    </style>
+                    <input id="swal-input1" class="swal2-input custom-input" placeholder="ชื่อ">
+                    <textarea id="swal-input2" class="swal2-textarea custom-textarea" placeholder="บ้านเลขที่-ที่อยู่-ตำบล-อำเภอ-จังหวัด"></textarea>
+                    <input id="swal-input4" class="swal2-input custom-input" placeholder="รหัสไปรษณีย์">
+                    <input id="swal-input5" class="swal2-input custom-input" placeholder="เบอร์โทร">
+                    ${isSpecialCase ?
+                        `<input id="swal-input6" class="swal2-input custom-input" placeholder="ขนาดเสื้อ (S, M, L, XL)">
+                        <input id="swal-input7" class="swal2-input custom-input" placeholder="ทีมที่ต้องการ">`
+                        : ''}
+                    `,
                 focusConfirm: false,
                 showCancelButton: true,
                 confirmButtonText: 'แลกของรางวัล',
@@ -110,11 +120,25 @@ export default {
                         return;
                     }
 
+                    let shirtSize = '';
+                    let team = '';
+                    if (isSpecialCase) {
+                        shirtSize = document.getElementById('swal-input6').value;
+                        team = document.getElementById('swal-input7').value;
+
+                        if (!shirtSize || !team) {
+                            Swal.showValidationMessage('กรุณากรอกข้อมูลขนาดเสื้อและทีมที่ต้องการ');
+                            return;
+                        }
+                    }
+
                     return {
                         name,
                         address,
                         postalCode,
-                        phone
+                        phone,
+                        shirtSize,
+                        team
                     };
                 }
             });
@@ -125,13 +149,14 @@ export default {
             }
 
             // ตรวจสอบว่า formValues ไม่ใช่ undefined และมีข้อมูลทั้งหมด
-            const { name, address, houseNumber, postalCode, phone } = formValues;
+            const { name, address, postalCode, phone, shirtSize, team } = formValues;
 
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.post('/premier-league/v1/exchange', {
                     point: truepoint,
-                    detail: name + ' ' + address + ' ' + houseNumber + ' ' + postalCode + ' ' + phone
+                    detail: name + ' ' + address + ' ' + postalCode + ' ' + phone +
+                        (isSpecialCase ? ' ขนาดเสื้อ: ' + shirtSize + ' ทีม: ' + team : '')
                 }, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
@@ -141,8 +166,7 @@ export default {
                     this.getPoint();
                     Swal.fire({
                         title: '<h2 style="font-size: 14px;">แลกคะแนนสำเร็จ</h2> ',
-                        text: 'คุณได้ทำการแลกของรางวัลสำเร็จ',
-
+                        text: 'คุณได้ทำการแลกของรางวัลสำเร็จ กรุณาติดตามข้อมูลการจัดส่งของรางวัลทาง Line ของเรา หรือ facebook messenger ของเรา',
                         customClass: {
                             confirmButton: 'btn-confirm',
                             popup: 'popup-custom',
@@ -160,10 +184,10 @@ export default {
                         title: 'text-custom',
                         htmlContainer: 'text-custom'
                     },
-
                 });
             }
         },
+
         async getPoint() {
             try {
 
