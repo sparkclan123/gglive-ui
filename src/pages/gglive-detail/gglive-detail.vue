@@ -173,7 +173,7 @@ export default {
         getShirtImage(player) {
             const teamCode = this.stripTeamCode(player.team_code);
             const suffix = player.position === 'G' ? '_1-66' : '-66';
-            return `/assets/shirt/shirt_${teamCode}${suffix}.webp`;
+            return `https://pudee.sgp1.digitaloceanspaces.com/shirt_${teamCode}${suffix}.webp`;
         },
         stripTeamCode(teamCode) {
             return teamCode.replace('t', '');

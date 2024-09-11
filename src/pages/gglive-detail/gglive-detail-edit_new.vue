@@ -65,7 +65,7 @@
                                             <img v-if="GKP.player_id" :src="getShirtImage(GKP)"
                                                 class="flTOZR circle-img"
                                                 :style="{ opacity: GKP.remove == true ? 0.4 : 1 }">
-                                            <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
+                                            <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="GKP.player_id == is_captan" class="captain-badge">C</span>
 
@@ -108,7 +108,7 @@
                                             <img v-if="DEF.player_id" :src="getShirtImage(DEF)"
                                                 class="flTOZR circle-img"
                                                 :style="{ opacity: DEF.remove == true ? 0.4 : 1 }">
-                                            <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
+                                            <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="DEF.player_id == is_captan" class="captain-badge">C</span>
 
@@ -152,7 +152,7 @@
                                             <img v-if="MID.player_id" :src="getShirtImage(MID)"
                                                 class="flTOZR circle-img"
                                                 :style="{ opacity: MID.remove == true ? 0.4 : 1 }">
-                                            <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
+                                            <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="MID.player_id == is_captan" class="captain-badge">C</span>
 
@@ -194,7 +194,7 @@
                                             <img v-if="FWD.player_id" :src="getShirtImage(FWD)"
                                                 class="flTOZR circle-img"
                                                 :style="{ opacity: FWD.remove == true ? 0.4 : 1 }">
-                                            <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
+                                            <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0_1-66.png" class="flTOZR"
                                                 :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="FWD.player_id == is_captan" class="captain-badge">C</span>
 
@@ -924,7 +924,7 @@ export default {
         getShirtImage(player) {
             const teamCode = this.stripTeamCode(player.team_code);
             const suffix = player.position === 'G' ? '_1-66' : '-66';
-            return `/assets/shirt/shirt_${teamCode}${suffix}.webp`;
+            return `https://pudee.sgp1.digitaloceanspaces.com/shirt_${teamCode}${suffix}.webp`;
         },
         stripTeamCode(teamCode) {
             return teamCode.replace('t', '');

@@ -76,7 +76,7 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0_1-66.png" class="flTOZR"
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0_1-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
 
@@ -114,7 +114,7 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
                                         <svg v-if="DEF.id" @click.stop="removePlayerC(DEF)"
@@ -149,7 +149,7 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
                                         <svg v-if="MID.id" @click.stop="removePlayerC(MID)"
@@ -183,7 +183,7 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
-                                        <img v-else src="/public/assets/shirt/shirt_0-66.png" class="flTOZR"
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png" class="flTOZR"
                                             :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="FWD.id == isCaptain" class="captain-badge">C</span>
                                         <svg v-if="FWD.id" @click.stop="removePlayerC(FWD)"
@@ -417,7 +417,7 @@ export default {
         getShirtImage(player) {
             const teamCode = this.stripTeamCode(player.team_code);
             const suffix = player.position === 'G' ? '_1-66' : '-66';
-            return `/assets/shirt/shirt_${teamCode}${suffix}.webp`;
+            return `https://pudee.sgp1.digitaloceanspaces.com/shirt_${teamCode}${suffix}.webp`;
         },
         stripTeamCode(teamCode) {
             return teamCode.replace('t', '');
