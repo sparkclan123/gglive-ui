@@ -363,6 +363,7 @@ export default {
                     });
                 }
             }
+            window.scrollTo(0, 110);
         },
         infoPlayer(player) {
             Swal.fire({
