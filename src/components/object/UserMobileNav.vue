@@ -1,6 +1,6 @@
 <template>
   <div v-if="userinfo">
-    <div class="flex gap-2 w-full justify-between mobile-menu">
+    <div class="flex justify-around w-full justify-between mobile-menu">
       <button class="inline-flex flex-col items-center justify-center group"
         :class="{ active: isActive('player-detail-point') }" @click="setActive('player-detail-point')">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 icon-large" fill="none" viewBox="0 0 24 24"

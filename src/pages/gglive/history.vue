@@ -1,7 +1,7 @@
 <template>
     <div class="">
-        <div v-show="loading">
-            <LodingSceen style="display: flex; justify-content: space-around;" />
+        <div>
+            <LodingSceen :loading="loading" />
         </div>
         <div class="contant_style">
             <div class="walletBalanceCard mb-2 mt-1" v-if="datas.length > 0" v-for="data in datas"

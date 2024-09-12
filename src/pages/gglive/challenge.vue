@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-show="loading">
-            <LodingSceen style="display: flex; justify-content: space-around;" />
+        <div >
+            <LodingSceen :loading="loading"  />
         </div>
 
         <div>
@@ -58,6 +58,7 @@ export default {
         }
     },
     methods: {
+        
         SetactiveTab(tab) {
             this.activeTab = tab;
             localStorage.setItem('challenge-tab', tab);

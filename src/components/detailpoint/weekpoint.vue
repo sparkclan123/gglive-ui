@@ -1,5 +1,6 @@
 <template>
     <div>
+        <LodingSceen :loading="loading"/>
 
         
         <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container">
@@ -124,7 +125,7 @@ export default {
             });
         },
         async fetchGameWeeks(page = 1, limit = 10) {
-           
+           this.loading = true;
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.get(`/premier-league/v1/game-week-all`, {
@@ -142,11 +143,14 @@ export default {
                     this.gameweekData.page = response.data.page;
                     this.gameweekData.limit = response.data.limit;
                     this.gameweekData.pages = response.data.pages;
-                  
+                    this.loading = false;
+                }else{
+                    this.loading = false;
                 }
+                
             } catch (error) {
                 console.log(error);
-              
+                this.loading = false;
             }
         },
     },

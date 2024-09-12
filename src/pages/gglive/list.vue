@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-show="loading">
-            <LodingSceen style="display: flex; justify-content: space-around;" />
+        <div >
+            <LodingSceen :loading="loading" />
         </div>
         <div v-if="userinfo">
             <div style="margin-bottom: -30px;">

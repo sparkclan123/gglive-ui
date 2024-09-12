@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-color-1">
+    <div class="bg-color-1" >
         <FantasyTeamN />
     </div>
 </template>

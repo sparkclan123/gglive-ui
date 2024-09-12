@@ -1,7 +1,6 @@
 <template>
     <div>
- 
-
+       
         <div class="tabs rounded-t-lg ml-3 text-white flex">
             <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">คะเเนนตาราง
             </div>
@@ -75,7 +74,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions('loading', ['updateLoading']),
         SetactiveTab(tab) {
             this.activeTab = tab;
             localStorage.setItem('point-tab', tab);
@@ -103,12 +101,12 @@ export default {
 
     },
     created() {
-        this.updateLoading(true);
+       
         let has_result_tab = localStorage.getItem('point-tab');
         if (has_result_tab) {
             this.activeTab = has_result_tab;
         }
-        this.updateLoading(false);
+      
 
     },
 };

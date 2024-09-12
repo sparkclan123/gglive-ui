@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-show="loading">
-      <LodingSceen style="display: flex; justify-content: space-around;" />
+    <div >
+      <LodingSceen :loading="loading" />
     </div>
     <div class="contant_style relative">
       <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200"

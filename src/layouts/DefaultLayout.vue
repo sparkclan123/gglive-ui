@@ -17,8 +17,8 @@
 
         </nav>
         <div class="container mx-auto p-1">
-            <div v-if="getLoading">
-                <LodingSceen style="display: flex; justify-content: space-around;" />
+            <div>
+                <LodingSceen :loading="getLoading" style="display: flex; justify-content: space-around;" />
             </div>
 
             <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" />

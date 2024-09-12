@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-show="loading">
-            <LodingSceen style="display: flex; justify-content: space-around;" />
+        <div>
+            <LodingSceen :loading="loading" />
         </div>
         <div class="contant_style">
             <div v-if="selfMatch && gameWeek" class="fixcontant">

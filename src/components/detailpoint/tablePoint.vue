@@ -1,5 +1,6 @@
 <template>
     <div>
+        <LodingSceen :loading="loading"/>
         <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container p-4">
             <div class="flex flex-col items-center">
                 <div class="overflow-x-auto w-full">
@@ -55,6 +56,7 @@ export default {
     },
     methods: {
         async fetchTablePoint(page = 1, limit = 10) {
+            this.loading = true;
             let season_id = 719;
             try {
                 const access_token = localStorage.getItem('access_token');
@@ -65,9 +67,13 @@ export default {
                 });
                 if (response.data.ok) {
                     this.tablepoint = response.data.data.sort((a, b) => a.rank - b.rank);
+                    this.loading = false;
+                }else{
+                    this.loading = false;
                 }
             } catch (error) {
                 console.log(error);
+                this.loading = false;
             }
         },
     },
