@@ -88,9 +88,9 @@
 
   </div>
   <div v-else class="group duration-500  ">
-    <div class="flex justify-center">
+    <!-- <div class="flex justify-center">
       <img :src="commingSoon" class="video-banner2" alt="Animated Banner" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -239,7 +239,7 @@ export default {
   },
   mounted() {
     this.resetWebP();
-    this.resetWebPs();
+    // this.resetWebPs();
     setTimeout(() => {
       this.showConfetti = false;
     }, 5000);
