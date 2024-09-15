@@ -22,10 +22,10 @@
                         class="inline-block relative object-center rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain">
                     <span class="title text-gray-200">{{ getMain.name }} </span>
                 </div>
-                
+
                 <span class="title text-green-500 mt-1">{{ getMain.total_point }} คะเเนน</span>
                 <span class="title-fix text-yellow-500">{{ getMain.total_price }}$ งบที่ใช้ไป</span>
-               
+
             </div>
         </div>
 
@@ -41,12 +41,33 @@
                                         <source type="image/webp">
                                         <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
                                         <span v-if="GKP.captain == 1" class="captain-badge">C</span>
+                                        <div class="goal-indicator-container">
+                                            <div class="goal-indicator" v-if="GKP.goal_point > 0">
+                                                <span class="goal-mark" v-if="GKP.goal_point % 6 === 0">{{
+        GKP.goal_point / 6 }}</span>
+                                                <FootBallIcon />
+                                            </div>
+                                            <div class="goal-indicator" v-if="GKP.clean_sheet > 0">
+                                                <span class="cs-mark">CS</span>
+
+                                            </div>
+                                            <div class="goal-indicator" v-if="GKP.assist_point > 0">
+                                                <span class="assit-mark">A{{ GKP.assist_point / 3 }}</span>
+
+                                            </div>
+                                            <div class="goal-indicator" v-if="GKP.card_point === -1">
+                                                <div class="yellow-card"></div>
+                                            </div>
+                                            <div class="goal-indicator" v-if="GKP.card_point === -3">
+                                                <div class="red-card"></div>
+                                            </div>
+                                        </div>
                                     </picture>
 
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
                                         <div class=" fQREvA">{{ GKP.points }}</div>
-                                        <div class=" fQREvA_fix" v-if="GKP.team_vs != '' ">{{ GKP.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="GKP.team_vs != ''">{{ GKP.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -59,11 +80,32 @@
                                         <source type="image/webp">
                                         <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
                                         <span v-if="DEF.captain == 1" class="captain-badge">C</span>
+                                        <div class="goal-indicator-container">
+                                            <div class="goal-indicator" v-if="DEF.goal_point > 0">
+                                                <span class="goal-mark" v-if="DEF.goal_point % 6 === 0">{{
+        DEF.goal_point / 6 }}</span>
+                                                <FootBallIcon />
+                                            </div>
+                                            <div class="goal-indicator" v-if="DEF.clean_sheet > 0">
+                                                <span class="cs-mark">CS</span>
+
+                                            </div>
+                                            <div class="goal-indicator" v-if="DEF.assist_point > 0">
+                                                <span class="assit-mark">A{{ DEF.assist_point / 3 }}</span>
+
+                                            </div>
+                                            <div class="goal-indicator" v-if="DEF.card_point === -1">
+                                                <div class="yellow-card"></div>
+                                            </div>
+                                            <div class="goal-indicator" v-if="DEF.card_point === -3">
+                                                <div class="red-card"></div>
+                                            </div>
+                                        </div>
                                     </picture>
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
                                         <div class=" fQREvA">{{ DEF.points }}</div>
-                                        <div class=" fQREvA_fix" v-if="DEF.team_vs != '' ">{{ DEF.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="DEF.team_vs != ''">{{ DEF.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -76,12 +118,34 @@
                                         <source type="image/webp">
                                         <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
                                         <span v-if="MID.captain == 1" class="captain-badge">C</span>
+                                        <div class="goal-indicator-container">
+                                            <div class="goal-indicator" v-if="MID.goal_point > 0">
+                                                <span class="goal-mark" v-if="MID.goal_point % 5 === 0">{{
+        MID.goal_point / 5 }}</span>
+                                                <FootBallIcon />
+                                            </div>
+                                            <div class="goal-indicator" v-if="MID.clean_sheet > 0">
+                                                <span class="cs-mark">CS</span>
+
+                                            </div>
+                                            <div class="goal-indicator" v-if="MID.assist_point > 0">
+                                                <span class="assit-mark">A{{ MID.assist_point / 3 }}</span>
+
+                                            </div>
+                                            <div class="goal-indicator" v-if="MID.card_point === -1">
+                                                <div class="yellow-card"></div>
+                                            </div>
+                                            <div class="goal-indicator" v-if="MID.card_point === -3">
+                                                <div class="red-card"></div>
+                                            </div>
+                                        </div>
+
                                     </picture>
 
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
                                         <div class=" fQREvA">{{ MID.points }}</div>
-                                        <div class=" fQREvA_fix" v-if="MID.team_vs != '' ">{{ MID.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="MID.team_vs != ''">{{ MID.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -93,12 +157,32 @@
                                         <source type="image/webp">
                                         <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
                                         <span v-if="FWD.captain == 1" class="captain-badge">C</span>
+
+                                        <div class="goal-indicator-container">
+                                            <div class="goal-indicator" v-if="FWD.goal_point > 0">
+                                                <span class="goal-mark" v-if="FWD.goal_point % 4 === 0">{{
+        FWD.goal_point / 4 }}</span>
+                                                <FootBallIcon />
+                                            </div>
+                                            <div class="goal-indicator" v-if="FWD.assist_point > 0">
+                                                <span class="assit-mark">A{{ FWD.assist_point / 3 }}</span>
+
+                                            </div>
+                                            <div class="goal-indicator" v-if="FWD.card_point === -1">
+                                                <div class="yellow-card"></div>
+                                            </div>
+                                            <div class="goal-indicator" v-if="FWD.card_point === -3">
+                                                <div class="red-card"></div>
+                                            </div>
+
+                                        </div>
+
                                     </picture>
 
                                     <div class=" gTayAP">
                                         <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
                                         <div class=" fQREvA">{{ FWD.points }}</div>
-                                        <div class=" fQREvA_fix" v-if="FWD.team_vs != '' ">{{ FWD.team_vs }}</div>
+                                        <div class=" fQREvA_fix" v-if="FWD.team_vs != ''">{{ FWD.team_vs }}</div>
                                     </div>
                                 </button>
                             </div>
@@ -163,6 +247,7 @@ export default {
                 this.updateLoading(false);
             }
         },
+
         getShirtImage(player) {
             const teamCode = this.stripTeamCode(player.team_code);
             const suffix = player.position === 'G' ? '_1-66' : '-66';
@@ -190,6 +275,117 @@ export default {
 </script>
 
 <style scoped>
+.goal-indicator-container {
+    position: absolute;
+    top: 0;
+    left: -10px;
+    /* ปรับตำแหน่งให้ goal-indicator อยู่ตรงรูปนักเตะ */
+    display: flex;
+    flex-direction: column;
+    /* วางแนวตั้ง */
+    gap: 2px;
+    /* ระยะห่างระหว่างแต่ละ goal-indicator */
+}
+
+.goal-indicator {
+    display: flex;
+    align-items: center;
+    /* จัดให้ FootBallIcon กับ text อยู่ในแนวเดียวกัน */
+}
+
+.goal-mark {
+    position: absolute;
+    margin-left: 3px;
+    color: rgb(237, 237, 237);
+    font-size: 6px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    /* ระยะห่างระหว่างตัวเลขกับไอคอน */
+    background-color: rgb(125, 5, 5);
+    /* พื้นหลังสีเทาอ่อน */
+    border-radius: 50%;
+    /* ทำให้เป็นวงกลม */
+    padding: 2px 3px;
+    /* ระยะห่างระหว่างข้อความกับขอบวงกลม */
+    display: inline-block;
+    /* ทำให้ padding และ border-radius ทำงานได้ดี */
+    line-height: 1;
+    /* ให้ข้อความอยู่กึ่งกลางวงกลม */
+}
+
+.yellow-card {
+    margin-left: 2px;
+    display: inline-block;
+    width: 10px;
+
+    /* กำหนดความกว้าง */
+    height: 13px;
+    /* กำหนดความสูง */
+    background-color: yellow;
+    /* สีพื้นหลังเป็นสีเหลือง */
+
+    /* เส้นขอบสีดำ */
+    border-radius: 4px;
+    /* มุมโค้งเล็กน้อย */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงาเล็กน้อย */
+}
+
+
+.red-card {
+    margin-left: 2px;
+    display: inline-block;
+    width: 10px;
+    /* กำหนดความกว้าง */
+    height: 13px;
+    /* กำหนดความสูง */
+    background-color: rgb(211, 6, 6);
+    /* สีพื้นหลังเป็นสีเหลือง */
+
+    /* เส้นขอบสีดำ */
+    border-radius: 4px;
+    /* มุมโค้งเล็กน้อย */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงาเล็กน้อย */
+}
+
+.assit-mark {
+    margin: 1px;
+    color: rgb(237, 237, 237);
+    font-size: 5px;
+    font-weight: bold;
+    /* ระยะห่างระหว่างตัวเลขกับไอคอน */
+    background-color: rgb(5, 51, 125);
+    /* พื้นหลังสีเทาอ่อน */
+    border-radius: 50%;
+    /* ทำให้เป็นวงกลม */
+    padding: 4px 3px;
+    /* ระยะห่างระหว่างข้อความกับขอบวงกลม */
+    display: inline-block;
+    /* ทำให้ padding และ border-radius ทำงานได้ดี */
+    line-height: 1;
+    /* ให้ข้อความอยู่กึ่งกลางวงกลม */
+}
+
+.cs-mark {
+
+    margin: 1px;
+    color: rgb(237, 237, 237);
+    font-size: 5px;
+    font-weight: bold;
+    /* ระยะห่างระหว่างตัวเลขกับไอคอน */
+    background-color: rgb(16, 80, 2);
+    /* พื้นหลังสีเทาอ่อน */
+    border-radius: 50%;
+    /* ทำให้เป็นวงกลม */
+    padding: 4px 3px;
+    /* ระยะห่างระหว่างข้อความกับขอบวงกลม */
+    display: inline-block;
+    /* ทำให้ padding และ border-radius ทำงานได้ดี */
+    line-height: 1;
+    /* ให้ข้อความอยู่กึ่งกลางวงกลม */
+}
+
 .svg-white {
     fill: #ffffff;
     /* เปลี่ยนสีของ SVG เป็นสีขาว */

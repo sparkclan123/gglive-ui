@@ -16,6 +16,8 @@ import PaginationJavascript from './components/object/pagenationjavascript.vue';
 import DateFormatted from './components/object/dateformatted.vue';
 import CountDown from './components/object/countdown.vue';
 
+import FootBallIcon from './components/icon/FootballIcon.vue';
+
 
 
 const app = createApp(App)
@@ -28,6 +30,8 @@ app.component('Pagination', Pagination);
 app.component('PaginationJavascript', PaginationJavascript);
 app.component('DateFormatted', DateFormatted);
 app.component('CountDown', CountDown);
+// icon
+app.component('FootBallIcon', FootBallIcon);
 
 app.use(router)
 app.use(store)
