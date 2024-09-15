@@ -17,6 +17,7 @@ import DateFormatted from './components/object/dateformatted.vue';
 import CountDown from './components/object/countdown.vue';
 
 import FootBallIcon from './components/icon/FootballIcon.vue';
+import StarMVPIcon from './components/icon/StarMVPIcon.vue';
 
 
 
@@ -32,6 +33,7 @@ app.component('DateFormatted', DateFormatted);
 app.component('CountDown', CountDown);
 // icon
 app.component('FootBallIcon', FootBallIcon);
+app.component('StarMVPIcon', StarMVPIcon);
 
 app.use(router)
 app.use(store)
