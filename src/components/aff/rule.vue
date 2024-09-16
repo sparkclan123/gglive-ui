@@ -34,13 +34,15 @@
                 สำหรับทุกตั๋วที่สมาชิกสนับสนุน
             </div>
             <div class="rule">
-                <strong>-</strong> เมื่อสะสมครบ <span class="rule-strong">100 แต้ม</span> สามารถแลกเปลี่ยนเป็น ตั๋วVIP ได้
-                หรือสามารถสอบถามข้อมูลเพิ่มเติมเกี่ยวกับของรางวัลอื่น ๆ ได้ โดยติดต่อทีมงานผ่านทาง <span
-                    class="rule-strong">Line</span> หรือ <span class="rule-strong">Facebook Fanpage</span>
+                <strong>-</strong> เมื่อสะสมครบ <span class="rule-strong">100 แต้มขึ้นไป</span> สามารถแลกเปลี่ยนเป็นตั๋ว
+                VIP ได้ หรือสามารถสอบถามข้อมูลเพิ่มเติมเกี่ยวกับของรางวัลอื่น ๆ ที่มีมูลค่าเทียบเท่ากับจำนวนแต้ม
+                โดยไม่จำกัดประเภทของรางวัล โดยติดต่อทีมงานผ่านทาง <span class="rule-strong">Line</span> หรือ <span
+                    class="rule-strong">Facebook Fanpage</span>
+              
             </div>
 
             <div class="rule">
-                <strong>-</strong>  <strong >เมื่อเลือกหัวหน้าทีมเเล้วจะไม่สามารถเปลี่ยนเเปลงได้</strong>
+                <strong>-</strong> <strong>เมื่อเลือกหัวหน้าทีมเเล้วจะไม่สามารถเปลี่ยนเเปลงได้</strong>
             </div>
         </div>
     </div>
