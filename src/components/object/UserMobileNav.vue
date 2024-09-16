@@ -73,7 +73,9 @@
               class="logo rounded-full shadow-lg">
 
           </div>
-          <span class="text-xs">{{ truncatedUsername }}</span>
+          
+          <a @click="sideMenu('aff-my')" class="menu-link2 cursor-pointer"> <i class="fas fa-users mr-1"></i>พันธมิตร</a>
+          
           <button @click="toggleMenu" class="close-button text-gray-600 hover:text-gray-800">
             <i class="fas fa-times"></i>
           </button>
@@ -429,6 +431,24 @@ button {
   background-color: #612f2f;
   color: #fff;
 }
+
+
+.menu-link2 {
+  display: block;
+  padding: 0.5rem 0.5rem;
+  font-size: 0.6rem;
+  font-weight: 200;
+  color: #fcfcfc;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s, color 0.3s;
+  background-color: #410561;
+}
+
+.menu-link2:hover {
+  background-color: #4f396d;
+  color: #fff;
+}
+
 
 .close-button {
   background: none;

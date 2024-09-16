@@ -52,6 +52,8 @@ import GgLiveDetailN from '../pages/gglive-detail/gglive-detail-n.vue';
 import GgLiveDetailEdit from '../pages/gglive-detail/gglive-detail-edit.vue';
 import GgLiveDetailEditNew from '../pages/gglive-detail/gglive-detail-edit_new.vue';
 
+import Aff from '../pages/aff/index.vue';
+
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
 
@@ -234,7 +236,12 @@ const routes = [
                 name: 'payments',
                 component: Payments,
             },
-
+            {
+                path: 'aff-my',
+                name: 'aff-my',
+                component: Aff,
+            },
+            
             {
                 path: 'setting',
                 name: 'setting',
