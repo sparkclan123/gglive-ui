@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        
         <div class="flex items-center m-2">
             <button @click="copyToClipboard"
                 class="bg-blue-700 text-white px-3 py-1 rounded ml-1 text-xs">โค้ดพันธมิตรของคุณ</button>
@@ -92,7 +92,7 @@
                 </tbody>
             </table>
         </div>
-        <Pagination :page="page" :pages="pages" @page-change="facthAllSelfMatch" />
+        <!-- <Pagination :page="page" :pages="pages" @page-change="facthAllSelfMatch" /> -->
     </div>
 </template>
 
