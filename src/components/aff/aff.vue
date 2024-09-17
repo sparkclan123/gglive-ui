@@ -3,7 +3,7 @@
 
         <div class="flex items-center m-2">
             <button @click="copyToClipboard"
-                class="bg-blue-700 text-white px-3 py-1 rounded ml-1 text-xs">คัดลอกรหัสของคุณ</button>
+                class="bg-blue-700 text-white px-3 py-1 rounded ml-1 text-xs">โค้ดพันธมิตรของคุณ</button>
             <button @click="toggleModelJoin" v-if="userinfo && userinfo.ParentID == 0"
                 class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">เข้าร่วมพันธมิตร </button>
 
@@ -35,6 +35,8 @@
                 90</span>
             <button @click="toggleModelExchange"
                 class="bg-green-700 text-white px-2 py-1 rounded ml-2 text-xs">เเลกรางวัล</button>
+            <button @click="toggleModelExchange"
+                class="bg-yellow-600 text-white px-2 py-1 rounded ml-2 text-xs">ประวัติ</button>
         </div>
 
         <div class="p-1 overflow-scroll px-0">
@@ -53,7 +55,7 @@
                         <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                </p>
+                            </p>
                         </th>
                         <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
