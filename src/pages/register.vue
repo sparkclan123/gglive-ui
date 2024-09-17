@@ -99,7 +99,8 @@ export default {
             nameError: false,
             otpError: false,
             otpCountdown: 0,
-            countdownTimer: null
+            countdownTimer: null,
+            referral: 0
         }
     },
     methods: {
@@ -178,6 +179,7 @@ export default {
 
         },
         async loginform() {
+           
             this.validateInputs();
 
             if (this.phoneError || this.passwordError || this.confirmPasswordError || this.nameError || this.otpError) {
@@ -210,6 +212,7 @@ export default {
                     password: this.password,
                     name: this.name,
                     otp: this.otp,
+                    ref: this.referral
                 });
 
                 if (response.data.ok) {
@@ -263,6 +266,11 @@ export default {
             localStorage.setItem('access_token', token);
             window.location.href = '/lobby';
         }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+
+        this.referral = isNaN(parseInt(ref)) ? 0 : parseInt(ref);
 
         this.loading = false;
     }
