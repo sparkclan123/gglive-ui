@@ -170,7 +170,7 @@
 <script>
 import Swal from 'sweetalert2';
 import { api } from '@axios_inst';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'UserMobileNav',
@@ -189,6 +189,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions('ticket', ['facthTicket']),
     versionInfo() {
       Swal.fire({
         title: 'Version Updates',
@@ -265,6 +266,7 @@ export default {
         });
         return;
       }
+      this.facthTicket();
       this.activeButton = button;
       this.$router.push({ name: button });
     },

@@ -140,6 +140,7 @@ export default {
       this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "VIP" } });
     },
     selectSeason() {
+      this.facthTicket();
       if (this.is_time_up) {
         Swal.fire({
           title: 'เวลาจัดทีมหมดแล้ว',
@@ -156,7 +157,7 @@ export default {
         });
         return;
       }
-      this.facthTicket();
+     
       if (this.getTicket == 0) {
         Swal.fire({
           title: 'ไม่มีตั๋วเหลืออยู่',
