@@ -1,46 +1,46 @@
 <template>
     <div>
-        
-        <div class="flex items-center m-2">
+        <div class="flex items-center m-2 border-b border-gray-300 pb-2"></div>
+        <div class="flex items-center m-2 border-b border-gray-300 pb-2">
             <button @click="copyToClipboard"
-                class="bg-blue-700 text-white px-3 py-1 rounded ml-1 text-xs">โค้ดพันธมิตรของคุณ</button>
+                class="bg-blue-700 text-white px-3 py-1 rounded ml-1 text-xs">คัดลอกโค้ดพันธมิตรของคุณ</button>
             <button @click="toggleModelJoin" v-if="userinfo && userinfo.ParentID == 0"
                 class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">เข้าร่วมพันธมิตร </button>
 
 
 
         </div>
-        <div class="flex items-center m-2">
+        <div class="flex items-center m-2 border-b border-gray-300 pb-2">
             <span @click="copyToClipboardLink" class="text-xs text-blue-700 font-xs leading-none  ml-2"
                 v-if="userinfo">https://pudee-club.com/register?ref={{ userinfo.UserID }}</span>
 
             <button @click="copyToClipboardLink" class="bg-blue-700 text-white px-3 py-1 rounded ml-1 text-xs">คัดลอก
                 URL</button>
         </div>
-        <div class="flex items-center m-2">
+        <div class="flex items-center ">
             <People class="w-6 h-6" />
-            <span class="text-xs text-blue-700 font-xs   leading-none  ml-2" v-if="userinfo">หัวหน้าทีมของคุณชื่อ :
-                90</span>
+            <span class="text-xs text-gray-700 font-xs   leading-none  ml-2">หัวหน้าทีม : {{ parent_username }}</span>
+
         </div>
 
-        <div class="flex items-center m-2">
+        <div class="flex items-center  border-b border-gray-300 pb-2">
             <Peoples class="w-6 h-6" />
-            <span class="text-xs text-blue-700 font-xs   leading-none  ml-2" v-if="userinfo">ลูกทีมของคุณ :
-                90 คน</span>
+            <span class="text-xs text-gray-700 font-xs   leading-none  ml-2" v-if="userinfo">ลูกทีมของคุณ :
+                {{ downline.length }} คน</span>
         </div>
 
-        <div class="flex items-center m-2">
+        <div class="flex items-center m-2 border-b border-gray-300 pb-2">
             <Coin class="w-6 h-6" />
             <span class="text-xs text-purple-900 font-xs font-semibold leading-none ml-2" v-if="userinfo">คะแนนสะสม :
-                90</span>
+                {{ point }}</span>
             <button @click="toggleModelExchange"
                 class="bg-green-700 text-white px-2 py-1 rounded ml-2 text-xs">เเลกรางวัล</button>
-            <button @click="toggleModelExchange"
-                class="bg-yellow-600 text-white px-2 py-1 rounded ml-2 text-xs">ประวัติ</button>
+            <!-- <button @click="toggleModelExchange"
+                class="bg-yellow-600 text-white px-2 py-1 rounded ml-2 text-xs">ประวัติ</button> -->
         </div>
 
         <div class="p-1 overflow-scroll px-0">
-            <table class="w-full min-w-max table-auto text-left">
+            <table class="w-full min-w-max table-auto text-left" >
                 <thead>
                     <tr>
                         <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
@@ -48,7 +48,7 @@
                                 <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
                                 <p
                                     class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    การทำรายการของทีมคุณ
+                                    รายชื่อลูกทีมคุณ
                                 </p>
                             </div>
                         </th>
@@ -57,36 +57,38 @@
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
                             </p>
                         </th>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                        <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                เเต้ม</p>
-                        </th>
+                                เเต้มจากลูกทีมคุณ</p>
+                        </th> -->
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr v-for="down in downline">
                         <td class="p-1 border-b border-blue-gray-50 cursor-pointer">
                             <div class="flex items-center gap-3">
 
                                 <p
                                     class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
-
+                                {{ down.id }} : {{ down.name }}
                                 </p>
                             </div>
-                        </td>
-                        <td class="p-1 border-b border-blue-gray-50 pl-4 text-center">
-                            <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
-
-                            </p>
                         </td>
                         <td class="p-1 border-b border-blue-gray-50 text-left">
                             <p
                                 class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
-
+                           
                             </p>
                         </td>
+<!--                        
+                        <td class="p-1 border-b border-blue-gray-50 text-left">
+                            <p
+                                class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
+                            
+                            </p>
+                        </td> -->
 
                     </tr>
                 </tbody>
@@ -110,6 +112,9 @@ export default {
             page: 1,
             limit: 10,
             pages: 1,
+            parent_username: '',
+            downline: [],
+            point: 0,
 
         };
     },
@@ -122,6 +127,7 @@ export default {
         ...mapGetters('auth', ['userinfo']),
     },
     methods: {
+        ...mapActions('loading', ['updateLoading']),
         ...mapActions('auth', ['facthUserInfo']),
 
         async toggleModelJoin() {
@@ -151,9 +157,100 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.joinCode = result.value;
-                    this.joinMatch();
+                    this.joinAff();
                 }
             });
+        },
+        async joinAff() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.post('/premier-league/v1/add-aff', {
+                    parent_id: parseInt(this.joinCode)
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'เข้าร่วมพันธมิตรเรียบร้อย',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            confirmButton: 'btn-confirm',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                    });
+                    this.getMyAff()
+                    this.facthUserInfo();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'โค้ดไม่ถูกต้อง',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            confirmButton: 'btn-confirm',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                    });
+                }
+            } catch (error) {
+                console.log(error.response);
+                Swal.fire({
+                    icon: 'error',
+                    text: error.response.data.error,
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+            }
+        },
+
+        async getMyAff() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/get-aff', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.parent_username = response.data.parent;
+                    this.downline = response.data.downline;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async getAffPoint() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get('/premier-league/v1/get-aff-point', {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    this.point = response.data.point.Point;
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         async toggleModelExchange() {
@@ -174,18 +271,77 @@ export default {
                     htmlContainer: 'text-custom'
                 },
                 buttonsStyling: false,
-                preConfirm: (joinCode) => {
-                    if (!joinCode) {
-                        Swal.showValidationMessage('กรุณากรอกโค้ดการเเข่งขัน');
+                preConfirm: (expoint) => {
+                   
+                    if (!expoint || isNaN(expoint) || parseInt(expoint) < 100) {
+                        Swal.showValidationMessage('กรุณากรอกคะเเนนขั้นต่ำ 100');
+                        return false; 
                     }
-                    return joinCode;
+                    return expoint;
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.joinCode = result.value;
-                    this.joinMatch();
+                    this.expoint = result.value;
+                    this.exchangePoint();
                 }
             });
+        },
+        async exchangePoint() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.post('/premier-league/v1/exchange-aff-point', {
+                    point: parseInt(this.expoint)
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${access_token}`
+                    }
+                });
+                if (response.data.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: 'เเลกรางวัลเรียบร้อย',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            confirmButton: 'btn-confirm',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                    });
+                    this.getAffPoint();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'คะเเนนไม่เพียงพอ',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        customClass: {
+                            cancelButton: 'btn-cancel',
+                            confirmButton: 'btn-confirm',
+                            popup: 'popup-custom',
+                            title: 'text-custom',
+                            htmlContainer: 'text-custom'
+                        },
+                    });
+                }
+            } catch (error) {
+                console.log(error.response);
+                Swal.fire({
+                    icon: 'error',
+                    text: error.response.data.error,
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+            }
         },
         copyToClipboardLink() {
             navigator.clipboard.writeText(`https://pudee-club.com/register?ref=${this.userinfo.UserID}`).then(() => {
@@ -229,7 +385,15 @@ export default {
         }
     },
     created() {
-
+        this.updateLoading(true);
+        Promise.all([this.getMyAff(), this.getAffPoint()])
+            .then(() => {
+                this.updateLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error in loading data:', error);
+                this.updateLoading(false);
+            });
     }
 };
 </script>
