@@ -19,7 +19,7 @@
                     <p v-if="phoneError" class="text-red-500 text-xs italic">กรุณากรอกเบอร์โทร 10 หลักให้ถูกต้อง</p>
                 </div>
 
-                <div class="w-full rounded-lg mt-2 text-white text-lg font-semibold">
+                <div class="w-full rounded-lg mt-2 text-white text-lg ">
                     <p v-if="otpCountdown > 0" class="text-center text-gray-500 text-xs mt-2 mb-2">
                         โปรดรอ {{ otpCountdown }} วินาทีก่อนที่จะขอรหัส OTP ใหม่
                     </p>
@@ -61,7 +61,7 @@
                     </p>
                 </div>
 
-                <div class="w-full rounded-lg mt-2 text-white text-lg font-semibold">
+                <div class="w-full rounded-lg mt-2 text-white text-lg ">
                     <button type="submit" class="w-full button-save" @click="resetPassword">ยืนยันรหัสผ่านใหม่</button>
                 </div>
 
@@ -256,13 +256,13 @@ export default {
 }
 
 .button-save1 {
-    font-size: 18px;
+    font-size: 15px;
     display: inline-block;
     outline: 0;
     border: 0;
     cursor: pointer;
     will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #6a9ef9 0%, #0e2472 100%);
+    background: radial-gradient(100% 100% at 100% 0%, #0e2472 0%, #0e2472 100%);
     box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
     padding: 0 2em;
     border-radius: 0.3em;
@@ -278,13 +278,13 @@ export default {
 }
 
 .button-save {
-    font-size: 18px;
+    font-size: 15px;
     display: inline-block;
     outline: 0;
     border: 0;
     cursor: pointer;
     will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #6af984 0%, #15720e 100%);
+    background: radial-gradient(100% 100% at 100% 0%, #15720e 0%, #15720e 100%);
     box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
     padding: 0 2em;
     border-radius: 0.3em;

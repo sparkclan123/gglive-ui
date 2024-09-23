@@ -2,10 +2,16 @@
     <div class="min-h-screen rounded-xl bg-cover bg-center text-white p-2"
         style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');">
         <!-- Header -->
-        <div class="p-1 text-center rounded-lg relative" > 
-            <h1 class="text-2xl font-bold inline-block pb-1" style="margin-top: -30px;width: 240px;margin-bottom: -10px;" >
+        <div class="p-1 text-center rounded-lg relative">
+            <h1 class="text-2xl font-bold inline-block pb-1"
+                style="margin-top: -30px;width: 240px;margin-bottom: -10px;">
                 <img src="https://pudee.sgp1.digitaloceanspaces.com/1.webp" class="logo-img" />
             </h1>
+            <div class="absolute top-1 right-0">
+                <button @click="SetactiveTab('tab4')" class="bg-gray-400 text-gray-800 font-semibold text-xs p-1 rounded-lg">
+                   กติกา
+                </button>
+            </div>
         </div>
 
         <!-- Tabs -->
@@ -15,7 +21,8 @@
             <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
                 เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">กติกา</div>
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">BigMatch
+            </div>
         </div>
 
         <!-- Content -->
@@ -26,7 +33,7 @@
             <div v-if="activeTab === 'tab1'">
                 <SeasonSelect />
                 <div class="mt-5 flex justify-center">
-                    <img  :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
                 </div>
 
 
@@ -34,12 +41,16 @@
             <div v-if="activeTab === 'tab2'">
                 <SeasonSelectVip />
                 <div class="mt-5 flex justify-center">
-                    <img  :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
                 </div>
 
 
             </div>
             <div v-if="activeTab === 'tab3'">
+                <!-- Content for Tab 3 -->
+                <BigMatch />
+            </div>
+            <div v-if="activeTab === 'tab4'">
                 <!-- Content for Tab 3 -->
                 <Rule />
             </div>
@@ -51,6 +62,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import SeasonSelect from '../../components/season/SeasonSelect.vue';
 import SeasonSelectVip from '../../components/season/SeasonSelectVip.vue';
+import BigMatch from '../../components/season/BigmatchSelect.vue';
 import Rule from '../../components/rule/rule.vue';
 import Swal from 'sweetalert2';
 export default {
@@ -58,6 +70,7 @@ export default {
     components: {
         SeasonSelect,
         SeasonSelectVip,
+        BigMatch,
         Rule
     },
     data() {

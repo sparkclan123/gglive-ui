@@ -17,7 +17,7 @@
             </div>
             <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
                 <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
-                    <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading"></component>
+                    <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading" :style="activeTab === 'tab3' ? 'padding: 15px;' : ''"></component>
                 </transition>
             </div>
         </div>
