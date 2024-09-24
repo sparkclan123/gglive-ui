@@ -1,19 +1,43 @@
 <template>
     <!-- Content for Tab 1 -->
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4 animate-scale-up">
-        <div class="bg-color-h p-6 text-center bg-img cursor-pointer rounded-lg shadow-inner">
-            <h2 class="text-2xl mb-2 text-gray-100">
-                <span>เตรียมพบกับการจัดทีมเเบบคู่</span><br/>
-                <span>BIG MATCH 1vs1 เร็วๆนี้</span>
-            </h2>
-        </div>
+    <div class="flex justify-center">
+
+        <img :src="webpSrc" alt="Big Match Coming Soon" class="video-banner2" />
+
+
     </div>
 </template>
 
 <script>
+export default {
+    name: 'BigMatch',
+    data() {
+        return {
+            webpSrc: `https://pudee.sgp1.digitaloceanspaces.com/bigmatchcomingsoon.webp`
+        };
+    },
+    methods: {
+        resetWebP() {
+            this.webpSrc = "";
+            this.$nextTick(() => {
+                this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/bigmatchcomingsoon.webp?${new Date().getTime()}`;
+            });
+        },
+    },
+    mounted() {
+        this.resetWebP();
+    },
+};
 </script>
 
 <style scoped>
+.video-banner2 {
+
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
+    /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
+}
+
 .bg-color-h {
     background-color: #1e293b;
     position: relative;
@@ -32,8 +56,10 @@ h2 {
     letter-spacing: 0.75px;
     font-weight: 400;
     font-size: 1.1rem;
-    line-height: 1.6; /* เพิ่ม line-height เพื่อให้ข้อความดูเป็นระเบียบ */
-    word-break: break-word; /* ตัดคำหากยาวเกินไป */
+    line-height: 1.6;
+    /* เพิ่ม line-height เพื่อให้ข้อความดูเป็นระเบียบ */
+    word-break: break-word;
+    /* ตัดคำหากยาวเกินไป */
 }
 
 .shadow-lg {
@@ -43,6 +69,4 @@ h2 {
 .shadow-inner {
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
 }
-
-
 </style>
