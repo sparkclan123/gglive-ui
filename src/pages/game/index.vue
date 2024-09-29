@@ -15,7 +15,7 @@
             </svg>
             <span class="text-gray-700 ">คะแนน: {{ point }}</span>
         </div>
-        <div >
+        <div>
             <div class="flex justify-center w-full ">
                 <svg xmlns="http://www.w3.org/2000/svg" class="m-1" width="24" height="24" viewBox="0 0 24 24"
                     id="game">
@@ -35,24 +35,24 @@
             </button>
 
             <div class="flex flex-wrap justify-center gap-4 mb-4">
-                <div class="card relative bg-white rounded-lg overflow-hidden shadow-xl">
+                <div class="card relative bg-white rounded-lg overflow-hidden shadow-xl p-2">
                     <!-- Red tag and heart icon -->
 
 
                     <!-- ปุ่ม "กติกา" มุมขวาบน -->
-                    <button @click="showRule"
+                    <!-- <button @click="showRule"
                         class="absolute top-0 right-0 bg-purple-900 text-white text-xs font-sm py-1 px-2 rounded-bl-lg">
                         คลิกเพื่ออ่านกติกาเเละข้อกำหนด
-                    </button>
+                    </button> -->
 
                     <!-- Image with rounded corners -->
                     <img class="w-full h-48 object-cover rounded-lg"
-                        src="https://pudee.sgp1.digitaloceanspaces.com/plinko2.webp" alt="Card image">
+                        src="https://pudee.sgp1.digitaloceanspaces.com/commingsoonminigame.png" alt="Card image">
 
                     <!-- Button with reduced font weight -->
                     <button @click="playGame('game-00001')"
-                        class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-white bg-opacity-30 text-white py-2 px-2 border border-white border-opacity-20 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
-                        เล่นทันที
+                        class="absolute inset-x-2 bottom-2 mx-auto block w-auto bg-gray-400 bg-opacity-30 text-white py-2 px-2 border border-gray-100 border-opacity-80 rounded transition duration-300 ease-in-out backdrop-filter backdrop-blur-sm text-xs font-semibold">
+                        Comming Soon
                     </button>
                 </div>
             </div>
@@ -105,6 +105,20 @@ export default {
             });
         },
         playGame(path) {
+            Swal.fire({
+                text: 'เกมเก็บคะเเนนใหม่จะมาเร็วๆนี้',
+                icon: 'error',
+                confirmButtonText: 'ตกลง',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+            }).then(() => {
+                this.$router.push({ name: 'my-team' });
+            });
+            return;
             if (this.count <= 0) {
                 Swal.fire({
                     text: 'จำนวนรอบไม่เพียงพอสำหรับการเก็บคะเเนน',
@@ -137,10 +151,10 @@ export default {
                 if (response.data.ok) {
                     this.count = response.data.count;
                 }
-               
+
             } catch (error) {
                 console.error("Error fetching point:", error);
-                
+
             }
         },
         async getPoint() {
@@ -167,8 +181,8 @@ export default {
             this.updateLoading(false);
         });
 
-       
-        
+
+
     }
 };
 </script>

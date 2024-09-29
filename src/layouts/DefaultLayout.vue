@@ -3,28 +3,35 @@
         <nav class="bg-nav-top-color shadow-md inset-x-0 top-0 z-10">
             <div class="container mx-auto flex justify-center items-center relative" @click="facthTicket()">
                 <img src="/public/assets/logo.webp" alt="Logo" class="h-10">
-                <div class="absolute right-0 flex items-center  mr-4">
+                <div class="absolute right-0 flex items-center mr-4">
                     <i class="fas fa-ticket-alt text-yellow-400"></i>
                     <span class="ml-1 mr-2 text-yellow-200 text-xs">{{ getTicket }}</span>
                 </div>
-
             </div>
-
             <div class="marquee" v-if="Aannounce">
-                <p> {{ Aannounce }} </p>
+                <p>{{ Aannounce }}</p>
             </div>
-
-
         </nav>
+
         <div class="container mx-auto p-1">
-            <div>
-                <LodingSceen :loading="getLoading" style="display: flex; justify-content: space-around;" />
-            </div>
-
+            <LodingSceen :loading="getLoading" style="display: flex; justify-content: space-around;" />
             <router-view :style="getLoading ? 'visibility: hidden' : 'visibility: visible'" />
-
         </div>
-        <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16  shadow-2xl	" />
+
+        <!-- Modal -->
+        <transition name="fade">
+            <div v-if="showModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
+                @click.self="closeModal">
+                <div class="relative p-2">
+                    <img src="https://pudee.sgp1.digitaloceanspaces.com/newreward.png" alt="Reward Image"
+                        @click="closeModal" class="cursor-pointer max-w-full h-auto  rounded-lg">
+                    <button @click="hideForToday"
+                        class="absolute top-0 right-0 bg-red-800 text-white text-xs px-3 py-1 rounded" style="margin-top: -15px;">ไม่ต้องแสดงอีกวันนี้</button>
+                </div>
+            </div>
+        </transition>
+
+        <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16 shadow-2xl" />
     </div>
 </template>
 
@@ -32,12 +39,14 @@
 import UserMobileNav from '../components/object/UserMobileNav.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { api } from '@axios_inst';
+
 export default {
     name: 'DefaultLayout',
     data() {
         return {
             Aannounce: null,
-        }
+            showModal: false, // state for modal
+        };
     },
     components: {
         UserMobileNav,
@@ -61,28 +70,63 @@ export default {
                 console.log(error);
             }
         },
+        closeModal() {
+            this.showModal = false;
+        },
+        hideForToday() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(now.getDate() + 1);
+            sessionStorage.setItem('hideModalUntil2', tomorrow.toISOString());
+            this.showModal = false;
+        },
+        checkModalStatus() {
+            const hideModalUntil = sessionStorage.getItem('hideModalUntil2');
+            if (!hideModalUntil || new Date(hideModalUntil) < new Date()) {
+                this.showModal = true;
+            }
+        },
     },
     computed: {
         ...mapGetters('loading', ['getLoading']),
         ...mapGetters('ticket', ['getTicket']),
-
     },
     mounted() {
         this.updateLoading(false);
         this.facthTicket();
         this.facthUserInfo();
         this.getAannounces();
+        this.checkModalStatus(); // Check modal status on mount
     },
 };
 </script>
 
 <style scoped>
-.user-mobile-nav {
-    height: 60px;
+/* Modal Transition */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
 }
 
-nav img {
-    max-height: 40px;
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active in <2.1.8 */
+    {
+    opacity: 0;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
 }
 
 .bg-nav-top-color {
@@ -100,50 +144,21 @@ nav img {
 
 .marquee p {
     position: absolute;
-    width:200%;
+    width: 200%;
     height: 100%;
     font-size: 10px;
     margin: 0;
     line-height: 18px;
     text-align: center;
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-    -moz-animation: scroll-left 2s linear infinite;
-    -webkit-animation: scroll-left 2s linear infinite;
     animation: scroll-left 20s linear infinite;
-}
-
-@-moz-keyframes scroll-left {
-    0% {
-        -moz-transform: translateX(100%);
-    }
-
-    100% {
-        -moz-transform: translateX(-100%);
-    }
-}
-
-@-webkit-keyframes scroll-left {
-    0% {
-        -webkit-transform: translateX(100%);
-    }
-
-    100% {
-        -webkit-transform: translateX(-100%);
-    }
 }
 
 @keyframes scroll-left {
     0% {
-        -moz-transform: translateX(100%);
-        -webkit-transform: translateX(100%);
         transform: translateX(100%);
     }
 
     100% {
-        -moz-transform: translateX(-100%);
-        -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
     }
 }
