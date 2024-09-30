@@ -2,7 +2,7 @@
     <!-- Content for Tab 1 -->
     <div class="flex justify-center">
 
-        <img :src="webpSrc" alt="Big Match Coming Soon" class="video-banner2" />
+        <img @click="selectBigmatch" :src="webpSrc" alt="Big Match Coming Soon" class="video-banner2" />
 
 
     </div>
@@ -23,6 +23,9 @@ export default {
                 this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/bigmatchcomingsoon.webp?${new Date().getTime()}`;
             });
         },
+        selectBigmatch() {
+            this.$router.push({ name: 'pitch-bigmatch', params: { seasonID: 0, gameWeekID: 0 } });
+        }
     },
     mounted() {
         this.resetWebP();

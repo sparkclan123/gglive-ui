@@ -10,7 +10,7 @@ import GameWeek from './modules/GameWeek';
 import Teams from './modules/teams';
 import playerSelect from './modules/playerSelect';
 import ticket from './modules/ticket';
-
+import playerSelectBigmatch from './modules/playerSelectBigmatch';
 
 export default createStore({
   state: {},
@@ -27,5 +27,6 @@ export default createStore({
     Teams: Teams,
     playerSelect: playerSelect,
     ticket: ticket,
+    playerSelectBigmatch:playerSelectBigmatch
   },
 });

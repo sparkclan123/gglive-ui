@@ -52,6 +52,8 @@ import GgLiveDetailN from '../pages/gglive-detail/gglive-detail-n.vue';
 import GgLiveDetailEdit from '../pages/gglive-detail/gglive-detail-edit.vue';
 import GgLiveDetailEditNew from '../pages/gglive-detail/gglive-detail-edit_new.vue';
 
+import BigMatch from '../pages/bigmatch/index.vue';
+
 import Aff from '../pages/aff/index.vue';
 
 import NotFound from '../pages/NotFound.vue';
@@ -104,6 +106,11 @@ const routes = [
                 path: 'pitch-n/:seasonID/:gameWeekID',
                 name: 'pitch-n',
                 component: GgLiveN,
+            },
+            {
+                path: 'pitch-bigmatch/:seasonID/:gameWeekID',
+                name: 'pitch-bigmatch',
+                component: BigMatch,
             },
             {
                 path: 'list',
