@@ -21,7 +21,7 @@
       <button class="flex-col inline-flex items-center justify-center group" :class="{ active: isActive('result') }"
         @click="setActive('result')">
         <img src="/public/assets/logonew32x32.png" alt="result" class="w-4 h-4 group-hover:fill-blue-950" />
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">PuDee</span>
+        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">ย้อนหลัง</span>
       </button>
 
       <button class="inline-flex flex-col items-center justify-center group"

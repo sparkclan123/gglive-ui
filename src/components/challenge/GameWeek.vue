@@ -1,7 +1,13 @@
 <template>
     <div v-if="gameWeek" class="p-1">
         <div class="card cursor-pointer">
+            <div class="flex items-center justify-center ">
+                <button @click="hisLastGameWeek" class="bg-blue-800 p-1 rounded text-xs m-1" style="color: whitesmoke;">
+                    รายละเอียดย้อนหลังเกมวีค 6
+                </button>
+            </div>
             <div class="bottom-section">
+
                 <div class="flex items-center justify-center ">
                     <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
                     <button class="bg-yellow-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
@@ -76,13 +82,12 @@
                                 <div class="relative inline-block w-8 h-8">
                                     <!-- รูปโปรไฟล์หลัก -->
                                     <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
-                                        alt="userimage"
-                                        class="  w-8 h-8  border-2 border-white  object-contain">
+                                        alt="userimage" class="  w-8 h-8  border-2 border-white  object-contain">
 
                                     <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
                                     <img v-if="data.rank_p != ''"
-                                        :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'" alt="rankframe"
-                                        class="absolute inset-0 w-full h-full object-contain">
+                                        :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'"
+                                        alt="rankframe" class="absolute inset-0 w-full h-full object-contain">
                                 </div>
                                 <p
                                     class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
@@ -138,6 +143,14 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        hisLastGameWeek() {
+            this.$router.push({
+                name: 'result-list-gameweek-n',
+                params: {
+                    gameWeekID: 6
+                }
+            });
+        },
         rewardDetail() {
             this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "N" } });
         },
