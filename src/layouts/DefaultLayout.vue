@@ -19,17 +19,17 @@
         </div>
 
         <!-- Modal -->
-        <!-- <transition name="fade">
+        <transition name="fade">
             <div v-if="showModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50"
                 @click.self="hideForToday">
                 <div class="relative p-2">
-                    <img src="https://pudee.sgp1.digitaloceanspaces.com/newreward.png" alt="Reward Image"
+                    <img src="https://pudee.sgp1.digitaloceanspaces.com/newreward.jpeg" alt="Reward Image"
                         @click="hideForToday" class="cursor-pointer max-w-full h-auto  rounded-lg">
                     <button @click="hideForToday"
-                        class="absolute top-0 right-0 bg-red-800 text-white text-xs px-3 py-1 rounded" style="margin-top: -15px;">ไม่ต้องแสดงอีกวันนี้</button>
+                        class="absolute top-0 right-0 bg-red-800 text-white text-xs px-3 py-1 rounded" style="margin-top: -15px;">x</button>
                 </div>
             </div>
-        </transition> -->
+        </transition>
 
         <UserMobileNav class="fixed inset-x-0 bottom-0 bg-white rounded-t-mobile w-full h-16 shadow-2xl" />
     </div>

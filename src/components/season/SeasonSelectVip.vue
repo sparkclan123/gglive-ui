@@ -64,10 +64,10 @@
             <span class="regular-text">ทีมของคุณ</span>
           </div>
           <div class="item">
-            <span class="big-text text-green-500">
-              <NumberDisplay :number="gameWeek.reward" />
+            <span class="big-text2 text-green-500">
+              <NumberDisplay :number=" gameWeek.reward + (gameWeek.reward * 0.1) + (gameWeek.reward * 0.05) + 200" />
             </span>
-            <span class="regular-text text-green-500">เงินรางวัลสูงสุด</span>
+            <span class="regular-text2 text-green-500">เงินรางวัลรวมทั้งหมด</span>
           </div>
         </div>
       </div>
@@ -432,9 +432,20 @@ export default {
   display: block;
 }
 
+.card .bottom-section .row .item .big-text2 {
+  font-size: 14px;
+  display: block;
+}
+
+
 .card .bottom-section .row .item .regular-text {
   font-size: 9px;
 }
+
+.card .bottom-section .row .item .regular-text2 {
+  font-size: 10px;
+}
+
 
 .card .bottom-section .row .item:nth-child(2) {
   border-left: 1px solid rgba(255, 255, 255, 0.126);
