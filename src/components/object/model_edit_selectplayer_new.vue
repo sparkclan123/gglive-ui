@@ -20,7 +20,7 @@
 
                 <div class="flex items-center mb-1 text-gray-100 text-xs">
                   <label for="switch" class="mr-2">ทีม</label>
-                  <div class="checkbox-wrapper-35 flex items-center">
+                  <!-- <div class="checkbox-wrapper-35 flex items-center">
                     <input v-model="is_check_player" name="switch" id="switch" type="checkbox" class="switch">
                     <label for="switch" class="flex items-center">
                       <span class="switch-x-text text-gray-200">นักเตะ </span>
@@ -33,7 +33,7 @@
                         </span>
                       </span>
                     </label>
-                  </div>
+                  </div> -->
                 </div>
                 <select v-model="selectedTeam" @change="filterPlayers"
                   class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
