@@ -322,6 +322,7 @@ export default {
         CopyPlayer(players) {
             this.showCopyTeamModal = false;
             document.body.style.overflow = 'auto';
+            this.isCaptain = 'none',
             this.updateFormation();
             const playerIds = players.map(player => player.player_id);
 
