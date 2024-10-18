@@ -51,12 +51,17 @@
                     </div>
                 </div>
 
-                <div class="alert-container mt-1" role="alert">
-                    <div v-show="isCaptain === 'none'"
-                        class="alert-content p-1 pl-2 w-full bg-red-200 items-center text-red-900 leading-none rounded-full flex inline-flex ">
-                        
-                        <span class=" text-left flex-auto text-xs">กรุณาเลือกกับตันทีมก่อนบันทึก</span>
-                    </div>
+                <div class="alert-container mb-1" role="alert">
+                    <button
+                        class="text-gray-900 bg-blue-300  text-[12px] px-2 py-1 rounded-full shadow-lg hover:bg-blue-500 cursor-pointer mr-1"
+                        @click="ClickshowCopyTeamModal()">
+                        คัดลอกทีมของคุณ
+                    </button>
+                    <button v-show="isCaptain === 'none'"
+                        class="text-red-900 bg-red-300  text-[12px] px-2 py-1 rounded-full shadow-lg cursor-pointer mr-1">
+                        กรุณาเลือกกับตันทีมก่อนบันทึก
+                    </button>
+
                 </div>
 
                 <div class="imodPj custom-btn shadow-xl">
@@ -258,12 +263,16 @@
         <Modelc :showAdjustPlayerModal="showAdjustPlayerModal" :playerName="detailPlayer ? detailPlayer.name : 'Player'"
             @close-modal="showAdjustPlayerModal = false" @set-captain="setCaptan" @remove-player="ClickRemovePlayer" />
 
+        <ModelCopyTeam :showCopyTeamModal="showCopyTeamModal" @close-modal="showCopyTeamModal = false"
+            @copy-player="CopyPlayer" />
+
     </div>
 </template>
 
 
 <script>
 import PlayerSelection from './PlayerSelection.vue';
+import ModelCopyTeam from '../object/model_copy_my_team.vue';
 import { mapActions, mapGetters } from 'vuex';
 import Modelc from '../object/model.vue'
 import { api } from '@axios_inst';
@@ -273,9 +282,12 @@ export default {
     components: {
         PlayerSelection,
         Modelc,
+        ModelCopyTeam
     },
     data() {
         return {
+            showCopyTeamModal: false,
+
             showPlayerList: false,
             isToggled: false,
             selectedFormation: '1-5-5-3',
@@ -292,9 +304,40 @@ export default {
         }
     },
     methods: {
-        ...mapActions('playerSelect', ['setFormation', 'removePlayer']),
+        ...mapActions('playerSelect', ['addPlayer', 'setFormation', 'removePlayer']),
         ...mapActions('alert', ['addNotification']),
         ...mapActions('ticket', ['facthTicket']),
+        getPositionStateKey(position) {
+            switch (position) {
+                case 'G': return 'GKP';
+                case 'D': return 'DEF';
+                case 'M': return 'MID';
+                case 'F': return 'FWD';
+            }
+        },
+        ClickshowCopyTeamModal() {
+            document.body.style.overflow = 'hidden';
+            this.showCopyTeamModal = true;
+        },
+        CopyPlayer(players) {
+            this.showCopyTeamModal = false;
+            document.body.style.overflow = 'auto';
+            this.updateFormation();
+            const playerIds = players.map(player => player.player_id);
+
+            // กรอง getGameWeekPlayer ที่มี player_id ตรงกัน
+            const filteredPlayers = this.getGameWeekPlayer.filter(gameWeekPlayer =>
+                playerIds.includes(gameWeekPlayer.player_id)
+            );
+
+
+
+            filteredPlayers.map(player => {
+                const positionState = this.getPositionStateKey(player.position);
+                this.addPlayer({ player, position: positionState })
+            });
+
+        },
         async fetchMatches() {
             try {
                 const access_token = localStorage.getItem('access_token');
@@ -715,7 +758,7 @@ export default {
 
     },
     computed: {
-        ...mapGetters('GameWeek', ['getGameWeek']),
+        ...mapGetters('GameWeek', ['getGameWeek', 'getGameWeekPlayer']),
         ...mapGetters('playerSelect', ['getGKP', 'getDEF', 'getMID', 'getFWD']),
         groupedMatches() {
             return this.matches.reduce((groups, match) => {

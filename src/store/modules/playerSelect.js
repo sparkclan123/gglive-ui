@@ -35,7 +35,7 @@ const playerSelect = {
                 console.error(`Position ${position} not found in state`);
                 return;
             }
-
+           
             const emptySpotIndex = targetPosition.findIndex(p => p.id === null);
             if (emptySpotIndex === -1) return;
 
