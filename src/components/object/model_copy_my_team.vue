@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    asdasdasdasd
+    
     <div role="presentation" class="fixed inset-0 z-[1000] bg-black/60 duration-300 overflow-hidden"
       @click.self.prevent="$emit('close-modal')" :class="{
         '!bg-black/0 pointer-events-none': !showCopyTeamModal,
