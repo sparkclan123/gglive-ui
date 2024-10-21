@@ -2,10 +2,10 @@
     <div v-if="gameWeek" class="p-1">
         <div class="card cursor-pointer">
             <div class="flex items-center justify-center ">
-                <!-- <button @click="hisLastGameWeek" class="bg-blue-800 p-1 rounded text-xs m-1"
+                <button @click="hisLastGameWeek" class="bg-blue-800 p-1 rounded text-xs m-1"
                     style="color: whitesmoke;">
-                    รายละเอียดย้อนหลังเกมวีค 6
-                </button> -->
+                    รายละเอียดย้อนหลังเกมวีค 8
+                </button>
             </div>
             <div class="bottom-section  ">
                 <div class="flex items-center justify-center ">
@@ -149,7 +149,7 @@ export default {
             this.$router.push({
                 name: 'result-list-gameweek',
                 params: {
-                    gameWeekID: 6
+                    gameWeekID: 8
                 }
             });
         },
