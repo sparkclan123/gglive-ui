@@ -17,6 +17,10 @@
                 </div>
                 <span class="title text-green-500">
                     <NumberDisplay :number="gameWeek.reward" />
+                    <button class="bg-green-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
+                        @click="downloadExcel">
+                        download ข้อมูล <i class="fas fa-download"></i>
+                    </button>
                 </span>
 
                 <div class="row row1">
@@ -145,6 +149,33 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        downloadExcel() {
+            Swal.fire({
+                text: "สามารถโหลดข้อมูลทีมทั้งหมดได้หลังจากหมดเวลาจัดทีมเท่านั้น ตั่งเเต่ week 13 เป็นต้นไป?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, โหลด!',
+                cancelButtonText: 'ยกเลิก',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let data = 'https://pudee.sgp1.digitaloceanspaces.com/week_' + this.gameWeek.id + '.xlsx'
+
+                    window.open(data, "_blank");
+
+
+                }
+            })
+        },
         hisLastGameWeek() {
             this.$router.push({
                 name: 'result-list-gameweek',

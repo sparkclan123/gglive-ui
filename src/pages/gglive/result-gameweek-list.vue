@@ -30,6 +30,10 @@
                     </div>
                     <span class="title text-green-500">
                         <NumberDisplay :number="gameWeek.reward" />
+                        <button class="bg-green-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
+                            @click="downloadExcel">
+                            download ข้อมูล <i class="fas fa-download"></i>
+                        </button>
                     </span>
                     <div class="row row1">
                         <div class="item">
@@ -96,13 +100,12 @@
                                     <div class="relative inline-block w-8 h-8">
                                         <!-- รูปโปรไฟล์หลัก -->
                                         <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
-                                            alt="userimage"
-                                            class="  w-8 h-8  border-2 border-white  object-contain">
+                                            alt="userimage" class="  w-8 h-8  border-2 border-white  object-contain">
 
                                         <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
                                         <img v-if="data.rank_p != ''"
-                                            :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'" alt="rankframe"
-                                            class="absolute inset-0 w-full h-full object-contain">
+                                            :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'"
+                                            alt="rankframe" class="absolute inset-0 w-full h-full object-contain">
                                     </div>
                                     <p
                                         class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
@@ -151,6 +154,33 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
+        downloadExcel() {
+            Swal.fire({
+                text: "สามารถโหลดข้อมูลทีมทั้งหมดได้หลังจากหมดเวลาจัดทีมเท่านั้น ตั่งเเต่ week 13 เป็นต้นไป?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'ใช่, โหลด!',
+                cancelButtonText: 'ยกเลิก',
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let data = 'https://pudee.sgp1.digitaloceanspaces.com/week_' + this.gameWeek.id + '.xlsx'
+
+                    window.open(data, "_blank");
+
+
+                }
+            })
+        },
         rewardDetail() {
             this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "VIP" } });
         },
