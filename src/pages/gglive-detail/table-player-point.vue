@@ -90,7 +90,7 @@
                             </th>
 
                             <!-- MVP -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'mvp' && sortDirection === 'asc'" @click="sortBy('mvp')"
@@ -105,10 +105,10 @@
                                         MVP
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- ลงเล่น -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'play_point' && sortDirection === 'asc'"
@@ -123,10 +123,10 @@
                                         ลงเล่น
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- ทำประตู -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'goal_point' && sortDirection === 'asc'"
@@ -141,10 +141,10 @@
                                         ทำประตู
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- แอสซิส -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'assist_point' && sortDirection === 'asc'"
@@ -159,10 +159,10 @@
                                         แอสซิส
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- Clean Sheet -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'clean_sheet' && sortDirection === 'asc'"
@@ -177,10 +177,10 @@
                                         Clean Sheet
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- จุดโทษ -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'free_kick_point' && sortDirection === 'asc'"
@@ -195,10 +195,10 @@
                                         จุดโทษ
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- ใบเหลือง/แดง -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'card_point' && sortDirection === 'asc'"
@@ -213,10 +213,10 @@
                                         ใบเหลือง/แดง
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- ยิงประตูตัวเอง -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'self_goal_point' && sortDirection === 'asc'"
@@ -231,10 +231,10 @@
                                         ยิงประตูตัวเอง
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
 
                             <!-- เสียประตู -->
-                            <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
+                            <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
                                         v-if="sortColumn === 'lose_goal_point' && sortDirection === 'asc'"
@@ -249,7 +249,7 @@
                                         เสียประตู
                                     </p>
                                 </div>
-                            </th>
+                            </th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -268,15 +268,15 @@
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
                                     {{ sumPoint(player) }} </p>
                             </td>
-                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                            <!-- <td class="p-1 border-b border-blue-gray-50  text-center">
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold"
                                     v-if="player.play_point > 2">
                                     3</p>
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold" v-else>
                                     0</p>
 
-                            </td>
-                            <td class="p-1 border-b border-blue-gray-50  text-center">
+                            </td> -->
+                            <!-- <td class="p-1 border-b border-blue-gray-50  text-center">
                                 <p class="block antialiased text-xs leading-normal text-green-800  font-bold"
                                     v-if="player.play_point > 2">
                                     {{ player.play_point - 3 }}</p>
@@ -316,7 +316,7 @@
                                 <p class="block antialiased font-sans text-xs leading-normal text-red-800 font-bold">
                                     {{ player.lose_goal_point }}
                                 </p>
-                            </td>
+                            </td> -->
 
 
                         </tr>

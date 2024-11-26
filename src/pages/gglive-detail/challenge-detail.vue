@@ -41,7 +41,9 @@
                                         <source type="image/webp">
                                         <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
                                         <span v-if="GKP.captain == 1" class="captain-badge">C</span>
-                                        <span v-if="GKP.play_point > 2" class="mvp-badge"> <StarMVPIcon /></span>
+                                        <span v-if="GKP.play_point > 2" class="mvp-badge"> 
+                                            <!-- <StarMVPIcon /> -->
+                                        </span>
                                         <div class="goal-indicator-container">
                                             <div class="goal-indicator" v-if="GKP.goal_point > 0">
                                                 <span class="goal-mark" v-if="GKP.goal_point % 6 === 0">{{
@@ -81,7 +83,9 @@
                                         <source type="image/webp">
                                         <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
                                         <span v-if="DEF.captain == 1" class="captain-badge">C</span>
-                                        <span v-if="DEF.play_point > 2" class="mvp-badge"> <StarMVPIcon /></span>
+                                        <span v-if="DEF.play_point > 2" class="mvp-badge">
+                                             <!-- <StarMVPIcon /> -->
+                                            </span>
                                         <div class="goal-indicator-container">
                                             <div class="goal-indicator" v-if="DEF.goal_point > 0">
                                                 <span class="goal-mark" v-if="DEF.goal_point % 6 === 0">{{
@@ -120,7 +124,9 @@
                                         <source type="image/webp">
                                         <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
                                         <span v-if="MID.captain == 1" class="captain-badge">C</span>
-                                        <span v-if="MID.play_point > 2" class="mvp-badge"> <StarMVPIcon /></span>
+                                        <span v-if="MID.play_point > 2" class="mvp-badge"> 
+                                            <!-- <StarMVPIcon /> -->
+                                        </span>
                                         <div class="goal-indicator-container">
                                             <div class="goal-indicator" v-if="MID.goal_point > 0">
                                                 <span class="goal-mark" v-if="MID.goal_point % 5 === 0">{{
@@ -160,7 +166,9 @@
                                         <source type="image/webp">
                                         <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
                                         <span v-if="FWD.captain == 1" class="captain-badge">C</span>
-                                        <span v-if="FWD.play_point > 2" class="mvp-badge"> <StarMVPIcon /></span>
+                                        <span v-if="FWD.play_point > 2" class="mvp-badge"> 
+                                            <!-- <StarMVPIcon /> -->
+                                        </span>
                                         <div class="goal-indicator-container">
                                             <div class="goal-indicator" v-if="FWD.goal_point > 0">
                                                 <span class="goal-mark" v-if="FWD.goal_point % 4 === 0">{{
