@@ -6,14 +6,14 @@
 
         <div class="section">
             <div class="section-title">
-                <strong>ปรับกติกาตั่งเเต่วีค 13 เป็นต้นไป</strong>
+                <strong>ปรับกติกาตั้งเเต่วีค 13 เป็นต้นไป</strong>
             </div>
         </div>
 
         <div class="section">
             <div class="section-title">
                 <strong>การเปลี่ยนแปลงคะแนน</strong>
-            </div>3. เปลี่ยนแปลงกติกาการให้คะแนน จะอ้างอิงคะแนนจาก Fantasy Premier League (รวมคะแนนโบนัสด้วย) และหาก Fantasy Premier League มีการเปลี่ยนแปลงคะแนน หลังจากประกาศผลการแข่งขันประจำสัปดาห์ไปแล้ว จะถือการตัดสินของ PuDee เป็นที่สิ้นสุด จะไม่มีการเปลี่ยนแปลงคะแนนและผลรางวัลใหม่
+            </div>
             <div class="rule">
                 <strong>-</strong>  <span class="">เปลี่ยนแปลงกติกาการให้คะแนน จะอ้างอิงคะแนนจาก Fantasy Premier League (รวมคะแนนโบนัสด้วย)</span>.
             </div>

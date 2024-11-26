@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div >
+        <div>
             <LodingSceen :loading="loading" />
         </div>
         <div class="contant_style">
@@ -77,9 +77,11 @@
                     </button>
                 </div>
             </div>
-            <span class="text-xs mb-2 text-red-800 font-semibold">*เวลาทำการในการปรับยอดตั๋ว <span
-                    class="text-green-700">07:00(เช้า)-23:59</span>
-                หากมีการบันทึกก่อนหรือหลังเวลาทำการทางเราจะดำเนินการให้ภายในเวลาทำการถัดไปครับ</span><br>
+            <span class="text-xs mb-2 text-red-800 font-semibold">*เวลาทำการในการปรับยอดตั๋ว
+                แอดมินขอสงวนสิทธิ์ User ที่โอนเงินและส่งสลิปมาให้ช่วงหลัง <span class="text-green-700"> 24.00 น. </span>
+                แอดมินจะอนุมัติตั๋วให้อีกครั้ง <span class="text-green-700"> 08.00
+                    น. </span> ของวันต่อไป ยกเว้นวันปิดรับส่งทีม จะอนุมัติตั๋วให้จนถึง 75 นาทีก่อนคู่แรกลงสนาม
+            </span><br>
             <span class="text-xs mb-2 text-red-800 font-semibold">*สอบถามข้อมูลเพิ่มเติม LINE <span
                     class="text-green-700">@pudee</span> </span>
 
