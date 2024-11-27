@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="flex justify-center items-center mt-10">
-                <img @click="goPage('game')" src="https://pudee.sgp1.digitaloceanspaces.com/gameactivity.png" alt="Animated Banner" width="80%" height="50%" class="rounded-2xl shadow-lg shadow-gray-400 border border-gray-200 cursor-pointer"/>
+                <!-- <img @click="goPage('game')" src="https://pudee.sgp1.digitaloceanspaces.com/gameactivity.png" alt="Animated Banner" width="80%" height="50%" class="rounded-2xl shadow-lg shadow-gray-400 border border-gray-200 cursor-pointer"/> -->
             </div>
         </div>
     </div>

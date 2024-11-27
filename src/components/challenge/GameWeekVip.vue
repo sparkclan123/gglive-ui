@@ -151,7 +151,7 @@ export default {
         ...mapActions('loading', ['updateLoading']),
         downloadExcel() {
             Swal.fire({
-                text: "สามารถโหลดข้อมูลทีมทั้งหมดได้หลังจากหมดเวลาจัดทีมเท่านั้น ตั่งเเต่ week 13 เป็นต้นไป?",
+                text: "สามารถโหลดข้อมูลทีมทั้งหมดได้หลังจากหมดเวลาจัดทีมเท่านั้น ตั้งเเต่ week 13 เป็นต้นไป?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

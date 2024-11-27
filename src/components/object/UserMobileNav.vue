@@ -74,19 +74,19 @@
 
           </div>
           
-          <a @click="sideMenu('aff-my')" class="menu-link2 cursor-pointer"> <i class="fas fa-users mr-1"></i>พันธมิตร</a>
+          <!-- <a @click="sideMenu('aff-my')" class="menu-link2 cursor-pointer"> <i class="fas fa-users mr-1"></i>พันธมิตร</a> -->
           
           <button @click="toggleMenu" class="close-button text-gray-600 hover:text-gray-800">
             <i class="fas fa-times"></i>
           </button>
         </div>
         <ul class="menu-items">
-          <li class="menu-item">
+          <!-- <li class="menu-item">
             <a @click="sideMenu('game')" class="menu-link cursor-pointer"> <i class="fas fa-gamepad mr-2"></i> เกมเก็บคะเเนน</a>
           </li>
           <li class="menu-item">
             <a @click="sideMenu('exchangereward')" class="menu-link cursor-pointer"> <i class="fa fa-star mr-2"></i> เเลกของรางวัล</a>
-          </li>
+          </li> -->
           <li class="menu-item">
             <a @click="sideMenu('payments')" class="menu-link cursor-pointer"> <i class="fas fa-ticket-alt text-yellow-700 mr-2"></i>
               สนับสนุนเรา</a>
