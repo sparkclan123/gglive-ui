@@ -5,7 +5,7 @@
                 <div>
                     <h1
                         class="lg:text-xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 text-white">
-                        ข้อมูลส่วนตัว
+                        ข้อมูลส่วนตัว ID: {{userinfo.UserID}}
                     </h1>
                     <form @submit.prevent="updateProfile">
                         <div>

@@ -156,13 +156,12 @@ export default {
         ...mapActions('loading', ['updateLoading']),
         downloadExcel() {
             Swal.fire({
-                text: "สามารถโหลดข้อมูลทีมทั้งหมดได้หลังจากหมดเวลาจัดทีมเท่านั้น ตั้งเเต่ week 13 เป็นต้นไป?",
+                text: "สามารถดูได้ที่ page facebook pudee-club !!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'ใช่, โหลด!',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ตกลง!',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
@@ -171,14 +170,6 @@ export default {
                     htmlContainer: 'text-custom'
                 },
                 buttonsStyling: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let data = 'https://pudee.sgp1.digitaloceanspaces.com/week_' + this.gameWeek.id + '.xlsx'
-
-                    window.open(data, "_blank");
-
-
-                }
             })
         },
         rewardDetail() {
