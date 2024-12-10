@@ -39,8 +39,9 @@
                 <span class="text-xs mb-2 text-red-800 font-semibold">*สามารถคัดลอกเลขบัญชี เเทนการเเสกน qr ได้</span>
                 <div class="mb-2 text-gray-800 font-semibold">
                     <div class="flex justify-between">
-                        <img src="/public/assets/kbank.jpg"
-                            class="w-5 h-5 object-cover drop-shadow-xl rounded-full mr-2" alt="slip image">
+                        <!-- <img src="/public/assets/kbank.jpg"
+                            class="w-5 h-5 object-cover drop-shadow-xl rounded-full mr-2" alt="slip image"> -->
+                            ธ.กรุงเทพ
                         <button class="copyaccount mr-2" @click="copyaccount"><span class="plussign ">คัดลอก เลข
                                 บช</span></button>
                     </div>
@@ -128,7 +129,7 @@ import Swal from 'sweetalert2';
 export default {
     data() {
         return {
-            payurl: "https://pudee.sgp1.digitaloceanspaces.com/IMG_7776%20(1).JPG",
+            payurl: "https://pudee.sgp1.digitaloceanspaces.com/IMG_7776%20(2).JPG",
             loading: false,
             value: 1,
             qrCode: null, // เพิ่มตัวแปรนี้เพื่อเก็บ base64 QR code
@@ -172,7 +173,7 @@ export default {
             link.click();
         },
         copyaccount() {
-            navigator.clipboard.writeText('1903512276').then(() => {
+            navigator.clipboard.writeText('3210656504').then(() => {
                 Swal.fire({
                     icon: 'success',
                     title: 'คัดลอก!',

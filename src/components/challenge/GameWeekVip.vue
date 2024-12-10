@@ -1,12 +1,12 @@
 <template>
     <div v-if="gameWeek" class="p-1">
         <div class="card cursor-pointer">
-            <!-- <div class="flex items-center justify-center ">
+            <div class="flex items-center justify-center ">
                 <button @click="hisLastGameWeek" class="bg-blue-800 p-1 rounded text-xs m-1"
                     style="color: whitesmoke;">
-                    รายละเอียดย้อนหลังเกมวีค 10
+                    รายละเอียดย้อนหลังเกมวีค {{gameWeek.id - 1 }}
                 </button>
-            </div> -->
+            </div>
             <div class="bottom-section  ">
                 <div class="flex items-center justify-center ">
                     <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
@@ -151,13 +151,12 @@ export default {
         ...mapActions('loading', ['updateLoading']),
         downloadExcel() {
             Swal.fire({
-                text: "สามารถโหลดข้อมูลทีมทั้งหมดได้หลังจากหมดเวลาจัดทีมเท่านั้น ตั้งเเต่ week 13 เป็นต้นไป?",
+                text: "สามารถดูได้ที่ page facebook pudee-club !!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'ใช่, โหลด!',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ตกลง!',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
@@ -166,21 +165,13 @@ export default {
                     htmlContainer: 'text-custom'
                 },
                 buttonsStyling: false,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let data = 'https://pudee.sgp1.digitaloceanspaces.com/week_' + this.gameWeek.id + '.xlsx'
-
-                    window.open(data, "_blank");
-
-
-                }
             })
         },
         hisLastGameWeek() {
             this.$router.push({
                 name: 'result-list-gameweek',
                 params: {
-                    gameWeekID: 10
+                    gameWeekID: this.gameWeek.id - 1
                 }
             });
         },
