@@ -21,10 +21,10 @@
       <div class="confetti-piece"></div>
       <div class="confetti-piece"></div>
       <div class="confetti-piece"></div>
+      
     </div>
-
     <div class="card ">
-
+     
       <!-- <div class="top-section  bg-img cursor-pointer" @click="selectSeason()"> -->
       <div class="top-section cursor-pointer" @click="selectSeason()">
         <img :src="webpSrc" class="video-banner" alt="Animated Banner" />

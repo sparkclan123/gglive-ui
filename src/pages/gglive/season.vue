@@ -39,6 +39,7 @@
 
             </div>
             <div v-if="activeTab === 'tab2'">
+                <span class="text-red-800" style="font-size: 12px;">**เงื่อนไข ต้องใช้ตั๋วที่ได้จากการซื้อโปรโมชั่นให้หมดภายใน week17</span>
                 <SeasonSelectVip />
                 <div class="mt-5 flex justify-center">
                     <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
