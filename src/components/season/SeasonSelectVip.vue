@@ -27,7 +27,8 @@
      
       <!-- <div class="top-section  bg-img cursor-pointer" @click="selectSeason()"> -->
       <div class="top-section cursor-pointer" @click="selectSeason()">
-        <img :src="webpSrc" class="video-banner" alt="Animated Banner" />
+        <!-- <img :src="webpSrc" class="video-banner" alt="Animated Banner" /> -->
+        <img :src="webpSrcpromo" class="video-banner" alt="Animated Banner" />
 
         <div class="icons">
           <div class="logo shsojvp text-yellow-50" style="display: flex; align-items: center;">
@@ -108,8 +109,9 @@ export default {
       allPlayer: 0,
       myTeam: 0,
       currentTime: null,
-      is_time_up: false,
-      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/banner_select.webp",
+      is_time_up: false,   
+      webpSrcpromo: "https://pudee.sgp1.digitaloceanspaces.com/newpromo.jpeg",
+      // webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/banner_select.webp",
       commingSoon: "https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
     };
   },
@@ -292,7 +294,7 @@ export default {
 
 
 .card .top-section {
-  height: 150px;
+  height: 250px;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -307,7 +309,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* object-fit: cover; */
   /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
 }
 
