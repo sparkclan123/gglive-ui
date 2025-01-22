@@ -17,7 +17,7 @@
                                         fill="white" transform="matrix(-1 0 0 1 24 0)"></path>
                                 </svg>
 
-                                <span class="text-gray-200 font-bold text-xs">กลับ</span>
+                                <span class="text-gray-200 font-bold text-xs">back</span>
                             </div>
 
                         </div>
@@ -31,17 +31,17 @@
                         </span>
                         <div class="row row1">
                             <div class="item">
-                                <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} </span>
-                                <span class="regular-text text-gray-200">(คะเเนน)</span>
+                                <span class="big-text text-gray-200">Game {{ gameWeek.week }} </span>
+                                <span class="regular-text text-gray-200">(point)</span>
                             </div>
                             <div class="item_2">
                                 <button @click="addTeamInMatch"
-                                    class="bg-green-600 text-white px-4 py-1 rounded text-md">เพิ่ม</button>
-                                <!-- <span class="regular-text text-gray-200">เพิ่มทีม</span> -->
+                                    class="bg-green-600 text-white px-4 py-1 rounded text-md">Add</button>
+                                <!-- <span class="regular-text text-gray-200">addteam</span> -->
                             </div>
                             <div class="item">
                                 <span class="big-text text-gray-200">{{ season.label }}</span>
-                                <span class="regular-text text-gray-200">ฤดูกาล</span>
+                                <span class="regular-text text-gray-200">season</span>
                             </div>
 
                         </div>
@@ -56,19 +56,19 @@
                                         <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
                                         <p
                                             class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                            ชื่อทีม
+                                            name
                                         </p>
                                     </div>
                                 </th>
                                 <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                     <p
                                         class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                        คะเเนน</p>
+                                        point</p>
                                 </th>
                                 <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                     <p
                                         class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                        วันที่</p>
+                                        date</p>
                                 </th>
 
                             </tr>
@@ -150,13 +150,13 @@ export default {
         },
         async addTeamInMatch() {
             // Swal.fire({
-            //     title: 'เพิ่มทีม',
-            //     text: 'กรอกโค้ดทีมที่ต้องการเพิ่ม',
+            //     title: 'addteam',
+            //     text: 'กรอกโค้ดteamที่ต้องการadd',
             //     input: 'text',
             //     inputPlaceholder: 'กรอกโค้ดการเเข่งขัน',
             //     showCancelButton: true,
             //     confirmButtonText: 'เข้าร่วม',
-            //     cancelButtonText: 'ยกเลิก',
+            //     cancelButtonText: 'cancel',
             //     customClass: {
             //         input: 'swal-input', // Add custom class for input
             //         cancelButton: 'btn-cancel',
@@ -199,7 +199,7 @@ export default {
                 if (response.data.ok) {
                     Swal.fire({
                         icon: 'success',
-                        text: 'เข้าร่วมการเเข่งขันเรียบร้อย',
+                        text: 'join success',
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {

@@ -8,7 +8,7 @@
 
         <div class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">
 
-          <div class="sticky top-0 bg-[#1e1036] p-4 !rounded-t-xl">
+          <div class="sticky top-0 bg-[#2e343c] p-4 !rounded-t-xl">
 
             <button class="close-button" @click="$emit('close-modal')">
               <span class="close-icon">&times;</span>
@@ -19,11 +19,11 @@
               <div class="flex-1 min-w-[100px]">
 
                 <div class="flex items-center mb-1 text-gray-100 text-xs">
-                  <label for="switch" class="mr-2">ทีม</label>
+                  <label for="switch" class="mr-2">team</label>
                   <!-- <div class="checkbox-wrapper-35 flex items-center">
                     <input v-model="is_check_player" name="switch" id="switch" type="checkbox" class="switch">
                     <label for="switch" class="flex items-center">
-                      <span class="switch-x-text text-gray-200">นักเตะ </span>
+                      <span class="switch-x-text text-gray-200"> </span>
                       <span class="switch-x-toggletext flex items-center ">
                         <span class="switch-x-unchecked mr-1 text-yellow-400">
                           <span class=" switch-x-text switch-x-hiddenlabel">Unchecked:</span>off
@@ -46,15 +46,15 @@
               </div>
               <div class="flex-1 min-w-[100px]">
 
-                <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง
-                  <span class="text-green-400">คงเหลือ {{ (remainingAmount + detailPlayer_price).toFixed(2) }}$</span>
+                <label class="block mb-1 text-gray-100 text-xs">position
+                  <span class="text-green-400"> {{ (remainingAmount + detailPlayer_price).toFixed(2) }}$</span>
                 </label>
 
 
 
                 <select v-model="selectedPosition" @change="filterPlayers"
                   class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
-                  <option value="">ทุกตำเเหน่ง</option>
+                  <option value="">all position</option>
                   <option v-for="option in optionsPosition" :key="option.value" :value="option.value">
                     {{ option.name }}
                   </option>
@@ -63,12 +63,12 @@
             </div>
             <div class="flex flex-wrap gap-4">
               <div class="flex-1 min-w-[100px] ">
-                <label class="block mb-1 text-gray-100 text-xs">ค้นหา..</label>
+                <label class="block mb-1 text-gray-100 text-xs">search..</label>
                 <input type="text" placeholder="Search for player..." v-model="searchTerm" @input="filterPlayers"
                   class="p-1 border rounded w-full text-gray-600 text-sm">
               </div>
               <div class="flex-1 min-w-[100px]">
-                <label class="block mb-1 text-gray-100 text-xs">งบไม่เกิน</label>
+                <label class="block mb-1 text-gray-100 text-xs">Budget must not exceed.</label>
                 <input type="number" placeholder="Max cost" v-model="maxCost" @input="filterPlayers"
                   class="p-1 border rounded w-full text-gray-600 text-sm">
               </div>
@@ -81,9 +81,9 @@
               <thead>
                 <tr>
 
-                  <th class="w-1/3 py-1 pl-2 text-left text-gray-900 border-b border-gray-400">นักเตะ</th>
-                  <!-- <th class=" py-1 pl-2 text-left text-gray-900 border-b border-gray-400">ทีม</th> -->
-                  <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">ราคา</th>
+                  <th class="w-1/3 py-1 pl-2 text-left text-gray-900 border-b border-gray-400"></th>
+                  <!-- <th class=" py-1 pl-2 text-left text-gray-900 border-b border-gray-400">team</th> -->
+                  <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">price</th>
                   <!-- <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">%</th> -->
                   <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟨</th>
                   <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟥</th>
@@ -126,7 +126,7 @@
             </table>
           </div>
         </div>
-        <div class="sticky bottom-0 bg-[#1e1036] p-3">
+        <div class="sticky bottom-0 bg-[#2e343c] p-3">
           <PaginationJavascript :page="currentPage" :pages="totalPages" @page-change="handlePageChange" />
         </div>
 
@@ -157,7 +157,7 @@ export default {
         {
           label: 'ตัวเลือก',
           options: [
-            { name: 'ทั้งหมด', value: 'view' }
+            { name: 'all', value: 'view' }
           ]
         },
         {
@@ -281,9 +281,9 @@ export default {
 
       if (player.is_ban || player.is_injured) {
         Swal.fire({
-          text: 'นักเตะนี้ไม่สามารถเล่นได้',
+          text: 'can not select',
           showCancelButton: true,
-          cancelButtonText: 'ยกเลิก',
+          cancelButtonText: 'cancel',
           showConfirmButton: false,
           customClass: {
             cancelButton: 'btn-cancel',
@@ -298,9 +298,9 @@ export default {
 
       if (player.price - this.detailPlayer_price > this.remainingAmount) {
         Swal.fire({
-          text: 'งบไม่เพียงพอ',
+          text: 'Insufficient budget.',
           showCancelButton: true,
-          cancelButtonText: 'ยกเลิก',
+          cancelButtonText: 'cancel',
           showConfirmButton: false,
           customClass: {
             cancelButton: 'btn-cancel',
@@ -327,7 +327,7 @@ export default {
             `;
 
       const { value: confirm } = await Swal.fire({
-        title: 'ยืนยันการเปลี่ยนผู้เล่น',
+        title: 'Confirmการเปลี่ยนผู้เล่น',
         html: `<div style="display: flex; align-items: center; justify-content: center;">
                             ${svgArrow}
                              <span> ${player_name_new}</span>
@@ -336,8 +336,8 @@ export default {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'ใช่, เปลี่ยนผู้เล่น!',
-        cancelButtonText: 'ยกเลิก',
+        confirmButtonText: 'Yes, change the player!',
+        cancelButtonText: 'cancel',
         customClass: {
           cancelButton: 'btn-cancel',
           title: 'text-custom',

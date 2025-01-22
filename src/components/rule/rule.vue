@@ -1,31 +1,32 @@
 <template>
     <div class="rules-container">
         <div class="rule-title">
-            <strong>กติกาการนับคะแนน</strong>
+            <strong>Scoring Rules</strong>
         </div>
 
         <div class="section">
             <div class="section-title">
-                <strong>ปรับกติกาตั้งเเต่วีค 13 เป็นต้นไป</strong>
+                <strong>Rule Adjustments Starting from Week 13</strong>
             </div>
         </div>
 
         <div class="section">
             <div class="section-title">
-                <strong>การเปลี่ยนแปลงคะแนน</strong>
+                <strong>Score Adjustments</strong>
             </div>
             <div class="rule">
-                <strong>-</strong>  <span class="">เปลี่ยนแปลงกติกาการให้คะแนน จะอ้างอิงคะแนนจาก Fantasy Premier League (รวมคะแนนโบนัสด้วย)</span>.
+                <strong>-</strong> <span class="">Scoring rules have been updated to align with Fantasy Premier League (including bonus points).</span>.
             </div>
             <div class="rule">
-                <strong>-</strong> หาก Fantasy Premier League มีการเปลี่ยนแปลงคะแนน <span class="rule-strong-red">หลังจากที่ PuDee</span> ประกาศผลการแข่งขันประจำสัปดาห์แล้ว <span class="rule-strong-red">การตัดสินของ PuDee จะถือเป็นที่สิ้นสุด</span>.
+                <strong>-</strong> If the Fantasy Premier League updates its scores <span class="rule-strong-red">after OP Part Fantasy</span> has announced the weekly results, <span class="rule-strong-red">OP Part Fantasy decision will be final.</span>.
             </div>
             <div class="rule">
-                <strong>-</strong> จะไม่มีการเปลี่ยนแปลงคะแนนและผลรางวัลใหม่หลังการตัดสินสิ้นสุด.
+                <strong>-</strong> There will be no changes to scores or prizes after the final decision has been made.
             </div>
         </div>
     </div>
 </template>
+
 
 <style scoped>
 .rules-container {

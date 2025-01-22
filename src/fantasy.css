@@ -480,13 +480,13 @@
   }
   
   .custom-btn0 {
-      background-color: #1e0f37;
+      background-color: #191b1e;
       color: #000000;
       padding: 0.5rem 0.5rem;
       border-radius: 0.5rem;
       /* มุมโค้ง */
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      /* เพิ่มเงา */
+      /* addเงา */
       transition: all 0.3s ease-in-out;
       backdrop-filter: blur(10px);
       font-size: 0.75rem;
@@ -494,7 +494,7 @@
   }
   
   .custom-btn {
-      background-color: #1e0f37;
+      background-color: #191b1e;
       color: #000000;
       padding: 0.5rem 0.5rem;
       border: 3px solid #523c74;
@@ -502,7 +502,7 @@
       border-radius: 0.5rem;
       /* มุมโค้ง */
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      /* เพิ่มเงา */
+      /* addเงา */
       transition: all 0.3s ease-in-out;
       backdrop-filter: blur(10px);
       font-size: 0.75rem;

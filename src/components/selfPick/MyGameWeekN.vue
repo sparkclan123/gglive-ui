@@ -7,7 +7,7 @@
                     <div class=" w-7 h-7  ">
                         <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                     </div>
-                    <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
+                    <div class="text-sm ">season {{ data.season }} Game {{ data.week }}
                         <DateFormatted :dateString="data.created_at" class="font-thin " />
                     </div>
                 </div>
@@ -19,16 +19,16 @@
             </div>
             <div class="flex items-center justify-between">
                 <div class="mt-4 text-gray-800  text-xs space-x-4">
-                    ชื่อทีม: {{ data.name }}
+                    name: {{ data.name }}
                 </div>
 
             </div>
             <div class="flex items-center justify-between">
                 <div class="mt-1 text-gray-800   text-sm space-x-1">
                     <button @click="selectSelf(data.id, 'N', data.name)"
-                        class="bg-green-800 text-white px-2 py-1 rounded text-xs">เลือกทีม</button>
+                        class="bg-green-800 text-white px-2 py-1 rounded text-xs">Select</button>
                     <button @click="seeDetailAndEdit(data)"
-                        class="bg-yellow-800 text-white px-2 py-1 rounded text-xs">รายละเอียด</button>
+                        class="bg-yellow-800 text-white px-2 py-1 rounded text-xs">Detail</button>
                 </div>
             </div>
         </div>
@@ -56,11 +56,11 @@ export default {
         async selectSelf(id, type, name) {
 
             const result = await Swal.fire({
-                title: 'เลือกทีม',
-                text: 'คุณต้องการเลือก ทีม: ' + name + ' ใช่หรือไม่?',
+                title: 'Select',
+                text: 'You want to select: ' + name + ' ?',
                 showCancelButton: true,
-                confirmButtonText: 'ใช่',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'yes',
+                cancelButtonText: 'cancel',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
@@ -96,7 +96,7 @@ export default {
                 if (response.data.ok) {
                     Swal.fire({
                         icon: 'success',
-                        text: 'เข้าร่วมการเเข่งขันเรียบร้อย',
+                        text: 'Select success',
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
@@ -175,7 +175,7 @@ export default {
 .cus-bg-card {
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px #8341ca;
+    box-shadow: 2px 2px 2px #3e434b;
     transition: box-shadow 0.3s ease;
 }
 </style>

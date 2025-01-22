@@ -5,11 +5,11 @@
             <div class="flex flex-wrap gap-4 mb-4 ">
                 <div class="flex-1 min-w-[100px]">
                     <div class="flex items-center mb-1 text-gray-100 text-xs">
-                        <label for="switch" class="mr-2">ทีม</label>
+                        <label for="switch" class="mr-2">team</label>
                         <div class="checkbox-wrapper-35 flex items-center">
                             <input v-model="is_check_player" name="switch" id="switch" type="checkbox" class="switch">
                             <label for="switch" class="flex items-center">
-                                <span class="switch-x-text text-gray-200">นักเตะ </span>
+                                <span class="switch-x-text text-gray-200"> </span>
                                 <span class="switch-x-toggletext flex items-center ">
                                     <span class="switch-x-unchecked mr-1 text-yellow-400">
                                         <span class=" switch-x-text switch-x-hiddenlabel">Unchecked:</span>off
@@ -31,11 +31,11 @@
                     </select>
                 </div>
                 <div class="flex-1 min-w-[100px]">
-                    <label class="block mb-1 text-gray-100 text-xs">ตำเเหน่ง ,
-                        <span class="text-green-400">คงเหลือ {{ remainingAmount }}$</span> </label>
+                    <label class="block mb-1 text-gray-100 text-xs">position ,
+                        <span class="text-green-400"> {{ remainingAmount }}$</span> </label>
                     <select v-model="selectedPosition" @change="filterPlayers"
                         class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
-                        <option value="">ทุกตำเเหน่ง</option>
+                        <option value="">all position</option>
                         <option v-for="option in optionsPosition" :key="option.value" :value="option.value">
                             {{ option.name }}
                         </option>
@@ -44,12 +44,12 @@
             </div>
             <div class="flex flex-wrap gap-4 mb-4 ">
                 <div class="flex-1 min-w-[100px] ">
-                    <label class="block mb-1 text-gray-100 text-xs">ค้นหา..</label>
+                    <label class="block mb-1 text-gray-100 text-xs">search..</label>
                     <input type="text" placeholder="Search for player..." v-model="searchTerm" @input="filterPlayers"
                         class="p-1 border rounded w-full text-gray-600 text-sm">
                 </div>
                 <div class="flex-1 min-w-[100px]">
-                    <label class="block mb-1 text-gray-100 text-xs">งบไม่เกิน</label>
+                    <label class="block mb-1 text-gray-100 text-xs">Budget must not exceed.</label>
                     <input type="number" placeholder="Max cost" v-model="maxCost" @input="filterPlayers"
                         class="p-1 border rounded w-full text-gray-600 text-sm">
                 </div>
@@ -62,9 +62,9 @@
                     <tr>
 
                         <th class="w-[1%] text-left text-gray-900 border-b border-gray-400"></th>
-                        <th class="w-1/3 py-1 pl-2 text-left text-gray-900 border-b border-gray-400">นักเตะ</th>
-                        <!-- <th class=" py-1 pl-2 text-left text-gray-900 border-b border-gray-400">ทีม</th> -->
-                        <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">ราคา</th>
+                        <th class="w-1/3 py-1 pl-2 text-left text-gray-900 border-b border-gray-400"></th>
+                        <!-- <th class=" py-1 pl-2 text-left text-gray-900 border-b border-gray-400">team</th> -->
+                        <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">price</th>
                         <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">%</th>
                         <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟨</th>
                         <th class="w-[1%] py-1  pl-2 text-left text-gray-900 border-b border-gray-400">🟥</th>
@@ -166,7 +166,7 @@ export default {
                 {
                     label: 'ตัวเลือก',
                     options: [
-                        { name: 'ทั้งหมด', value: 'view' }
+                        { name: 'all', value: 'view' }
                     ]
                 },
                 {
@@ -308,7 +308,7 @@ export default {
                 Swal.fire({
                     text: player.name + ' บาดเจ็บ',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -324,7 +324,7 @@ export default {
                 Swal.fire({
                     text: player.name + ' โดนแบน',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -348,9 +348,9 @@ export default {
 
             if (existingPlayerIndex !== -1) {
                 const result = await Swal.fire({
-                    text: 'คุณต้องการลบนักเตะใช่หรือไม่? ' + player.name,
+                    text: 'คุณต้องการลบใช่หรือไม่? ' + player.name,
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     confirmButtonText: 'ลบ',
                     customClass: {
                         confirmButton: 'btn-confirm',
@@ -371,7 +371,7 @@ export default {
                     this.$emit('showPositionFullModal');
 
                 } else {
-                    // ตรวจสอบว่า มีผู้เล่นในทีมเดียวกันมากกว่า 3 คนหรือไม่
+                    // ตรวจสอบว่า มีผู้เล่นในteamเดียวกันมากกว่า 3 คนหรือไม่
                     const totalPlayersInTeam = [
                         ...this.getGKP,
                         ...this.getDEF,
@@ -395,7 +395,7 @@ export default {
             Swal.fire({
                 text: player.name,
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 showConfirmButton: false,
                 customClass: {
                     cancelButton: 'btn-cancel',
@@ -418,7 +418,7 @@ export default {
             Swal.fire({
                 text: player.name + ' ' + status,
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 showConfirmButton: false,
                 customClass: {
                     cancelButton: 'btn-cancel',

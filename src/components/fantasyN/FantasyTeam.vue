@@ -6,9 +6,9 @@
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
                     <img src="/public/assets/logonew.png" alt="icon" class="mr-1 w-7 h-7">
-                    <span class="mr-auto">เกมวีค {{ getGameWeek.week }}</span>
+                    <span class="mr-auto">Game {{ getGameWeek.week }}</span>
                     <button @click="toggleClass('all')" class="sc-iftxFb isQEzW hvBVYx_non">
-                        รายชื่อผู้เล่น
+                        Player List
                         <div ml="1" class="sc-csKJxZ dviEZq">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 20"
                                 color="primary" class="sc-bSywJw sc-hPMVTF gPCpFh flMINk">
@@ -23,10 +23,10 @@
                 <div class="dsbthN custom-btn shadow-xl">
                     <div class="eVUsqz">
                         <button @click="saveTeam()" class="button_new">
-                            บันทึกทีม
+                            save
                         </button>
                         <button @click="resetTeam()" class="button_new_reset">
-                            รีเซ็ต
+                            reset
                         </button>
                         <button class="font-bold text-gray-300  py-2 px-1 text-xs items-center">
                             {{ totalPlayerCount }}/11
@@ -42,9 +42,9 @@
                     </div>
                     <div class="">
                         <div class=" flex-container">
-                            <label for="formation" class="text-gray-300">**กองหลังต้องมีอย่างน้อย 3 คน </label>
-                            <label for="formation" class="text-gray-300">**กองกลางต้องมีอย่างน้อย 2 คน </label>
-                            <label for="formation" class="text-gray-300">**กองหน้าต้องมีอย่างน้อย 1 คน </label>
+                            <label for="formation" class="text-gray-300">**You must have at least 3 defenders. </label>
+                            <label for="formation" class="text-gray-300">**You must have at least 2 midfielders. </label>
+                            <label for="formation" class="text-gray-300">**You must have at least 1 forward. </label>
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                     <div v-show="isCaptain === 'none'"
                         class="alert-content p-1 pl-2 w-full bg-red-200 items-center text-red-900 leading-none rounded-full flex inline-flex ">
                         
-                        <span class=" text-left flex-auto text-xs">กรุณาเลือกกับตันทีมก่อนบันทึก</span>
+                        <span class=" text-left flex-auto text-xs">You must select a captain for your team.</span>
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@
                                     <div class=" gTayAP" v-if="GKP.id === null">
                                         <div class="gvQQRY "
                                             :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                            เพิ่ม</div>
+                                            add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
@@ -122,7 +122,7 @@
                                     <div class=" gTayAP" v-if="DEF.id === null">
                                         <div class="gvQQRY "
                                             :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                            เพิ่ม</div>
+                                            add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
@@ -159,7 +159,7 @@
                                     <div class=" gTayAP" v-if="MID.id === null">
                                         <div class="gvQQRY "
                                             :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                            เพิ่ม</div>
+                                            add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
@@ -195,7 +195,7 @@
                                     <div class=" gTayAP" v-if="FWD.id === null">
                                         <div class="gvQQRY "
                                             :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                            เพิ่ม</div>
+                                            add</div>
                                     </div>
                                     <div class=" gTayAP" v-else>
                                         <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
@@ -214,7 +214,7 @@
                     </div>
                     <div class="match-group w-full flex-grow flex items-center justify-center"
                         v-if="Object.keys(groupedMatches).length === 0">
-                        <span class="text-gray-500">รอโปรแกรม</span>
+                        <span class="text-gray-500">wait for program</span>
                     </div>
                     <div class="match-group w-full flex-grow" v-else>
                         <div class="date" v-for="(matches, date) in groupedMatches" :key="date">
@@ -240,7 +240,7 @@
             <div :class="['cGcmaR', isToggled ? 'active' : '']" class=" border-red-500 max-h-fit !overflow-y-hidden">
                 <div class="eWuGMX ">
                     <div class="sc-CrZHp hvBVYx">
-                        <button @click="toggleClassBack" class="sc-iftxFb isQEzW hvBVYx_non">กลับ<div ml="1"
+                        <button @click="toggleClassBack" class="sc-iftxFb isQEzW hvBVYx_non">back<div ml="1"
                                 class="sc-csKJxZ dviEZq"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="15"
                                     viewBox="0 0 24 15" color="primary" class=" gPCpFh flMINk">
                                     <path
@@ -323,9 +323,9 @@ export default {
         },
         alertPositionfull() {
             Swal.fire({
-                text: 'ไม่สามารถเลือกตำเเหน่งซ้ำกันได้',
+                text: 'You cannot select duplicate positions.',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 showConfirmButton: false,
                 customClass: {
                     cancelButton: 'btn-cancel',
@@ -338,9 +338,9 @@ export default {
         },
         alertTeamLimit() {
             Swal.fire({
-                text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                text: 'Team selection is limited to 3 players from the same club.',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 showConfirmButton: false,
                 customClass: {
                     cancelButton: 'btn-cancel',
@@ -353,9 +353,9 @@ export default {
         },
         alertTeamAllLimit() {
             Swal.fire({
-                text: 'ไม่สามารถเลือกนักเตะได้เกิน 11 คน',
+                text: 'You cannot select more than 11 players.',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 showConfirmButton: false,
                 customClass: {
                     cancelButton: 'btn-cancel',
@@ -368,14 +368,14 @@ export default {
         },
         resetTeam() {
             Swal.fire({
-                title: 'คุณแน่ใจหรือไม่?',
-                text: "คุณจะล้างข้อมูลนักเตะ?",
+                title: 'Are you sure??',
+                text: "Do you want to clear player data??",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'ใช่, รีเซ็ต!',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'ใช่, reset!',
+                cancelButtonText: 'cancel',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
@@ -471,7 +471,7 @@ export default {
         },
         async saveTeam() {
             if (this.getGameWeek.status != "active") {
-                this.addNotification({ type: 'error', message: 'เกมวีคไม่สามารถบันทึกได้' });
+                this.addNotification({ type: 'error', message: 'can not save' });
                 return;
             }
             if (this.disable) {
@@ -507,9 +507,9 @@ export default {
             }
             if (countGKP < 1) {
                 Swal.fire({
-                    text: 'กรุณาเลือกผู้รักษาประตูอย่างน้อย 1 คน',
+                    text: 'You must select at least one goalkeeper.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -524,9 +524,9 @@ export default {
 
             if (countDiff < 3) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกองหลังอย่างน้อย 3 คน',
+                    text: 'You must select at least three defenders.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -541,9 +541,9 @@ export default {
 
             if (countMid < 2) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกองกลางอย่างน้อย 2 คน',
+                    text: 'You must select at least two midfielders.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -558,9 +558,9 @@ export default {
 
             if (countFWD < 1) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกองหน้าอย่างน้อย 1 คน',
+                    text: 'You must select at least one forward.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -575,9 +575,9 @@ export default {
 
             if (this.remainingAmount < 0) {
                 Swal.fire({
-                    text: 'จำนวนเงินไม่เพียงพอ',
+                    text: 'You do not have enough balance.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -592,9 +592,9 @@ export default {
             }
             if (this.totalPlayerCount !== 11) {
                 Swal.fire({
-                    text: 'กรุณาเลือกนักเตะให้ครบ 11 คน',
+                    text: 'You must select a total of 11 players for your team.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -610,9 +610,9 @@ export default {
             }
             if (!this.checkHasCaptan()) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกับตันทีม',
+                    text: 'You must select a captain for your team.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -629,13 +629,13 @@ export default {
 
             this.disable = true;
             const result = await Swal.fire({
-                title: 'กรุณาอ่าน!',
-                text: 'บันทึกเเล้วต้องการเเก้ไขให้ไปที่เมนูรายการ',
+                title: 'Please read.!',
+                text: 'Saved. To make changes, please go to the menu list.',
                 input: 'text',
-                inputPlaceholder: 'กรุณาใส่ชื่อทีมของคุณ',
+                inputPlaceholder: 'Please enter your team name.',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'cancel',
+                confirmButtonText: 'Confirm',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
@@ -646,10 +646,10 @@ export default {
                 buttonsStyling: false,
                 inputValidator: (value) => {
                     if (!value) {
-                        return 'กรุณาใส่ชื่อทีมของคุณ';
+                        return 'Please enter your team name.';
                     }
                     if (value.length > 18) {
-                        return 'ชื่อทีมต้องไม่เกิน 18 ตัวอักษร';
+                        return 'The name must not exceed 18 characters.';
                     }
                 }
             });
@@ -684,16 +684,16 @@ export default {
                     }
                 });
                 if (response.data.ok) {
-                    this.addNotification({ type: 'success', message: 'บันทึกสำเร็จ รายละเอียดอยู่ที่เมนูรายการ' });
+                    this.addNotification({ type: 'success', message: 'success see detail on list menu' });
                     let id = response.data.main_id;
                     this.disable = false;
                     this.$router.push({ name: 'pitch-detail-n', params: { id } });
                 }
             } catch (error) {
                 Swal.fire({
-                    text: 'บันทึกไม่สำเร็จ' + error.response.data.error,
+                    text: 'can not be save' + error.response.data.error,
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -767,7 +767,7 @@ export default {
     font-weight: bold;
     margin-bottom: 10px;
     text-align: left;
-    color: #1e1036;
+    color: #2e343c;
     width: 100%;
 }
 
@@ -783,7 +783,7 @@ export default {
     flex-direction: column;
     padding: 5px 5px 5px 10px;
     margin: 2px 0;
-    background-color: #1e1036;
+    background-color: #2e343c;
     border-radius: 10px;
     position: relative;
 }
@@ -1373,13 +1373,13 @@ export default {
 }
 
 .custom-btn0 {
-    background-color: #1e0f37;
+    background-color: #191b1e;
     color: #000000;
     padding: 0.5rem 0.5rem;
     border-radius: 0.5rem;
     /* มุมโค้ง */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    /* เพิ่มเงา */
+    /* addเงา */
     transition: all 0.3s ease-in-out;
     backdrop-filter: blur(10px);
     font-size: 0.75rem;
@@ -1387,7 +1387,7 @@ export default {
 }
 
 .custom-btn {
-    background-color: #1e0f37;
+    background-color: #191b1e;
     color: #000000;
     padding: 0.5rem 0.5rem;
     border: 3px solid #523c74;
@@ -1395,7 +1395,7 @@ export default {
     border-radius: 0.5rem;
     /* มุมโค้ง */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    /* เพิ่มเงา */
+    /* addเงา */
     transition: all 0.3s ease-in-out;
     backdrop-filter: blur(10px);
     font-size: 0.75rem;

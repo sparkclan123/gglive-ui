@@ -4,40 +4,40 @@
             <div class="flex items-center justify-center ">
                 <button @click="hisLastGameWeek" class="bg-blue-800 p-1 rounded text-xs m-1"
                     style="color: whitesmoke;">
-                    รายละเอียดย้อนหลังเกมวีค {{gameWeek.id - 1 }}
+                    DetailHistoryGame {{gameWeek.id - 1 }}
                 </button>
             </div>
             <div class="bottom-section  ">
                 <div class="flex items-center justify-center ">
-                    <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+                    <span class="titlesm text-sm text-yellow-300">Rank 1</span>
                     <button class="bg-yellow-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
                         @click="rewardDetail">
-                        รายละเอียดรางวัล
+                        Reward Detail
                     </button>
                 </div>
-                <span class="title text-green-500">
+                <!-- <span class="title text-green-500">
                     <NumberDisplay :number="gameWeek.reward" />
                     <button class="bg-green-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
                         @click="downloadExcel">
                         download ข้อมูล <i class="fas fa-download"></i>
                     </button>
-                </span>
+                </span> -->
 
                 <div class="row row1">
                     <div class="item">
-                        <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} <i
+                        <span class="big-text text-gray-200">Game {{ gameWeek.week }} <i
                                 class="fas fa-ticket-alt text-yellow-400"></i></span>
                         <span class="regular-text text-gray-200">
-                            <Numberformat :value="total" :decimal="0" /> (ทีม)
+                            <Numberformat :value="total" :decimal="0" /> (team)
                         </span>
                     </div>
                     <div class="item">
-                        <span class="big-text text-green-400">{{ maxTotalPoint }} สูงสุด</span>
-                        <span class="regular-text text-yellow-400">{{ avgTotalPoint }} เฉลี่ย</span>
+                        <span class="big-text text-green-400">{{ maxTotalPoint }} max</span>
+                        <span class="regular-text text-yellow-400">{{ avgTotalPoint }} avg.</span>
                     </div>
                     <div class="item">
                         <span class="big-text text-gray-200">{{ season.label }}</span>
-                        <span class="regular-text text-gray-200">ฤดูกาล</span>
+                        <span class="regular-text text-gray-200">season</span>
                     </div>
 
                 </div>
@@ -56,19 +56,19 @@
                                 <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
                                 <p
                                     class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ชื่อทีม
+                                    name
                                 </p>
                             </div>
                         </th>
                         <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                คะเเนน</p>
+                                point</p>
                         </th>
                         <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                วันที่</p>
+                                date</p>
                         </th>
 
                     </tr>
@@ -249,7 +249,7 @@ export default {
                         Swal.fire({
 
                             title: 'ไม่สามารถดูข้อมูลได้',
-                            text: 'กรุณารอสิ้นสุดการจัดทีมเพื่อดูนักเตะของทีมอื่น',
+                            text: 'Please wait until the team setup is finalized to view players from other teams.',
                             customClass: {
                                 cancelButton: 'btn-cancel',
                                 popup: 'popup-custom',
@@ -270,8 +270,8 @@ export default {
             } catch (error) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'เกิดข้อผิดพลาด',
-                    text: 'กรุณาลองใหม่อีกครั้ง',
+                    title: 'An error has occurred.',
+                    text: 'Please try again.',
                     customClass: {
                         cancelButton: 'btn-cancel',
                         popup: 'popup-custom',

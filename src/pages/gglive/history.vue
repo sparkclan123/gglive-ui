@@ -109,13 +109,13 @@ export default {
     methods: {
         seeDetail(data) {
             Swal.fire({
-                title: 'รายละเอียด',
+                title: 'Detail',
                 html: `
                     <div class="text-left">
-                        <p>รายละเอียด: ${data.Detail}</p>
+                        <p>Detail: ${data.Detail}</p>
                         <p>จำนวน: ${data.Amount}</p>
                         <p>สถานะ: ${data.Status}</p>
-                        <p>วันที่: ${data.CreatedAt}</p>
+                        <p>date: ${data.CreatedAt}</p>
                     </div>
                 `,
                 showCloseButton: true,

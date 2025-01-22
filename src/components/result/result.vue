@@ -88,7 +88,7 @@ export default {
     font-weight: bold;
     margin-bottom: 10px;
     text-align: left;
-    color: #1e1036;
+    color: #2e343c;
     width: 100%;
 }
 
@@ -104,7 +104,7 @@ export default {
     flex-direction: column;
     padding: 5px 5px 5px 10px;
     margin: 2px 0;
-    background-color: #1e1036;
+    background-color: #2e343c;
     border-radius: 10px;
     position: relative;
 }

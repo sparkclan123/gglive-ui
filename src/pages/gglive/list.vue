@@ -8,7 +8,7 @@
 
                 <div class="card">
                     <div class="heading text-gray-700">{{ truncatedUsername }}</div>
-                    <div class="details">รายละเอียดการเเข่งขันของคุณ.<br>ทั้งเกมวีคกติ, เเละเกมวีค <span
+                    <div class="details">You Team Detail.<br>Game free, and Game <span
                             class="text-yellow-600">VIP</span>.</div>
 
                 </div>
@@ -21,14 +21,14 @@
             <div>
                 <div class="tabs rounded-t-lg ml-3 text-white flex mt-2">
                     <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">
-                        เกมวีคปกติ
+                        Game free
                     </div>
                     <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
-                        เกมวีค
+                        Game
                         VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
                     </div>
                     <div class="tab-item_2" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">
-                        จัดการเเข่งเอง
+                        Host your own
                     </div>
                 </div>
                 <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container ">
@@ -206,7 +206,7 @@ export default {
     margin-right: 3px;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #37003c;
+    background-color: #7384a5;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -215,7 +215,7 @@ export default {
     margin-right: 3px;
     padding: 10px 10px;
     cursor: pointer;
-    background-color: #37003c;
+    background-color: #7384a5;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }

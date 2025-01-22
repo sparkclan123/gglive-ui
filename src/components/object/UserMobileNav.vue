@@ -15,13 +15,13 @@
             d="M5.25 22C5.25 21.5858 5.58579 21.25 6 21.25H18C18.4142 21.25 18.75 21.5858 18.75 22 18.75 22.4142 18.4142 22.75 18 22.75H6C5.58579 22.75 5.25 22.4142 5.25 22zM7.4984 1.60719C8.66129 1.41099 10.1724 1.25 12.0002 1.25 12.7361 1.25 13.4208 1.27611 14.0522 1.32011 14.4654 1.34891 14.777 1.70723 14.7482 2.12044 14.7194 2.53365 14.3611 2.84528 13.9479 2.81648 13.3506 2.77485 12.7007 2.75 12.0002 2.75 10.2608 2.75 8.8332 2.90319 7.74796 3.08629 6.54105 3.28992 6.28751 3.3661 6.02161 3.69358 5.75957 4.01632 5.73468 4.32156 5.78848 5.67672 5.87816 7.93537 6.1761 10.3727 7.09884 12.2264 7.55432 13.1414 8.14983 13.8887 8.92569 14.409 9.69656 14.9261 10.6909 15.25 12 15.25 13.3091 15.25 14.3038 14.9261 15.0746 14.409 15.8505 13.8887 16.446 13.1414 16.9015 12.2264 17.8242 10.3727 18.1222 7.93537 18.2118 5.67672 18.2656 4.32156 18.2407 4.01632 17.9787 3.69358 17.7717 3.43865 17.5559 3.32558 16.8594 3.19268 16.4525 3.11503 16.1857 2.72226 16.2633 2.31539 16.3409 1.90851 16.7337 1.64162 17.1406 1.71926 17.9271 1.86936 18.5904 2.06732 19.1432 2.74808 19.8003 3.55739 19.7628 4.46863 19.7173 5.57222 19.7151 5.62642 19.7128 5.68108 19.7106 5.73622 19.6196 8.03065 19.3169 10.74 18.2443 12.8949 17.7021 13.9841 16.9512 14.9565 15.9101 15.6548 14.8641 16.3564 13.5711 16.75 12.0002 16.75 10.4293 16.75 9.13626 16.3564 8.09017 15.6548 7.04908 14.9565 6.29821 13.9841 5.75601 12.8949 4.68338 10.74 4.38076 8.03065 4.28966 5.73622 4.28748 5.68108 4.28522 5.62642 4.28299 5.57222 4.23754 4.46863 4.20001 3.55739 4.85713 2.74808 5.51366 1.93949 6.35333 1.79893 7.36355 1.62983 7.40817 1.62236 7.45312 1.61484 7.4984 1.60719z"
             clip-rule="evenodd"></path>
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-gray-900 mt-2">คะเเนน</span>
+        <span class="font-size-10 primary-color group-hover:text-gray-900 mt-2">point</span>
       </button>
 
       <button class="flex-col inline-flex items-center justify-center group" :class="{ active: isActive('result') }"
         @click="setActive('result')">
         <img src="/public/assets/logonew32x32.png" alt="result" class="w-4 h-4 group-hover:fill-blue-950" />
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">ย้อนหลัง</span>
+        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">History</span>
       </button>
 
       <button class="inline-flex flex-col items-center justify-center group"
@@ -32,7 +32,7 @@
               d="M228.579,83.315l-32.147-41.258c-7.817-10.032-19.594-15.785-32.312-15.785h-21.204c-2.939,0-5.565,1.836-6.574,4.597   c-3.257,8.909-11.822,14.895-21.313,14.895s-18.055-5.986-21.313-14.895c-1.009-2.761-3.635-4.597-6.574-4.597H65.937   c-12.717,0-24.495,5.753-32.312,15.786L1.479,83.315c-1.397,1.793-1.837,4.152-1.179,6.328c0.658,2.176,2.331,3.897,4.488,4.615   l44.558,14.845v87.682c0,3.866,3.134,7,7,7h117.366c3.866,0,7-3.134,7-7v-87.682l44.558-14.845c2.157-0.718,3.83-2.439,4.488-4.615   C230.416,87.467,229.976,85.108,228.579,83.315z M180.712,94.347V84.057c0-3.866-3.134-7-7-7s-7,3.134-7,7v105.728H63.345V84.057   c0-3.866-3.134-7-7-7s-7,3.134-7,7v10.29l-30.736-10.24l26.059-33.444c5.146-6.604,12.897-10.391,21.269-10.391h16.681   c6.295,11.832,18.761,19.491,32.41,19.491c13.649,0,26.115-7.66,32.411-19.491h16.681c8.371,0,16.123,3.787,21.269,10.39   l26.06,33.445L180.712,94.347z" />
           </g>
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2"> จัดทีม </span>
+        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2"> Play </span>
       </button>
 
       <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('challenge') }"
@@ -42,7 +42,7 @@
           <path stroke-linecap="round" stroke-linejoin="round"
             d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">เเข่งขัน</span>
+        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">Challenge</span>
       </button>
 
       <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('list') }"
@@ -52,7 +52,7 @@
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">รายการ</span>
+        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">List</span>
       </button>
 
       <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('menu') }"
@@ -62,7 +62,7 @@
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">เมนู</span>
+        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">Menu</span>
       </button>
     </div>
     <transition name="slide">
@@ -82,7 +82,7 @@
         </div>
         <ul class="menu-items">
           <!-- <li class="menu-item">
-            <a @click="sideMenu('game')" class="menu-link cursor-pointer"> <i class="fas fa-gamepad mr-2"></i> เกมเก็บคะเเนน</a>
+            <a @click="sideMenu('game')" class="menu-link cursor-pointer"> <i class="fas fa-gamepad mr-2"></i> เกมเก็บpoint</a>
           </li>
           <li class="menu-item">
             <a @click="sideMenu('exchangereward')" class="menu-link cursor-pointer"> <i class="fa fa-star mr-2"></i> เเลกของรางวัล</a>
@@ -92,20 +92,20 @@
               สนับสนุนเรา</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('history')" class="menu-link cursor-pointer"> <i class="fas fa-history mr-2"></i>ประวัติการทำรายการ</a>
+            <a @click="sideMenu('history')" class="menu-link cursor-pointer"> <i class="fas fa-history mr-2"></i>HistoryTransection</a>
           </li>
           <li class="menu-item">
-            <a @click="sideMenu('rule')" class="menu-link cursor-pointer"><i class="fas fa-book mr-2"></i> กติการะบบ</a>
+            <a @click="sideMenu('rule')" class="menu-link cursor-pointer"><i class="fas fa-book mr-2"></i> Rule</a>
           </li>
 
           <li class="menu-item">
-            <a @click="sideMenu('setting')" class="menu-link cursor-pointer"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
+            <a @click="sideMenu('setting')" class="menu-link cursor-pointer"> <i class="fas fa-cog mr-2"></i> Setting</a>
           </li>
           <!-- <li class="menu-item">
             <a @click="versionInfo" class="menu-link cursor-pointer"> <i class="fas fa-info mr-2"></i> version update</a>
           </li> -->
           <li class="menu-item">
-            <a @click="logout()" class="menu-link-red cursor-pointer"> <i class="fas fa-sign-out-alt mr-2"></i> logout</a>
+            <a @click="logout()" class="menu-link-red cursor-pointer"> <i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
           </li>
 
         </ul>
@@ -140,7 +140,7 @@
               <g id="Layer_1" />
             </svg>
           </a>
-          <span class="text-xs mb-1 text-green-700 font-semibold">PuDee Club</span>
+          <span class="text-xs mb-1 text-green-700 font-semibold">OP Part Fantasy</span>
           <a href="https://www.facebook.com/profile.php?id=61563548004280" class="contact-icon">
             <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
               width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -198,14 +198,14 @@ export default {
       - สามารถสมัคสมาชิคได้ผ่านเบอร์โทร<br>
 
       <strong>Version 1.0.11:</strong><br>
-      - ไม่สามารถดูนักเตะจากทีมอื่นได้ นอกจากทีมตัวเองจนกว่าจะสิ้นสุดเวลาจัดทีม<br>
-      - เเก้ไขราคาเเสดงโชวหน้าเลือกนักเตะเเละเเก้ไขนักเตะ<br>
-      - เพิ่ม function ในการดูรายละเอียดคะเเนนนักเตะหลังมีการใส่คะเเนน<br>
+      - ไม่สามารถดูจากteamอื่นได้ นอกจากteamตัวเองจนกว่าจะสิ้นสุดเวลาจัดteam<br>
+      - เเก้ไขpriceเเสดงโชวหน้าเลือกเเละเเก้ไข<br>
+      - add function ในการดูDetailPlayerScoresหลังมีการใส่point<br>
       
       <strong>Version 1.0.10:</strong><br>
-      - การอัปเดตจัดทีมเเบบสามารถเลือกตำเเหน่งได้เอง<br>
-      - การแก้ไขนักเตะสามารถแก้ไขตำเเหน่งได้<br>
-      - เพิ่มราคาคงเหลือขณะเลือกนักเตะ<br>
+      - การอัปเดตจัดteamเเบบสามารถเลือกpositionได้เอง<br>
+      - การแก้ไขสามารถแก้ไขpositionได้<br>
+      - addpriceคงเหลือขณะเลือก<br>
       - Fix bug
     `,
         confirmButtonText: 'ปิด',
@@ -221,8 +221,8 @@ export default {
       this.isMenuOpen = !this.isMenuOpen;
       const rulesHtml = `
         <div class="rules-container">
-            <div class="rule-title"><strong>กติกาการนับคะเเนน</strong></div>
-            <div class="rule"><strong>-</strong> นักเตะที่ลงสนามสตาร์ทเป็นตัวจริง <span class="rule-strong"> 1 คะแนน </span></div>
+            <div class="rule-title"><strong>Ruleการนับpoint</strong></div>
+            <div class="rule"><strong>-</strong> ที่ลงสนามสตาร์ทเป็นตัวจริง <span class="rule-strong"> 1 คะแนน </span></div>
             <div class="rule"><strong>-</strong> โกล์/กองหลัง ทำประตู <span class="rule-strong"> 6 คะแนน </span> , กองกลางทำประตู <span class="rule-strong"> 5 คะแนน </span>, กองหน้าทำประตู <span class="rule-strong"> 4 คะแนน</span></div>
             <div class="rule"><strong>-</strong> จ่ายบอลให้เพื่อนทำประตูได้ (Assist) <span class="rule-strong"> 3 คะแนน </span></div>
             <div class="rule"><strong>-</strong> ผู้รักษาประตูไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองหลังไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองกลางไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 1 คะแนน </span></div>
@@ -275,10 +275,10 @@ export default {
     },
     async logout() {
       const result = await Swal.fire({
-        title: 'ยืนยันออกจากระบบ!',
+        title: 'Confirm Logout!',
         showCancelButton: true,
-        cancelButtonText: 'ยกเลิก',
-        confirmButtonText: 'ยืนยัน',
+        cancelButtonText: 'cancel',
+        confirmButtonText: 'Confirm',
         customClass: {
           confirmButton: 'btn-confirm',
           cancelButton: 'btn-cancel',

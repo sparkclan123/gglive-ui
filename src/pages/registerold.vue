@@ -36,9 +36,9 @@
                 <div class="w-full rounded-lg mt-2 text-white text-lg font-semibold">
                     <button type="submit" class="w-full button-save" @click="register()">สมัครสมาชิก</button>
                 </div>
-                <!-- กลับสู่หน้า Login -->
+                <!-- backสู่หน้า Login -->
                 <div class="text-center mt-4">
-                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">กลับสู่หน้า Login</router-link>
+                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">backสู่หน้า Login</router-link>
                 </div>
             </div>
         </div>
@@ -173,15 +173,15 @@ export default {
     max-width: 100%;
     max-height: 100%;
     border-radius: 15px;
-    /* เพิ่มมุมโค้ง */
+    /* addมุมโค้ง */
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8),
         /* เงาด้านล่าง */
         -10px -10px 20px rgba(255, 255, 255, 0.3);
     /* เงาด้านบน */
     border: 1px solid rgba(255, 255, 255, 0.3);
-    /* เพิ่มขอบบางๆ เพื่อความสมจริง */
+    /* addขอบบางๆ เพื่อความสมจริง */
     background: linear-gradient(145deg, #f0f0f0, #cacaca);
-    /* เพิ่มเอฟเฟกต์ 3D */
+    /* addเอฟเฟกต์ 3D */
 }
 
 .social-icons {

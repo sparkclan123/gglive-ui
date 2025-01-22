@@ -3,7 +3,7 @@
   <!-- <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4" v-if="gameWeek">
         <div @click="selectSeason()" class="bg-color-h sha p-4 text-center bg-img cursor-pointer">
             <h2 class="text-xl font-bold mb-2 text-gray-100">
-                Game Week #{{ gameWeek.week }}<br>ฤดูกาล <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
+                Game Week #{{ gameWeek.week }}<br>season <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
             getSeasons.label }}</span>
             </h2>
             <p style="color: lemonchiffon;">Fantasy Challenge is coming.</p>
@@ -49,21 +49,21 @@
       <div class="bottom-section">
         <span class="title">season {{ getSeasons.label }}</span>
         <button class="titlebtn bg-yellow-400  px-3 py-1 rounded text-xs" style="color: black;"
-          @click="rewardDetail">รายละเอียดรางวัล</button>
+          @click="rewardDetail">Reward Detail</button>
         <div class="row row1">
           <div class="item">
             <span class="big-text">{{ allPlayer }}</span>
-            <span class="regular-text">เข้าเเข่งขันทั้งหมด</span>
+            <span class="regular-text">all team</span>
           </div>
           <div class="item">
-            <span class="big-text">{{ myTeam }} <span class="regular-text">(ทีม)</span></span>
-            <span class="regular-text">ทีมของคุณ</span>
+            <span class="big-text">{{ myTeam }} <span class="regular-text">(team)</span></span>
+            <span class="regular-text">you team</span>
           </div>
           <div class="item">
             <span class="big-text text-green-500">
               <NumberDisplay :number="gameWeek.reward2" /> ใบ
             </span>
-            <span class="regular-text text-green-500">รางวัลตั๋ว</span>
+            <span class="regular-text text-green-500">reward ticket</span>
           </div>
         </div>
       </div>
@@ -71,12 +71,12 @@
 
     <div class="flex justify-center items-center mt-1">
       <div v-if="gameWeek.start_date > currentTime" class="flex flex-col items-center">
-        <span class="text-red-900 text-md text-shadow-md">เริ่มจัดทีมได้ในอีก</span>
+        <span class="text-red-900 text-md text-shadow-md">You can start creating your team in...</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" @time-up="handleTimeUp"
           :classadj="'text-red-900'" />
       </div>
       <div v-else class="flex flex-col items-center">
-        <span class="text-green-900 text-shadow-md text-md">เหลือเวลาจัดทีมอีก</span>
+        <span class="text-green-900 text-shadow-md text-md">Team setup closes in</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp"
           :classadj="'text-green-900'" />
       </div>
@@ -123,7 +123,7 @@ export default {
     selectSeason() {
       if (this.is_time_up) {
         Swal.fire({
-          title: 'เวลาจัดทีมหมดแล้ว',
+          title: 'เวลาจัดteamหมดแล้ว',
           text: 'กรุณาเข้าร่วมการแข่งขันในครั้งถัดไป',
           icon: 'error',
           confirmButtonText: 'ตกลง',
@@ -140,9 +140,9 @@ export default {
 
       if (this.myTeam > 0) {
         Swal.fire({
-          text: 'คุณได้ทำการสร้างทีมของสัปดาห์นี้แล้ว',
+          text: 'คุณได้ทำการสร้างteamของสัปดาห์นี้แล้ว',
           showCancelButton: true,
-          cancelButtonText: 'ยกเลิก',
+          cancelButtonText: 'cancel',
           showConfirmButton: false,
           customClass: {
             cancelButton: 'btn-cancel',
@@ -371,7 +371,7 @@ export default {
   text-align: center;
   letter-spacing: 1px;
   margin: 10px auto;
-  /* เพิ่ม margin เพื่อให้อยู่ตรงกลาง */
+  /* add margin เพื่อให้อยู่ตรงกลาง */
   width: fit-content;
   /* ปรับความกว้างให้เหมาะสม */
 }

@@ -15,7 +15,7 @@
                                     d="M23.9996,7.4946 C23.9786,7.0416 23.8296,6.5696 23.4816,6.2506 C23.4816,6.2506 23.4806,6.2496 23.4806,6.2496 L18.4596,1.2256 L17.7526,0.5176 C17.4346,0.1986 16.9586,0.0016 16.5096,-0.0004 C16.0766,-0.0004 15.5616,0.1906 15.2656,0.5176 C14.9596,0.8526 14.7296,1.2916 14.7486,1.7616 C14.7686,2.2296 14.9276,2.6676 15.2656,3.0056 L17.9916,5.7336 C17.9916,5.7336 2.6226,5.7246 1.7966,5.7346 L1.7616,5.7346 C1.3076,5.7346 0.8386,5.9316 0.5186,6.2526 C0.2116,6.5586 -0.0164,7.0556 0.0006,7.4966 C0.0216,7.9496 0.1696,8.4226 0.5176,8.7406 C0.8656,9.0596 1.2886,9.2576 1.7616,9.2566 L17.9986,9.2566 L15.2646,11.9936 C14.9456,12.3116 14.7496,12.7866 14.7476,13.2376 C14.7476,13.6686 14.9376,14.1846 15.2646,14.4816 C15.5996,14.7866 16.0376,15.0166 16.5076,14.9986 C16.9736,14.9746 17.4136,14.8186 17.7506,14.4816 L22.7766,9.4516 L23.4856,8.7436 C23.6656,8.5626 23.7936,8.3486 23.8776,8.1186 C23.9576,7.9146 24.0076,7.6996 23.9996,7.4946"
                                     transform="matrix(-1 0 0 1 24 0)"></path>
                             </svg>
-                            <span class="text-gray-200 font-bold text-xs">กลับ</span>
+                            <span class="text-gray-200 font-bold text-xs">back</span>
                         </div>
 
                     </div>
@@ -24,24 +24,24 @@
                     <span class="title text-green-500">{{ getMain.name }} </span>
                     <div class="row row1">
                         <div class="item">
-                            <span class="text-xs">งบทั้งหมด </span>
+                            <span class="text-xs">Budget </span>
                             <span class="text-xs text-gray-200">
-                                <NumberDisplay number="80" /> ใช้ไป
+                                <NumberDisplay number="80" /> Spent
                                 <NumberDisplay :number="-priceSum" />
                             </span>
-                            <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม
+                            <span class="big-text text-xs text-yellow-200">**Creation Time
                                 <DateFormatted :dateString="getMain.created_at" />
                             </span>
 
                             <button
                                 class="text-gray-200 bg-green-700 font-bold text-[11px] px-2 py-1 rounded-full shadow-lg hover:bg-green-500 cursor-pointer m-2"
                                 @click.stop="saveTeamEdit">
-                                บันทึกเเก้ไขทีม
+                                Save Team Changes
                             </button>
                             <button
                                 class="text-gray-200 bg-yellow-700 font-bold text-[11px] px-2 py-1 rounded-full shadow-lg hover:bg-yellow-500 cursor-pointer"
                                 @click.stop="resetTeamEdit">
-                                รีเซ็ต
+                                Reset
                             </button>
 
                         </div>
@@ -87,7 +87,7 @@
                                         <div class=" gTayAP" v-if="GKP.player_id === null">
                                             <div class="gvQQRY "
                                                 :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                                เพิ่ม</div>
+                                                add</div>
                                         </div>
                                         <div class=" gTayAP" v-else :style="{ opacity: GKP.remove == true ? 0.4 : 1 }">
                                             <div class=" etyMDj">{{ truncateText(GKP.name) }}</div>
@@ -131,7 +131,7 @@
                                         <div class=" gTayAP" v-if="DEF.player_id === null">
                                             <div class="gvQQRY "
                                                 :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                                เพิ่ม</div>
+                                                add</div>
                                         </div>
                                         <div class=" gTayAP" v-else :style="{ opacity: DEF.remove == true ? 0.4 : 1 }">
                                             <div class=" etyMDj">{{ truncateText(DEF.name) }}</div>
@@ -174,7 +174,7 @@
                                         <div class=" gTayAP" v-if="MID.player_id === null">
                                             <div class="gvQQRY "
                                                 :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                                เพิ่ม</div>
+                                                add</div>
                                         </div>
                                         <div class=" gTayAP" v-else :style="{ opacity: MID.remove == true ? 0.4 : 1 }">
                                             <div class=" etyMDj">{{ truncateText(MID.name) }}</div>
@@ -218,7 +218,7 @@
                                         <div class=" gTayAP" v-if="FWD.player_id === null">
                                             <div class="gvQQRY "
                                                 :class="{ 'bg-red-700  text-gray-100': totalPlayerCount >= 11, 'bg-gray-200 text-gray-800': totalPlayerCount < 11 }">
-                                                เพิ่ม</div>
+                                                add</div>
                                         </div>
                                         <div class=" gTayAP" v-else :style="{ opacity: FWD.remove == true ? 0.4 : 1 }">
                                             <div class=" etyMDj">{{ truncateText(FWD.name) }}</div>
@@ -387,9 +387,9 @@ export default {
             this.detailPlayer = null;
             if (this.totalPlayerCount >= 11) {
                 Swal.fire({
-                    text: 'ไม่สามารถเลือกนักเตะเกิน 11 คน',
+                    text: 'team size exceeds the limit of 11 players.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -411,9 +411,9 @@ export default {
 
             if (this.totalPlayerCount >= 11 && !this.detailPlayer) {
                 Swal.fire({
-                    text: 'ไม่สามารถเลือกนักเตะเกิน 11 คน',
+                    text: 'team size exceeds the limit of 11 players.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -455,9 +455,9 @@ export default {
             let checkHas = totalPlayersInTeam.some(p => {
                 if (p.player_id === player.player_id && !p.remove) {
                     Swal.fire({
-                        text: 'มีนักเตะอยู่แล้ว',
+                        text: 'Player already selected.',
                         showCancelButton: true,
-                        cancelButtonText: 'ยกเลิก',
+                        cancelButtonText: 'cancel',
                         showConfirmButton: false,
                         customClass: {
                             cancelButton: 'btn-cancel',
@@ -482,9 +482,9 @@ export default {
 
             if (totalPlayerNewfilter >= 3) {
                 Swal.fire({
-                    text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                    text: 'Team selection is limited to 3 players from the same club.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -642,9 +642,9 @@ export default {
 
             if (countGKP < 1) {
                 Swal.fire({
-                    text: 'กรุณาเลือกผู้รักษาประตูอย่างน้อย 1 คน',
+                    text: 'You must select at least one goalkeeper.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -659,9 +659,9 @@ export default {
 
             if (countDiff < 3) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกองหลังอย่างน้อย 3 คน',
+                    text: 'You must select at least three defenders.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -676,9 +676,9 @@ export default {
 
             if (countMid < 2) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกองกลางอย่างน้อย 2 คน',
+                    text: 'You must select at least two midfielders.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -693,9 +693,9 @@ export default {
 
             if (countFWD < 1) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกองหน้าอย่างน้อย 1 คน',
+                    text: 'You must select at least one forward.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -710,9 +710,9 @@ export default {
 
             if (this.remainingAmount < 0) {
                 Swal.fire({
-                    text: 'จำนวนเงินไม่เพียงพอ',
+                    text: 'You do not have enough balance.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -728,9 +728,9 @@ export default {
 
             if (this.totalPlayerCount != 11) {
                 Swal.fire({
-                    text: 'กรุณาเลือกนักเตะให้ครบ 11 คน',
+                    text: 'You must select a total of 11 players for your team.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -745,9 +745,9 @@ export default {
 
             if (!this.checkHasCaptan()) {
                 Swal.fire({
-                    text: 'กรุณาเลือกกับตันทีม',
+                    text: 'You must select a captain for your team.',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -763,10 +763,10 @@ export default {
             }
 
             let confirm = await Swal.fire({
-                text: 'ยืนยันการเปลี่ยนนักเตะ',
+                text: 'Confirm the player change.',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'cancel',
+                confirmButtonText: 'Confirm',
                 customClass: {
                     cancelButton: 'btn-cancel',
                     confirmButton: 'btn-confirm',
@@ -800,9 +800,9 @@ export default {
                     this.loading = false;
                     Swal.fire({
                         icon: 'success',
-                        text: 'เปลี่ยนนักเตะสำเร็จ',
+                        text: 'Player successfully substituted.',
                         showCancelButton: true,
-                        cancelButtonText: 'ยืนยัน',
+                        cancelButtonText: 'Confirm',
                         showConfirmButton: false,
                         customClass: {
                             cancelButton: 'btn-cancel',
@@ -821,7 +821,7 @@ export default {
                 Swal.fire({
                     text: error.response.data.error,
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -964,10 +964,10 @@ export default {
         async resetTeamEdit() {
 
             let confirm = await Swal.fire({
-                text: 'ยืนยันการรีเซ็ตทีม',
+                text: 'Confirm Reset',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'cancel',
+                confirmButtonText: 'Confirm',
                 customClass: {
                     cancelButton: 'btn-cancel',
                     confirmButton: 'btn-confirm',
@@ -1651,13 +1651,13 @@ export default {
 }
 
 .custom-btn0 {
-    background-color: #1e0f37;
+    background-color: #191b1e;
     color: #000000;
     padding: 0.5rem 0.5rem;
     border-radius: 0.5rem;
     /* มุมโค้ง */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    /* เพิ่มเงา */
+    /* addเงา */
     transition: all 0.3s ease-in-out;
     backdrop-filter: blur(10px);
     font-size: 0.75rem;
@@ -1665,7 +1665,7 @@ export default {
 }
 
 .custom-btn {
-    background-color: #1e0f37;
+    background-color: #191b1e;
     color: #000000;
     padding: 0.5rem 0.5rem;
     border: 3px solid #523c74;
@@ -1673,7 +1673,7 @@ export default {
     border-radius: 0.5rem;
     /* มุมโค้ง */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    /* เพิ่มเงา */
+    /* addเงา */
     transition: all 0.3s ease-in-out;
     backdrop-filter: blur(10px);
     font-size: 0.75rem;

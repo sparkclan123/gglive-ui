@@ -14,27 +14,27 @@
                                     fill="white" transform="matrix(-1 0 0 1 24 0)"></path>
                             </svg>
 
-                            <span class="text-gray-200 font-bold text-xs">กลับ</span>
+                            <span class="text-gray-200 font-bold text-xs">back</span>
                         </div>
 
                     </div>
                 </div>
                 <div class="bottom-section">
 
-                    <span class="titlesm text-sm text-yellow-300">รายละเอียดคะเเนนนักเตะ</span>
+                    <span class="titlesm text-sm text-yellow-300">DetailPlayerScores</span>
 
                 </div>
             </div>
             <div class="p-4 overflow-scroll px-0" v-if="getGameWeekPlayer">
                 <div class="flex flex-wrap gap-4 mb-1 ">
                     <div class="flex-1 min-w-[100px] ml-1 ">
-                        <label class="block mb-1 text-gray-800 text-xs">ค้นหา..ชื่อนักเตะ</label>
+                        <label class="block mb-1 text-gray-800 text-xs">search..name</label>
                         <input type="text" placeholder="Search for player..." v-model="searchTerm"
                             @input="filterPlayers" class="p-1 border rounded w-full text-gray-600 text-sm">
                     </div>
 
                     <div class="flex-1 min-w-[100px]">
-                        <label class="block mb-1 text-gray-800 text-xs">เลือกทีม</label>
+                        <label class="block mb-1 text-gray-800 text-xs">team</label>
                         <select v-model="selectedTeam" @change="filterPlayers"
                             class="p-1 border rounded w-full text-gray-600 text-sm">
                             <optgroup v-for="group in options" :key="group.label" :label="group.label">
@@ -53,7 +53,7 @@
                             <!-- ไอคอนเสื้อไม่ต้องการ sorting -->
                             <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center"></th>
 
-                            <!-- ชื่อนักเตะ -->
+                            <!-- ชื่อ -->
                             <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
@@ -66,7 +66,7 @@
                                         @click="sortBy('name', 'asc')" class="w-4 cursor-pointer">
                                     <p
                                         class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
-                                        ชื่อนักเตะ
+                                        playername
                                     </p>
                                 </div>
                             </th>
@@ -84,7 +84,7 @@
                                         @click="sortBy('sum', 'asc')" class="w-4 cursor-pointer">
                                     <p
                                         class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
-                                        รวม
+                                        total
                                     </p>
                                 </div>
                             </th>
@@ -339,7 +339,7 @@ export default {
                 {
                     label: 'ตัวเลือก',
                     options: [
-                        { name: 'ทั้งหมด', value: 'view' }
+                        { name: 'all', value: 'view' }
                     ]
                 },
                 {

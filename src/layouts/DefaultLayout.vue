@@ -130,7 +130,7 @@ export default {
 }
 
 .bg-nav-top-color {
-    background: #1e0f37;
+    background: #191b1e;
 }
 
 .marquee {

@@ -4,11 +4,11 @@
 
 body {
     font-family: 'Sarabun', sans-serif;
-    background-color: #1e0f37;
+    background-color: #191b1e;
 }
 
 .swal2-popup.popup-custom {
-    background-color: #1e0f37;
+    background-color: #191b1e;
     border-radius: 15px;
     font-size: 13px;
     /* Add rounded corners to the modal */

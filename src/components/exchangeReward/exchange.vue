@@ -27,7 +27,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 <div v-for="(item, index) in items" :key="index"
                     class="card relative bg-white rounded-lg overflow-hidden shadow-xl">
-                    <!-- ปุ่ม "กติกา" มุมขวาบน -->
+                    <!-- ปุ่ม "Rule" มุมขวาบน -->
                     <button class="absolute top-0 right-0 bg-purple-900 text-white text-xs py-1 px-2 rounded-bl-lg">
                         {{ item.detail }}
                     </button>
@@ -56,10 +56,10 @@ export default {
             detail: '',
             point: 0,
             items: [
-                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange1.png', points: '4,600', truepoint: 4600, detail: 'เกรด Player เลือกทีมได้' },
-                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange2.png', points: '2,900', truepoint: 2900, detail: 'เกรด Replica เลือกทีมได้' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange1.png', points: '4,600', truepoint: 4600, detail: 'เกรด Player เลือกteamได้' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange2.png', points: '2,900', truepoint: 2900, detail: 'เกรด Replica เลือกteamได้' },
                 { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange3.png', points: '1,600', truepoint: 1600, detail: 'เป๋าสะพาย Man utd' },
-                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange4.png', points: '1,090', truepoint: 1090, detail: 'เกรดแฟนบอล เลือกทีมได้' },
+                { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange4.png', points: '1,090', truepoint: 1090, detail: 'เกรดแฟนบอล เลือกteamได้' },
                 { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange5.png', points: '1,000', truepoint: 1000, detail: 'หมวก Man utd' },
                 { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange6.png', points: '750', truepoint: 750, detail: 'หมวก Man city' },
                 { image: 'https://pudee.sgp1.digitaloceanspaces.com/exchange7.png', points: '590', truepoint: 590, detail: 'ผ้าพันคอ Liverpool' },
@@ -73,7 +73,7 @@ export default {
             const isSpecialCase = [4600, 2900, 1090].includes(truepoint);
 
             const { value: formValues } = await Swal.fire({
-                title: '<h2 style="font-size: 14px;">กรอกรายละเอียดการจัดส่ง</h2>',
+                title: '<h2 style="font-size: 14px;">กรอกDetailการจัดส่ง</h2>',
                 html:
                     `<style>
                         .custom-input, .custom-textarea {
@@ -96,13 +96,13 @@ export default {
                     <input id="swal-input5" class="swal2-input custom-input" placeholder="เบอร์โทร">
                     ${isSpecialCase ?
                         `<input id="swal-input6" class="swal2-input custom-input" placeholder="ขนาดเสื้อ (S, M, L, XL)">
-                        <input id="swal-input7" class="swal2-input custom-input" placeholder="ทีมที่ต้องการ">`
+                        <input id="swal-input7" class="swal2-input custom-input" placeholder="teamที่ต้องการ">`
                         : ''}
                     `,
                 focusConfirm: false,
                 showCancelButton: true,
                 confirmButtonText: 'แลกของรางวัล',
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     popup: 'popup-custom',
@@ -127,7 +127,7 @@ export default {
                         team = document.getElementById('swal-input7').value;
 
                         if (!shirtSize || !team) {
-                            Swal.showValidationMessage('กรุณากรอกข้อมูลขนาดเสื้อและทีมที่ต้องการ');
+                            Swal.showValidationMessage('กรุณากรอกข้อมูลขนาดเสื้อและteamที่ต้องการ');
                             return;
                         }
                     }
@@ -144,11 +144,11 @@ export default {
             });
 
             if (!formValues) {
-                // ถ้าผู้ใช้ยกเลิกหรือไม่ได้กรอกข้อมูล
+                // ถ้าผู้ใช้cancelหรือไม่ได้กรอกข้อมูล
                 return;
             }
 
-            // ตรวจสอบว่า formValues ไม่ใช่ undefined และมีข้อมูลทั้งหมด
+            // ตรวจสอบว่า formValues ไม่ใช่ undefined และมีข้อมูลall
             const { name, address, postalCode, phone, shirtSize, team } = formValues;
 
             try {
@@ -156,7 +156,7 @@ export default {
                 const response = await api.post('/premier-league/v1/exchange', {
                     point: truepoint,
                     detail: name + ' ' + address + ' ' + postalCode + ' ' + phone +
-                        (isSpecialCase ? ' ขนาดเสื้อ: ' + shirtSize + ' ทีม: ' + team : '')
+                        (isSpecialCase ? ' ขนาดเสื้อ: ' + shirtSize + ' team: ' + team : '')
                 }, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`

@@ -3,7 +3,7 @@
         <div class="flex justify-center w-full m-1 mt-2">
             <img class="w-8 h-8" src="/public/assets/logonew.png" />
 
-            <span class="mt-1 font-semibold text-gray-600">เกมวีค <span class="text-yellow-500">VIP</span></span>
+            <span class="mt-1 font-semibold text-gray-600">Game <span class="text-yellow-500">VIP</span></span>
             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 mt-1" viewBox="0 0 512 512" width="20" height="20"
                 id="star">
                 <polygon fill="#ffd759"
@@ -23,14 +23,14 @@
                         <div class=" w-7 h-7  ">
                             <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                         </div>
-                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }} <i
+                        <div class="text-sm ">season {{ data.season.label }} Game {{ data.week }} <i
                                 class="fas fa-ticket-alt text-yellow-400"></i>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="mt-4 text-gray-700  text-xs space-x-4">
-                        รายละเอียดเกมวีค VIP
+                        DetailGame VIP
                     </div>
                     <div class="mt-4 text-gray-700 font-bold  text-sm space-x-4">
                         <Numberformat class="text-green-400" :value="data.reward" :decimal="1" /> {{ data.who_win }}

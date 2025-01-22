@@ -56,7 +56,7 @@ export default {
   line-height: 40px;
   font-size: 32px;
   font-weight: bold;
-  background: #1e1036;
+  background: #2e343c;
   color: rgba(var(--primary-500));
   border: 4px double;
   box-sizing: border-box;

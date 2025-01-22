@@ -60,7 +60,7 @@ h2 {
     font-weight: 400;
     font-size: 1.1rem;
     line-height: 1.6;
-    /* เพิ่ม line-height เพื่อให้ข้อความดูเป็นระเบียบ */
+    /* add line-height เพื่อให้ข้อความดูเป็นระเบียบ */
     word-break: break-word;
     /* ตัดคำหากยาวเกินไป */
 }

@@ -11,8 +11,8 @@
           {{ }}
           <div class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">
 
-            <div class="sticky top-0 bg-[#1e1036] p-4 !rounded-t-xl">
-              <span class="text-xs">คัดลอกทีมเกมวีคปัจุบัญ</span>
+            <div class="sticky top-0 bg-[#2e343c] p-4 !rounded-t-xl">
+              <span class="text-xs">คัดลอกteamGameปัจุบัญ</span>
               <button class="close-button" @click="$emit('close-modal')">
 
                 <span class="close-icon">&times;</span>
@@ -43,7 +43,7 @@
             </div>
             <div class="cus-bg-card-vip text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
               v-else>
-              ไม่มีข้อมูลทีมวีค VIP
+              ไม่มีข้อมูลteamวีค VIP
             </div>
             <div class="cus-bg-card-n text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
               v-if="data_n.length > 0" v-for="n in data_n" @click="copy(n.id, 'n', n.name)">
@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="cus-bg-card-n text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer" v-else>
-              ไม่มีข้อมูลทีมวีคปกติ
+              ไม่มีข้อมูลteamวีคปกติ
             </div>
             
 
@@ -113,10 +113,10 @@ export default {
   methods: {
     ...mapActions('loading', ['updateLoading']),
     async copy(id, type, name) {
-      // ยืนยันที่จะคัดลอกทีมนี้
+      // Confirmที่จะคัดลอกteamนี้
       const result = await Swal.fire({
-        title: `ทีม ${name}`,
-        text: `คุณต้องการคัดลอกทีม ใช่หรือไม่?`,
+        title: `team ${name}`,
+        text: `คุณต้องการคัดลอกteam ใช่หรือไม่?`,
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -192,7 +192,7 @@ export default {
 .cus-bg-card-n {
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 2px 2px 2px #8341ca;
+  box-shadow: 2px 2px 2px #3e434b;
   transition: box-shadow 0.3s ease;
 }
 

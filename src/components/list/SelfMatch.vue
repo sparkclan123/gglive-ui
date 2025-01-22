@@ -40,7 +40,7 @@
                                 <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
                                 <p
                                     class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ชื่อเเข่งขัน
+                                    name tournament
                                 </p>
                             </div>
                         </th>
@@ -52,7 +52,7 @@
                         <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                รายละเอียด</p>
+                                Detail</p>
                         </th>
 
                     </tr>
@@ -71,14 +71,14 @@
                         <td class="p-1 border-b border-blue-gray-50 pl-4 text-center">
                             <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
                                 <button @click="copyToClipboard(match.code_generated)"
-                                    class="bg-blue-500 text-white px-3 py-1 rounded text-xs">คัดลอก Code</button>
+                                    class="bg-blue-500 text-white px-3 py-1 rounded text-xs">Copy Code</button>
                             </p>
                         </td>
                         <td class="p-1 border-b border-blue-gray-50 text-left">
                             <p
                                 class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
                                 <button @click="seeMatchDetail(match.id, match.game_week_id)"
-                                    class="bg-yellow-800 text-white px-3 py-1 rounded text-xs">รายละเอียด</button>
+                                    class="bg-yellow-800 text-white px-3 py-1 rounded text-xs">Detail</button>
                             </p>
                         </td>
 
@@ -113,13 +113,14 @@ export default {
                 icon: 'info',
                 html: `
     <div class="text-custom" style="text-align: left;">
-      <p> - การจัดการเเข่งขันเองสามารถสร้างได้ไม่เกิน 3 การเเข่งขันต่อ 1 เกมวีคที่กำลังเปิดอยู่เท่านั้น</p>
-      <p> - คุณสามารถสร้างเเข่งขันของคุณเอง หรือเข้าร่วมเเข่งขันของเพื่อนๆของคุณได้</p>
-      <p> - ทางเราไม่มีส่วนเกี่ยวข้องใดๆทั้งสิ้นในการจัดการเเข่งขันของคุณ นอกจากการตัดสินคะเเนน จากระบบ</p>
-    </div>
+  <p> - Self-managed competitions can only create up to 3 competitions per active game.</p>
+  <p> - You can create your own competition or join competitions hosted by your friends.</p>
+  <p> - We are not involved in the management of your competition, except for scoring decisions based on the system.</p>
+</div>
+
   `,
                 showConfirmButton: true,
-                confirmButtonText: 'เข้าใจเเล้ว',
+                confirmButtonText: 'Got it',
                 customClass: {
                     cancelButton: 'btn-cancel',
                     confirmButton: 'btn-confirm',
@@ -167,13 +168,13 @@ export default {
         },
         async toggleModelJoin() {
             Swal.fire({
-                title: 'เข้าร่วมการเเข่งขัน',
-                text: 'กรอกโค้ดการเเข่งขันจากเพื่อนของคุณ',
+                title: 'Join the competition.',
+                text: 'Enter the competition code from your friend.',
                 input: 'text',
-                inputPlaceholder: 'กรอกโค้ดการเเข่งขัน',
+                inputPlaceholder: 'Enter the competition code.',
                 showCancelButton: true,
-                confirmButtonText: 'เข้าร่วม',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'Enter',
+                cancelButtonText: 'cancel',
                 customClass: {
                     input: 'swal-input', // Add custom class for input
                     cancelButton: 'btn-cancel',
@@ -185,7 +186,7 @@ export default {
                 buttonsStyling: false,
                 preConfirm: (joinCode) => {
                     if (!joinCode) {
-                        Swal.showValidationMessage('กรุณากรอกโค้ดการเเข่งขัน');
+                        Swal.showValidationMessage('Enter the competition code.');
                     }
                     return joinCode;
                 }
@@ -199,13 +200,13 @@ export default {
         async toggleModel() {
 
             Swal.fire({
-                title: 'สร้างการเเข่งขัน',
-                text: 'สร้างการเเข่งขันของคุณเเละเพื่อนๆของคุณ',
+                title: 'Create Competition',
+                text: 'Create your own competition and invite your friends to join.',
                 input: 'text',
-                inputPlaceholder: 'ตั้งชื่อการเเข่งของคุณ',
+                inputPlaceholder: 'Set a name for your competition.',
                 showCancelButton: true,
-                confirmButtonText: 'สร้าง',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'create',
+                cancelButtonText: 'cancel',
                 customClass: {
                     input: 'swal-input', // Add custom class for input
                     cancelButton: 'btn-cancel',
@@ -218,10 +219,10 @@ export default {
                 preConfirm: (teamName) => {
                     // ไม่เกิน 15 ตัวอักษร
                     if (teamName.length > 20) {
-                        Swal.showValidationMessage('ชื่อการเเข่งขันต้องไม่เกิน 20 ตัวอักษร');
+                        Swal.showValidationMessage('The competition name must not exceed 20 characters.');
                     }
                     if (!teamName) {
-                        Swal.showValidationMessage('กรุณากรอกชื่อการเเข่งขัน');
+                        Swal.showValidationMessage('Please enter a competition name.');
                     }
                     return teamName;
                 }
@@ -252,7 +253,7 @@ export default {
                 if (response.data.ok) {
                     Swal.fire({
                         icon: 'success',
-                        text: 'เข้าร่วมการเเข่งขันเรียบร้อย',
+                        text: 'Successfully joined the competition.',
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
@@ -304,7 +305,6 @@ export default {
                     this.$emit('set-loading', false);
                 }
             } catch (error) {
-                console.log("asdasdas", error.data);
                 this.$emit('set-loading', false);
                 Swal.fire({
                     icon: 'error',
@@ -325,8 +325,8 @@ export default {
             navigator.clipboard.writeText(code).then(() => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'คัดลอก!',
-                    text: 'คัดลอกโค้ดเรียบร้อย',
+                    title: 'Copy!',
+                    text: 'Copy to clipboard.',
                     timer: 1500,
                     showConfirmButton: false,
                     customClass: {

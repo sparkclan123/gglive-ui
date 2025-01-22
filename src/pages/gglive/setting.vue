@@ -5,7 +5,7 @@
                 <div>
                     <h1
                         class="lg:text-xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 text-white">
-                        ข้อมูลส่วนตัว ID: {{userinfo.UserID}}
+                        UserDetail ID: {{userinfo.UserID}}
                     </h1>
                     <form @submit.prevent="updateProfile">
                         <div>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
-                            <button type="submit" class="w-full button-save">บันทึก</button>
+                            <button type="submit" class="w-full button-save">save</button>
                         </div>
                     </form>
                 </div>
@@ -169,11 +169,11 @@ export default {
         async updateProfile() {
 
             const result = await Swal.fire({
-                title: 'กรุณาอ่าน!',
-                text: 'คุณต้องการบันทึกข้อมูลใช่หรือไม่',
+                title: 'Please read.!',
+                text: 'คุณต้องการsaveข้อมูลใช่หรือไม่',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
-                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'cancel',
+                confirmButtonText: 'Confirm',
                 customClass: {
                     confirmButton: 'btn-confirm',
                     cancelButton: 'btn-cancel',
@@ -206,7 +206,7 @@ export default {
                         Swal.fire({
                             text: 'Error uploading profile image',
                             showCancelButton: true,
-                            cancelButtonText: 'ยกเลิก',
+                            cancelButtonText: 'cancel',
                             showConfirmButton: false,
                             customClass: {
                                 cancelButton: 'btn-cancel',
@@ -238,9 +238,9 @@ export default {
                     }
                 });
                 Swal.fire({
-                    text: 'อัพเดทข้อมูลสำเร็จ',
+                    text: 'Update success',
                     showCancelButton: true,
-                    cancelButtonText: 'ยืนยัน',
+                    cancelButtonText: 'Confirm',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',
@@ -255,7 +255,7 @@ export default {
                 Swal.fire({
                     text: 'Error updating profile',
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',

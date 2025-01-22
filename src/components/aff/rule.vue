@@ -1,48 +1,48 @@
 <template>
     <div class="rules-container m-5">
         <div class="rule-title">
-            <strong>กติกาพันธมิตร</strong>
+            <strong>Ruleพันธมิตร</strong>
         </div>
 
         <div class="section">
             <div class="section-title">
-                <strong>ส่วนลดพิเศษสำหรับลูกทีม</strong>
+                <strong>ส่วนลดพิเศษสำหรับลูกteam</strong>
             </div>
             <div class="rule">
-                <strong>-</strong> หากหัวหน้าทีมของคุณชนะเป็นอันดับที่ 1 ในหมวด VIP ลูกทีมจะได้รับส่วนลด <span
-                    class="rule-strong">10%</span> สำหรับการสนับสนุนตั๋ว VIP ในเกมวีคถัดไป
+                <strong>-</strong> หากหัวหน้าteamของคุณชนะเป็นอันดับที่ 1 ในหมวด VIP ลูกteamจะได้รับส่วนลด <span
+                    class="rule-strong">10%</span> สำหรับการสนับสนุนตั๋ว VIP ในGameถัดไป
             </div>
             <div class="rule">
-                <strong>-</strong> หากหัวหน้าทีมของคุณชนะเป็นอันดับที่ 2 ในหมวด VIP ลูกทีมจะได้รับส่วนลด <span
-                    class="rule-strong">5%</span> สำหรับการสนับสนุนตั๋ว VIP ในเกมวีคถัดไป
+                <strong>-</strong> หากหัวหน้าteamของคุณชนะเป็นอันดับที่ 2 ในหมวด VIP ลูกteamจะได้รับส่วนลด <span
+                    class="rule-strong">5%</span> สำหรับการสนับสนุนตั๋ว VIP ในGameถัดไป
             </div>
             <div class="rule">
-                <strong>-</strong> หากหัวหน้าทีมของคุณชนะเป็นอันดับที่ 3 ในหมวด VIP ลูกทีมจะได้รับส่วนลด <span
-                    class="rule-strong">2%</span> สำหรับการสนับสนุนตั๋ว VIP ในเกมวีคถัดไป
+                <strong>-</strong> หากหัวหน้าteamของคุณชนะเป็นอันดับที่ 3 ในหมวด VIP ลูกteamจะได้รับส่วนลด <span
+                    class="rule-strong">2%</span> สำหรับการสนับสนุนตั๋ว VIP ในGameถัดไป
             </div>
             <div class="rule">
-                <strong>-</strong> ส่วนลดนี้จะสิ้นสุดเมื่อเกมวีคถัดไปปิดการจัดทีม
+                <strong>-</strong> ส่วนลดนี้จะสิ้นสุดเมื่อGameถัดไปปิดการจัดteam
             </div>
         </div>
 
         <div class="section">
             <div class="section-title">
-                <strong>เเต้มสะสมสำหรับหัวหน้าทีม</strong>
+                <strong>เเต้มสะสมสำหรับหัวหน้าteam</strong>
             </div>
             <div class="rule">
-                <strong>-</strong> หัวหน้าทีมจะได้รับ <span class="rule-strong">1 แต้ม</span>
+                <strong>-</strong> หัวหน้าteamจะได้รับ <span class="rule-strong">1 แต้ม</span>
                 สำหรับทุกตั๋วที่สมาชิกสนับสนุน
             </div>
             <div class="rule">
                 <strong>-</strong> เมื่อสะสมครบ <span class="rule-strong">100 แต้มขึ้นไป</span> สามารถแลกเปลี่ยนเป็นตั๋ว
-                VIP ได้ หรือสามารถสอบถามข้อมูลเพิ่มเติมเกี่ยวกับของรางวัลอื่น ๆ ที่มีมูลค่าเทียบเท่ากับจำนวนแต้ม
-                โดยไม่จำกัดประเภทของรางวัล โดยติดต่อทีมงานผ่านทาง <span class="rule-strong">Line</span> หรือ <span
+                VIP ได้ หรือสามารถสอบถามข้อมูลaddเติมเกี่ยวกับของรางวัลอื่น ๆ ที่มีมูลค่าเทียบเท่ากับจำนวนแต้ม
+                โดยไม่จำกัดประเภทของรางวัล โดยติดต่อteamงานผ่านทาง <span class="rule-strong">Line</span> หรือ <span
                     class="rule-strong">Facebook Fanpage</span>
               
             </div>
 
             <div class="rule">
-                <strong>-</strong> <strong>เมื่อเลือกหัวหน้าทีมเเล้วจะไม่สามารถเปลี่ยนเเปลงได้</strong>
+                <strong>-</strong> <strong>เมื่อเลือกหัวหน้าteamเเล้วจะไม่สามารถเปลี่ยนเเปลงได้</strong>
             </div>
         </div>
     </div>

@@ -5,25 +5,25 @@
         <div class="text-center">
           <div class="countdown-number">
             <span class="top">{{ days }}</span>
-            <span class="bottom">วัน</span>
+            <span class="bottom">Day</span>
           </div>
         </div>
         <div class="text-center">
           <div class="countdown-number">
             <span class="top">{{ hours }}</span>
-            <span class="bottom">ชั่วโมง</span>
+            <span class="bottom">Hr</span>
           </div>
         </div>
         <div class="text-center">
           <div class="countdown-number">
             <span class="top">{{ minutes }}</span>
-            <span class="bottom">นาที</span>
+            <span class="bottom">Mi</span>
           </div>
         </div>
         <div class="text-center">
           <div class="countdown-number">
             <span class="top">{{ seconds }}</span>
-            <span class="bottom">วินาที</span>
+            <span class="bottom">Sc</span>
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     updateCountdown() {
-      this.currentTime += 1000; // เพิ่มเวลาปัจจุบันทีละ 1 วินาที
+      this.currentTime += 1000; // addเวลาปัจจุบันทีละ 1 วินาที
       const distance = this.targetTime - this.currentTime;
 
       if (distance > 0) {

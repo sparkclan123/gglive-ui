@@ -27,11 +27,11 @@
                         id="password" type="password" placeholder="password" v-model="password">
                 </div>
                 <div>
-                    <label for="confirm_password" class="block text-sm font-medium text-gray-500">ยืนยันรหัสผ่าน</label>
+                    <label for="confirm_password" class="block text-sm font-medium text-gray-500">Confirmรหัสผ่าน</label>
                     <input :class="{ 'border-red-500': confirmPasswordError }"
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                         id="confirm_password" type="password" placeholder="confirm_password" v-model="confirm_password">
-                    <p v-if="confirmPasswordError" class="text-red-500 text-xs italic">รหัสผ่านและการยืนยันไม่ตรงกัน</p>
+                    <p v-if="confirmPasswordError" class="text-red-500 text-xs italic">รหัสผ่านและการConfirmไม่ตรงกัน</p>
                 </div>
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-500">ชื่อ</label>
@@ -67,9 +67,9 @@
                 <div class="w-full rounded-lg mt-2 text-white text-lg ">
                     <button type="submit" class="w-full button-save" @click="loginform">สมัครสมาชิก</button>
                 </div>
-                <!-- กลับสู่หน้า Login -->
+                <!-- backสู่หน้า Login -->
                 <div class="text-center mt-4">
-                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">กลับสู่หน้า
+                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">backสู่หน้า
                         Login</router-link>
                 </div>
 
@@ -172,7 +172,7 @@ export default {
             } catch (error) {
                 this.addNotification({
                     type: 'error',
-                    message: error.response?.data?.error || 'เกิดข้อผิดพลาดในการส่ง OTP',
+                    message: error.response?.data?.error || 'An error has occurred.ในการส่ง OTP',
                 });
                 this.loading = false;
             }
@@ -187,7 +187,7 @@ export default {
             }
 
             const result = await Swal.fire({
-                title: 'ยืนยันการสมัครสมาชิก',
+                title: 'Confirmการสมัครสมาชิก',
                 text: 'คุณต้องการสมัครสมาชิกใช่หรือไม่',
                 showCancelButton: true,
                 confirmButtonText: 'ใช่',
@@ -229,7 +229,7 @@ export default {
                 Swal.fire({
                     text: error.response.data.error,
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',

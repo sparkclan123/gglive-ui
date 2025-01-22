@@ -8,7 +8,7 @@
                     </svg>
                 </div>
                 <div class="flex h-8 font-medium rounded-full bg-gray-200">
-                    <div v-for="pageNumber in pagesToShow" :key="pageNumber" @click="goToPage(pageNumber)" class="w-8 md:flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in rounded-full" :class="{ 'bg-purple-600 text-white': pageNumber === page }">
+                    <div v-for="pageNumber in pagesToShow" :key="pageNumber" @click="goToPage(pageNumber)" class="w-8 md:flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in rounded-full" :class="{ 'bg-gray-600 text-white': pageNumber === page }">
                         {{ pageNumber }}
                     </div>
                 </div>

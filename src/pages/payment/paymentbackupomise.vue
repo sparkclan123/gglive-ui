@@ -28,7 +28,7 @@
                 <div class="control-buttons">
                     <button class="delmoney" @click="adjustValue('-')"><span class="plussign">ลบ</span></button>
                     <input type="tel" v-model="value" maxlength="3" class="ticket-input" />
-                    <button class="addmoney" @click="adjustValue('+')"><span class="plussign">เพิ่ม</span></button>
+                    <button class="addmoney" @click="adjustValue('+')"><span class="plussign">add</span></button>
                 </div>
             </div>
             <div class="button-container mt-2">
@@ -38,7 +38,7 @@
             <div v-if="qrCode" class="qr-code-container">
                 <h2 class="mb-2 text-gray-800 font-semibold">เเคปรูปที่หน้าจอ</h2>
                 <img :src="`data:image/svg+xml;base64,${qrCode}`" alt="QR Code" class="qr-code">
-                <!-- <button @click="downloadQRCode" class="download-button">บันทึกรูป</button> -->
+                <!-- <button @click="downloadQRCode" class="download-button">saveรูป</button> -->
             </div>
 
             <div class="walletBalanceCard mb-2 mt-2" v-if="payment">
@@ -81,7 +81,7 @@ export default {
         return {
             loading: false,
             value: 1,
-            qrCode: null, // เพิ่มตัวแปรนี้เพื่อเก็บ base64 QR code
+            qrCode: null, // addตัวแปรนี้เพื่อเก็บ base64 QR code
             disable: false,
             payment: null
         };
@@ -106,7 +106,7 @@ export default {
             this.disable = true;
             this.loading = true;
             const result = await Swal.fire({
-                title: 'ยืนยันการสนับสนุน!',
+                title: 'Confirmการสนับสนุน!',
                 text: `คุณต้องการสนับสนุนเราด้วยจำนวน ${this.value} ใบ ใช่หรือไม่?`,
                 showCancelButton: true,
                 cancelButtonText: 'ไม่ใช่',
@@ -133,7 +133,7 @@ export default {
                     Swal.fire({
                         text: 'กรุณากรอกจำนวนตั๋วเป็นตัวเลข',
                         showCancelButton: true,
-                        cancelButtonText: 'ยกเลิก',
+                        cancelButtonText: 'cancel',
                         showConfirmButton: false,
                         customClass: {
                             cancelButton: 'btn-cancel',
@@ -165,9 +165,9 @@ export default {
                 }
             } catch (error) {
                 Swal.fire({
-                    text: 'บันทึกไม่สำเร็จ' + error.response.data.error,
+                    text: 'can not be save' + error.response.data.error,
                     showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
+                    cancelButtonText: 'cancel',
                     showConfirmButton: false,
                     customClass: {
                         cancelButton: 'btn-cancel',

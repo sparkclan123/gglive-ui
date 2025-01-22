@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center ">
         <div class="flex justify-center w-full m-1 mt-2">
-            <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span class="mt-1 font-semibold text-gray-600">เกมวีคปกติ</span>
+            <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span class="mt-1 font-semibold text-gray-600">Gameปกติ</span>
         </div>
         <div class="mt-2 w-full" v-if="data.datas">
             <div class="cus-bg-card  text-gray-700  flex flex-col rounded-xl shadow-lg p-2 mb-5 mr-5 ml-5 cursor-pointer"
@@ -11,16 +11,16 @@
                         <div class=" w-7 h-7  ">
                             <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                         </div>
-                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }} 
+                        <div class="text-sm ">season {{ data.season.label }} Game {{ data.week }} 
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="mt-4 text-gray-700 text-xs space-x-4">
-                        รายละเอียดเกมวีคปกติ
+                        DetailGameปกติ
                     </div>
                     <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
-                        <!-- คะเเนนรวม: <span class="text-green-800"> {{ data.total_point }} </span> -->
+                        <!-- pointรวม: <span class="text-green-800"> {{ data.total_point }} </span> -->
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@ export default {
 .cus-bg-card {
     background-color: #ffffff;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px #8341ca;
+    box-shadow: 2px 2px 2px #3e434b;
     transition: box-shadow 0.3s ease;
 }
 </style>

@@ -26,7 +26,7 @@
 	c-2.422,14.884-7.973,27.267-16.649,37.151h78.499c-8.676-9.884-14.227-22.267-16.649-37.151
 	C271.2,345.747,263.658,346.26,256,346.26z"></path>
                     </svg>
-                    <span class="mt-1 font-semibold text-gray-600">รายละเอียดคะเเนนนักเตะ</span>
+                    <span class="mt-1 font-semibold text-gray-600">DetailPlayerScores</span>
                 </div>
                 <div class="mt-2 w-full" v-if="gameweekData.datas">
                     <div class="cus-bg-card  text-gray-700  flex flex-col rounded-xl shadow-lg p-2 mb-5 mr-5 ml-5 cursor-pointer"
@@ -76,16 +76,16 @@
                                     </svg>
 
                                 </div>
-                                <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }}
+                                <div class="text-sm ">season {{ data.season.label }} Game {{ data.week }}
                                 </div>
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
                             <div class="mt-4 text-gray-700 text-xs space-x-4">
-                                รายละเอียดคะเเนนนักเตะ เกมวีค {{ data.week }}
+                                DetailPlayerScores Game {{ data.week }}
                             </div>
                             <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
-                                <!-- คะเเนนรวม: <span class="text-green-800"> {{ data.total_point }} </span> -->
+                                <!-- pointรวม: <span class="text-green-800"> {{ data.total_point }} </span> -->
                             </div>
                         </div>
 

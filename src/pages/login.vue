@@ -14,24 +14,24 @@
                     <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
                 </div>
                 <div>
-                    <label for="username" class="block text-sm font-medium text-gray-500">เบอร์เข้าระบบ</label>
+                    <label for="username" class="block text-sm font-medium text-gray-500">username</label>
                     <input
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                         id="username" type="tel" placeholder="08xxxxxxxx" v-model="username">
                 </div>
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน</label>
+                    <label for="password" class="block text-sm font-medium text-gray-500">password</label>
                     <input
                         class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
                         id="password" type="password" placeholder="**********" v-model="password">
                 </div>
 
                 <div class="w-full rounded-lg  mt-2 text-white text-lg">
-                    <button type="submit" class="w-full button-save" @click="loginform()">เข้าสู่ระบบ</button>
+                    <button type="submit" class="w-full button-save" @click="loginform()">Login</button>
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <span @click="resetPassword" class="text-blue-500 cursor-pointer text-sm"> ลืมรหัสผ่าน? </span>
+                    <span @click="resetPassword" class="text-blue-500 cursor-pointer text-sm"> forgetPassword? </span>
 
                     <div class="flex items-center ml-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
@@ -48,12 +48,12 @@
                             </defs>
                         </svg>
                         <label class="block text-sm font-sm text-green-900 cursor-pointer ml-1"
-                            @click="route_register">สมัครสมาชิก</label>
+                            @click="route_register">Register</label>
                     </div>
                 </div>
 
                 <div class="">
-                    <span class="text-gray-600 text-xs">หรือเข้าสู่ระบบด้วย</span>
+                    <span class="text-gray-600 text-xs">Login With?</span>
                 </div>
                 <div class="social-icons">
                     <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
@@ -70,35 +70,7 @@
                             </g>
                         </svg>
                     </button>
-                    <button aria-label="Log in with GitHub" class="icon" @click="loginWithLine">
-                        <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
-                            <g id="_x32_00-line">
-                                <g>
-                                    <path
-                                        d="M475.999,116.242v280.204c-0.098,44-36.142,79.65-80.24,79.553H115.555    c-44.001-0.098-79.652-36.24-79.554-80.241V115.554c0.099-43.999,36.241-79.65,80.241-79.553h280.205    C440.445,36.1,476.098,72.144,475.999,116.242z"
-                                        style="fill:#39AE41;" />
-                                    <path
-                                        d="M415.501,236.651c0-71.695-71.895-130.034-160.188-130.034    c-88.295,0-160.188,58.339-160.188,130.034c0,64.231,56.965,118.054,133.963,128.269c18.76,4.025,16.599,10.902,12.376,36.141    c-0.688,4.027-3.241,15.814,13.848,8.646c17.089-7.171,92.223-54.313,125.91-93.01    C404.401,291.159,415.501,265.331,415.501,236.651z"
-                                        style="fill:#FEFEFE;" />
-                                    <g>
-                                        <path
-                                            d="M300,202.081h-11.194c-1.771,0-3.145,1.375-3.145,3.143v41.446l-32.018-43.214     c-0.492-0.884-1.571-1.375-2.553-1.375h-11.098c-1.768,0-3.143,1.375-3.143,3.143v69.831c0,1.767,1.375,3.144,3.143,3.144h11.195     c1.769,0,3.143-1.377,3.143-3.144v-41.447l32.018,43.214c0.493,0.688,1.476,1.276,2.555,1.276h11.196     c1.768,0,3.143-1.375,3.143-3.144v-69.828C303.241,203.456,301.769,201.982,300,202.081z"
-                                            style="fill:#39AE41;" />
-                                        <path
-                                            d="M222.705,201.982H211.51c-1.769,0-3.143,1.375-3.143,3.144v69.828     c0,1.769,1.375,3.144,3.143,3.144h11.195c1.769,0,3.143-1.375,3.143-3.144v-69.828     C225.848,203.456,224.474,201.982,222.705,201.982z"
-                                            style="fill:#39AE41;" />
-                                        <path
-                                            d="M195.697,260.52h-30.544v-55.394c0-1.769-1.375-3.144-3.144-3.144h-11.196     c-1.769,0-3.143,1.375-3.143,3.144v69.828c0,0.886,0.295,1.573,0.883,2.16c0.59,0.493,1.277,0.887,2.161,0.887H195.6     c1.767,0,3.142-1.375,3.142-3.144V263.66C198.742,261.99,197.366,260.52,195.697,260.52z"
-                                            style="fill:#39AE41;" />
-                                        <path
-                                            d="M362.169,219.464c1.77,0,3.143-1.374,3.143-3.142v-11.196c-0.098-1.67-1.472-3.144-3.143-3.144     h-44.884c-1.669,0-3.142,1.375-3.142,3.144v69.828c0,1.672,1.374,3.144,3.142,3.144h44.884c1.77,0,3.143-1.375,3.143-3.144     V263.76c0-1.77-1.373-3.144-3.143-3.144h-30.543V248.83h30.543c1.77,0,3.143-1.375,3.143-3.143v-11.295     c0-1.767-1.373-3.143-3.143-3.143h-30.543v-11.786H362.169z"
-                                            style="fill:#39AE41;" />
-                                    </g>
-                                </g>
-                            </g>
-                            <g id="Layer_1" />
-                        </svg>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -166,7 +138,7 @@ export default {
             Swal.fire({
                 text: 'เปิด login ได้เเค่ google กับ line เท่านั้น',
                 showCancelButton: true,
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 showConfirmButton: false,
                 customClass: {
                     cancelButton: 'btn-cancel',
@@ -308,15 +280,15 @@ export default {
     max-width: 100%;
     max-height: 100%;
     border-radius: 15px;
-    /* เพิ่มมุมโค้ง */
+    /* addมุมโค้ง */
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.8),
         /* เงาด้านล่าง */
         -10px -10px 20px rgba(255, 255, 255, 0.3);
     /* เงาด้านบน */
     border: 1px solid rgba(255, 255, 255, 0.3);
-    /* เพิ่มขอบบางๆ เพื่อความสมจริง */
+    /* addขอบบางๆ เพื่อความสมจริง */
     background: linear-gradient(145deg, #f0f0f0, #cacaca);
-    /* เพิ่มเอฟเฟกต์ 3D */
+    /* addเอฟเฟกต์ 3D */
 }
 
 .social-icons {

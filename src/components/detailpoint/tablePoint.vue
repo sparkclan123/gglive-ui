@@ -92,7 +92,7 @@ export default {
 }
 
 .bg-colorhead {
-    background-color: #38003c;
+    background-color: #2e3034;
 }
 
 .bg-color-accent {

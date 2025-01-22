@@ -2,9 +2,9 @@
     <div>
        
         <div class="tabs rounded-t-lg ml-3 text-white flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">คะเเนนตาราง
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">Scoreboard
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">คะเเนนนักเตะ
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">PlayerScores
             </div>
            
         </div>
@@ -126,7 +126,7 @@ export default {
     margin-right: 3px;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #37003c;
+    background-color: #7384a5;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }

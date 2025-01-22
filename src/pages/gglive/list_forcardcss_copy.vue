@@ -2,7 +2,7 @@
     <div>
         <div class="card">
             <div class="card__info">
-                <div class="card__logo">รายการ ทีมของคุณ</div>
+                <div class="card__logo">รายการ teamของคุณ</div>
                 <div class="card__chip">
                     <svg class="card__chip-lines" role="img" width="20px" height="20px" viewBox="0 0 100 100"
                         aria-label="Chip">
@@ -45,7 +45,7 @@
                     <div class="rounded-full w-5 h-5  ">
                         <img class="w-5 h-5 rounded-full" src="/public/assets/logonew.png" />
                     </div>
-                    <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
+                    <div class="text-sm ">season {{ data.season }} Game {{ data.week }}
                         <DateFormatted :dateString="data.created_at" />
                     </div>
                 </div>
@@ -57,10 +57,10 @@
             </div>
             <div class="flex items-center justify-between">
                 <div class="mt-4 text-gray-800  text-xs space-x-4">
-                    ชื่อทีม: {{ data.name }}
+                    name: {{ data.name }}
                 </div>
                 <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
-                    คะเเนนรวม: {{ data.total_point }}
+                    pointรวม: {{ data.total_point }}
                 </div>
             </div>
         </div>

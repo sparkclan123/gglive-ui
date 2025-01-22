@@ -19,7 +19,7 @@
           <div class="dialog-body">
             <ul>
               <li class="dialog-button-item">
-                <button @click="setCaptain" type="button" class="set-captan-info-button">ตั้งเป็นกับตันทีม</button>
+                <button @click="setCaptain" type="button" class="set-captan-info-button">ตั้งเป็นกับตันteam</button>
               </li>
               <li class="dialog-button-item">
                 <button @click="removePlayer" type="button" class="remove-player-button">ลบ ผู้เล่น</button>

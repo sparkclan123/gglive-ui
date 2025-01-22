@@ -9,17 +9,17 @@
             </h1>
             <div class="absolute top-1 right-0">
                 <button @click="SetactiveTab('tab4')" class="bg-gray-400 text-gray-800 font-semibold text-xs p-1 rounded-lg">
-                   กติกา
+                   Rule
                 </button>
             </div>
         </div>
 
         <!-- Tabs -->
         <div class="tabs rounded-t-lg flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
+            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">Game (free)
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
-                เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
+                Game VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
             </div>
             <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">BigMatch
             </div>
@@ -39,7 +39,6 @@
 
             </div>
             <div v-if="activeTab === 'tab2'">
-                <span class="text-red-800" style="font-size: 12px;">**เงื่อนไข ต้องใช้ตั๋วที่ได้จากการซื้อโปรโมชั่นให้หมดภายใน week19</span>
                 <SeasonSelectVip />
                 <div class="mt-5 flex justify-center">
                     <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
@@ -129,7 +128,7 @@ export default {
     margin-right: 3px;
     padding: 10px 20px;
     cursor: pointer;
-    background-color: #37003c;
+    background-color: #7384a5;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }

@@ -54,21 +54,21 @@
       <div class="bottom-section">
         <span class="title">season {{ getSeasons.label }}</span>
         <button class="titlebtn bg-yellow-400  px-3 py-1 rounded text-xs" style="color: black;"
-          @click="rewardDetail">รายละเอียดรางวัล</button>
+          @click="rewardDetail">Reward Detail</button>
         <div class="row row1">
           <div class="item">
             <span class="big-text">{{ allPlayer }}</span>
-            <span class="regular-text">เข้าเเข่งขันทั้งหมด</span>
+            <span class="regular-text">all team</span>
           </div>
           <div class="item">
-            <span class="big-text">{{ myTeam }} <span class="regular-text">(ทีม)</span></span>
-            <span class="regular-text">ทีมของคุณ</span>
+            <span class="big-text">{{ myTeam }} <span class="regular-text">(team)</span></span>
+            <span class="regular-text">you team</span>
           </div>
           <div class="item">
             <span class="big-text2 text-green-500">
               <NumberDisplay :number=" gameWeek.reward + (gameWeek.reward * 0.1) + (gameWeek.reward * 0.05) + 200" />
             </span>
-            <span class="regular-text2 text-green-500">เงินรางวัลรวมทั้งหมด</span>
+            <span class="regular-text2 text-green-500">Total Reward</span>
           </div>
         </div>
       </div>
@@ -76,12 +76,12 @@
 
     <div class="flex justify-center items-center mt-1">
       <div v-if="gameWeek.start_date > currentTime" class="flex flex-col items-center">
-        <span class="text-red-900 text-md text-shadow-md">เริ่มจัดทีมได้ในอีก</span>
+        <span class="text-red-900 text-md text-shadow-md">You can start creating your team in...</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" @time-up="handleTimeUp"
           :classadj="'text-red-900'" />
       </div>
       <div v-else class="flex flex-col items-center">
-        <span class="text-green-900 text-shadow-md text-md">เหลือเวลาจัดทีมอีก</span>
+        <span class="text-green-900 text-shadow-md text-md">Team setup closes in</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp"
           :classadj="'text-green-900'" />
       </div>
@@ -145,7 +145,7 @@ export default {
       this.facthTicket();
       if (this.is_time_up) {
         Swal.fire({
-          title: 'เวลาจัดทีมหมดแล้ว',
+          title: 'เวลาจัดteamหมดแล้ว',
           text: 'กรุณาเข้าร่วมการแข่งขันในครั้งถัดไป',
           icon: 'error',
           confirmButtonText: 'ตกลง',
@@ -192,7 +192,7 @@ export default {
                 </div>
             `,
           showCancelButton: true,
-          cancelButtonText: 'ยกเลิก',
+          cancelButtonText: 'cancel',
           confirmButtonText: 'ไปสนับสนุนเรา',
           customClass: {
             confirmButton: 'btn-confirm',
@@ -411,7 +411,7 @@ export default {
   text-align: center;
   letter-spacing: 1px;
   margin: 10px auto;
-  /* เพิ่ม margin เพื่อให้อยู่ตรงกลาง */
+  /* add margin เพื่อให้อยู่ตรงกลาง */
   width: fit-content;
   /* ปรับความกว้างให้เหมาะสม */
 }

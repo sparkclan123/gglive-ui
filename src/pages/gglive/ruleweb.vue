@@ -2,29 +2,43 @@
     <div>
         <div class="content-style">
             <div class="flex justify-center items-center h-8">
-                <span class="text-gray-800 text-2xl font-bold">กติการะบบ</span>
+                <span class="text-gray-800 text-2xl font-bold">System Rules</span>
             </div>
             <div class="mt-4 px-6 text-gray-600">
                 <p>
-                    - อันดับของผู้เล่นที่ทำการจัดทีมจะถูกจัดเรียงตาม <span class="text-green-900">คะแนน</span> จากสูงสุดไปยังต่ำสุด ในกรณีที่ผู้เล่นหลายคนมี <span class="text-green-900">คะแนน</span> สูงสุดเท่ากัน ระบบจะทำการจัดลำดับโดยพิจารณาจากจำนวนเงินที่ใช้ในการจัดทีม ผู้เล่นที่ใช้เงินน้อยกว่าจะได้รับการจัดอันดับที่สูงกว่า
+                    - The rankings of players who have created teams will be arranged according to <span
+                        class="text-green-900">points</span> from highest to lowest. In cases where multiple players
+                    have the same <span class="text-green-900">points</span>, the rankings will be determined by the
+                    amount of money spent on team creation. Players who spend less will be ranked higher.
                 </p>
                 <p class="mt-4">
-                    - หากยังมีผู้เล่นที่มี <span class="text-green-900">คะแนน</span> และจำนวนเงินที่ใช้ในการจัดทีมเท่ากัน ระบบจะจัดลำดับโดยยึดตามเวลาที่ทำการส่งทีมเข้าแข่งขัน <span class="text-red-900">โดยการแก้ไขตัวนักเตะในทีมหลังจากที่ส่งทีมแล้วจะถือว่ามีการอัปเดตเวลาการส่งทีมเข้าแข่งขันใหม่</span>
+                    - If players still have the same <span class="text-green-900">points</span> and amount of money
+                    spent, the rankings will be determined based on the time the team was submitted. <span
+                        class="text-red-900">Editing players in the team after submission will update the submission
+                        time.</span>
                 </p>
                 <p class="mt-4">
-                    - <span class="text-blue-900">หากมีการเลือกผู้เล่นหรือใช้ตั๋วแล้ว จะไม่สามารถยกเลิกได้</span> ในกรณีที่ทีมยกเลิกการแข่งขันในสัปดาห์นั้น เนื่องจากสาเหตุใด ๆ (ยึดตามโปรแกรมของพรีเมียร์ลีก) และไปแข่งขันช่วงต้นของสัปดาห์ถัดไป ทางเราจะเลื่อนเวลาสรุปคะแนนเป็นหลังจากสิ้นสุดการแข่งขันของคู่สุดท้าย แต่หากทีมนั้นเลื่อนไปยังไม่มีกำหนดเตะในสัปดาห์ถัดไป นักเตะที่คุณเลือกจะได้รับคะแนนเป็น 0
+                    - <span class="text-blue-900">Once players or tickets have been selected, cancellations are not
+                        allowed.</span> If a team cancels a match for that week due to any reason (based on the Premier
+                    League schedule) and the match is rescheduled to the beginning of the following week, we will
+                    postpone the score summary to after the last match concludes. However, if the match is postponed
+                    indefinitely, players you selected from that team will receive 0 points.
                 </p>
                 <p class="mt-4 font-semibold">
-                    - ขอบคุณที่สนับสนุนเรา เราจะพยายามอย่างเต็มที่เพื่อให้ทุกท่านได้สนุกสนานไปกับการจัดการแข่งของท่าน
+                    - Thank you for your support. We will do our best to ensure you enjoy managing your competitions.
                 </p>
-                <!-- นโยบายการยินยอมในการเล่นเว็ปและการไม่คืนเงิน -->
+                <!-- Consent policy and non-refundable policy -->
                 <p class="mt-4">
-                    - <span class="text-red-900">นโยบายการยินยอม</span>: เมื่อท่านทำการซื้อตั๋วเข้าร่วมเล่นแล้ว จะไม่สามารถคืนเงินได้ไม่ว่ากรณีใดๆ ก็ตาม ทั้งนี้ท่านยินยอมให้ทางเรามีสิทธิ์ในการเข้าถึงข้อมูลของท่านในระบบ โดยทางเราขอสงวนสิทธิ์ในการไม่เปิดเผยข้อมูลส่วนตัวของท่านให้กับบุคคลภายนอก ไม่ว่าจะเป็นกรณีใดก็ตาม เพื่อความปลอดภัยของข้อมูลและความเป็นส่วนตัวของท่าน
+                    - <span class="text-red-900">Consent Policy</span>: Once you purchase a ticket to participate,
+                    refunds are not allowed under any circumstances. By doing so, you consent to allow us to access your
+                    information in the system. We reserve the right to not disclose your personal information to third
+                    parties under any circumstances to ensure the safety and privacy of your data.
                 </p>
             </div>
         </div>
     </div>
 </template>
+
 
 <style scoped>
 .content-style {

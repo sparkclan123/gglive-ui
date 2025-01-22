@@ -7,7 +7,7 @@
                     <div class=" w-7 h-7  ">
                         <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                     </div>
-                    <div class="text-xs ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
+                    <div class="text-xs ">season {{ data.season }} Game {{ data.week }}
                         <span class="flex items-center">
                             <DateFormatted :dateString="data.created_at" class="font-thin text-[10px]" />
                             <i class="fas fa-ticket-alt text-yellow-400 ml-1"></i>
@@ -36,10 +36,10 @@
             </div>
             <div class="flex items-center justify-between">
                 <div class="mt-4 text-gray-800  text-xs space-x-4">
-                    ชื่อทีม: {{ data.name }}
+                    name: {{ data.name }}
                 </div>
                 <div class="mt-4 text-gray-800   text-sm space-x-4">
-                    คะเเนนรวม: <span class="text-green-800"> {{ data.total_point }} </span>
+                    pointรวม: <span class="text-green-800"> {{ data.total_point }} </span>
                 </div>
             </div>
         </div>

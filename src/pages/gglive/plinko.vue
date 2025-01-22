@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- ปุ่มกลับ -->
+        <!-- ปุ่มback -->
         <div class="top-section">
             <div class="icons">
                 <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer text-gray-200"
@@ -12,7 +12,7 @@
                             fill="white" transform="matrix(-1 0 0 1 24 0)">
                         </path>
                     </svg>
-                    <span class="text-gray-200 font-bold text-xs">กลับ</span>
+                    <span class="text-gray-200 font-bold text-xs">back</span>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@ export default {
             this.access_token = localStorage.getItem('access_token');
         },
         route_back() {
-            this.$router.go(-1); // กลับไปหน้าก่อนหน้า
+            this.$router.go(-1); // backไปหน้าก่อนหน้า
         }
     },
     created() {

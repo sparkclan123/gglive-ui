@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- ปุ่มกลับ -->
+        <!-- ปุ่มback -->
         <div class="contant_style">
 
             <div class="top-section">
@@ -14,7 +14,7 @@
                                 fill="black" transform="matrix(-1 0 0 1 24 0)">
                             </path>
                         </svg>
-                        <span class="text-gray-800 font-bold text-xs">กลับ</span>
+                        <span class="text-gray-800 font-bold text-xs">back</span>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@ export default {
             this.$router.push({ name: page });
         },
         route_back() {
-            this.$router.go(-1); // กลับไปหน้าก่อนหน้า
+            this.$router.go(-1); // backไปหน้าก่อนหน้า
         }
     },
     created() {

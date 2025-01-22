@@ -19,13 +19,13 @@
         </div>
         <div class="flex items-center ">
             <People class="w-6 h-6" />
-            <span class="text-xs text-gray-700 font-xs   leading-none  ml-2">หัวหน้าทีม : {{ parent_username }}</span>
+            <span class="text-xs text-gray-700 font-xs   leading-none  ml-2">หัวหน้าteam : {{ parent_username }}</span>
 
         </div>
 
         <div class="flex items-center  border-b border-gray-300 pb-2">
             <Peoples class="w-6 h-6" />
-            <span class="text-xs text-gray-700 font-xs   leading-none  ml-2" v-if="userinfo">ลูกทีมของคุณ :
+            <span class="text-xs text-gray-700 font-xs   leading-none  ml-2" v-if="userinfo">ลูกteamของคุณ :
                 {{ downline.length }} คน</span>
         </div>
 
@@ -48,7 +48,7 @@
                                 <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
                                 <p
                                     class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    รายชื่อลูกทีมคุณ
+                                    รายชื่อลูกteamคุณ
                                 </p>
                             </div>
                         </th>
@@ -60,7 +60,7 @@
                         <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                             <p
                                 class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                เเต้มจากลูกทีมคุณ</p>
+                                เเต้มจากลูกteamคุณ</p>
                         </th> -->
 
                     </tr>
@@ -138,7 +138,7 @@ export default {
                 inputPlaceholder: 'กรอกโค้ดพันธมิตร',
                 showCancelButton: true,
                 confirmButtonText: 'เข้าร่วม',
-                cancelButtonText: 'ยกเลิก',
+                cancelButtonText: 'cancel',
                 customClass: {
                     input: 'swal-input', // Add custom class for input
                     cancelButton: 'btn-cancel',
@@ -255,13 +255,13 @@ export default {
 
         async toggleModelExchange() {
             Swal.fire({
-                title: 'กรอกคะเเนนเพื่อเเลกรางวัล',
-                text: 'ขั้นต่ำ 100 คะเเนนเมื่อกรอกเสร็จกรุณาติดต่อทีมงาน ผ่าน Line หรือ Facebook Fanpage',
+                title: 'กรอกpointเพื่อเเลกรางวัล',
+                text: 'ขั้นต่ำ 100 pointเมื่อกรอกเสร็จกรุณาติดต่อteamงาน ผ่าน Line หรือ Facebook Fanpage',
                 input: 'text',
                 inputPlaceholder: 'กรอกเเต้มที่ต้องการเเลก',
                 showCancelButton: true,
-                confirmButtonText: 'ยืนยัน',
-                cancelButtonText: 'ยกเลิก',
+                confirmButtonText: 'Confirm',
+                cancelButtonText: 'cancel',
                 customClass: {
                     input: 'swal-input', // Add custom class for input
                     cancelButton: 'btn-cancel',
@@ -274,7 +274,7 @@ export default {
                 preConfirm: (expoint) => {
                    
                     if (!expoint || isNaN(expoint) || parseInt(expoint) < 100) {
-                        Swal.showValidationMessage('กรุณากรอกคะเเนนขั้นต่ำ 100');
+                        Swal.showValidationMessage('กรุณากรอกpointขั้นต่ำ 100');
                         return false; 
                     }
                     return expoint;
@@ -314,7 +314,7 @@ export default {
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        text: 'คะเเนนไม่เพียงพอ',
+                        text: 'pointไม่เพียงพอ',
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
