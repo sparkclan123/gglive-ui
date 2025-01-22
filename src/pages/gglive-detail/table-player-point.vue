@@ -197,7 +197,7 @@
                                 </div>
                             </th> -->
 
-                            <!-- ใบเหลือง/แดง -->
+                            <!-- เหลือง/แดง -->
                             <!-- <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
                                 <div class="flex items-center">
                                     <img src="/public/assets/arrowup.png"
@@ -210,7 +210,7 @@
                                         @click="sortBy('card_point', 'asc')" class="w-4 cursor-pointer">
                                     <p
                                         class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70 ml-2">
-                                        ใบเหลือง/แดง
+                                        เหลือง/แดง
                                     </p>
                                 </div>
                             </th> -->
@@ -535,7 +535,7 @@ export default {
 .card {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: linear-gradient(to bottom, #1e1037, #432b6e);
+    background: linear-gradient(to bottom, #191919, #432b6e);
     padding: 5px;
     overflow: hidden;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
@@ -571,7 +571,7 @@ export default {
 
 .card .top-section .icons .social-media .svg {
     height: 100%;
-    fill: #1e1037;
+    fill: #191919;
 }
 
 

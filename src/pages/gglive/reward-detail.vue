@@ -153,13 +153,13 @@
 
             <p class="mt-4 text-sm text-blue-600 font-medium">ยกตัวอย่าง:</p>
             <p class="mt-2">
-              รางวัลที่ 1: <span class="font-semibold text-green-900">4 ใบ</span><br />
-              รางวัลที่ 2: <span class="font-semibold text-green-900">2 ใบ</span><br />
-              รางวัลที่ 3: <span class="font-semibold text-green-900">1 ใบ</span>
+              รางวัลที่ 1: <span class="font-semibold text-green-900">4 </span><br />
+              รางวัลที่ 2: <span class="font-semibold text-green-900">2 </span><br />
+              รางวัลที่ 3: <span class="font-semibold text-green-900">1 </span>
             </p>
             <p class="mt-4">
               <span class="font-semibold text-yellow-900 ">โปรดทราบว่า </span> <span
-                class="font-semibold text-purple-900 "> รางวัลGameปกติ จากตั๋ว VIP อาจมีการเปลี่ยนเเปลงเป็น เงินรางวัล
+                class="font-semibold text-purple-900 "> รางวัลGame free จากตั๋ว VIP อาจมีการเปลี่ยนเเปลงเป็น เงินรางวัล
                 ได้ในอนาคต ขึ้นอยู่กับจำนวนผู้เล่นที่เข้ามาร่วมสนับสนุนเราครับ</span>
             </p>
             <p class="mt-2 text-gray-600">

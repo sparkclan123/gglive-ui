@@ -52,7 +52,7 @@ export default {
 
 <style scoped>
 .colot-h {
-    color: #1e1037;
+    color: #191919;
 }
 
 

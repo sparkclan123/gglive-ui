@@ -76,7 +76,7 @@
                         :class="data.Status == 'resive_reward_money' || data.Status == 'resive_reward_ticket' ? 'text-green-400' : 'text-red-200'">
                         <span id="currency" v-if="data.Currency == 'THB'">฿</span>
                         <Numberformat :value="data.Amount" :decimal="2" />
-                        <span id="currency" v-if="data.Currency == 'Ticket'">ใบ</span>
+                        <span id="currency" v-if="data.Currency == 'Ticket'"></span>
                     </p>
                 </div>
 

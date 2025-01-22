@@ -322,10 +322,10 @@ export default {
 
             if (existingPlayerIndex !== -1) {
                 const result = await Swal.fire({
-                    text: 'คุณต้องการลบใช่หรือไม่? ' + player.name,
+                    text: 'Do you want to delete? ' + player.name,
                     showCancelButton: true,
                     cancelButtonText: 'cancel',
-                    confirmButtonText: 'ลบ',
+                    confirmButtonText: 'del',
                     customClass: {
                         confirmButton: 'btn-confirm',
                         cancelButton: 'btn-cancel',

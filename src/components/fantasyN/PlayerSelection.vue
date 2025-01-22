@@ -348,10 +348,10 @@ export default {
 
             if (existingPlayerIndex !== -1) {
                 const result = await Swal.fire({
-                    text: 'คุณต้องการลบใช่หรือไม่? ' + player.name,
+                    text: 'Do you want to delete? ' + player.name,
                     showCancelButton: true,
                     cancelButtonText: 'cancel',
-                    confirmButtonText: 'ลบ',
+                    confirmButtonText: 'del',
                     customClass: {
                         confirmButton: 'btn-confirm',
                         cancelButton: 'btn-cancel',
@@ -409,10 +409,10 @@ export default {
         infoPlayerBan(player) {
             let status = '';
             if (player.is_ban) {
-                status = 'ผู้เล่นโดนเเบน';
+                status = 'player is banned';
             }
             if (player.is_injured) {
-                status = 'ผู้เล่นบาดเเจ็บ';
+                status = 'player is injured';
             }
 
             Swal.fire({

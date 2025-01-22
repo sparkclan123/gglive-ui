@@ -1049,7 +1049,7 @@ export default {
 }
 
 .card {
-    background: linear-gradient(to bottom, #1e1037, #341c5d);
+    background: linear-gradient(to bottom, #191919, #341c5d);
     padding: 5px;
     overflow: hidden;
     /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px; */
@@ -1092,7 +1092,7 @@ export default {
 
 .card .top-section .icons .social-media .svg {
     height: 100%;
-    fill: #1e1037;
+    fill: #191919;
 }
 
 

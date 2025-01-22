@@ -2,9 +2,9 @@
     <div>
 
         <div class="flex items-center m-2">
-            <button @click="toggleModel" class="bg-green-700 text-white px-3 py-1 rounded ml-1 text-xs">สร้าง</button>
+            <button @click="toggleModel" class="bg-green-700 text-white px-3 py-1 rounded ml-1 text-xs">create</button>
             <button @click="toggleModelJoin"
-                class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">เข้าร่วม</button>
+                class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">join</button>
 
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" id="info" class="ml-2" width="24" height="24"
                 @click="showinformation">

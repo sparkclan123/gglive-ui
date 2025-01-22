@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center ">
         <div class="flex justify-center w-full m-1 mt-2">
-            <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span class="mt-1 font-semibold text-gray-600">Gameปกติ</span>
+            <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span class="mt-1 font-semibold text-gray-600">Game free</span>
         </div>
         <div class="mt-2 w-full" v-if="data.datas">
             <div class="cus-bg-card  text-gray-700  flex flex-col rounded-xl shadow-lg p-2 mb-5 mr-5 ml-5 cursor-pointer"
@@ -17,7 +17,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div class="mt-4 text-gray-700 text-xs space-x-4">
-                        DetailGameปกติ
+                        DetailGame free
                     </div>
                     <div class="mt-4 text-gray-800 font-bold  text-sm space-x-4">
                         <!-- pointรวม: <span class="text-green-800"> {{ data.total_point }} </span> -->

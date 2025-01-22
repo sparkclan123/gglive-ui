@@ -61,7 +61,7 @@
           </div>
           <div class="item">
             <span class="big-text text-green-500">
-              <NumberDisplay :number="gameWeek.reward2" /> ใบ
+              <NumberDisplay :number="gameWeek.reward2" /> 
             </span>
             <span class="regular-text text-green-500">reward ticket</span>
           </div>
@@ -123,10 +123,10 @@ export default {
     selectSeason() {
       if (this.is_time_up) {
         Swal.fire({
-          title: 'เวลาจัดteamหมดแล้ว',
-          text: 'กรุณาเข้าร่วมการแข่งขันในครั้งถัดไป',
+          title: 'The team setup time has ended.',
+          text: 'Please join the next competition.',
           icon: 'error',
-          confirmButtonText: 'ตกลง',
+          confirmButtonText: 'Ok',
           customClass: {
             confirmButton: 'btn-confirm',
             popup: 'popup-custom',
@@ -140,7 +140,7 @@ export default {
 
       if (this.myTeam > 0) {
         Swal.fire({
-          text: 'คุณได้ทำการสร้างteamของสัปดาห์นี้แล้ว',
+          text: 'You have already created your team for this week.',
           showCancelButton: true,
           cancelButtonText: 'cancel',
           showConfirmButton: false,
@@ -242,8 +242,8 @@ export default {
 .card {
 
   border-radius: 20px;
-  background: #1e1037;
-  /* 1e1037 */
+  background: #191919;
+  /* 191919 */
   padding: 5px;
   overflow: hidden;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
@@ -256,7 +256,7 @@ export default {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+  background: linear-gradient(45deg, #0a3844 0%, #123938 100%);
   position: relative;
   overflow: hidden;
 }
@@ -286,7 +286,7 @@ export default {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    background: linear-gradient(45deg, #0a3844 0%, #123938 100%);
     position: relative;
     overflow: hidden;
   }
@@ -299,7 +299,7 @@ export default {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    background: linear-gradient(45deg, #0a3844 0%, #123938 100%);
     position: relative;
     overflow: hidden;
   }
@@ -310,10 +310,10 @@ export default {
   height: 30px;
   width: 130px;
   background: white;
-  background: #1e1037;
+  background: #191919;
   position: relative;
   transform: skew(-40deg);
-  box-shadow: -10px -10px 0 0 #1e1037;
+  box-shadow: -10px -10px 0 0 #191919;
 }
 
 
@@ -347,7 +347,7 @@ export default {
 
 .card .top-section .icons .social-media .svg {
   height: 100%;
-  fill: #1e1037;
+  fill: #191919;
 }
 
 

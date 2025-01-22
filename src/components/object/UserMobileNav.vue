@@ -225,9 +225,9 @@ export default {
             <div class="rule"><strong>-</strong> ที่ลงสนามสตาร์ทเป็นตัวจริง <span class="rule-strong"> 1 คะแนน </span></div>
             <div class="rule"><strong>-</strong> โกล์/กองหลัง ทำประตู <span class="rule-strong"> 6 คะแนน </span> , กองกลางทำประตู <span class="rule-strong"> 5 คะแนน </span>, กองหน้าทำประตู <span class="rule-strong"> 4 คะแนน</span></div>
             <div class="rule"><strong>-</strong> จ่ายบอลให้เพื่อนทำประตูได้ (Assist) <span class="rule-strong"> 3 คะแนน </span></div>
-            <div class="rule"><strong>-</strong> ผู้รักษาประตูไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองหลังไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองกลางไม่เสียประตู (ไม่ถูกเปลี่ยนตัวก่อนนาทีที่ 60) <span class="rule-strong"> 1 คะแนน </span></div>
+            <div class="rule"><strong>-</strong> ผู้รักษาประตูไม่เสียประตู (ไม่ถูกChangeก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองหลังไม่เสียประตู (ไม่ถูกChangeก่อนนาทีที่ 60) <span class="rule-strong"> 4 คะแนน </span>, กองกลางไม่เสียประตู (ไม่ถูกChangeก่อนนาทีที่ 60) <span class="rule-strong"> 1 คะแนน </span></div>
             <div class="rule"><strong>-</strong> ผู้รักษาประตูเซฟลูกจุดโทษได้ <span class="rule-strong"> 5 คะแนน </span>, ผู้เล่นคนไหน ยิงจุดโทษพลาด <span class="rule-strong-red"> -2 คะแนน </span></div>
-            <div class="rule"><strong>-</strong> โดนใบเหลือง <span class="rule-strong-red"> -1 คะแนน </span>, โดนใบแดง <span class="rule-strong-red"> -3 คะแนน </span> (ทั้งแดงโดยตรงและใบเหลืองที่2)</div>
+            <div class="rule"><strong>-</strong> โดนเหลือง <span class="rule-strong-red"> -1 คะแนน </span>, โดนแดง <span class="rule-strong-red"> -3 คะแนน </span> (ทั้งแดงโดยตรงและเหลืองที่2)</div>
             <div class="rule"><strong>-</strong> ยิงเข้าประตูตัวเอง <span class="rule-strong-red"> -2 คะแนน </span></div>
             <div class="rule"><strong>-</strong> ทุกๆการเสีย 2 ประตูของโกล์/กองหลัง <span class="rule-strong-red"> -1 คะแนน</span></div>
         </div>

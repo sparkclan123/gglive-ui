@@ -10,7 +10,7 @@
             <div class="absolute w-16 h-16 bg-yellow-400 rounded-full animate-ping filter blur-xl" />
 
           </div>
-          <p>กำลังโหลด...</p>
+          <p>Loading...</p>
         </div>
       </div>
     </Transition>
@@ -47,7 +47,7 @@ export default {
 }
 
 .loader:after {
-  content: "PD";
+  content: "OP";
   display: inline-block;
   width: 48px;
   height: 48px;

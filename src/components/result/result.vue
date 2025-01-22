@@ -3,7 +3,7 @@
         <div class="flex flex-col items-center">
             <div class="flex justify-center w-full mt-2">
                 <img class="w-8 h-8" src="/public/assets/logonew.png" /> 
-                <span class="mt-1 font-semibold text-gray-600">การเเข่งขัน</span>
+                <span class="mt-1 font-semibold text-gray-600">MATCH VS</span>
             </div>
             <div class="match-group " v-for="(matches, date) in groupedMatches" :key="date">
                 <div class="date m-2">{{ formatDate(date) }}</div>

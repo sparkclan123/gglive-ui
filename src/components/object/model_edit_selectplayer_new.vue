@@ -327,7 +327,7 @@ export default {
             `;
 
       const { value: confirm } = await Swal.fire({
-        title: 'Confirmการเปลี่ยนผู้เล่น',
+        title: 'Confirm change player',
         html: `<div style="display: flex; align-items: center; justify-content: center;">
                             ${svgArrow}
                              <span> ${player_name_new}</span>

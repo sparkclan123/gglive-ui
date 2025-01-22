@@ -1,12 +1,9 @@
 <template>
     <div class="min-h-screen rounded-xl bg-cover bg-center text-white p-2"
-        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');">
+       >
         <!-- Header -->
         <div class="p-1 text-center rounded-lg relative">
-            <h1 class="text-2xl font-bold inline-block pb-1"
-                style="margin-top: -30px;width: 240px;margin-bottom: -10px;">
-                <img src="https://pudee.sgp1.digitaloceanspaces.com/1.webp" class="logo-img" />
-            </h1>
+           
             <div class="absolute top-1 right-0">
                 <button @click="SetactiveTab('tab4')" class="bg-gray-400 text-gray-800 font-semibold text-xs p-1 rounded-lg">
                    Rule
@@ -116,7 +113,7 @@ export default {
 }
 
 .colot-h {
-    color: #1e1037;
+    color: #191919;
 }
 
 .tabs {

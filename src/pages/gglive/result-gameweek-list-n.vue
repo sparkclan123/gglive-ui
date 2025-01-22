@@ -29,7 +29,7 @@
                         </button>
                     </div>
                     <span class="title text-green-500">
-                        <NumberDisplay :number="gameWeek.reward2" /> ใบ
+                        <NumberDisplay :number="gameWeek.reward2" /> 
                     </span>
                     <div class="row row1">
                         <div class="item">
@@ -269,7 +269,7 @@ export default {
 .card {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: linear-gradient(to bottom, #1e1037, #432b6e);
+    background: linear-gradient(to bottom, #191919, #432b6e);
     padding: 5px;
     overflow: hidden;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
@@ -305,7 +305,7 @@ export default {
 
 .card .top-section .icons .social-media .svg {
     height: 100%;
-    fill: #1e1037;
+    fill: #191919;
 }
 
 

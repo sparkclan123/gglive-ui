@@ -8,9 +8,9 @@
                     <span class="ml-1 mr-2 text-yellow-200 text-xs">{{ getTicket }}</span>
                 </div>
             </div>
-            <div class="marquee" v-if="Aannounce">
+            <!-- <div class="marquee" v-if="Aannounce">
                 <p>{{ Aannounce }}</p>
-            </div>
+            </div> -->
         </nav>
 
         <div class="container mx-auto p-1">
@@ -55,21 +55,21 @@ export default {
         ...mapActions('loading', ['updateLoading']),
         ...mapActions('ticket', ['facthTicket']),
         ...mapActions('auth', ['facthUserInfo']),
-        async getAannounces() {
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/get-aannounces', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    }
-                });
-                if (response.data.ok) {
-                    this.Aannounce = response.data.announces;
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
+        // async getAannounces() {
+        //     try {
+        //         const access_token = localStorage.getItem('access_token');
+        //         const response = await api.get('/premier-league/v1/get-aannounces', {
+        //             headers: {
+        //                 'Authorization': `Bearer ${access_token}`
+        //             }
+        //         });
+        //         if (response.data.ok) {
+        //             this.Aannounce = response.data.announces;
+        //         }
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // },
         closeModal() {
             this.showModal = false;
         },
@@ -95,7 +95,7 @@ export default {
         this.updateLoading(false);
         this.facthTicket();
         this.facthUserInfo();
-        this.getAannounces();
+        // this.getAannounces();
         this.checkModalStatus(); // Check modal status on mount
     },
 };

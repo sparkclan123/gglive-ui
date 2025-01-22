@@ -19,14 +19,14 @@
                 </div>
 
                 <div class="balancewrapper">
-                    <span class="balanceHeading">จำนวนตั๋ว {{ value }} ใบ</span>
+                    <span class="balanceHeading">จำนวนตั๋ว {{ value }} </span>
                     <p class="balance"><span id="currency">฿</span>
                         <Numberformat :value="sumValue" :decimal="2" />
                     </p>
                 </div>
 
                 <div class="control-buttons">
-                    <button class="delmoney" @click="adjustValue('-')"><span class="plussign">ลบ</span></button>
+                    <button class="delmoney" @click="adjustValue('-')"><span class="plussign">del</span></button>
                     <input type="tel" v-model="value" maxlength="3" class="ticket-input" />
                     <button class="addmoney" @click="adjustValue('+')"><span class="plussign">add</span></button>
                 </div>
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="balancewrapper_2">
-                    <span class="balanceHeading_2">ตั๋ว {{ payment?.value }}ใบ {{ payment?.amount / 100 }}฿</span>
+                    <span class="balanceHeading_2">ตั๋ว {{ payment?.value }} {{ payment?.amount / 100 }}฿</span>
                     <p class="balance_2">
                         มีรายการรอดำเนินการ 1รายการ
                     </p>
@@ -107,7 +107,7 @@ export default {
             this.loading = true;
             const result = await Swal.fire({
                 title: 'Confirmการสนับสนุน!',
-                text: `คุณต้องการสนับสนุนเราด้วยจำนวน ${this.value} ใบ ใช่หรือไม่?`,
+                text: `คุณต้องการสนับสนุนเราด้วยจำนวน ${this.value}  ใช่หรือไม่?`,
                 showCancelButton: true,
                 cancelButtonText: 'ไม่ใช่',
                 confirmButtonText: 'ใช่',

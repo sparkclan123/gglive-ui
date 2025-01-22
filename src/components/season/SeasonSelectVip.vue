@@ -145,8 +145,8 @@ export default {
       this.facthTicket();
       if (this.is_time_up) {
         Swal.fire({
-          title: 'เวลาจัดteamหมดแล้ว',
-          text: 'กรุณาเข้าร่วมการแข่งขันในครั้งถัดไป',
+          title: 'The team setup time has ended.',
+          text: 'Please join the next competition.',
           icon: 'error',
           confirmButtonText: 'ตกลง',
           customClass: {
@@ -188,7 +188,7 @@ export default {
                         </path><text fill="#2C330D" font-family="'ArialRoundedMTBold'" font-size="34.732"
                             transform="matrix(.8163 -.6453 .6202 .7845 87.393 181.58)">PuDee</text>
                     </svg>
-                    <p style="margin-top: 10px;">คุณไม่มีตั๋วในการเข้าร่วมการแข่งขัน</p>
+                    <p style="margin-top: 10px;">คุณไม่มีตั๋วในการjoinการแข่งขัน</p>
                 </div>
             `,
           showCancelButton: true,
@@ -284,8 +284,8 @@ export default {
 .card {
 
   border-radius: 20px;
-  background: #1e1037;
-  /* background: #1e1037; */
+  background: #191919;
+  /* background: #191919; */
   padding: 5px;
   overflow: hidden;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
@@ -298,7 +298,7 @@ export default {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+  background: linear-gradient(45deg, #0a3844 0%, #123938 100%);
   position: relative;
   overflow: hidden;
 }
@@ -319,7 +319,7 @@ export default {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    background: linear-gradient(45deg, #0a3844 0%, #123938 100%);
     position: relative;
     overflow: hidden;
   }
@@ -332,7 +332,7 @@ export default {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
+    background: linear-gradient(45deg, #0a3844 0%, #123938 100%);
     position: relative;
     overflow: hidden;
   }
@@ -350,10 +350,10 @@ export default {
   height: 30px;
   width: 130px;
   background: white;
-  background: #1e1037;
+  background: #191919;
   position: relative;
   transform: skew(-40deg);
-  box-shadow: -10px -10px 0 0 #1e1037;
+  box-shadow: -10px -10px 0 0 #191919;
 }
 
 
@@ -388,7 +388,7 @@ export default {
 
 .card .top-section .icons .social-media .svg {
   height: 100%;
-  fill: #1e1037;
+  fill: #191919;
 }
 
 .card .bottom-section {

@@ -5,7 +5,7 @@
             <button @click="copyToClipboard"
                 class="bg-blue-700 text-white px-3 py-1 rounded ml-1 text-xs">คัดลอกโค้ดพันธมิตรของคุณ</button>
             <button @click="toggleModelJoin" v-if="userinfo && userinfo.ParentID == 0"
-                class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">เข้าร่วมพันธมิตร </button>
+                class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">joinพันธมิตร </button>
 
 
 
@@ -132,12 +132,12 @@ export default {
 
         async toggleModelJoin() {
             Swal.fire({
-                title: 'เข้าร่วมเป็นพันธมิตร',
+                title: 'joinเป็นพันธมิตร',
                 text: 'กรอกโค้ด พันธมิตร จากเพื่อนของคุณ',
                 input: 'text',
                 inputPlaceholder: 'กรอกโค้ดพันธมิตร',
                 showCancelButton: true,
-                confirmButtonText: 'เข้าร่วม',
+                confirmButtonText: 'join',
                 cancelButtonText: 'cancel',
                 customClass: {
                     input: 'swal-input', // Add custom class for input
@@ -150,7 +150,7 @@ export default {
                 buttonsStyling: false,
                 preConfirm: (joinCode) => {
                     if (!joinCode) {
-                        Swal.showValidationMessage('กรุณากรอกโค้ดการเเข่งขัน');
+                        Swal.showValidationMessage('กรุณากรอกโค้ดMATCH VS');
                     }
                     return joinCode;
                 }
@@ -174,7 +174,7 @@ export default {
                 if (response.data.ok) {
                     Swal.fire({
                         icon: 'success',
-                        text: 'เข้าร่วมพันธมิตรเรียบร้อย',
+                        text: 'joinพันธมิตรเรียบร้อย',
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
