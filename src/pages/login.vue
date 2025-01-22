@@ -1,77 +1,192 @@
 <template>
-    <div  style="background-image: url(''); background-size: cover; background-position: center; min-height: 100vh;">
-        <div>
-            <LodingSceen :loading="loading" />
-        </div>
-        <!-- <div class="image-container p-2" v-if="!check_token">
-            <img src="/public/assets/first.jpeg" alt="Logo" class="responsive-image">
-        </div> -->
-        <div class="flex flex-col items-center justify-center pt-20 m-2">
 
-            <div class="w-full max-w-lg p-8 space-y-2 bg-white rounded-lg shadow-lg sm:w-96">
+    <div class="leading-normal tracking-normal text-indigo-400 m-6 bg-cover bg-fixed"
+        style="background-image: url('header.png');">
+        <div class="h-full">
+            <!--Nav-->
+            <div class="w-full container mx-auto">
+                <div class="w-full flex items-center justify-between">
+                    <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+                        href="#">
+                        OP <span
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">Fantasy</span>
+                    </a>
 
-                <div class="container mx-auto flex justify-center">
-                    <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
+                    <div class="flex w-1/2 justify-end content-center">
+                        <a class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                            href="https://twitter.com/intent/tweet?url=#">
+                            <svg class="fill-current h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                                <path
+                                    d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
+                            href="https://www.facebook.com/sharer/sharer.php?u=#">
+                            <svg class="fill-current h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                                <path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-500">username</label>
-                    <input
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="username" type="tel" placeholder="08xxxxxxxx" v-model="username">
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-500">password</label>
-                    <input
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="**********" v-model="password">
+            </div>
+
+            <!--Main-->
+            <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+                <!--Left Col-->
+                <div class="flex flex-col w-full xl:w-2/5 justify-center lg:items-start overflow-y-hidden">
+                    <h1
+                        class="my-4 text-3xl md:text-5xl text-white opacity-75 font-bold leading-tight text-center md:text-left">
+                        Main
+                        <span
+                            class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
+                            Hero Message
+                        </span>
+                        to sell yourself!
+                    </h1>
+                    <p class="leading-normal text-base md:text-2xl mb-8 text-center md:text-left">
+                        Sub-hero message, not too long and not too short. Make it just right!
+                    </p>
+
+                    <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+                        <div class="mb-4">
+                            <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
+                                Username:
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                id="emailaddress" type="text" placeholder="you username" />
+                            <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
+                                Password:
+                            </label>
+                            <input
+                                class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                id="emailaddress" type="text" placeholder="password" />
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4">
+                            <button @click="loginform()"
+                                class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                                type="button">
+                                Login
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="w-full rounded-lg  mt-2 text-white text-lg">
-                    <button type="submit" class="w-full button-save" @click="loginform()">Login</button>
+
+
+                <!-- Header -->
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold mb-4">OP Fantasy Project Phases</h1>
+                    <p class="text-lg text-gray-300">See how our Football Fantasy platform evolves step by step!
+                    </p>
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <!-- <span @click="resetPassword" class="text-blue-500 cursor-pointer text-sm"> Forget Password? </span> -->
-                  
-
-                    <div class="flex items-center ml-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
-                            class="cursor-pointer" @click="route_register" id="pen-new-round">
-                            <path fill="url(#paint0_linear_2461_19743)" fill-rule="evenodd"
-                                d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C12.4142 1.25 12.75 1.58579 12.75 2C12.75 2.41421 12.4142 2.75 12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 17.1086 6.89137 21.25 12 21.25C17.1086 21.25 21.25 17.1086 21.25 12C21.25 11.5858 21.5858 11.25 22 11.25C22.4142 11.25 22.75 11.5858 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM16.7705 2.27591C18.1384 0.908028 20.3562 0.908028 21.7241 2.27591C23.092 3.6438 23.092 5.86158 21.7241 7.22947L15.076 13.8776C14.7047 14.2489 14.4721 14.4815 14.2126 14.684C13.9069 14.9224 13.5761 15.1268 13.2261 15.2936C12.929 15.4352 12.6169 15.5392 12.1188 15.7052L9.21426 16.6734C8.67801 16.8521 8.0868 16.7126 7.68711 16.3129C7.28742 15.9132 7.14785 15.322 7.3266 14.7857L8.29477 11.8812C8.46079 11.3831 8.56479 11.071 8.7064 10.7739C8.87319 10.4239 9.07761 10.0931 9.31605 9.78742C9.51849 9.52787 9.7511 9.29529 10.1224 8.924L16.7705 2.27591ZM20.6634 3.33657C19.8813 2.55448 18.6133 2.55448 17.8312 3.33657L17.4546 3.7132C17.4773 3.80906 17.509 3.92327 17.5532 4.05066C17.6965 4.46372 17.9677 5.00771 18.48 5.51999C18.9923 6.03227 19.5363 6.30346 19.9493 6.44677C20.0767 6.49097 20.1909 6.52273 20.2868 6.54543L20.6634 6.16881C21.4455 5.38671 21.4455 4.11867 20.6634 3.33657ZM19.1051 7.72709C18.5892 7.50519 17.9882 7.14946 17.4193 6.58065C16.8505 6.01185 16.4948 5.41082 16.2729 4.89486L11.2175 9.95026C10.801 10.3668 10.6376 10.532 10.4988 10.7099C10.3274 10.9297 10.1804 11.1676 10.0605 11.4192C9.96337 11.623 9.88868 11.8429 9.7024 12.4017L9.27051 13.6974L10.3026 14.7295L11.5983 14.2976C12.1571 14.1113 12.377 14.0366 12.5808 13.9395C12.8324 13.8196 13.0703 13.6726 13.2901 13.5012C13.468 13.3624 13.6332 13.199 14.0497 12.7825L19.1051 7.72709Z"
-                                clip-rule="evenodd"></path>
-                            <defs>
-                                <linearGradient id="paint0_linear_2461_19743" x1="12" x2="12" y1="1.25" y2="22.75"
-                                    gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#854D9C"></stop>
-                                    <stop offset="1" stop-color="#CD4ED3"></stop>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                        <label class="block text-sm font-sm text-green-900 cursor-pointer ml-1"
-                            @click="route_register">Register</label>
+                <!-- Phase 1 -->
+                <div class="container mx-auto px-6 py-10">
+                    <div class="bg-gray-800 rounded-lg shadow-md p-6">
+                        <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Phase 1: Launch and Awareness
+                        </h2>
+                        <p class="text-gray-300 mb-4">Duration: 1-3 months</p>
+                        <ul class="list-disc list-inside text-gray-300">
+                            <li>Create a landing page with project details and token information.</li>
+                            <li>Launch the PuDee Token with clear Tokenomics:</li>
+                            <ul class="list-disc pl-6 text-gray-300">
+                                <li>Total Supply: 100 billion tokens.</li>
+                                <li>30% allocated for developers.</li>
+                                <li>20% allocated for marketing.</li>
+                                <li>50% reserved for liquidity and community incentives.</li>
+                            </ul>
+                            <li>Set up a Liquidity Pool on a DEX (e.g., QuickSwap).</li>
+                            <li>Build a community on social platforms like Twitter, Telegram, and Discord.</li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="">
-                    <span  class="text-blue-500 cursor-pointer text-sm">Login With</span>
+                <!-- Phase 2 -->
+                <div class="container mx-auto px-6 py-10">
+                    <div class="bg-gray-800 rounded-lg shadow-md p-6">
+                        <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Phase 2: Beta Launch and
+                            Engagement</h2>
+                        <p class="text-gray-300 mb-4">Duration: 3-6 months</p>
+                        <ul class="list-disc list-inside text-gray-300">
+                            <li>Introduce the Fantasy Football system with player selection and scoring.</li>
+                            <li>Add visuals like screenshots and a project roadmap to the landing page.</li>
+                            <li>Host special events and competitions using the token.</li>
+                            <li>Highlight user testimonials to build trust.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="social-icons">
-                    <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
-                        <svg version="1.1" viewBox="0 0 150 150" width="50" height="50" class="fill-current">
-                            <g>
-                                <path class="st14"
-                                    d="M120,76.1c0-3.1-0.3-6.3-0.8-9.3H75.9v17.7h24.8c-1,5.7-4.3,10.7-9.2,13.9l14.8,11.5   C115,101.8,120,90,120,76.1L120,76.1z" />
-                                <path class="st15"
-                                    d="M75.9,120.9c12.4,0,22.8-4.1,30.4-11.1L91.5,98.4c-4.1,2.8-9.4,4.4-15.6,4.4c-12,0-22.1-8.1-25.8-18.9   L34.9,95.6C42.7,111.1,58.5,120.9,75.9,120.9z" />
-                                <path class="st12"
-                                    d="M50.1,83.8c-1.9-5.7-1.9-11.9,0-17.6L34.9,54.4c-6.5,13-6.5,28.3,0,41.2L50.1,83.8z" />
-                                <path class="st13"
-                                    d="M75.9,47.3c6.5-0.1,12.9,2.4,17.6,6.9L106.6,41C98.3,33.2,87.3,29,75.9,29.1c-17.4,0-33.2,9.8-41,25.3   l15.2,11.8C53.8,55.3,63.9,47.3,75.9,47.3z" />
-                            </g>
-                        </svg>
-                    </button>
-                    
+
+                <!-- Phase 3 -->
+                <div class="container mx-auto px-6 py-10">
+                    <div class="bg-gray-800 rounded-lg shadow-md p-6">
+                        <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Phase 3: Full Launch and
+                            Expansion</h2>
+                        <p class="text-gray-300 mb-4">Duration: 6-12 months</p>
+                        <ul class="list-disc list-inside text-gray-300">
+                            <li>Launch the platform fully with token-based payments.</li>
+                            <li>Add advanced features like player analytics and a marketplace for in-game items.
+                            </li>
+                            <li>List the PuDee Token on centralized exchanges (e.g., KuCoin, Gate.io).</li>
+                            <li>Submit the token to platforms like CoinMarketCap and CoinGecko for visibility.
+                            </li>
+                            <li>Launch the platform in time for the next Premier League season.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="container mx-auto px-6 py-10">
+                    <div class="bg-gray-800 rounded-lg shadow-md p-6">
+                        <h2 class="text-2xl font-semibold text-indigo-400 mb-4">Phase 4: Scaling and Global
+                            Outreach</h2>
+                        <p class="text-gray-300 mb-4">Duration: 12+ months</p>
+                        <ul class="list-disc list-inside text-gray-300">
+                            <li>Expand the platform to include other sports like basketball, esports, and
+                                boxing.</li>
+                            <li>Introduce advanced features such as AI-based team suggestions.</li>
+                            <li>Host international competitions to attract a global audience.</li>
+                            <li>Establish a DAO (Decentralized Autonomous Organization) for token holders to
+                                vote on decisions.</li>
+                        </ul>
+                    </div>
+
+
+                    <!-- Footer -->
+                    <div class="text-center mt-10">
+                        <p class="text-gray-400">&copy; 2025 OP Fantasy. All rights reserved.</p>
+                    </div>
+                </div>
+
+
+
+
+                <div class="mx-auto md:pt-16">
+                    <p class="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
+                        OP Fantasy Demo page:
+                    </p>
+                    <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
+                        <img src="/public/assets/l2.png" style="height: 520px;"
+                            class=" pr-12 transform hover:scale-125 duration-300 ease-in-out" />
+
+                        <img src="/public/assets/l1.png" style="height: 520px;"
+                            class="pr-12  transform hover:scale-125 duration-300 ease-in-out" />
+                        <img src="/public/assets/l4.png" style="height: 520px;"
+                            class=" pr-12 transform hover:scale-125 duration-300 ease-in-out" />
+                        <img src="/public/assets/l3.png" style="height: 520px;"
+                            class="pr-12 transform hover:scale-125 duration-300 ease-in-out" />
+                        <img src="/public/assets/l5.png" style="height: 520px;"
+                            class="transform hover:scale-125 duration-300 ease-in-out" />
+                    </div>
+                </div>
+
+                <!--Footer-->
+                <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+                    <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; App 2025</a>
+
                 </div>
             </div>
         </div>
@@ -137,26 +252,7 @@ export default {
                 localStorage.removeItem('access_token');
             }
         },
-        login() {
-            Swal.fire({
-                text: 'Currently under development and will be completed in Phase 2.',
-                showCancelButton: true,
-                cancelButtonText: 'cancel',
-                showConfirmButton: false,
-                customClass: {
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
-            return;
-            this.$store.dispatch('login', {
-                username: this.username,
-                password: this.password
-            })
-        },
+
         loginWithGoogle() {
             Swal.fire({
                 text: 'Currently under development and will be completed in Phase 2.',
@@ -176,44 +272,7 @@ export default {
             window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/login';
         },
-        loginWithFacebook() {
-            Swal.fire({
-                text: 'เปิด login ได้เเค่ google กับ line เท่านั้น',
-                showCancelButton: true,
-                cancelButtonText: 'cancel',
-                showConfirmButton: false,
-                customClass: {
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
-            // window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/facebook/login';
-            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/facebook/login';
-        },
-        loginWithLine() {
-            Swal.fire({
-                text: 'Currently under development and will be completed in Phase 2.',
-                showCancelButton: true,
-                cancelButtonText: 'cancel',
-                showConfirmButton: false,
-                customClass: {
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
-            return;
-            this.loading = true;
-            window.location.href = `https://api-service.pudee-club.com/api/premier-league/auth/line/login`;
 
-            // window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/line/login';
-            // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/line/login';
-        },
         generateState() {
             return Math.random().toString(36).substring(2);
         },
@@ -250,54 +309,39 @@ export default {
                 this.updateLoading(false);
             }
         },
-        async logVisit() {
-            try {
-                await api.post('/premier-league/log-visit', {
-                    page: 'login'
-                });
-            } catch (error) {
-                console.error('Error logging visit:', error);
-            }
-        },
-        getVisit() {
-            api.get('/premier-league/log-visit').then(response => {
-                console.log('visit', response.data);
-            }).catch(error => {
-                console.error('Error getting visit:', error);
-            });
-        }
+
     },
     mounted() {
-        let access_token = localStorage.getItem('access_token');
-        if (access_token) {
-            console.log('access_token', localStorage.getItem('access_token'));
-            api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
-                .then(response => {
-                    window.location.href = '/season-select';
-                })
-                .catch(error => {
-                    localStorage.removeItem('token');
-                });
-        }
+        // let access_token = localStorage.getItem('access_token');
+        // if (access_token) {
+        //     console.log('access_token', localStorage.getItem('access_token'));
+        //     api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
+        //         .then(response => {
+        //             window.location.href = '/season-select';
+        //         })
+        //         .catch(error => {
+        //             localStorage.removeItem('token');
+        //         });
+        // }
 
-        const user_params = JSON.parse(localStorage.getItem('user_params'));
-        const token = user_params['access_token'];
-        if (token) {
-            localStorage.setItem('access_token', token);
-            window.location.href = '/lobby';
-        }
+        // const user_params = JSON.parse(localStorage.getItem('user_params'));
+        // const token = user_params['access_token'];
+        // if (token) {
+        //     localStorage.setItem('access_token', token);
+        //     window.location.href = '/lobby';
+        // }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const uuid = urlParams.get('uuid');
-        const username = urlParams.get('username');
-        const has_token = urlParams.get('token');
-        if (uuid && username) {
-            this.loginuuid(uuid, username);
-        }
+        // const urlParams = new URLSearchParams(window.location.search);
+        // const uuid = urlParams.get('uuid');
+        // const username = urlParams.get('username');
+        // const has_token = urlParams.get('token');
+        // if (uuid && username) {
+        //     this.loginuuid(uuid, username);
+        // }
 
-        if (has_token == "0632724459") {
-            this.check_token = true;
-        }
+        // if (has_token == "0632724459") {
+        //     this.check_token = true;
+        // }
 
         // this.logVisit();
         // this.getVisit();
