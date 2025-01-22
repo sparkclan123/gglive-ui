@@ -31,7 +31,8 @@
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <span @click="resetPassword" class="text-blue-500 cursor-pointer text-sm"> forgetPassword? </span>
+                    <!-- <span @click="resetPassword" class="text-blue-500 cursor-pointer text-sm"> Forget Password? </span> -->
+                  
 
                     <div class="flex items-center ml-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
@@ -53,7 +54,7 @@
                 </div>
 
                 <div class="">
-                    <span class="text-gray-600 text-xs">Login With?</span>
+                    <span  class="text-blue-500 cursor-pointer text-sm">Login With</span>
                 </div>
                 <div class="social-icons">
                     <button aria-label="Log in with Google" class="icon" @click="loginWithGoogle">
@@ -101,7 +102,20 @@ export default {
             this.$router.push('/register');
         },
         async loginform() {
-
+            Swal.fire({
+                text: 'Currently under development and will be completed in Phase 2.',
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+            return;
             if (!this.username || !this.password) {
                 this.addNotification({ type: 'error', message: 'Please fill in all fields' });
                 return;
@@ -124,12 +138,40 @@ export default {
             }
         },
         login() {
+            Swal.fire({
+                text: 'Currently under development and will be completed in Phase 2.',
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+            return;
             this.$store.dispatch('login', {
                 username: this.username,
                 password: this.password
             })
         },
         loginWithGoogle() {
+            Swal.fire({
+                text: 'Currently under development and will be completed in Phase 2.',
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+            return;
             this.loading = true;
             window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/login';
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/login';
@@ -152,7 +194,20 @@ export default {
             // window.location.href = 'http://127.0.0.1:8010/api/premier-league/auth/facebook/login';
         },
         loginWithLine() {
-
+            Swal.fire({
+                text: 'Currently under development and will be completed in Phase 2.',
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+            return;
             this.loading = true;
             window.location.href = `https://api-service.pudee-club.com/api/premier-league/auth/line/login`;
 
@@ -163,6 +218,21 @@ export default {
             return Math.random().toString(36).substring(2);
         },
         async loginuuid(uuid, username) {
+            Swal.fire({
+                text: 'Currently under development and will be completed in Phase 2.',
+                showCancelButton: true,
+                cancelButtonText: 'cancel',
+                showConfirmButton: false,
+                customClass: {
+                    cancelButton: 'btn-cancel',
+                    popup: 'popup-custom',
+                    title: 'text-custom',
+                    htmlContainer: 'text-custom'
+                },
+                buttonsStyling: false,
+            });
+            return;
+
             this.updateLoading(true);
             try {
                 const response = await api.post('/premier-league/v1/login-uuid', {
