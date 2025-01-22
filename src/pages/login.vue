@@ -95,9 +95,9 @@
                             <li>Launch the PuDee Token with clear Tokenomics:</li>
                             <ul class="list-disc pl-6 text-gray-300">
                                 <li>Total Supply: 100 billion tokens.</li>
-                                <li>30% allocated for developers.</li>
-                                <li>20% allocated for marketing.</li>
-                                <li>50% reserved for liquidity and community incentives.</li>
+                                <li>20% allocated for developers.</li>
+                                <li>10% allocated for marketing.</li>
+                                <li>70% reserved for liquidity and community incentives.</li>
                             </ul>
                             <li>Set up a Liquidity Pool on a DEX (e.g., QuickSwap).</li>
                             <li>Build a community on social platforms like Twitter, Telegram, and Discord.</li>
@@ -191,6 +191,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
