@@ -2,7 +2,7 @@
     <div>
         <div class="contant_style">
             <div class="flex justify-center items-center h-64">
-                <span class="text-gray-400">เตรียมพบกับเกม จัดอันดับเร็วๆนี้</span>
+                <span class="text-gray-400">เตรียมพบกับเกม จัดอันดับcomming soon</span>
             </div>
         </div>
     </div>

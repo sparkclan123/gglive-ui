@@ -56,11 +56,11 @@
                             </label>
                             <input
                                 class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-                                id="emailaddress" type="text" placeholder="you username" />
+                                id="emailaddress" type="text" placeholder="you username" v-model="username" />
                             <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
                                 Password:
                             </label>
-                            <input
+                            <input v-model="password"
                                 class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
                                 id="emailaddress" type="text" placeholder="password" />
                         </div>
@@ -218,20 +218,20 @@ export default {
             this.$router.push('/register');
         },
         async loginform() {
-            Swal.fire({
-                text: 'Currently under development and will be completed in Phase 2.',
-                showCancelButton: true,
-                cancelButtonText: 'cancel',
-                showConfirmButton: false,
-                customClass: {
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
-            return;
+            // Swal.fire({
+            //     text: 'Currently under development and will be completed in Phase 2.',
+            //     showCancelButton: true,
+            //     cancelButtonText: 'cancel',
+            //     showConfirmButton: false,
+            //     customClass: {
+            //         cancelButton: 'btn-cancel',
+            //         popup: 'popup-custom',
+            //         title: 'text-custom',
+            //         htmlContainer: 'text-custom'
+            //     },
+            //     buttonsStyling: false,
+            // });
+            // return;
             if (!this.username || !this.password) {
                 this.addNotification({ type: 'error', message: 'Please fill in all fields' });
                 return;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div >
+        <div>
             <LodingSceen :loading="loading" />
         </div>
         <div v-if="userinfo">
@@ -33,7 +33,8 @@
                 </div>
                 <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container ">
                     <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
-                        <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading" :gameWeek="gameWeek"></component>
+                        <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading"
+                            :gameWeek="gameWeek"></component>
                     </transition>
                 </div>
             </div>
@@ -49,6 +50,7 @@ import { mapActions, mapGetters } from 'vuex';
 import MyGameWeekN from '../../components/list/MyGameWeekN.vue';
 import MyGameWeek from '../../components/list/MyGameWeek.vue';
 import SelfMatch from '../../components/list/SelfMatch.vue';
+import Swal from 'sweetalert2';
 export default {
     data() {
         return {
@@ -91,6 +93,23 @@ export default {
     methods: {
         ...mapActions('loading', ['updateLoading']),
         SetactiveTab(tab) {
+            if (tab === 'tab2') {
+                Swal.fire({
+                    icon: 'VIP',
+                    text: 'coming soon',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+
+                return;
+            }
             this.activeTab = tab;
             localStorage.setItem('list-tab', tab);
         },

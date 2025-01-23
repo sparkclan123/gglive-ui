@@ -1,12 +1,12 @@
 <template>
-    <div class="min-h-screen rounded-xl bg-cover bg-center text-white p-2"
-       >
+    <div class="min-h-screen rounded-xl bg-cover bg-center text-white p-2">
         <!-- Header -->
         <div class="p-1 text-center rounded-lg relative">
-           
+
             <div class="absolute top-1 right-0">
-                <button @click="SetactiveTab('tab4')" class="bg-gray-400 text-gray-800 font-semibold text-xs p-1 rounded-lg">
-                   Rule
+                <button @click="SetactiveTab('tab4')"
+                    class="bg-gray-400 text-gray-800 font-semibold text-xs p-1 rounded-lg">
+                    Rule
                 </button>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div v-if="activeTab === 'tab1'">
                 <SeasonSelect />
                 <div class="mt-5 flex justify-center">
-                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                    <!-- <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" /> -->
                 </div>
 
 
@@ -38,9 +38,9 @@
             <div v-if="activeTab === 'tab2'">
                 <SeasonSelectVip />
                 <div class="mt-5 flex justify-center">
-                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                    <!-- <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" /> -->
                 </div>
-             
+
                 <!-- newpromo -->
             </div>
             <div v-if="activeTab === 'tab3'">
@@ -81,6 +81,23 @@ export default {
             this.$router.push({ name: 'activity' });
         },
         SetactiveTab(tab) {
+            if (tab === 'tab2') {
+                Swal.fire({
+                    icon: 'VIP',
+                    text: 'coming soon',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+
+                return;
+            }
             this.activeTab = tab;
             localStorage.setItem('season-select-tab', tab);
         },

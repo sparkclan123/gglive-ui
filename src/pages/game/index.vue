@@ -106,7 +106,7 @@ export default {
         },
         playGame(path) {
             Swal.fire({
-                text: 'เกมเก็บpointใหม่จะมาเร็วๆนี้',
+                text: 'เกมเก็บpointใหม่จะมาcomming soon',
                 icon: 'error',
                 confirmButtonText: 'ตกลง',
                 customClass: {

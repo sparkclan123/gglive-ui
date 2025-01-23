@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div >
-            <LodingSceen :loading="loading"  />
+        <div>
+            <LodingSceen :loading="loading" />
         </div>
 
         <div>
@@ -17,7 +17,8 @@
             </div>
             <div class="rounded-xl shadow-lg min-h-screen bg-white tab-container">
                 <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
-                    <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading" :style="activeTab === 'tab3' ? 'padding: 15px;' : ''"></component>
+                    <component :is="currentTabComponent" :key="activeTab" @set-loading="setLoading"
+                        :style="activeTab === 'tab3' ? 'padding: 15px;' : ''"></component>
                 </transition>
             </div>
         </div>
@@ -28,7 +29,7 @@
 import ChallengeGameWeek from '../../components/challenge/GameWeek.vue';
 import ChallengeGameWeekVip from '../../components/challenge/GameWeekVip.vue';
 import Rule from '../../components/rule/rule.vue';
-
+import Swal from 'sweetalert2';
 export default {
     name: 'challenge',
     data() {
@@ -58,8 +59,25 @@ export default {
         }
     },
     methods: {
-        
+
         SetactiveTab(tab) {
+            if (tab === 'tab2') {
+                Swal.fire({
+                    icon: 'VIP',
+                    text: 'coming soon',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+
+                return;
+            }
             this.activeTab = tab;
             localStorage.setItem('challenge-tab', tab);
         },

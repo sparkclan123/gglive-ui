@@ -18,7 +18,7 @@
 import Result from '../../components/result/result.vue';
 import ResultGameweek from '../../components/result/gameweek.vue';
 import ResultGameweekVip from '../../components/result/gameweekVip.vue';
-
+import Swal from 'sweetalert2';
 import { api } from '@axios_inst';
 import { mapActions } from 'vuex';
 
@@ -71,6 +71,23 @@ export default {
     methods: {
         ...mapActions('loading', ['updateLoading']),
         SetactiveTab(tab) {
+            if (tab === 'tab3') {
+                Swal.fire({
+                    icon: 'VIP',
+                    text: 'coming soon',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: {
+                        cancelButton: 'btn-cancel',
+                        confirmButton: 'btn-confirm',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                });
+
+                return;
+            }
             this.activeTab = tab;
             localStorage.setItem('result-tab', tab);
         },

@@ -238,22 +238,22 @@ const routes = [
                 component: ResultlistGameWeekN,
             },
 
-            {
-                path: 'payments',
-                name: 'payments',
-                component: Payments,
-            },
-            {
-                path: 'aff-my',
-                name: 'aff-my',
-                component: Aff,
-            },
+            // {
+            //     path: 'payments',
+            //     name: 'payments',
+            //     component: Payments,
+            // },
+            // {
+            //     path: 'aff-my',
+            //     name: 'aff-my',
+            //     component: Aff,
+            // },
             
-            {
-                path: 'setting',
-                name: 'setting',
-                component: Setting,
-            },
+            // {
+            //     path: 'setting',
+            //     name: 'setting',
+            //     component: Setting,
+            // },
 
         ],
     },

@@ -6,7 +6,7 @@
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
                     <img src="/public/assets/logonew.png" alt="icon" class="mr-1 w-7 h-7">
-                    <span class="mr-auto text-xs text-gray-800">เตรียมพบกับการจัดteam เเบบ BigMatch เร็วๆนี้</span>
+                    <span class="mr-auto text-xs text-gray-800">comming soon</span>
 
                 </div>
 
@@ -296,7 +296,7 @@ export default {
         },
         toggleClass(position) {
             Swal.fire({
-                text: 'เร็วๆนี้',
+                text: 'comming soon',
                 showCancelButton: true,
                 cancelButtonText: 'cancel',
                 showConfirmButton: false,

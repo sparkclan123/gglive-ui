@@ -19,12 +19,12 @@
                     <button v-if="gameWeek && gameWeek.id == data.week_id"
                         class="text-gray-600 bg-orange-300 font-bold text-[8px] px-1 py-1 rounded-full shadow-lg hover:bg-orange-500 cursor-pointer mr-1"
                         @click.stop="edit(data.id)">
-                        แก้ด่วน
+                        EditFast
                     </button>
                     <button v-if="gameWeek && gameWeek.id == data.week_id"
                         class="text-gray-600 bg-red-300 font-bold text-[8px] px-2 py-1 rounded-full shadow-lg hover:bg-red-500 cursor-pointer"
                         @click.stop="edit_new(data.id)">
-                        เเก้ละเอียด
+                        EditDetail
                     </button>
                 </div>
 

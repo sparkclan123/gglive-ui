@@ -275,7 +275,7 @@ export default {
 .card {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: linear-gradient(to bottom, #191919, #432b6e);
+    background: linear-gradient(to bottom, #191919, #3e3b42);
     padding: 5px;
     overflow: hidden;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;

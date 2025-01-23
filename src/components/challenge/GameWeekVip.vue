@@ -150,22 +150,22 @@ export default {
     methods: {
         ...mapActions('loading', ['updateLoading']),
         downloadExcel() {
-            Swal.fire({
-                text: "สามารถดูได้ที่ page facebook pudee-club !!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ตกลง!',
-                customClass: {
-                    confirmButton: 'btn-confirm',
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            })
+            // Swal.fire({
+            //     text: "สามารถดูได้ที่ page facebook pudee-club !!",
+            //     icon: 'warning',
+            //     showCancelButton: true,
+            //     confirmButtonColor: '#3085d6',
+            //     cancelButtonColor: '#d33',
+            //     confirmButtonText: 'ตกลง!',
+            //     customClass: {
+            //         confirmButton: 'btn-confirm',
+            //         cancelButton: 'btn-cancel',
+            //         popup: 'popup-custom',
+            //         title: 'text-custom',
+            //         htmlContainer: 'text-custom'
+            //     },
+            //     buttonsStyling: false,
+            // })
         },
         hisLastGameWeek() {
             this.$router.push({
@@ -297,7 +297,7 @@ export default {
 .card {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background: linear-gradient(to bottom, #191919, #432b6e);
+    background: linear-gradient(to bottom, #191919, #3e3b42);
     padding: 5px;
     overflow: hidden;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
