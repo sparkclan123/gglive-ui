@@ -18,7 +18,7 @@
                 <strong>-</strong> <span class="">Scoring rules have been updated to align with Fantasy Premier League (including bonus points).</span>.
             </div>
             <div class="rule">
-                <strong>-</strong> If the Fantasy Premier League updates its scores <span class="rule-strong-red">after OP Part Fantasy</span> has announced the weekly results, <span class="rule-strong-red">OP Part Fantasy decision will be final.</span>.
+                <strong>-</strong> If the Fantasy Premier League updates its scores <span class="rule-strong-red">after PuDee Fantasy</span> has announced the weekly results, <span class="rule-strong-red">PuDee Fantasy decision will be final.</span>.
             </div>
             <div class="rule">
                 <strong>-</strong> There will be no changes to scores or prizes after the final decision has been made.

@@ -8,7 +8,7 @@
                 <div class="w-full flex items-center justify-between">
                     <a class="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
                         href="#">
-                        OP <span
+                        PuDee <span
                             class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">Fantasy</span>
                     </a>
 
@@ -79,7 +79,7 @@
 
                 <!-- Header -->
                 <div class="text-center">
-                    <h1 class="text-4xl font-bold mb-4">OP Fantasy Project Phases</h1>
+                    <h1 class="text-4xl font-bold mb-4">PuDee Fantasy Project Phases</h1>
                     <p class="text-lg text-gray-300">See how our Football Fantasy platform evolves step by step!
                     </p>
                 </div>

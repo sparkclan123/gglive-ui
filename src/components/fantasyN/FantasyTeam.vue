@@ -1390,7 +1390,7 @@ export default {
     background-color: #191b1e;
     color: #000000;
     padding: 0.5rem 0.5rem;
-    border: 3px solid #523c74;
+    border: 3px solid #272829;
     /* เส้นขอบสี #2f4453 หนา */
     border-radius: 0.5rem;
     /* มุมโค้ง */

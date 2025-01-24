@@ -54,7 +54,7 @@
 
                 <select v-model="selectedPosition" @change="filterPlayers"
                   class="p-1  rounded w-full text-gray-600 focus:outline-none focus:border-blue-500 text-sm">
-                  <option value="">ทุกposition</option>
+                  <option value="">all position</option>
                   <option v-for="option in optionsPosition" :key="option.value" :value="option.value">
                     {{ option.name }}
                   </option>
@@ -328,7 +328,7 @@ export default {
             `;
 
         const { value: confirm } = await Swal.fire({
-          title: 'Confirmการเปลี่ยนผู้เล่น',
+          title: 'ConfirmChangePlayer',
           html: `<div style="display: flex; align-items: center; justify-content: center;">
                              <span>${player_name_old} </span>
                             ${svgArrow}

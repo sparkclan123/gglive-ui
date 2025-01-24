@@ -419,18 +419,18 @@ export default {
 
 .card {
 
-    background: linear-gradient(to bottom, #191919, #341c5d);
+    background: linear-gradient(to bottom, #191919, #272829);
     padding: 5px;
     overflow: hidden;
     /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px; */
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border-radius: 10px;
-    border-top: 1px solid #503779;
-    /* border-left: 2px solid #503779; */
+    border-top: 1px solid #272829;
+    /* border-left: 2px solid #272829; */
     /* ขอบซ้าย */
-    /* border-right: 2px solid #503779; */
+    /* border-right: 2px solid #272829; */
     /* ขอบขวา */
-    border-bottom: 2px solid #503779;
+    border-bottom: 2px solid #272829;
     /* ขอบล่าง */
 }
 
@@ -1031,7 +1031,7 @@ export default {
     background-color: #191b1e;
     color: #000000;
     padding: 0.5rem 0.5rem;
-    border: 3px solid #523c74;
+    border: 3px solid #272829;
     /* เส้นขอบสี #2f4453 หนา */
     border-radius: 0.5rem;
     /* มุมโค้ง */
