@@ -155,10 +155,7 @@
                     </div>
 
 
-                    <!-- Footer -->
-                    <div class="text-center mt-10">
-                        <p class="text-gray-400">&copy; 2025 OP Fantasy. All rights reserved.</p>
-                    </div>
+                
                 </div>
 
 
@@ -166,7 +163,7 @@
 
                 <div class="mx-auto md:pt-16">
                     <p class="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
-                        OP Fantasy Demo page:
+                        PuDee Fantasy Demo page:
                     </p>
                     <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
                         <img src="/public/assets/l2.png" style="height: 520px;"
@@ -186,6 +183,7 @@
                 <!--Footer-->
                 <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
                     <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; App 2025</a>
+                    <p class="text-gray-400">&copy; 2025 PuDee Fantasy. All rights reserved.</p>
 
                 </div>
             </div>
