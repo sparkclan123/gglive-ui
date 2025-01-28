@@ -171,7 +171,7 @@ export default {
             this.$router.push({
                 name: 'result-list-gameweek',
                 params: {
-                    gameWeekID: this.gameWeek.week - 1
+                    gameWeekID: this.gameWeek.id - 1
                 }
             });
         },
