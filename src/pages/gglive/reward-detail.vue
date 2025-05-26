@@ -32,27 +32,50 @@
                 <th class="px-4 py-2 text-left">รางวัล</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-for="(reward, index) in rewardVIP" :key="index">
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 1</td>
-                <td class="border px-4 py-2">{{ gameWeek.reward.toFixed(2) }}</td>
+                <td class="border px-4 py-2"> {{ reward.reward1 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 2</td>
-                <td class="border px-4 py-2">{{ (gameWeek.reward * 0.1).toFixed(2) }}</td>
+                <td class="border px-4 py-2"> {{ reward.reward2 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 3</td>
-                <td class="border px-4 py-2">{{ (gameWeek.reward * 0.05).toFixed(2) }}</td>
+                <td class="border px-4 py-2"> {{ reward.reward3 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 4</td>
-                <td class="border px-4 py-2">100.00</td>
+                <td class="border px-4 py-2"> {{ reward.reward4 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 5</td>
-                <td class="border px-4 py-2">100.00</td>
+                <td class="border px-4 py-2"> {{ reward.reward5 }}</td>
               </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 6</td>
+                <td class="border px-4 py-2"> {{ reward.reward6 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 7</td>
+                <td class="border px-4 py-2"> {{ reward.reward7 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 8</td>
+                <td class="border px-4 py-2"> {{ reward.reward8 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 9</td>
+                <td class="border px-4 py-2"> {{ reward.reward9 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 10</td>
+                <td class="border px-4 py-2"> {{ reward.reward10 }}</td>
+              </tr>
+
+
+
             </tbody>
           </table>
         </div>
@@ -70,27 +93,50 @@
                 <th class="px-4 py-2 text-left">รางวัล</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-for="(reward, index) in rewardN" :key="index">
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 1</td>
-                <td class="border px-4 py-2">ตั๋ว {{ gameWeek.reward2 }} ใบ</td>
+                <td class="border px-4 py-2"> {{ reward.reward1 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 2</td>
-                <td class="border px-4 py-2">ตั๋ว 2 ใบ</td>
+                <td class="border px-4 py-2"> {{ reward.reward2 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 3</td>
-                <td class="border px-4 py-2">ตั๋ว 1 ใบ</td>
+                <td class="border px-4 py-2"> {{ reward.reward3 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 4</td>
-                <td class="border px-4 py-2">ตั๋ว 1 ใบ</td>
+                <td class="border px-4 py-2"> {{ reward.reward4 }}</td>
               </tr>
               <tr>
                 <td class="border px-4 py-2">อันดับที่ 5</td>
-                <td class="border px-4 py-2">ตั๋ว 1 ใบ</td>
+                <td class="border px-4 py-2"> {{ reward.reward5 }}</td>
               </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 6</td>
+                <td class="border px-4 py-2"> {{ reward.reward6 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 7</td>
+                <td class="border px-4 py-2"> {{ reward.reward7 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 8</td>
+                <td class="border px-4 py-2"> {{ reward.reward8 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 9</td>
+                <td class="border px-4 py-2"> {{ reward.reward9 }}</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">อันดับที่ 10</td>
+                <td class="border px-4 py-2"> {{ reward.reward10 }}</td>
+              </tr>
+
+
+
             </tbody>
           </table>
         </div>
@@ -184,9 +230,19 @@ export default {
       type: null,
       gameWeek: null,
       gameWeekID: null,
+      rewards: [],
     };
   },
+  computed: {
+    rewardVIP() {
+      return this.rewards.filter(reward => reward.type === 'VIP');
+    },
+    rewardN() {
+      return this.rewards.filter(reward => reward.type === 'N');
+    },
+  },
   methods: {
+
     route_back() {
       if (!this.isNavigating) {
         this.isNavigating = true;
@@ -211,11 +267,27 @@ export default {
         console.error(error);
       }
     },
+    async fetchRewards() {
+      try {
+        const access_token = localStorage.getItem('access_token');
+        const res = await api.get('/premier-league/v1/rewards', {
+          headers: {
+            Authorization: `Bearer ${access_token}`
+          }
+        });
+        if (res.data.status === 'success') {
+          this.rewards = res.data.data;
+        }
+      } catch (err) {
+        console.error('Error fetching rewards:', err);
+      }
+    },
   },
   created() {
     this.type = this.$route.params.type;
     this.gameWeekID = this.$route.params.id;
     this.getGameWeekByid(this.gameWeekID);
+    this.fetchRewards();
   },
 }
 </script>

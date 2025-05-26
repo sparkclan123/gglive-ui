@@ -66,7 +66,7 @@
           </div>
           <div class="item">
             <span class="big-text2 text-green-500">
-              <NumberDisplay :number=" gameWeek.reward + (gameWeek.reward * 0.1) + (gameWeek.reward * 0.05) + 200" />
+              <NumberDisplay :number=" gameWeek.reward " />
             </span>
             <span class="regular-text2 text-green-500">เงินรางวัลรวมทั้งหมด</span>
           </div>
