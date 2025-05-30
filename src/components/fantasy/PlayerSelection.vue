@@ -86,7 +86,8 @@
                             </svg>
 
                             <div v-else>
-                                <svg v-if="player.is_injured"  @click="infoPlayerBan(player)" xmlns="http://www.w3.org/2000/svg" width="14" height="19" fill="none"
+                                <svg v-if="player.is_injured" @click="infoPlayerBan(player)"
+                                    xmlns="http://www.w3.org/2000/svg" width="14" height="19" fill="none"
                                     viewBox="0 0 24 24" id="medical-bag">
                                     <path fill="#000"
                                         d="M4 5C2.34315 5 1 6.34315 1 8V20C1 21.6569 2.34315 23 4 23H20C21.6569 23 23 21.6569 23 20V8C23 6.34315 21.6569 5 20 5H4Z"
@@ -153,7 +154,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 export default {
-    props: ['position', 'remainingAmount'],
+    props: ['position', 'remainingAmount', 'condition'],
     name: 'PlayerSelection',
     data() {
         return {
@@ -310,7 +311,7 @@ export default {
             }
         },
         async selectPlayer(player) {
-            
+
             if (player.is_injured) {
                 Swal.fire({
                     text: player.name + ' บาดเจ็บ',
@@ -386,7 +387,7 @@ export default {
                         ...this.getFWD
                     ].filter(p => p.team_id === player.team_id).length;
 
-                    if (totalPlayersInTeam >= 3) {
+                    if (totalPlayersInTeam >= this.condition) {
                         this.$emit('showTeamLimitModal');
                         return;
                     }

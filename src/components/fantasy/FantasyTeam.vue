@@ -254,7 +254,7 @@
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
                         @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan"
-                        :remainingAmount="remainingAmount" />
+                        :remainingAmount="remainingAmount" :condition="condition"/>
                 </div>
             </div>
         </div>
@@ -286,6 +286,7 @@ export default {
     },
     data() {
         return {
+            condition: 3,
             showCopyTeamModal: false,
 
             showPlayerList: false,
@@ -323,7 +324,7 @@ export default {
             this.showCopyTeamModal = false;
             document.body.style.overflow = 'auto';
             this.isCaptain = 'none',
-            this.updateFormation();
+                this.updateFormation();
             const playerIds = players.map(player => player.player_id);
 
             // กรอง getGameWeekPlayer ที่มี player_id ตรงกัน
@@ -361,6 +362,21 @@ export default {
                 console.error('Error fetching matches:', error);
             }
         },
+        async fetchCondition() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get(`/premier-league/v1/condition`, {
+                    headers: { Authorization: `Bearer ${access_token}` }
+                });
+                if (response.data.ok) {
+                    this.condition = response.data.condition;
+
+                }
+            } catch (error) {
+              
+            }
+        },
+
         formatDate(date) {
             const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
             return new Date(date).toLocaleDateString('th-TH', options);
@@ -792,6 +808,7 @@ export default {
     },
 
     created() {
+        this.fetchCondition();
         this.fetchMatches();
         this.updateFormation();
     }

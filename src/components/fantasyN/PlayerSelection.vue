@@ -150,7 +150,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 export default {
-    props: ['position', 'remainingAmount'],
+    props: ['position', 'remainingAmount','condition'],
     name: 'PlayerSelection',
     data() {
         return {
@@ -379,7 +379,7 @@ export default {
                         ...this.getFWD
                     ].filter(p => p.team_id === player.team_id).length;
 
-                    if (totalPlayersInTeam >= 3) {
+                    if (totalPlayersInTeam >= this.condition) {
                         this.$emit('showTeamLimitModal');
                         return;
                     }

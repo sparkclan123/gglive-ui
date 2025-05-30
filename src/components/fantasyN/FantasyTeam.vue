@@ -52,7 +52,7 @@
                 <div class="alert-container mt-1" role="alert">
                     <div v-show="isCaptain === 'none'"
                         class="alert-content p-1 pl-2 w-full bg-red-200 items-center text-red-900 leading-none rounded-full flex inline-flex ">
-                        
+
                         <span class=" text-left flex-auto text-xs">กรุณาเลือกกับตันทีมก่อนบันทึก</span>
                     </div>
                 </div>
@@ -67,8 +67,8 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="GKP.id" :src="getShirtImage(GKP)" class="flTOZR circle-img">
-                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0_1-66.png" class="flTOZR"
-                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0_1-66.png"
+                                            class="flTOZR" :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="GKP.id == isCaptain" class="captain-badge">C</span>
 
                                         <svg v-if="GKP.id" @click.stop="removePlayerC(GKP)"
@@ -103,8 +103,8 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="DEF.id" :src="getShirtImage(DEF)" class="flTOZR circle-img">
-                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png" class="flTOZR"
-                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png"
+                                            class="flTOZR" :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="DEF.id == isCaptain" class="captain-badge">C</span>
 
 
@@ -140,8 +140,8 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="MID.id" :src="getShirtImage(MID)" class="flTOZR circle-img">
-                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png" class="flTOZR"
-                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png"
+                                            class="flTOZR" :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="MID.id == isCaptain" class="captain-badge">C</span>
 
 
@@ -176,8 +176,8 @@
                                     <picture class="relative">
                                         <source type="image/webp">
                                         <img v-if="FWD.id" :src="getShirtImage(FWD)" class="flTOZR circle-img">
-                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png" class="flTOZR"
-                                            :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
+                                        <img v-else src="https://pudee.sgp1.digitaloceanspaces.com/shirt_0-66.png"
+                                            class="flTOZR" :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                         <span v-if="FWD.id == isCaptain" class="captain-badge">C</span>
 
                                         <svg v-if="FWD.id" @click.stop="removePlayerC(FWD)"
@@ -250,7 +250,7 @@
                     </div>
                     <PlayerSelection @playerAdded="toggleClassBack" @showPositionFullModal="alertPositionfull"
                         @showTeamLimitModal="alertTeamLimit" :position="position" @remove-player="del_captan"
-                        :remainingAmount="remainingAmount" />
+                        :remainingAmount="remainingAmount" :condition="condition" />
                 </div>
             </div>
         </div>
@@ -277,6 +277,7 @@ export default {
     },
     data() {
         return {
+            condition: 3,
             showPlayerList: false,
             isToggled: false,
             selectedFormation: '1-5-5-3',
@@ -315,6 +316,20 @@ export default {
                 }
             } catch (error) {
                 console.error('Error fetching matches:', error);
+            }
+        },
+        async fetchCondition() {
+            try {
+                const access_token = localStorage.getItem('access_token');
+                const response = await api.get(`/premier-league/v1/condition`, {
+                    headers: { Authorization: `Bearer ${access_token}` }
+                });
+                if (response.data.ok) {
+                    this.condition = response.data.condition;
+
+                }
+            } catch (error) {
+
             }
         },
         formatDate(date) {
@@ -744,6 +759,7 @@ export default {
         }
     },
     created() {
+        this.fetchCondition();
         this.fetchMatches();
         this.updateFormation();
     }
@@ -754,9 +770,12 @@ export default {
 .separator {
     width: 90%;
     height: 1px;
-    background-color: #8e8d8d; /* สีของเส้นขั้น */
-    margin: 1px 0; /* ระยะห่างระหว่างเส้นและเนื้อหา */
+    background-color: #8e8d8d;
+    /* สีของเส้นขั้น */
+    margin: 1px 0;
+    /* ระยะห่างระหว่างเส้นและเนื้อหา */
 }
+
 .match-group {
     margin-bottom: 5px;
     width: 100%;
