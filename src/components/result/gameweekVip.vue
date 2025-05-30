@@ -23,7 +23,7 @@
                         <div class=" w-7 h-7  ">
                             <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                         </div>
-                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }} <i
+                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week_name ? data.week_name : data.week }}  <i
                                 class="fas fa-ticket-alt text-yellow-400"></i>
                         </div>
                     </div>

@@ -25,7 +25,7 @@
 
                 <div class="row row1">
                     <div class="item">
-                        <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} <i
+                        <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week_name ? gameWeek.week_name : gameWeek.week }} <i
                                 class="fas fa-ticket-alt text-yellow-400"></i></span>
                         <span class="regular-text text-gray-200">
                             <Numberformat :value="total" :decimal="0" /> (ทีม)

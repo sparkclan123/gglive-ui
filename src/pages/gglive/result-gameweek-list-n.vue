@@ -33,7 +33,7 @@
                     </span>
                     <div class="row row1">
                         <div class="item">
-                            <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }}</span>
+                            <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week_name ? gameWeek.week_name : gameWeek.week }} </span>
                             <span class="regular-text text-gray-200">
                                 <Numberformat :value="total" :decimal="0" /> (ทีม)
                             </span>

@@ -6,7 +6,7 @@
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
                     <img src="/public/assets/logonew.png" alt="icon" class="mr-1 w-7 h-7">
-                    <span class="mr-auto">เกมวีค {{ getGameWeek.week }} <i
+                    <span class="mr-auto">เกมวีค {{ getGameWeek.week_name ? getGameWeek.week_name : getGameWeek.week }}  <i
                             class="fas fa-ticket-alt text-yellow-400"></i> <span class="text-yellow-400 text-xs "> VIP
                         </span></span>
                     <button @click="toggleClass('all')" class="sc-iftxFb isQEzW hvBVYx_non">

@@ -44,7 +44,7 @@
             </svg>
             WEEK
             <span class="text-yellow-400">
-              #{{ gameWeek.week }}</span>
+              #{{ gameWeek.week_name ? gameWeek.week_name : gameWeek.week }}</span>
           </div>
           <div class="social-media">
             <i class="fas fa-ticket-alt text-yellow-400"></i>

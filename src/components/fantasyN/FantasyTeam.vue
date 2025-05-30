@@ -210,7 +210,8 @@
 
                 <div class="flex flex-col items-center" style="min-height: 100dvh;">
                     <div class="flex justify-center w-full mt-2">
-                        <span class="mt-1 font-semibold text-gray-600">GameWeek {{ getGameWeek.week }}</span>
+                        <span class="mt-1 font-semibold text-gray-600">GameWeek {{ getGameWeek.week_name ?
+                            getGameWeek.week_name : getGameWeek.week }}</span>
                     </div>
                     <div class="match-group w-full flex-grow flex items-center justify-center"
                         v-if="Object.keys(groupedMatches).length === 0">

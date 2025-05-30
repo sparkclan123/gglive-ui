@@ -39,7 +39,7 @@
 
         <div class="icons">
           <div class="logo shsojvp">
-            WEEK{{ gameWeek.week }}
+            WEEK{{ gameWeek.week_name ? gameWeek.week_name : gameWeek.week }}
           </div>
           <div class="social-media">
 
@@ -105,7 +105,7 @@ export default {
       myTeam: 0,
       currentTime: null,
       is_time_up: false,
-      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/banner_select.webp",
+      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/newpromo.jpeg",
       commingSoon: "https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
       // webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/vdo-pudeeFREE-ezgif.com-video-to-webp-converter.webp",
     };
@@ -179,12 +179,12 @@ export default {
         console.log(error);
       }
     },
-    resetWebP() {
-      this.webpSrc = "";
-      this.$nextTick(() => {
-        this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/banner_select.webp?${new Date().getTime()}`;
-      });
-    },
+    // resetWebP() {
+    //   this.webpSrc = "";
+    //   this.$nextTick(() => {
+    //     this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/newpromo.jpeg?${new Date().getTime()}`;
+    //   });
+    // },
     resetWebPs() {
       this.commingSoon = "";
       this.$nextTick(() => {
@@ -197,7 +197,7 @@ export default {
     ...mapGetters('season', ['getSeasons'])
   },
   mounted() {
-    this.resetWebP();
+    // this.resetWebP();
     // this.resetWebPs();
 
     setTimeout(() => {

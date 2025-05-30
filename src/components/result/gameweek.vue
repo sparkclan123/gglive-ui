@@ -11,7 +11,7 @@
                         <div class=" w-7 h-7  ">
                             <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                         </div>
-                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week }} 
+                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week_name ? data.week_name : data.week }} 
                         </div>
                     </div>
                 </div>

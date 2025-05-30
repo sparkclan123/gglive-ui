@@ -31,7 +31,8 @@
                         </span>
                         <div class="row row1">
                             <div class="item">
-                                <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week }} </span>
+                                <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week_name ? gameWeek.week_name :
+                                    gameWeek.week }} </span>
                                 <span class="regular-text text-gray-200">(คะเเนน)</span>
                             </div>
                             <div class="item_2">
@@ -74,7 +75,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="data in games" :key="i" >
+                            <tr v-for="data in games" :key="i">
                                 <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data)">
                                     <div class="flex items-center gap-3">
                                         <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
@@ -82,7 +83,8 @@
                                             class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
                                         <p
                                             class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
-                                            {{ data.name }}</p> <i class="fas fa-ticket-alt text-yellow-400" v-if="data.vip"></i>
+                                            {{ data.name }}</p> <i class="fas fa-ticket-alt text-yellow-400"
+                                            v-if="data.vip"></i>
                                     </div>
                                 </td>
                                 <td class="p-1 border-b border-blue-gray-50 pl-4">
@@ -146,7 +148,7 @@ export default {
                     }
                 });
             }
-            
+
         },
         async addTeamInMatch() {
             // Swal.fire({
