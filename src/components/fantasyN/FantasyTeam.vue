@@ -6,7 +6,7 @@
             <div class="elHRfu ">
                 <div class="sc-CrZHp hvBVYx flex items-center">
                     <img src="/public/assets/logonew.png" alt="icon" class="mr-1 w-7 h-7">
-                    <span class="mr-auto">เกมวีค {{ getGameWeek.week }}</span>
+                    <span class="mr-auto">เกมวีค {{ getGameWeek.week_name ? getGameWeek.week_name : getGameWeek.week }}</span>
                     <button @click="toggleClass('all')" class="sc-iftxFb isQEzW hvBVYx_non">
                         รายชื่อผู้เล่น
                         <div ml="1" class="sc-csKJxZ dviEZq">
@@ -352,9 +352,9 @@ export default {
                 buttonsStyling: false,
             });
         },
-        alertTeamLimit() {
+        alertTeamLimit(condition) {
             Swal.fire({
-                text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                text: `ไม่สามารถเลือกทีมเดียวกันได้เกิน ${condition} คน`,
                 showCancelButton: true,
                 cancelButtonText: 'ยกเลิก',
                 showConfirmButton: false,

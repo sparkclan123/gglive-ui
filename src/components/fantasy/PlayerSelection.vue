@@ -388,7 +388,8 @@ export default {
                     ].filter(p => p.team_id === player.team_id).length;
 
                     if (totalPlayersInTeam >= this.condition) {
-                        this.$emit('showTeamLimitModal');
+                      
+                        this.$emit('showTeamLimitModal', this.condition);
                         return;
                     }
 

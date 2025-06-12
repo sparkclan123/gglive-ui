@@ -371,6 +371,7 @@ export default {
                     this.$emit('showPositionFullModal');
 
                 } else {
+                    
                     // ตรวจสอบว่า มีผู้เล่นในทีมเดียวกันมากกว่า 3 คนหรือไม่
                     const totalPlayersInTeam = [
                         ...this.getGKP,
@@ -380,7 +381,7 @@ export default {
                     ].filter(p => p.team_id === player.team_id).length;
 
                     if (totalPlayersInTeam >= this.condition) {
-                        this.$emit('showTeamLimitModal');
+                        this.$emit('showTeamLimitModal',this.condition);
                         return;
                     }
 

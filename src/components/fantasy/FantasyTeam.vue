@@ -398,7 +398,7 @@ export default {
         },
         alertTeamLimit() {
             Swal.fire({
-                text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+                text: `ไม่สามารถเลือกทีมเดียวกันได้เกิน ${condition} คน`,
                 showCancelButton: true,
                 cancelButtonText: 'ยกเลิก',
                 showConfirmButton: false,
