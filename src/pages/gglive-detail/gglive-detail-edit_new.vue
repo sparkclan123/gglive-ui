@@ -480,22 +480,22 @@ export default {
 
             const totalPlayerNewfilter = filterSelectPlayer.filter(p => p.team_code === player.team_code && !p.remove).length;
 
-            if (totalPlayerNewfilter >= 3) {
-                Swal.fire({
-                    text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
-                    showCancelButton: true,
-                    cancelButtonText: 'ยกเลิก',
-                    showConfirmButton: false,
-                    customClass: {
-                        cancelButton: 'btn-cancel',
-                        popup: 'popup-custom',
-                        title: 'text-custom',
-                        htmlContainer: 'text-custom'
-                    },
-                    buttonsStyling: false,
-                });
-                return;
-            }
+            // if (totalPlayerNewfilter >= 3) {
+            //     Swal.fire({
+            //         text: 'ไม่สามารถเลือกทีมเดียวกันได้เกิน 3 คน',
+            //         showCancelButton: true,
+            //         cancelButtonText: 'ยกเลิก',
+            //         showConfirmButton: false,
+            //         customClass: {
+            //             cancelButton: 'btn-cancel',
+            //             popup: 'popup-custom',
+            //             title: 'text-custom',
+            //             htmlContainer: 'text-custom'
+            //         },
+            //         buttonsStyling: false,
+            //     });
+            //     return;
+            // }
 
             if (player.position === 'F') {
                 for (let i = 0; i < this.getFWD.length; i++) {
