@@ -2,8 +2,8 @@
     <div>
        
         <div class="tabs rounded-t-lg ml-3 text-white flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">คะเเนนตาราง
-            </div>
+            <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">คะเเนนตาราง
+            </div> -->
             <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">คะเเนนนักเตะ
             </div>
            
@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             loading: false,
-            activeTab: 'tab1',
+            activeTab: 'tab2',
             resultData: { /* your data for Result component */ },
             gameweekData: {
                 datas: [],

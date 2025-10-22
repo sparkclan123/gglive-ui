@@ -56,12 +56,15 @@ import BigMatch from '../pages/bigmatch/index.vue';
 
 import Aff from '../pages/aff/index.vue';
 
+
+import Download from '../pages/download.vue';
+
 import NotFound from '../pages/NotFound.vue';
 import { api } from '@axios_inst';
 
 const routes = [
     {
-        
+
         path: '/login',
         component: LoginLayout,
         children: [
@@ -79,6 +82,11 @@ const routes = [
                 path: '/reset-password',
                 name: 'reset-password',
                 component: ResetPassword,
+            },
+            {
+                path: '/download',
+                name: 'download',
+                component: Download,
             },
         ],
     },
@@ -153,7 +161,7 @@ const routes = [
                 name: 'pitch-detail-edit-new',
                 component: GgLiveDetailEditNew,
             },
-            
+
             {
                 path: 'challenge-detail/:id',
                 name: 'challenge-detail',
@@ -204,13 +212,13 @@ const routes = [
                 name: 'activity',
                 component: Activity,
             },
-            
+
             {
                 path: 'rule',
                 name: 'rule',
                 component: Rule,
             },
-            
+
             {
                 path: 'game',
                 name: 'game',
@@ -221,7 +229,7 @@ const routes = [
                 name: 'game-00001',
                 component: Plinko,
             },
-            
+
             {
                 path: 'result',
                 name: 'result',
@@ -248,7 +256,7 @@ const routes = [
                 name: 'aff-my',
                 component: Aff,
             },
-            
+
             {
                 path: 'setting',
                 name: 'setting',
