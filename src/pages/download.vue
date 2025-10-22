@@ -10,12 +10,12 @@
     <p class="text-gray-300 text-center mb-8 max-w-md">
       ดาวน์โหลดแอปเวอร์ชันล่าสุดสำหรับ Android
       <br />
-      พร้อมระบบ Baccarat, Poker, และหวยครบจบในที่เดียว
+      จัดการทีมของคุณได้ทุกที่ทุกเวลา! PuDee Club Fantasy Football
     </p>
 
     <!-- Download Button -->
     <a
-      href="https://drive.google.com/uc?export=download&id=1LfvZSZTZjoqUfAX_FJo2zQreuHmERdUj"
+      href="https://pudee.sgp1.digitaloceanspaces.com/app-pudee.apk"
       download
       class="inline-flex items-center justify-center bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
     >
