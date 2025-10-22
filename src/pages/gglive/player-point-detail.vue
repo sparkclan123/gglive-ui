@@ -1,168 +1,93 @@
 <template>
-    <div>
-       
-        <div class="tabs rounded-t-lg ml-3 text-white flex">
-            <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">คะเเนนตาราง
-            </div> -->
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">คะเเนนนักเตะ
-            </div>
-           
-        </div>
-        <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container  ">
-            <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
-                <component :is="currentTabComponent" :key="activeTab" v-bind="currentTabProps"></component>
-            </transition>
-        </div>
+  <div class="min-h-screen bg-gray-100">
+    <LodingSceen :loading="loading" />
 
-        
+    <!-- Tabs -->
+    <div class="flex justify-center pt-4">
+      <div
+        class="flex bg-white/80 backdrop-blur-md shadow-md rounded-xl overflow-hidden"
+      >
+        <button
+          class="px-5 py-2 text-sm font-medium transition-all duration-300"
+          :class="activeTab === 'tab2' ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white' : 'text-gray-600 hover:text-blue-600'"
+          @click="SetactiveTab('tab2')"
+        >
+          คะเเนนนักเตะ
+        </button>
+      </div>
     </div>
+
+    <!-- Content -->
+    <div class="p-4">
+      <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
+        <component :is="currentTabComponent" :key="activeTab" v-bind="currentTabProps"></component>
+      </transition>
+    </div>
+  </div>
 </template>
 
 <script>
-import WeekPoint from '../../components/detailpoint/weekpoint.vue';
-import TablePoint from '../../components/detailpoint/tablePoint.vue';
-
-
-import { mapActions } from 'vuex';
+import WeekPoint from "../../components/detailpoint/weekpoint.vue";
+import TablePoint from "../../components/detailpoint/tablePoint.vue";
 
 export default {
-    name: 'challenge',
-    data() {
-        return {
-            loading: false,
-            activeTab: 'tab2',
-            resultData: { /* your data for Result component */ },
-            gameweekData: {
-                datas: [],
-                total: 0,
-                page: 1,
-                limit: 10,
-                pages: 1,
-            },
-            matches: []
-        };
+  name: "challenge",
+  data() {
+    return {
+      activeTab: "tab2",
+    };
+  },
+  components: {
+    WeekPoint,
+    TablePoint,
+  },
+  computed: {
+    currentTabComponent() {
+      return this.activeTab === "tab2" ? "WeekPoint" : "TablePoint";
     },
-    components: {
-        WeekPoint,
-        TablePoint,
+    currentTabProps() {
+      return {};
     },
-    computed: {
-        currentTabComponent() {
-
-     
-            switch (this.activeTab) {
-                case 'tab1':
-                    return 'TablePoint';
-                case 'tab2':
-                    return 'WeekPoint';
-                default:
-                    return 'TablePoint';
-            }
-
-           
-        },
-        currentTabProps() {
-            switch (this.activeTab) {
-                case 'tab1':
-                    return { data: this.resultData, matches: this.matches, fetchMatches: this.fetchMatches };
-                case 'tab2':
-                case 'tab3':
-                    return { data: this.gameweekData, fetchGameWeeks: this.fetchGameWeeks };
-                default:
-                    return {};
-            }
-        }
+  },
+  methods: {
+    SetactiveTab(tab) {
+      this.activeTab = tab;
+      localStorage.setItem("point-tab", tab);
     },
-    methods: {
-        SetactiveTab(tab) {
-            this.activeTab = tab;
-            localStorage.setItem('point-tab', tab);
-        },
-        beforeEnter(el) {
-            el.style.transform = 'translateX(100%)';
-            el.style.opacity = 0;
-            requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-                el.style.transform = 'translateX(0)';
-                el.style.opacity = 1;
-            });
-        },
-        leave(el, done) {
-            el.style.transform = 'translateX(0)';
-            el.style.opacity = 1;
-            requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-                el.style.transform = 'translateX(-100%)';
-                el.style.opacity = 0;
-                setTimeout(done, 500);
-            });
-        },
-
-
+    beforeEnter(el) {
+      el.style.transform = "translateX(100%)";
+      el.style.opacity = 0;
+      requestAnimationFrame(() => {
+        el.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+        el.style.transform = "translateX(0)";
+        el.style.opacity = 1;
+      });
     },
-    created() {
-       
-        let has_result_tab = localStorage.getItem('point-tab');
-        if (has_result_tab) {
-            this.activeTab = has_result_tab;
-        }
-      
-
+    leave(el, done) {
+      el.style.transform = "translateX(0)";
+      el.style.opacity = 1;
+      requestAnimationFrame(() => {
+        el.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+        el.style.transform = "translateX(-100%)";
+        el.style.opacity = 0;
+        setTimeout(done, 300);
+      });
     },
+  },
+  created() {
+    const tab = localStorage.getItem("point-tab");
+    if (tab) this.activeTab = tab;
+  },
 };
 </script>
 
 <style scoped>
-.bg-fixcolor-p {
-    background-color: #f6f6f8;
-}
-
-.tabs {
-    display: flex;
-    font-size: 0.7rem;
-}
-
-.tab-item {
-    margin-right: 3px;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #37003c;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.tab-item.active {
-    background-color: #f6f6f8;
-    color: rgb(0, 0, 0);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.tab-container {
-    position: relative;
-    overflow: hidden;
-}
-
 .slide-enter-active,
 .slide-leave-active {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
-
 .slide-enter,
 .slide-leave-to {
-    opacity: 0;
-}
-
-.slide-enter {
-    transform: translateX(100%);
-}
-
-.slide-leave-active {
-    transform: translateX(-100%);
-}
-
-.slide-enter-to {
-    transform: translateX(0);
-    opacity: 1;
+  opacity: 0;
 }
 </style>

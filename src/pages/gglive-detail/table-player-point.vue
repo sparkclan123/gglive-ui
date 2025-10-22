@@ -1,30 +1,27 @@
 <template>
     <div class="contant_style">
+
         <div class="fixcontant">
 
-            <div class="card cursor-pointer">
-                <div class="top-section">
-                    <div class="icons">
-                        <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200"
-                            @click="route_back()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 12"
-                                class="svg-white mr-1">
-                                <path
-                                    d="M23.9996,7.4946 C23.9786,7.0416 23.8296,6.5696 23.4816,6.2506 C23.4816,6.2506 23.4806,6.2496 23.4806,6.2496 L18.4596,1.2256 L17.7526,0.5176 C17.4346,0.1986 16.9586,0.0016 16.5096,-0.0004 C16.0766,-0.0004 15.5616,0.1906 15.2656,0.5176 C14.9596,0.8526 14.7296,1.2916 14.7486,1.7616 C14.7686,2.2296 14.9276,2.6676 15.2656,3.0056 L17.9916,5.7336 C17.9916,5.7336 2.6226,5.7246 1.7966,5.7346 L1.7616,5.7346 C1.3076,5.7346 0.8386,5.9316 0.5186,6.2526 C0.2116,6.5586 -0.0164,7.0556 0.0006,7.4966 C0.0216,7.9496 0.1696,8.4226 0.5176,8.7406 C0.8656,9.0596 1.2886,9.2576 1.7616,9.2566 L17.9986,9.2566 L15.2646,11.9936 C14.9456,12.3116 14.7496,12.7866 14.7476,13.2376 C14.7476,13.6686 14.9376,14.1846 15.2646,14.4816 C15.5996,14.7866 16.0376,15.0166 16.5076,14.9986 C16.9736,14.9746 17.4136,14.8186 17.7506,14.4816 L22.7766,9.4516 L23.4856,8.7436 C23.6656,8.5626 23.7936,8.3486 23.8776,8.1186 C23.9576,7.9146 24.0076,7.6996 23.9996,7.4946"
-                                    fill="white" transform="matrix(-1 0 0 1 24 0)"></path>
-                            </svg>
-
-                            <span class="text-gray-200 font-bold text-xs">กลับ</span>
-                        </div>
-
-                    </div>
+            <div class="card">
+  
+                <div class="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-200"
+                    @click="route_back">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span class="text-white text-sm font-semibold tracking-wide">กลับ</span>
                 </div>
-                <div class="bottom-section">
 
-                    <span class="titlesm text-sm text-yellow-300">รายละเอียดคะเเนนนักเตะ</span>
 
+                <div class="text-center">
+                    <h1 class="titlesm text-base sm:text-lg text-yellow-300 font-semibold drop-shadow">
+                        รายละเอียดคะแนนนักเตะ
+                    </h1>
                 </div>
             </div>
+
             <div class="p-4 overflow-scroll px-0" v-if="getGameWeekPlayer">
                 <div class="flex flex-wrap gap-4 mb-1 ">
                     <div class="flex-1 min-w-[100px] ml-1 ">
@@ -520,110 +517,173 @@ export default {
 
 <style scoped>
 .contant_style {
-    background-color: white;
-    border-radius: 10px;
-    padding: 5px;
+    background-color: #f8fafc;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    min-height: 100vh;
+    font-family: 'Sarabun', sans-serif;
 }
 
 .fixcontant {
     position: relative;
     background-color: white;
-    padding-bottom: 1px;
-    border-radius: 11px;
-}
-
-.card {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background: linear-gradient(to bottom, #1e1037, #432b6e);
-    padding: 5px;
+    border-radius: 1rem;
     overflow: hidden;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* ─────────────── HEADER CARD ─────────────── */
+.card {
+    position: relative;
+    background: linear-gradient(135deg, #3b0764 0%, #5b21b6 50%, #7c3aed 100%);
+    color: white;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    padding-top: 48px;
+}
 
-.card .top-section .icons {
+/* ─────────────── BACK BUTTON ─────────────── */
+.card .back-button {
     position: absolute;
-    top: 0;
+    top: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 9999px;
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+.card .back-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.card .back-button svg {
+    color: #fde68a;
+}
+
+.card .back-button span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+}
+
+/* ─────────────── HEADER TEXT ─────────────── */
+.titlesm {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #fde68a;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ─────────────── SEARCH / SELECT ─────────────── */
+input[type='text'],
+select {
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+    color: #374151;
+    background-color: #f9fafb;
+    transition: all 0.2s ease-in-out;
+}
+
+input[type='text']:focus,
+select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* ─────────────── TABLE ─────────────── */
+table {
+    border-collapse: collapse;
     width: 100%;
-    height: 30px;
+    font-size: 0.8rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+th {
+    background-color: #f3f4f6;
+    text-align: left;
+    padding: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+    white-space: nowrap;
+}
+
+td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+}
+
+tr:hover td {
+    background-color: #f9fafb;
+}
+
+td p {
+    font-size: 0.75rem;
+}
+
+/* ─────────────── PAGINATION ─────────────── */
+.pagination {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin: 1rem 0;
 }
 
-.card .top-section .icons .logo {
-    height: 100%;
-    aspect-ratio: 1;
-    padding: 7px 0 7px 15px;
+.pagination button {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    margin: 0 0.2rem;
+    transition: all 0.2s ease-in-out;
 }
 
-.card .top-section .icons .logo .top-section {
-    height: 100%;
+.pagination button:hover {
+    background-color: #f3f4f6;
+    color: #111827;
 }
 
-.card .top-section .icons .social-media {
-    height: 100%;
-    padding: 8px 15px;
-    display: flex;
-    gap: 7px;
+/* ─────────────── RESPONSIVE ─────────────── */
+@media (max-width: 768px) {
+    .titlesm {
+        font-size: 0.9rem;
+    }
+
+    th,
+    td {
+        padding: 0.4rem;
+    }
+
+    input[type='text'],
+    select {
+        font-size: 0.8rem;
+    }
 }
 
-.card .top-section .icons .social-media .svg {
-    height: 100%;
-    fill: #1e1037;
-}
+@media (max-width: 480px) {
+    .titlesm {
+        font-size: 0.8rem;
+    }
 
-
-.card .bottom-section {
-    margin-top: 1px;
-    padding: 10px 5px;
-}
-
-.card .bottom-section .titlesm {
-    display: block;
-    font-size: 10px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.card .bottom-section .title {
-    display: block;
-    font-size: 18px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.card .bottom-section .row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.card .bottom-section .row .item {
-    flex: 30%;
-    text-align: center;
-    padding: 5px;
-    color: rgba(255, 255, 255, 0.721);
-}
-
-.card .bottom-section .row .item .big-text {
-    font-size: 15px;
-    display: block;
-}
-
-.card .bottom-section .row .item .regular-text {
-    font-size: 12px;
-}
-
-.card .bottom-section .row .item:nth-child(2) {
-    border-left: 1px solid rgba(255, 255, 255, 0.126);
-    border-right: 1px solid rgba(255, 255, 255, 0.126);
-}
-
-.shsojvp {
-    font-weight: bold;
+    td p {
+        font-size: 0.7rem;
+    }
 }
 </style>
