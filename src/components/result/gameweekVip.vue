@@ -23,8 +23,8 @@
                         <div class=" w-7 h-7  ">
                             <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                         </div>
-                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week_name ? data.week_name : data.week }}  <i
-                                class="fas fa-ticket-alt text-yellow-400"></i>
+                        <div class="text-sm ">เกมวีค {{ data.week_name ? data.week_name :
+                            data.week }} <i class="fas fa-ticket-alt text-yellow-400"></i>
                         </div>
                     </div>
                 </div>
@@ -69,9 +69,15 @@ export default {
 </script>
 <style scoped>
 .cus-bg-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px #e8b201;
-    transition: box-shadow 0.3s ease;
+    background: linear-gradient(145deg, #ffffff, #fff7e6);
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(234, 179, 8, 0.25);
+    transition: all 0.3s ease;
+    border: 1px solid #fef3c7;
+}
+
+.cus-bg-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(250, 204, 21, 0.4);
 }
 </style>

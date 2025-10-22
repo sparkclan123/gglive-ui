@@ -1,17 +1,19 @@
 <template>
     <div class="flex flex-col items-center ">
         <div class="flex justify-center w-full m-1 mt-2">
-            <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span class="mt-1 font-semibold text-gray-600">เกมวีคปกติ</span>
+            <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span
+                class="mt-1 font-semibold text-gray-600">เกมวีคปกติ</span>
         </div>
         <div class="mt-2 w-full" v-if="data.datas">
             <div class="cus-bg-card  text-gray-700  flex flex-col rounded-xl shadow-lg p-2 mb-5 mr-5 ml-5 cursor-pointer"
-                 v-for="data in data.datas" @click="seeDetailGameWeek(data)">
+                v-for="data in data.datas" @click="seeDetailGameWeek(data)">
                 <div class="flex items-center justify-between font-semibold">
                     <div class="flex items-center space-x-1">
                         <div class=" w-7 h-7  ">
                             <img class="w-7 h-7 " src="/public/assets/logonew.png" />
                         </div>
-                        <div class="text-sm ">ฤดูกาล {{ data.season.label }} เกมวีค {{ data.week_name ? data.week_name : data.week }} 
+                        <div class="text-sm ">เกมวีค {{ data.week_name ? data.week_name :
+                            data.week }}
                         </div>
                     </div>
                 </div>
@@ -58,9 +60,23 @@ export default {
 
 <style scoped>
 .cus-bg-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px #8341ca;
-    transition: box-shadow 0.3s ease;
+    background: linear-gradient(145deg, #ffffff, #f3e8ff);
+    border-radius: 12px;
+    box-shadow: 0 3px 8px rgba(107, 33, 168, 0.2);
+    transition: all 0.3s ease;
+    border: 1px solid #ede9fe;
+}
+
+.cus-bg-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(107, 33, 168, 0.25);
+}
+
+.text-sm {
+    font-size: 0.9rem;
+}
+
+.text-xs {
+    font-size: 0.8rem;
 }
 </style>

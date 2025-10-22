@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="p-4">
         <div class="flex flex-col items-center">
             <div class="flex justify-center w-full mt-2">
-                <img class="w-8 h-8" src="/public/assets/logonew.png" /> 
+                <img class="w-8 h-8" src="/public/assets/logonew.png" />
                 <span class="mt-1 font-semibold text-gray-600">การเเข่งขัน</span>
             </div>
             <div class="match-group " v-for="(matches, date) in groupedMatches" :key="date">
@@ -18,7 +18,7 @@
                             <div class="team-name">{{ match.team2 }}</div>
                             <div class="score">{{ match.score2 }}</div>
                         </div>
-                       
+
 
                     </div>
                 </div>
@@ -72,66 +72,58 @@ export default {
 </script>
 
 <style scoped>
-.separator {
-    width: 90%;
-    height: 1px;
-    background-color: #8e8d8d; /* สีของเส้นขั้น */
-    margin: 1px 0; /* ระยะห่างระหว่างเส้นและเนื้อหา */
-}
 .match-group {
-    margin-bottom: 5px;
+    margin-bottom: 1.5rem;
     width: 100%;
 }
 
 .date {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 6px;
     text-align: left;
-    color: #1e1036;
-    width: 100%;
+    color: #4b0082;
+    padding-left: 10px;
 }
 
 .match-results {
-    text-align: left;
-  
-    border-radius: 10px;
-    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .match {
     display: flex;
-    flex-direction: column;
-    padding: 5px 5px 5px 10px;
-    margin: 2px 0;
-    background-color: #1e1036;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #1e1036, #3f2c74);
     border-radius: 10px;
-    position: relative;
+    padding: 6px 12px;
+    transition: all 0.25s ease;
+    color: #fff;
+}
+
+.match:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
 }
 
 .team-info {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-bottom: 2px;
+    justify-content: space-between;
+    width: 48%;
 }
 
 .team-name {
-    font-size: 0.7rem;
-    color: #FFFFFF;
-    white-space: nowrap;
-    text-align: left;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #fff;
 }
 
 .score {
-    padding: 0px 5px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-align: right;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #facc15;
 }
-
-
-
 </style>
