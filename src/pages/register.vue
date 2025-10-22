@@ -1,82 +1,86 @@
 <template>
-    <div  style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp'); background-size: cover; background-position: center; min-height: 100vh;">
-        <div>
-            <LodingSceen :loading="loading"/>
-        </div>
+    <div class="min-h-screen flex items-center justify-center bg-cover bg-center relative"
+        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp')">
+        <LodingSceen :loading="loading" />
 
-        <div class="flex flex-col items-center justify-center pt-20 m-2">
+        <!-- overlay -->
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
-            <div class="w-full max-w-lg p-8 space-y-2 bg-white rounded-lg shadow-lg sm:w-96">
+        <!-- card -->
+        <div
+            class="relative z-10 w-[90%] max-w-md mx-auto bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-8 text-white space-y-6">
+            <!-- logo -->
+            <div class="flex justify-center mb-3">
+                <img src="/public/assets/logo.webp" alt="Logo"
+                    class="w-20 h-20 rounded-full border-4 border-white/40 shadow-lg" />
+            </div>
 
-                <div class="container mx-auto flex justify-center">
-                    <img src="/public/assets/logo.webp" alt="Logo" class="logo-circle">
-                </div>
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-500">เบอร์สำหรับเข้าสู่ระบบ
-                        ex:0810000000</label>
-                    <input :class="{ 'border-red-500': phoneError }"
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="phone" type="tel" placeholder="เบอร์โทร" v-model="phonenum">
-                    <p v-if="phoneError" class="text-red-500 text-xs italic">กรุณากรอกเบอร์โทร 10 หลักให้ถูกต้อง</p>
-                </div>
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-500">รหัสผ่าน <span
-                            class="text-red-700">**ต้องมากกว่า 4 ตัว </span> </label>
-                    <input :class="{ 'border-red-500': passwordError }"
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password" type="password" placeholder="password" v-model="password">
-                </div>
-                <div>
-                    <label for="confirm_password" class="block text-sm font-medium text-gray-500">ยืนยันรหัสผ่าน</label>
-                    <input :class="{ 'border-red-500': confirmPasswordError }"
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="confirm_password" type="password" placeholder="confirm_password" v-model="confirm_password">
-                    <p v-if="confirmPasswordError" class="text-red-500 text-xs italic">รหัสผ่านและการยืนยันไม่ตรงกัน</p>
-                </div>
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-500">ชื่อ</label>
-                    <input :class="{ 'border-red-500': nameError }"
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="name" type="text" placeholder="ชื่อ" v-model="name">
-                </div>
+            <h2 class="text-2xl font-bold text-center">สมัครสมาชิก Pudee Club</h2>
+            <p class="text-gray-300 text-center text-sm">กรอกข้อมูลด้านล่างเพื่อสร้างบัญชีของคุณ</p>
 
-                <div class="">
-                    <label for="otp" class="block text-sm font-medium text-gray-500">OTP</label>
+            <!-- phone -->
+            <div>
+                <label for="phone" class="block text-sm mb-1 text-gray-300">เบอร์โทรศัพท์ (10 หลัก)</label>
+                <input id="phone" v-model="phonenum" type="tel" placeholder="08xxxxxxxx"
+                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-blue-400 focus:outline-none', phoneError ? 'border-red-500' : 'border-gray-400']" />
+                <p v-if="phoneError" class="text-red-400 text-xs mt-1">กรุณากรอกเบอร์โทรให้ถูกต้อง</p>
+            </div>
 
-                    <input :class="{ 'border-red-500': otpError }"
-                        class="mt-2 shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                        id="otp" type="tel" placeholder="OTP" v-model="otp">
+            <!-- password -->
+            <div>
+                <label for="password" class="block text-sm mb-1 text-gray-300">รหัสผ่าน (อย่างน้อย 4 ตัว)</label>
+                <input id="password" v-model="password" type="password" placeholder="********"
+                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none', passwordError ? 'border-red-500' : 'border-gray-400']" />
+            </div>
 
-                    <!-- <input v-for="(digit, index) in otpDigits" :key="index" :class="{ 'border-red-500': otpError }"
-                            class="shadow appearance-none border border-gray-500 rounded w-full py-2 px-3 text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
-                            type="tel" maxlength="1" v-model="otpDigits[index]" @input="moveFocus(index, $event)"
-                            @keydown.backspace="handleBackspace(index, $event)"> -->
+            <!-- confirm -->
+            <div>
+                <label for="confirm_password" class="block text-sm mb-1 text-gray-300">ยืนยันรหัสผ่าน</label>
+                <input id="confirm_password" v-model="confirm_password" type="password" placeholder="********"
+                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none', confirmPasswordError ? 'border-red-500' : 'border-gray-400']" />
+                <p v-if="confirmPasswordError" class="text-red-400 text-xs mt-1">รหัสผ่านไม่ตรงกัน</p>
+            </div>
 
-                    <p v-if="otpError" class="text-red-500 text-xs italic">กรุณากรอก OTP ให้ถูกต้อง</p>
-                </div>
+            <!-- name -->
+            <div>
+                <label for="name" class="block text-sm mb-1 text-gray-300">ชื่อ</label>
+                <input id="name" v-model="name" type="text" placeholder="ชื่อของคุณ"
+                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none', nameError ? 'border-red-500' : 'border-gray-400']" />
+            </div>
 
-                <div class="w-full rounded-lg mt-2 text-white text-lg ">
-                    <p v-if="otpCountdown > 0" class="text-center text-gray-500 text-xs mt-2 mb-2">
-                        โปรดรอ {{ otpCountdown }} วินาทีก่อนที่จะขอรหัส OTP ใหม่
-                    </p>
-                    <button :disabled="otpCountdown > 0" type="submit" class="w-full button-save1" @click="callOtp">
-                        ขอรหัส OTP
-                    </button>
+            <!-- otp -->
+            <div>
+                <label for="otp" class="block text-sm mb-1 text-gray-300">รหัส OTP</label>
+                <input id="otp" v-model="otp" type="tel" placeholder="OTP 6 หลัก"
+                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-blue-400 focus:outline-none', otpError ? 'border-red-500' : 'border-gray-400']" />
+                <p v-if="otpError" class="text-red-400 text-xs mt-1">กรุณากรอก OTP ให้ถูกต้อง</p>
+            </div>
 
-                </div>
-                <div class="w-full rounded-lg mt-2 text-white text-lg ">
-                    <button type="submit" class="w-full button-save" @click="loginform">สมัครสมาชิก</button>
-                </div>
-                <!-- กลับสู่หน้า Login -->
-                <div class="text-center mt-4">
-                    <router-link to="/login" class="text-sm text-blue-500 hover:text-blue-700">กลับสู่หน้า
-                        Login</router-link>
-                </div>
+            <!-- otp countdown -->
+            <div v-if="otpCountdown > 0" class="text-center text-xs text-gray-300">
+                โปรดรอ {{ otpCountdown }} วินาทีก่อนขอรหัสใหม่
+            </div>
 
+            <!-- otp button -->
+            <button :disabled="otpCountdown > 0" @click="callOtp"
+                class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-semibold shadow-lg transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
+                ขอรหัส OTP
+            </button>
+
+            <!-- register button -->
+            <button @click="loginform"
+                class="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 font-semibold shadow-lg transition-all hover:scale-[1.02]">
+                สมัครสมาชิก
+            </button>
+
+            <!-- back to login -->
+            <div class="text-center text-sm mt-2">
+                <router-link to="/login" class="text-blue-400 hover:text-blue-300">กลับสู่หน้า Login</router-link>
             </div>
         </div>
     </div>
 </template>
+
 
 <script>
 import { mapActions } from 'vuex'
@@ -179,7 +183,7 @@ export default {
 
         },
         async loginform() {
-           
+
             this.validateInputs();
 
             if (this.phoneError || this.passwordError || this.confirmPasswordError || this.nameError || this.otpError) {
