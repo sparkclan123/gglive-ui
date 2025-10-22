@@ -1,171 +1,168 @@
 <template>
   <div v-if="userinfo">
-    <div class="flex justify-around w-full justify-between mobile-menu">
-      <button class="inline-flex flex-col items-center justify-center group"
-        :class="{ active: isActive('player-detail-point') }" @click="setActive('player-detail-point')">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 icon-large" fill="none" viewBox="0 0 24 24"
-          id="cup-first">
-          <path fill="#111" fill-rule="evenodd"
-            d="M12.787 5.80709C13.0673 5.92318 13.25 6.19665 13.25 6.5V10.5C13.25 10.9142 12.9142 11.25 12.5 11.25 12.0858 11.25 11.75 10.9142 11.75 10.5V8.31066L11.5303 8.53033C11.2374 8.82322 10.7626 8.82322 10.4697 8.53033 10.1768 8.23744 10.1768 7.76256 10.4697 7.46967L11.9697 5.96967C12.1842 5.75517 12.5068 5.691 12.787 5.80709zM19.7115 6.02772L18.7628 5.71151 19.2372 4.28849 20.1858 4.6047C20.1983 4.60885 20.2107 4.613 20.2231 4.61713 20.6862 4.77147 21.0921 4.90675 21.4142 5.05657 21.7623 5.21853 22.0814 5.42714 22.3253 5.76556 22.5692 6.10397 22.6662 6.47262 22.7097 6.85412 22.75 7.20701 22.75 7.63489 22.7499 8.12306L22.7499 8.23489C22.7499 8.24605 22.7499 8.25719 22.7499 8.26829 22.75 8.67009 22.75 9.02498 22.7203 9.3218 22.6882 9.64348 22.617 9.95621 22.4391 10.2584 22.2613 10.5607 22.0225 10.7748 21.7569 10.9591 21.5118 11.1292 21.2016 11.3015 20.8503 11.4966L17.8642 13.1556 17.1358 11.8444 20.0927 10.2016C20.4818 9.98542 20.7255 9.84906 20.9017 9.7268 21.0641 9.61408 21.117 9.54762 21.1463 9.49774 21.1757 9.44786 21.2081 9.36935 21.2277 9.17263 21.2491 8.95925 21.2499 8.68003 21.2499 8.23485L21.2499 8.16232C21.25 7.62324 21.2488 7.28191 21.2194 7.02423 21.1922 6.78571 21.1476 6.69704 21.1084 6.6426 21.0692 6.58817 20.9992 6.51786 20.7815 6.4166 20.5463 6.30721 20.2229 6.19819 19.7115 6.02772zM3.81415 4.6047L4.76278 4.28849 5.23712 5.71151 4.28849 6.02772C3.77708 6.19819 3.45362 6.30721 3.21847 6.4166 3.0008 6.51786 2.93077 6.58817 2.89154 6.6426 2.85231 6.69704 2.80775 6.78571 2.78053 7.02423 2.75111 7.28191 2.74999 7.62324 2.75001 8.16232L2.75001 8.23485C2.75002 8.68003 2.75089 8.95925 2.77221 9.17263 2.79187 9.36935 2.82428 9.44786 2.85363 9.49774 2.88298 9.54762 2.93588 9.61408 3.09829 9.7268 3.27447 9.84906 3.51814 9.98542 3.90729 10.2016L6.86419 11.8444 6.13571 13.1556 3.14962 11.4966C2.79836 11.3015 2.48813 11.1292 2.24307 10.9591 1.97748 10.7748 1.73867 10.5607 1.56083 10.2584 1.38299 9.95621 1.3118 9.64348 1.27965 9.3218 1.24999 9.02498 1.25 8.67009 1.25001 8.26828 1.25001 8.25718 1.25001 8.24605 1.25001 8.23489L1.25001 8.16236C1.25 8.14921 1.25 8.13611 1.25 8.12305 1.24996 7.63488 1.24992 7.20701 1.2902 6.85412 1.33375 6.47262 1.43076 6.10397 1.67466 5.76556 1.91857 5.42714 2.23762 5.21853 2.58577 5.05657 2.90781 4.90675 3.31373 4.77147 3.77686 4.61712 3.78925 4.613 3.80168 4.60885 3.81415 4.6047zM12 15.25C12.4142 15.25 12.75 15.5858 12.75 16V19C12.75 19.4142 12.4142 19.75 12 19.75 11.5858 19.75 11.25 19.4142 11.25 19V16C11.25 15.5858 11.5858 15.25 12 15.25z"
-            clip-rule="evenodd"></path>
-          <path fill="#111" fill-rule="evenodd"
-            d="M8.10379 20.1568C8.26739 19.3388 8.98562 18.75 9.81981 18.75H14.1802C15.0144 18.75 15.7326 19.3388 15.8962 20.1568L16.2354 21.8529C16.2795 22.0732 16.2225 22.3017 16.08 22.4755C15.9376 22.6493 15.7247 22.75 15.5 22.75H8.5C8.27531 22.75 8.06245 22.6493 7.92 22.4755C7.77754 22.3017 7.7205 22.0732 7.76457 21.8529L8.10379 20.1568ZM9.81981 20.25C9.70064 20.25 9.59803 20.3341 9.57466 20.451L9.41486 21.25H14.5852L14.4253 20.451C14.402 20.3341 14.2994 20.25 14.1802 20.25H9.81981Z"
-            clip-rule="evenodd"></path>
-          <path fill="#111" fill-rule="evenodd"
-            d="M5.25 22C5.25 21.5858 5.58579 21.25 6 21.25H18C18.4142 21.25 18.75 21.5858 18.75 22 18.75 22.4142 18.4142 22.75 18 22.75H6C5.58579 22.75 5.25 22.4142 5.25 22zM7.4984 1.60719C8.66129 1.41099 10.1724 1.25 12.0002 1.25 12.7361 1.25 13.4208 1.27611 14.0522 1.32011 14.4654 1.34891 14.777 1.70723 14.7482 2.12044 14.7194 2.53365 14.3611 2.84528 13.9479 2.81648 13.3506 2.77485 12.7007 2.75 12.0002 2.75 10.2608 2.75 8.8332 2.90319 7.74796 3.08629 6.54105 3.28992 6.28751 3.3661 6.02161 3.69358 5.75957 4.01632 5.73468 4.32156 5.78848 5.67672 5.87816 7.93537 6.1761 10.3727 7.09884 12.2264 7.55432 13.1414 8.14983 13.8887 8.92569 14.409 9.69656 14.9261 10.6909 15.25 12 15.25 13.3091 15.25 14.3038 14.9261 15.0746 14.409 15.8505 13.8887 16.446 13.1414 16.9015 12.2264 17.8242 10.3727 18.1222 7.93537 18.2118 5.67672 18.2656 4.32156 18.2407 4.01632 17.9787 3.69358 17.7717 3.43865 17.5559 3.32558 16.8594 3.19268 16.4525 3.11503 16.1857 2.72226 16.2633 2.31539 16.3409 1.90851 16.7337 1.64162 17.1406 1.71926 17.9271 1.86936 18.5904 2.06732 19.1432 2.74808 19.8003 3.55739 19.7628 4.46863 19.7173 5.57222 19.7151 5.62642 19.7128 5.68108 19.7106 5.73622 19.6196 8.03065 19.3169 10.74 18.2443 12.8949 17.7021 13.9841 16.9512 14.9565 15.9101 15.6548 14.8641 16.3564 13.5711 16.75 12.0002 16.75 10.4293 16.75 9.13626 16.3564 8.09017 15.6548 7.04908 14.9565 6.29821 13.9841 5.75601 12.8949 4.68338 10.74 4.38076 8.03065 4.28966 5.73622 4.28748 5.68108 4.28522 5.62642 4.28299 5.57222 4.23754 4.46863 4.20001 3.55739 4.85713 2.74808 5.51366 1.93949 6.35333 1.79893 7.36355 1.62983 7.40817 1.62236 7.45312 1.61484 7.4984 1.60719z"
-            clip-rule="evenodd"></path>
+    <!-- bottom nav -->
+    <div
+      class="fixed bottom-0 left-0 right-0 flex justify-around items-center bg-white/10 backdrop-blur-lg border-t border-white/20 shadow-md py-2 z-50 rounded-t-2xl">
+      <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
+        :class="isActive('player-detail-point') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
+        @click="setActive('player-detail-point')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-gray-900 mt-2">คะเเนน</span>
+        คะเเนน
       </button>
 
-      <button class="flex-col inline-flex items-center justify-center group" :class="{ active: isActive('result') }"
+      <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
+        :class="isActive('result') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
         @click="setActive('result')">
-        <img src="/public/assets/logonew32x32.png" alt="result" class="w-4 h-4 group-hover:fill-blue-950" />
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">ย้อนหลัง</span>
+        <img src="/public/assets/logonew32x32.png" alt="result" class="w-6 h-6 mb-1" />
+        ย้อนหลัง
       </button>
 
-      <button class="inline-flex flex-col items-center justify-center group"
-        :class="{ active: isActive('season-select') }" @click="setActive('season-select')">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" class="w-4 h-4 icon-large" viewBox="0 0 230.057 230.057">
+      <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
+        :class="isActive('season-select') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
+        @click="setActive('season-select')">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" class="w-6 h-6 mb-1" viewBox="0 0 230.057 230.057">
           <g>
             <path
               d="M228.579,83.315l-32.147-41.258c-7.817-10.032-19.594-15.785-32.312-15.785h-21.204c-2.939,0-5.565,1.836-6.574,4.597   c-3.257,8.909-11.822,14.895-21.313,14.895s-18.055-5.986-21.313-14.895c-1.009-2.761-3.635-4.597-6.574-4.597H65.937   c-12.717,0-24.495,5.753-32.312,15.786L1.479,83.315c-1.397,1.793-1.837,4.152-1.179,6.328c0.658,2.176,2.331,3.897,4.488,4.615   l44.558,14.845v87.682c0,3.866,3.134,7,7,7h117.366c3.866,0,7-3.134,7-7v-87.682l44.558-14.845c2.157-0.718,3.83-2.439,4.488-4.615   C230.416,87.467,229.976,85.108,228.579,83.315z M180.712,94.347V84.057c0-3.866-3.134-7-7-7s-7,3.134-7,7v105.728H63.345V84.057   c0-3.866-3.134-7-7-7s-7,3.134-7,7v10.29l-30.736-10.24l26.059-33.444c5.146-6.604,12.897-10.391,21.269-10.391h16.681   c6.295,11.832,18.761,19.491,32.41,19.491c13.649,0,26.115-7.66,32.411-19.491h16.681c8.371,0,16.123,3.787,21.269,10.39   l26.06,33.445L180.712,94.347z" />
           </g>
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2"> จัดทีม </span>
+        จัดทีม
       </button>
 
-      <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('challenge') }"
+      <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
+        :class="isActive('challenge') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
         @click="setActive('challenge')">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#360c3a"
-          class="w-4 h-4 icon-large">
-          <path stroke-linecap="round" stroke-linejoin="round"
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">เเข่งขัน</span>
+        แข่งขัน
       </button>
 
-      <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('list') }"
-        @click="setActive('list')">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#360c3a"
-          class="w-4 h-4 icon-large">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+      <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
+        :class="isActive('menu') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'" @click="toggleMenu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
         </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">รายการ</span>
-      </button>
-
-      <button class="inline-flex flex-col items-center justify-center group" :class="{ active: isActive('menu') }"
-        @click="toggleMenu">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#360c3a"
-          class="w-4 h-4 icon-large">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        <span class="font-size-10 primary-color group-hover:text-blue-950 mt-2">เมนู</span>
+        เมนู
       </button>
     </div>
-    <transition name="slide">
-      <div v-if="isMenuOpen" class="sidebar bg-white shadow-lg p-4">
-        <div class="flex items-center justify-between mb-4">
-          <div class="logo-container">
-            <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'" alt="Logo"
-              class="logo rounded-full shadow-lg">
 
+    <!-- sidebar -->
+    <transition name="slide">
+      <div v-if="isMenuOpen"
+        class="fixed top-0 left-0 h-full w-64 bg-white/95 backdrop-blur-lg shadow-2xl p-6 z-[60] rounded-r-2xl">
+        <!-- header -->
+        <div class="flex items-center justify-between mb-5 border-b border-gray-200 pb-3">
+          <div class="flex items-center space-x-3">
+            <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'"
+              class="w-12 h-12 rounded-full shadow-lg" alt="Logo" />
+            <div class="text-sm font-semibold text-gray-700">{{ truncatedUsername }}</div>
           </div>
-          
-          <!-- <a @click="sideMenu('aff-my')" class="menu-link2 cursor-pointer"> <i class="fas fa-users mr-1"></i>พันธมิตร</a> -->
-          
-          <button @click="toggleMenu" class="close-button text-gray-600 hover:text-gray-800">
-            <i class="fas fa-times"></i>
+          <button @click="toggleMenu" class="text-gray-400 hover:text-gray-700">
+            <i class="fas fa-times text-lg"></i>
           </button>
         </div>
-        <ul class="menu-items">
-          <!-- <li class="menu-item">
-            <a @click="sideMenu('game')" class="menu-link cursor-pointer"> <i class="fas fa-gamepad mr-2"></i> เกมเก็บคะเเนน</a>
-          </li>
-          <li class="menu-item">
-            <a @click="sideMenu('exchangereward')" class="menu-link cursor-pointer"> <i class="fa fa-star mr-2"></i> เเลกของรางวัล</a>
-          </li> -->
-          <li class="menu-item">
-            <a @click="sideMenu('payments')" class="menu-link cursor-pointer"> <i class="fas fa-ticket-alt text-yellow-700 mr-2"></i>
-              สนับสนุนเรา</a>
-          </li>
-          <li class="menu-item">
-            <a @click="sideMenu('history')" class="menu-link cursor-pointer"> <i class="fas fa-history mr-2"></i>ประวัติการทำรายการ</a>
-          </li>
-          <li class="menu-item">
-            <a @click="sideMenu('rule')" class="menu-link cursor-pointer"><i class="fas fa-book mr-2"></i> กติการะบบ</a>
-          </li>
 
-          <li class="menu-item">
-            <a @click="sideMenu('setting')" class="menu-link cursor-pointer"> <i class="fas fa-cog mr-2"></i> ตั้งค่า</a>
+        <!-- menu list -->
+        <ul class="space-y-3 text-sm font-medium">
+          <li>
+            <a @click="sideMenu('payments')" class="block bg-green-50 hover:bg-green-100 text-green-800 p-2 rounded-md">
+              <i class="fas fa-ticket-alt mr-2"></i> สนับสนุนเรา
+            </a>
           </li>
-          <!-- <li class="menu-item">
-            <a @click="versionInfo" class="menu-link cursor-pointer"> <i class="fas fa-info mr-2"></i> version update</a>
-          </li> -->
-          <li class="menu-item">
-            <a @click="logout()" class="menu-link-red cursor-pointer"> <i class="fas fa-sign-out-alt mr-2"></i> logout</a>
+          <li>
+            <a @click="sideMenu('history')" class="block hover:bg-gray-100 text-gray-800 p-2 rounded-md">
+              <i class="fas fa-history mr-2"></i> ประวัติการทำรายการ
+            </a>
           </li>
-
+          <li>
+            <a @click="sideMenu('rule')" class="block hover:bg-gray-100 text-gray-800 p-2 rounded-md">
+              <i class="fas fa-book mr-2"></i> กติการะบบ
+            </a>
+          </li>
+          <li>
+            <a @click="sideMenu('setting')" class="block hover:bg-gray-100 text-gray-800 p-2 rounded-md">
+              <i class="fas fa-cog mr-2"></i> ตั้งค่า
+            </a>
+          </li>
+          <li>
+            <a @click="logout()" class="block bg-red-500 hover:bg-red-600 text-white p-2 rounded-md">
+              <i class="fas fa-sign-out-alt mr-2"></i> ออกจากระบบ
+            </a>
+          </li>
         </ul>
-        <div class="contact-us flex flex-col items-center">
-          <span class="text-xs  text-green-700 font-semibold">ID:@pudee</span>
-          <a href="https://lin.ee/bltN2Lk" class="contact-icon">
-            <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
-              <g id="_x32_00-line">
-                <g>
-                  <path
-                    d="M475.999,116.242v280.204c-0.098,44-36.142,79.65-80.24,79.553H115.555    c-44.001-0.098-79.652-36.24-79.554-80.241V115.554c0.099-43.999,36.241-79.65,80.241-79.553h280.205    C440.445,36.1,476.098,72.144,475.999,116.242z"
-                    style="fill:#39AE41;" />
-                  <path
-                    d="M415.501,236.651c0-71.695-71.895-130.034-160.188-130.034    c-88.295,0-160.188,58.339-160.188,130.034c0,64.231,56.965,118.054,133.963,128.269c18.76,4.025,16.599,10.902,12.376,36.141    c-0.688,4.027-3.241,15.814,13.848,8.646c17.089-7.171,92.223-54.313,125.91-93.01    C404.401,291.159,415.501,265.331,415.501,236.651z"
-                    style="fill:#FEFEFE;" />
+
+        <!-- contact -->
+        <div class="mt-6 flex flex-col items-center text-center">
+          <span class="text-sm text-green-700 font-semibold mb-2">ID: @pudee</span>
+          <div class="flex space-x-3">
+            <a href="https://lin.ee/bltN2Lk" class="hover:scale-110 transition">
+              <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
+                <g id="_x32_00-line">
                   <g>
                     <path
-                      d="M300,202.081h-11.194c-1.771,0-3.145,1.375-3.145,3.143v41.446l-32.018-43.214     c-0.492-0.884-1.571-1.375-2.553-1.375h-11.098c-1.768,0-3.143,1.375-3.143,3.143v69.831c0,1.767,1.375,3.144,3.143,3.144h11.195     c1.769,0,3.143-1.377,3.143-3.144v-41.447l32.018,43.214c0.493,0.688,1.476,1.276,2.555,1.276h11.196     c1.768,0,3.143-1.375,3.143-3.144v-69.828C303.241,203.456,301.769,201.982,300,202.081z"
+                      d="M475.999,116.242v280.204c-0.098,44-36.142,79.65-80.24,79.553H115.555    c-44.001-0.098-79.652-36.24-79.554-80.241V115.554c0.099-43.999,36.241-79.65,80.241-79.553h280.205    C440.445,36.1,476.098,72.144,475.999,116.242z"
                       style="fill:#39AE41;" />
                     <path
-                      d="M222.705,201.982H211.51c-1.769,0-3.143,1.375-3.143,3.144v69.828     c0,1.769,1.375,3.144,3.143,3.144h11.195c1.769,0,3.143-1.375,3.143-3.144v-69.828     C225.848,203.456,224.474,201.982,222.705,201.982z"
-                      style="fill:#39AE41;" />
-                    <path
-                      d="M195.697,260.52h-30.544v-55.394c0-1.769-1.375-3.144-3.144-3.144h-11.196     c-1.769,0-3.143,1.375-3.143,3.144v69.828c0,0.886,0.295,1.573,0.883,2.16c0.59,0.493,1.277,0.887,2.161,0.887H195.6     c1.767,0,3.142-1.375,3.142-3.144V263.66C198.742,261.99,197.366,260.52,195.697,260.52z"
-                      style="fill:#39AE41;" />
-                    <path
-                      d="M362.169,219.464c1.77,0,3.143-1.374,3.143-3.142v-11.196c-0.098-1.67-1.472-3.144-3.143-3.144     h-44.884c-1.669,0-3.142,1.375-3.142,3.144v69.828c0,1.672,1.374,3.144,3.142,3.144h44.884c1.77,0,3.143-1.375,3.143-3.144     V263.76c0-1.77-1.373-3.144-3.143-3.144h-30.543V248.83h30.543c1.77,0,3.143-1.375,3.143-3.143v-11.295     c0-1.767-1.373-3.143-3.143-3.143h-30.543v-11.786H362.169z"
-                      style="fill:#39AE41;" />
+                      d="M415.501,236.651c0-71.695-71.895-130.034-160.188-130.034    c-88.295,0-160.188,58.339-160.188,130.034c0,64.231,56.965,118.054,133.963,128.269c18.76,4.025,16.599,10.902,12.376,36.141    c-0.688,4.027-3.241,15.814,13.848,8.646c17.089-7.171,92.223-54.313,125.91-93.01    C404.401,291.159,415.501,265.331,415.501,236.651z"
+                      style="fill:#FEFEFE;" />
+                    <g>
+                      <path
+                        d="M300,202.081h-11.194c-1.771,0-3.145,1.375-3.145,3.143v41.446l-32.018-43.214     c-0.492-0.884-1.571-1.375-2.553-1.375h-11.098c-1.768,0-3.143,1.375-3.143,3.143v69.831c0,1.767,1.375,3.144,3.143,3.144h11.195     c1.769,0,3.143-1.377,3.143-3.144v-41.447l32.018,43.214c0.493,0.688,1.476,1.276,2.555,1.276h11.196     c1.768,0,3.143-1.375,3.143-3.144v-69.828C303.241,203.456,301.769,201.982,300,202.081z"
+                        style="fill:#39AE41;" />
+                      <path
+                        d="M222.705,201.982H211.51c-1.769,0-3.143,1.375-3.143,3.144v69.828     c0,1.769,1.375,3.144,3.143,3.144h11.195c1.769,0,3.143-1.375,3.143-3.144v-69.828     C225.848,203.456,224.474,201.982,222.705,201.982z"
+                        style="fill:#39AE41;" />
+                      <path
+                        d="M195.697,260.52h-30.544v-55.394c0-1.769-1.375-3.144-3.144-3.144h-11.196     c-1.769,0-3.143,1.375-3.143,3.144v69.828c0,0.886,0.295,1.573,0.883,2.16c0.59,0.493,1.277,0.887,2.161,0.887H195.6     c1.767,0,3.142-1.375,3.142-3.144V263.66C198.742,261.99,197.366,260.52,195.697,260.52z"
+                        style="fill:#39AE41;" />
+                      <path
+                        d="M362.169,219.464c1.77,0,3.143-1.374,3.143-3.142v-11.196c-0.098-1.67-1.472-3.144-3.143-3.144     h-44.884c-1.669,0-3.142,1.375-3.142,3.144v69.828c0,1.672,1.374,3.144,3.142,3.144h44.884c1.77,0,3.143-1.375,3.143-3.144     V263.76c0-1.77-1.373-3.144-3.143-3.144h-30.543V248.83h30.543c1.77,0,3.143-1.375,3.143-3.143v-11.295     c0-1.767-1.373-3.143-3.143-3.143h-30.543v-11.786H362.169z"
+                        style="fill:#39AE41;" />
+                    </g>
                   </g>
                 </g>
-              </g>
-              <g id="Layer_1" />
-            </svg>
-          </a>
-          <span class="text-xs mb-1 text-green-700 font-semibold">PuDee Club</span>
-          <a href="https://www.facebook.com/profile.php?id=61563548004280" class="contact-icon">
-            <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
-              width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink">
-              <g>
-                <path
-                  d="M32,30c0,1.104-0.896,2-2,2H2c-1.104,0-2-0.896-2-2V2c0-1.104,0.896-2,2-2h28c1.104,0,2,0.896,2,2V30z"
-                  fill="#3B5998" />
-                <path d="M22,32V20h4l1-5h-5v-2c0-2,1.002-3,3-3h2V5c-1,0-2.24,0-4,0c-3.675,0-6,2.881-6,7v3h-4v5h4v12H22z"
-                  fill="#FFFFFF" id="f" />
-              </g>
-              <g />
-              <g />
-              <g />
-              <g />
-              <g />
-              <g />
-            </svg>
-          </a>
+                <g id="Layer_1" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61563548004280" class="hover:scale-110 transition">
+              <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
+                width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g>
+                  <path
+                    d="M32,30c0,1.104-0.896,2-2,2H2c-1.104,0-2-0.896-2-2V2c0-1.104,0.896-2,2-2h28c1.104,0,2,0.896,2,2V30z"
+                    fill="#3B5998" />
+                  <path
+                    d="M22,32V20h4l1-5h-5v-2c0-2,1.002-3,3-3h2V5c-1,0-2.24,0-4,0c-3.675,0-6,2.881-6,7v3h-4v5h4v12H22z"
+                    fill="#FFFFFF" id="f" />
+                </g>
+                <g />
+                <g />
+                <g />
+                <g />
+                <g />
+                <g />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </transition>
-    <div v-if="isMenuOpen" class="overlay" @click="toggleMenu"></div>
+
+    <!-- overlay -->
+    <div v-if="isMenuOpen" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50" @click="toggleMenu"></div>
   </div>
 </template>
+
 
 <script>
 import Swal from 'sweetalert2';
@@ -245,7 +242,7 @@ export default {
       });
     },
     sideMenu(page) {
-     
+
       this.activeButton = page;
       this.isMenuOpen = !this.isMenuOpen;
       this.$router.push({ name: page });
