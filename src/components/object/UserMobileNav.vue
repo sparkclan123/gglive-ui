@@ -6,7 +6,7 @@
       <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
         :class="isActive('player-detail-point') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
         @click="setActive('player-detail-point')">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24"
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mb-1" fill="none" viewBox="0 0 24 24"
           stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -17,14 +17,14 @@
       <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
         :class="isActive('result') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
         @click="setActive('result')">
-        <img src="/public/assets/logonew32x32.png" alt="result" class="w-6 h-6 mb-1" />
+        <img src="/public/assets/logonew32x32.png" alt="result" class="w-4 h-4 mb-1" />
         ย้อนหลัง
       </button>
 
       <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
         :class="isActive('season-select') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
         @click="setActive('season-select')">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" class="w-6 h-6 mb-1" viewBox="0 0 230.057 230.057">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" class="w-4 h-4 mb-1" viewBox="0 0 230.057 230.057">
           <g>
             <path
               d="M228.579,83.315l-32.147-41.258c-7.817-10.032-19.594-15.785-32.312-15.785h-21.204c-2.939,0-5.565,1.836-6.574,4.597   c-3.257,8.909-11.822,14.895-21.313,14.895s-18.055-5.986-21.313-14.895c-1.009-2.761-3.635-4.597-6.574-4.597H65.937   c-12.717,0-24.495,5.753-32.312,15.786L1.479,83.315c-1.397,1.793-1.837,4.152-1.179,6.328c0.658,2.176,2.331,3.897,4.488,4.615   l44.558,14.845v87.682c0,3.866,3.134,7,7,7h117.366c3.866,0,7-3.134,7-7v-87.682l44.558-14.845c2.157-0.718,3.83-2.439,4.488-4.615   C230.416,87.467,229.976,85.108,228.579,83.315z M180.712,94.347V84.057c0-3.866-3.134-7-7-7s-7,3.134-7,7v105.728H63.345V84.057   c0-3.866-3.134-7-7-7s-7,3.134-7,7v10.29l-30.736-10.24l26.059-33.444c5.146-6.604,12.897-10.391,21.269-10.391h16.681   c6.295,11.832,18.761,19.491,32.41,19.491c13.649,0,26.115-7.66,32.411-19.491h16.681c8.371,0,16.123,3.787,21.269,10.39   l26.06,33.445L180.712,94.347z" />
@@ -36,7 +36,7 @@
       <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
         :class="isActive('challenge') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
         @click="setActive('challenge')">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24"
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mb-1" fill="none" viewBox="0 0 24 24"
           stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
@@ -48,7 +48,7 @@
         :class="isActive('list') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
         @click="setActive('list')">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#360c3a"
-          class="w-6 h-6 mb-1">
+          class="w-4 h-4 mb-1">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
         </svg>
@@ -59,7 +59,7 @@
 
       <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
         :class="isActive('menu') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'" @click="toggleMenu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24"
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mb-1" fill="none" viewBox="0 0 24 24"
           stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
@@ -70,54 +70,66 @@
 
     <!-- sidebar -->
     <transition name="slide">
-      <div v-if="isMenuOpen"
-        class="fixed top-0 left-0 h-full w-64 bg-white/95 backdrop-blur-lg shadow-2xl p-6 z-[60] rounded-r-2xl">
+      <div v-if="isMenuOpen" class="fixed top-0 left-0 h-full w-64 bg-gradient-to-b from-[#fafafa]/95 to-[#e9e9e9]/90
+           backdrop-blur-2xl shadow-[8px_0_25px_rgba(0,0,0,0.25)] p-6 z-[60] rounded-r-3xl
+           border-r border-white/40 transition-all duration-300 ease-out">
         <!-- header -->
-        <div class="flex items-center justify-between mb-5 border-b border-gray-200 pb-3">
+        <div class="flex items-center justify-between mb-6 border-b border-gray-300/50 pb-4">
           <div class="flex items-center space-x-3">
             <img :src="userinfo.ImageURL ? userinfo.ImageURL : '/public/assets/logo.webp'"
-              class="w-12 h-12 rounded-full shadow-lg" alt="Logo" />
-            <div class="text-sm font-semibold text-gray-700">{{ truncatedUsername }}</div>
+              class="w-12 h-12 rounded-full ring-2 ring-purple-400 shadow-md" alt="Logo" />
+            <div class="text-sm font-semibold text-gray-700 truncate w-28">{{ truncatedUsername }}</div>
           </div>
-          <button @click="toggleMenu" class="text-gray-400 hover:text-gray-700">
+          <button @click="toggleMenu"
+            class="text-gray-400 hover:text-gray-700 hover:rotate-90 transition-transform duration-200">
             <i class="fas fa-times text-lg"></i>
           </button>
         </div>
 
         <!-- menu list -->
-        <ul class="space-y-3 text-sm font-medium">
+        <ul class="space-y-2 text-[0.9rem] font-medium">
           <li>
-            <a @click="sideMenu('payments')" class="block bg-green-50 hover:bg-green-100 text-green-800 p-2 rounded-md">
-              <i class="fas fa-ticket-alt mr-2"></i> สนับสนุนเรา
+            <a @click="sideMenu('payments')"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-all duration-200">
+              <i class="fas fa-ticket-alt w-5 text-yellow-600"></i>
+              สนับสนุนเรา
             </a>
           </li>
           <li>
-            <a @click="sideMenu('history')" class="block hover:bg-gray-100 text-gray-800 p-2 rounded-md">
-              <i class="fas fa-history mr-2"></i> ประวัติการทำรายการ
+            <a @click="sideMenu('history')"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-all duration-200">
+              <i class="fas fa-history w-5 text-gray-600"></i>
+              ประวัติการทำรายการ
             </a>
           </li>
           <li>
-            <a @click="sideMenu('rule')" class="block hover:bg-gray-100 text-gray-800 p-2 rounded-md">
-              <i class="fas fa-book mr-2"></i> กติการะบบ
+            <a @click="sideMenu('rule')"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-all duration-200">
+              <i class="fas fa-book w-5 text-gray-600"></i>
+              กติการะบบ
             </a>
           </li>
           <li>
-            <a @click="sideMenu('setting')" class="block hover:bg-gray-100 text-gray-800 p-2 rounded-md">
-              <i class="fas fa-cog mr-2"></i> ตั้งค่า
+            <a @click="sideMenu('setting')"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-all duration-200">
+              <i class="fas fa-cog w-5 text-gray-600"></i>
+              ตั้งค่า
             </a>
           </li>
           <li>
-            <a @click="logout()" class="block bg-red-500 hover:bg-red-600 text-white p-2 rounded-md">
-              <i class="fas fa-sign-out-alt mr-2"></i> ออกจากระบบ
+            <a @click="logout()"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white shadow-sm transition-all duration-200">
+              <i class="fas fa-sign-out-alt w-5"></i>
+              ออกจากระบบ
             </a>
           </li>
         </ul>
 
         <!-- contact -->
-        <div class="mt-6 flex flex-col items-center text-center">
-          <span class="text-sm text-green-700 font-semibold mb-2">ID: @pudee</span>
-          <div class="flex space-x-3">
-            <a href="https://lin.ee/bltN2Lk" class="hover:scale-110 transition">
+        <div class="mt-8 text-center">
+          <p class="text-sm text-green-700 font-semibold mb-3">ID: @pudee</p>
+          <div class="flex justify-center gap-4">
+            <a href="https://lin.ee/bltN2Lk" class="transition-transform hover:scale-110">
               <svg version="1.1" viewBox="0 0 512 512" width="40" height="40" class="fill-current">
                 <g id="_x32_00-line">
                   <g>
@@ -146,30 +158,20 @@
                 <g id="Layer_1" />
               </svg>
             </a>
-            <a href="https://www.facebook.com/profile.php?id=61563548004280" class="hover:scale-110 transition">
-              <svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32"
-                width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g>
-                  <path
-                    d="M32,30c0,1.104-0.896,2-2,2H2c-1.104,0-2-0.896-2-2V2c0-1.104,0.896-2,2-2h28c1.104,0,2,0.896,2,2V30z"
-                    fill="#3B5998" />
-                  <path
-                    d="M22,32V20h4l1-5h-5v-2c0-2,1.002-3,3-3h2V5c-1,0-2.24,0-4,0c-3.675,0-6,2.881-6,7v3h-4v5h4v12H22z"
-                    fill="#FFFFFF" id="f" />
-                </g>
-                <g />
-                <g />
-                <g />
-                <g />
-                <g />
-                <g />
+            <a href="https://www.facebook.com/profile.php?id=61563548004280"
+              class="transition-transform hover:scale-110 mt-1">
+              <svg viewBox="0 0 32 32" width="32" height="32">
+                <path fill="#3B5998"
+                  d="M32,30c0,1.104-0.896,2-2,2H2c-1.104,0-2-0.896-2-2V2c0-1.104,0.896-2,2-2h28c1.104,0,2,0.896,2,2V30z" />
+                <path fill="#FFFFFF"
+                  d="M22,32V20h4l1-5h-5v-2c0-2,1.002-3,3-3h2V5c-1,0-2.24,0-4,0c-3.675,0-6,2.881-6,7v3h-4v5h4v12H22z" />
               </svg>
             </a>
           </div>
         </div>
       </div>
     </transition>
+
 
     <!-- overlay -->
     <div v-if="isMenuOpen" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50" @click="toggleMenu"></div>
@@ -352,9 +354,11 @@ button {
 
 /* สไตล์สำหรับปุ่ม active */
 .active {
-  background-color: rgba(128, 128, 128, 0.3);
-  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(79, 70, 229, 0.2));
+  border-left: 3px solid #6366f1;
+  color: #1e1e1e !important;
 }
+
 
 /* ขยายขนาดของไอคอนและทำให้มันล้นออกมา */
 .icon-large {

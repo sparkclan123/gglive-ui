@@ -1,12 +1,11 @@
 <template>
-    <div class="">
-        <div>
-            <LodingSceen :loading="loading" />
-        </div>
-        <div class="contant_style">
-            <div class="walletBalanceCard mb-2 mt-1" v-if="datas.length > 0" v-for="data in datas"
+    <div>
+        <LodingSceen :loading="loading" />
+        <div class="content-container">
+            <div v-if="datas.length > 0" v-for="data in datas" :key="data.id" class="wallet-card"
                 @click="seeDetail(data)">
-                <div class="svgwrapper">
+                <!-- Icon -->
+                <div class="icon-wrapper">
                     <svg viewBox="0 0 256 256" width="34" height="64"
                         v-if="data.Status === 'buy_ticket' || data.Status === 'resive_reward_ticket'" id="ticket">
                         <linearGradient id="a" x1="127.999" x2="127.999" y1="21.35" y2="238.728"
@@ -30,6 +29,7 @@
                         </path><text fill="#2C330D" font-family="'ArialRoundedMTBold'" font-size="34.732"
                             transform="matrix(.8163 -.6453 .6202 .7845 87.393 181.58)">PuDee</text>
                     </svg>
+
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="34" height="64" id="money"
                         v-if="data.Status === 'resive_reward_money'">
                         <rect width="58" height="30" x="3" y="17" fill="#49b170" rx="3"></rect>
@@ -46,6 +46,7 @@
                             d="M32,40a8,8,0,1,1,6.57-12.55A7.85,7.85,0,0,1,40,32,8,8,0,0,1,32,40Zm0-14.77A6.77,6.77,0,1,0,38.77,32,6.79,6.79,0,0,0,32,25.23Z">
                         </path>
                     </svg>
+
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" id="cancel"
                         v-if="data.Status === 'cancel_payment'">
                         <g transform="translate(0 -1028.362)">
@@ -67,27 +68,29 @@
                     </svg>
                 </div>
 
-                <div class="balancewrapper">
-                    <span class="balanceHeading"><span v-if="data.Status !== 'cancel_payment'">{{ data.Detail }}</span>
+                <!-- Detail -->
+                <div class="balance-section">
+                    <span class="balance-detail">
+                        <span v-if="data.Status !== 'cancel_payment'">{{ data.Detail }}</span>
                         {{ data.Receive }}
                         <DateFormatted :dateString="data.CreatedAt" />
                     </span>
-                    <p class="balance"
-                        :class="data.Status == 'resive_reward_money' || data.Status == 'resive_reward_ticket' ? 'text-green-400' : 'text-red-200'">
-                        <span id="currency" v-if="data.Currency == 'THB'">฿</span>
+
+                    <p class="amount" :class="data.Status == 'resive_reward_money' || data.Status == 'resive_reward_ticket'
+                        ? 'text-green-400'
+                        : 'text-red-300'">
+                        <span v-if="data.Currency == 'THB'">฿</span>
                         <Numberformat :value="data.Amount" :decimal="2" />
-                        <span id="currency" v-if="data.Currency == 'Ticket'">ใบ</span>
+                        <span v-if="data.Currency == 'Ticket'"> ใบ</span>
                     </p>
                 </div>
-
-
             </div>
-            <div v-else>
-                <div class="flex justify-center items-center h-64">
-                    <span class="text-gray-400">ไม่มีข้อมูล</span>
-                </div>
+
+            <div v-else class="no-data">
+                <span>ไม่มีข้อมูล</span>
             </div>
         </div>
+
         <Pagination :page="page" :pages="pages" @page-change="facthTransections" />
     </div>
 </template>
@@ -170,70 +173,79 @@ export default {
 </script>
 
 <style scoped>
-.contant_style {
-    background-color: white;
-    border-radius: 10px;
-    padding: 5px;
+.content-container {
+    background-color: #f7f8fa;
+    border-radius: 12px;
+    padding: 10px;
+    margin: 6px;
 }
 
-/* From Uiverse.io by vinodjangid07 */
-.walletBalanceCard {
-    height: 55px;
-    background-color: #1c1f2f;
-    border-radius: 10px;
+/* แต่ละรายการ */
+.wallet-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* เปลี่ยนจาก justify-content: flex-start; เป็น space-between */
-    gap: 12px;
-    padding: 0px 12px;
-    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #24253a);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    transition: all 0.25s ease;
+    cursor: pointer;
 }
 
-.svgwrapper {
-    /* width: 80px; */
-    /* display: flex; */
+.wallet-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #2a2b47, #1c1d30);
+}
+
+/* ไอคอน */
+.icon-wrapper {
+    display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.05);
 }
 
-.svgwrapper svg {
-    width: 100%;
-}
-
-.balancewrapper {
+/* ส่วนข้อมูล */
+.balance-section {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     flex-direction: column;
-    width: 120px;
-    gap: 0px;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 2px;
+    width: 100%;
+    text-align: right;
 }
 
-.balanceHeading {
-    font-size: 9px;
-    color: rgb(238, 237, 237);
-    font-weight: 100;
-    letter-spacing: 0.6px;
+.balance-detail {
+    font-size: 11px;
+    color: #e2e2e2;
+    font-weight: 400;
+    line-height: 1.3;
 }
 
-.balance {
-    font-size: 13.5px;
-    font-weight: 600;
+.amount {
+    font-size: 15px;
+    font-weight: 700;
     letter-spacing: 0.5px;
 }
 
-
-
-.addmoney:hover {
-    background-color: whitesmoke;
-    color: #9c59cc;
-}
-
-.plussign {
-    font-size: 20px;
+.no-data {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    height: 180px;
+    color: #999;
+    font-size: 14px;
+    font-weight: 500;
 }
 </style>

@@ -1,13 +1,14 @@
 <template>
-    <div class="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0b0b10] via-[#141421] to-[#1c1c2b] py-10 px-4"
+    <div class="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#1c1c2b] via-[#141421] to-[#1c1c2b] py-10 px-4"
         v-if="userinfo">
         <div
             class="w-full max-w-md rounded-3xl backdrop-blur-2xl bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.4)] p-6 md:p-8">
 
             <!-- Header -->
-            <h1 class="text-center text-white/90 font-bold text-2xl tracking-tight mb-6">
+            <h1 class="text-center text-white/90 font-bold text-md tracking-tight mb-6">
                 ข้อมูลส่วนตัว
-                <span class="text-gray-400 text-base font-light">ID: {{ userinfo.UserID }}</span>
+                <span class="text-white/90 text-base font-light">ID:</span>
+                <span class="text-yellow-300 text-base font-bold">{{ userinfo.UserID }}</span>
             </h1>
 
             <!-- Avatar -->

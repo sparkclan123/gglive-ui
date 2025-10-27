@@ -1,9 +1,9 @@
 <template>
   <div v-if="gameWeek" class="relative flex flex-col items-center mt-3 px-3">
     <!-- Confetti -->
-    <div v-if="showConfetti" class="confetti pointer-events-none">
+    <!-- <div v-if="showConfetti" class="confetti pointer-events-none">
       <div v-for="n in 20" :key="n" class="confetti-piece"></div>
-    </div>
+    </div> -->
 
     <!-- VIP CARD -->
     <div
@@ -15,7 +15,7 @@
         <!-- Week Label -->
         <div
           class="absolute top-3 left-3 flex items-center gap-1 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-semibold shadow-md">
-         
+
           WEEK <span class="text-yellow-300 ml-1">#{{ gameWeek.week_name || gameWeek.week }}</span>
         </div>
 
@@ -144,6 +144,9 @@ export default {
           customClass: {
             confirmButton: "btn-confirm",
             cancelButton: "btn-cancel",
+            popup: 'popup-custom',
+            popup: 'popup-custom',
+            title: 'text-custom',
           },
           buttonsStyling: false,
         }).then((res) => {

@@ -1,9 +1,9 @@
 <template>
   <div v-if="gameWeek" class="flex flex-col items-center px-3 mt-3">
     <!-- Confetti -->
-    <div v-if="showConfetti" class="confetti pointer-events-none">
+    <!-- <div v-if="showConfetti" class="confetti pointer-events-none">
       <div v-for="n in 20" :key="n" class="confetti-piece"></div>
-    </div>
+    </div> -->
 
     <!-- CARD -->
     <div
