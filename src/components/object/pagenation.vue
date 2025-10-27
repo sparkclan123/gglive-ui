@@ -61,7 +61,7 @@ export default {
   computed: {
     pagesToShow() {
       const range = [];
-      const displayRange = 5;
+      const displayRange = 3;
       const half = Math.floor(displayRange / 2);
 
       if (this.pages <= displayRange) {
@@ -69,14 +69,14 @@ export default {
       } else {
         if (this.page <= half + 1) {
           for (let i = 1; i <= displayRange; i++) range.push(i);
-          range.push('...', this.pages);
+          range.push('..', this.pages);
         } else if (this.page >= this.pages - half) {
-          range.push(1, '...');
+          range.push(1, '..');
           for (let i = this.pages - displayRange + 1; i <= this.pages; i++) range.push(i);
         } else {
-          range.push(1, '...');
+          range.push(1, '..');
           for (let i = this.page - half; i <= this.page + half; i++) range.push(i);
-          range.push('...', this.pages);
+          range.push('..', this.pages);
         }
       }
       return range;

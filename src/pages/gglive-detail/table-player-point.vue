@@ -3,24 +3,20 @@
 
         <div class="fixcontant">
 
-            <div class="card">
-  
-                <div class="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-200"
-                    @click="route_back">
+            <div class="card flex flex-col items-center justify-center relative py-4 ">
+                <!-- ปุ่มย้อนกลับ -->
+                <button @click="route_back"
+                    class="absolute left-2 top-1/2 -translate-y-1/2 flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-200 shadow-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                     </svg>
                     <span class="text-white text-sm font-semibold tracking-wide">กลับ</span>
-                </div>
+                </button>
 
 
-                <div class="text-center">
-                    <h1 class="titlesm text-base sm:text-lg text-yellow-300 font-semibold drop-shadow">
-                        รายละเอียดคะแนนนักเตะ
-                    </h1>
-                </div>
             </div>
+
 
             <div class="p-4 overflow-scroll px-0" v-if="getGameWeekPlayer">
                 <div class="flex flex-wrap gap-4 mb-1 ">
