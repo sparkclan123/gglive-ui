@@ -5,7 +5,7 @@
             <div class="card cursor-pointer">
                 <div class="top-section">
                     <div class="icons">
-                        <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200"
+                        <!-- <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200"
                             @click="route_back()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 12"
                                 class="svg-white mr-1">
@@ -15,14 +15,24 @@
                             </svg>
 
                             <span class="text-gray-200 font-bold text-xs">กลับ</span>
+                        </div> -->
+
+                        <div class="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-200"
+                            @click="route_back">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg>
+                            <span class="text-white text-sm font-semibold tracking-wide">กลับ</span>
                         </div>
 
                     </div>
+
                 </div>
                 <div class="bottom-section ">
 
                     <div class="flex items-center justify-center mt-2">
-                        <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span>
+                        <!-- <span class="titlesm text-sm text-yellow-300">รางวัลอันดับ 1</span> -->
                         <button class="bg-yellow-400 px-1 py-0 rounded text-xs ml-2" style="color: black;"
                             @click="rewardDetail">
                             รายละเอียดรางวัล
@@ -33,7 +43,8 @@
                     </span>
                     <div class="row row1">
                         <div class="item">
-                            <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week_name ? gameWeek.week_name : gameWeek.week }} </span>
+                            <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week_name ? gameWeek.week_name :
+                                gameWeek.week }} </span>
                             <span class="regular-text text-gray-200">
                                 <Numberformat :value="total" :decimal="0" /> (ทีม)
                             </span>
@@ -94,15 +105,14 @@
                                 <div class="flex items-center gap-3">
                                     <div class="relative inline-block w-8 h-8">
                                         <!-- รูปโปรไฟล์หลัก -->
-                                     
+
                                         <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
-                                            alt="userimage"
-                                            class="  w-8 h-8  border-2 border-white  object-contain">
+                                            alt="userimage" class="  w-8 h-8  border-2 border-white  object-contain">
 
                                         <!-- กรอบโปรไฟล์ (อยู่ทับบนรูปโปรไฟล์หลัก) -->
                                         <img v-if="data.rank_p != ''"
-                                            :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'" alt="rankframe"
-                                            class="absolute inset-0 w-full h-full object-contain">
+                                            :src="'https://pudee.sgp1.digitaloceanspaces.com/' + data.rank_p + '.png'"
+                                            alt="rankframe" class="absolute inset-0 w-full h-full object-contain">
                                     </div>
                                     <p
                                         class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">

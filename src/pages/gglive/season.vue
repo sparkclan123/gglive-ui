@@ -1,155 +1,121 @@
 <template>
-    <div class="min-h-screen rounded-xl bg-cover bg-center text-white p-2"
+    <!-- <div class="min-h-screen bg-cover bg-center text-white flex flex-col items-center"
+        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');"> -->
+    <div class="min-h-screen bg-cover bg-center text-white flex flex-col items-center"
         style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-[#2b0b55]/60 to-transparent pointer-events-none"></div>
+
         <!-- Header -->
-        <div class="p-1 text-center rounded-lg relative">
-            <h1 class="text-2xl font-bold inline-block pb-1"
-                style="margin-top: -30px;width: 240px;margin-bottom: -10px;">
-                <img src="https://pudee.sgp1.digitaloceanspaces.com/1.webp" class="logo-img" />
-            </h1>
-            <div class="absolute top-1 right-0">
-                <button @click="SetactiveTab('tab4')" class="bg-gray-400 text-gray-800 font-semibold text-xs p-1 rounded-lg">
-                   กติกา
-                </button>
-            </div>
+        <div class="relative w-full max-w-md text-center pt-8 pb-3">
+            <img src="https://pudee.sgp1.digitaloceanspaces.com/1.webp" alt="Pudee Logo"
+                class="w-40 mx-auto drop-shadow-lg" />
+
+            <button @click="SetactiveTab('tab4')"
+                class="absolute top-3 right-3 bg-white/90 text-gray-800 font-semibold text-xs px-3 py-1.5 rounded-lg hover:bg-white transition-all shadow-sm">
+                🧾 กติกา
+            </button>
         </div>
 
         <!-- Tabs -->
-        <div class="tabs rounded-t-lg flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">เกมวีคปกติ
+        <div class="flex justify-center gap-2 w-full max-w-md mt-2 px-3">
+            <div class="tab-item flex-1 text-center py-2 rounded-t-lg font-semibold cursor-pointer transition-all duration-200"
+                :class="{
+                    'bg-white text-gray-900 shadow-md': activeTab === 'tab1',
+                    'bg-black/40 text-white hover:bg-black/60': activeTab !== 'tab1'
+                }" @click="SetactiveTab('tab1')">
+                เกมวีคปกติ
             </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">
+
+            <div class="tab-item flex-1 text-center py-2 rounded-t-lg font-semibold cursor-pointer transition-all duration-200"
+                :class="{
+                    'bg-white text-gray-900 shadow-md': activeTab === 'tab2',
+                    'bg-black/40 text-white hover:bg-black/60': activeTab !== 'tab2'
+                }" @click="SetactiveTab('tab2')">
                 เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
             </div>
-            <!-- <div class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">BigMatch
-            </div> -->
         </div>
 
-        <!-- Content -->
-        <div class="bg-white px-2 py-4 rounded-lg no-top-left-radius">
-            <!-- Card 1 -->
+        <!-- Content Card -->
+        <div
+            class="w-full max-w-md bg-white/95 text-gray-800 rounded-b-2xl rounded-t-lg shadow-xl backdrop-blur-sm p-4 mt-0">
+            <transition name="fade" mode="out-in">
+                <div :key="activeTab">
+                    <div v-if="activeTab === 'tab1'">
+                        <SeasonSelect />
 
-            <!-- Tab Content -->
-            <div v-if="activeTab === 'tab1'">
-                <SeasonSelect />
-                <div class="mt-5 flex justify-center">
-                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
+                    </div>
+
+                    <div v-else-if="activeTab === 'tab2'">
+                        <SeasonSelectVip />
+
+                    </div>
+
+                    <div v-else-if="activeTab === 'tab3'">
+                        <BigMatch />
+                    </div>
+
+                    <div v-else-if="activeTab === 'tab4'">
+                        <Rule />
+                    </div>
                 </div>
-
-
-            </div>
-            <div v-if="activeTab === 'tab2'">
-                <!-- <span class="text-red-800" style="font-size: 12px;">**เงื่อนไข ต้องใช้ตั๋วที่ได้จากการซื้อโปรโมชั่นให้หมดภายใน week19</span> -->
-                <SeasonSelectVip />
-                <div class="mt-5 flex justify-center">
-                    <img :src="activity" class="video-banner2" alt="Animated Banner" @click="clickactivity" />
-                </div>
-             
-                <!-- newpromo -->
-            </div>
-            <div v-if="activeTab === 'tab3'">
-                <!-- Content for Tab 3 -->
-                <BigMatch />
-            </div>
-            <div v-if="activeTab === 'tab4'">
-                <!-- Content for Tab 3 -->
-                <Rule />
-            </div>
+            </transition>
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import SeasonSelect from '../../components/season/SeasonSelect.vue';
-import SeasonSelectVip from '../../components/season/SeasonSelectVip.vue';
-import BigMatch from '../../components/season/BigmatchSelect.vue';
-import Rule from '../../components/rule/rule.vue';
-import Swal from 'sweetalert2';
+import SeasonSelect from '../../components/season/SeasonSelect.vue'
+import SeasonSelectVip from '../../components/season/SeasonSelectVip.vue'
+import BigMatch from '../../components/season/BigmatchSelect.vue'
+import Rule from '../../components/rule/rule.vue'
+
 export default {
     name: 'Season',
-    components: {
-        SeasonSelect,
-        SeasonSelectVip,
-        BigMatch,
-        Rule
-    },
+    components: { SeasonSelect, SeasonSelectVip, BigMatch, Rule },
     data() {
         return {
-            activeTab: 'tab1', // Default active tab
+            activeTab: 'tab1',
             activity: 'https://pudee.sgp1.digitaloceanspaces.com/activity.webp'
-        };
+        }
     },
     methods: {
         clickactivity() {
-            this.$router.push({ name: 'activity' });
+            this.$router.push({ name: 'activity' })
         },
         SetactiveTab(tab) {
-            this.activeTab = tab;
-            localStorage.setItem('season-select-tab', tab);
+            this.activeTab = tab
+            localStorage.setItem('season-select-tab', tab)
         },
         resetWebPs() {
-            this.activity = "";
+            this.activity = ''
             this.$nextTick(() => {
-                this.activity = `https://pudee.sgp1.digitaloceanspaces.com/activity.webp?${new Date().getTime()}`;
-            });
-        },
+                this.activity = `https://pudee.sgp1.digitaloceanspaces.com/activity.webp?${Date.now()}`
+            })
+        }
     },
     mounted() {
-        this.resetWebPs();
-    },
-    created() {
-
-        let has_result_tab = localStorage.getItem('season-select-tab');
-        if (has_result_tab) {
-            this.activeTab = has_result_tab;
-        }
+        this.resetWebPs()
+        const savedTab = localStorage.getItem('season-select-tab')
+        if (savedTab) this.activeTab = savedTab
     }
-};
+}
 </script>
 
 <style scoped>
 .video-banner2 {
-
-    border-radius: 5px;
-    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
-    /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 350px;
 }
 
-.colot-h {
-    color: #1e1037;
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s;
 }
 
-.tabs {
-    display: flex;
-    font-size: 0.7rem;
-}
-
-.tab-item {
-    margin-right: 3px;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #37003c;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.tab-item.active {
-    background-color: white;
-    color: rgb(0, 0, 0);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.no-top-left-radius {
-    border-top-left-radius: 0;
-}
-
-.bg-cover {
-    background-size: cover;
-}
-
-.bg-center {
-    background-position: center;
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

@@ -1,94 +1,82 @@
 <template>
-  <!-- Content for Tab 1 -->
-  <!-- <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-4" v-if="gameWeek">
-        <div @click="selectSeason()" class="bg-color-h sha p-4 text-center bg-img cursor-pointer">
-            <h2 class="text-xl font-bold mb-2 text-gray-100">
-                Game Week #{{ gameWeek.week }}<br>ฤดูกาล <span style="color: cornsilk" class="border-b-2 border-gray-200 inline-block ">{{
-            getSeasons.label }}</span>
-            </h2>
-            <p style="color: lemonchiffon;">Fantasy Challenge is coming.</p>
-        </div>
-        
-    </div> -->
-  <div v-if="gameWeek">
-    <div class="confetti" v-if="showConfetti">
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
-      <div class="confetti-piece"></div>
+  <div v-if="gameWeek" class="flex flex-col items-center px-3 mt-3">
+    <!-- Confetti -->
+    <div v-if="showConfetti" class="confetti pointer-events-none">
+      <div v-for="n in 20" :key="n" class="confetti-piece"></div>
     </div>
 
-    <div class="card cursor-pointer">
-      <div class="top-section  bg-img11" @click="selectSeason()">
-        <img :src="webpSrc" class="video-banner" alt="Animated Banner" />
+    <!-- CARD -->
+    <div
+      class="relative w-full max-w-md bg-gradient-to-b from-[#2b0a3d] to-[#1a0b2d] text-white rounded-2xl shadow-2xl overflow-hidden border border-white/10 backdrop-blur-xl transform transition-all duration-500 hover:scale-[1.02]">
+      <!-- Top Section -->
+      <div class="relative h-52 md:h-72 overflow-hidden cursor-pointer" @click="selectSeason">
+        <img :src="webpSrc" alt="Banner" class="absolute inset-0 w-full h-full object-cover" />
+        <!-- <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-[#2b0b55]/60 to-transparent"></div> -->
 
-        <div class="icons">
-          <div class="logo shsojvp">
-            WEEK{{ gameWeek.week_name ? gameWeek.week_name : gameWeek.week }}
-          </div>
-          <div class="social-media">
+        <!-- WEEK label -->
+        <div
+          class="absolute top-3 left-3 bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm">
+          WEEK {{ gameWeek.week_name || gameWeek.week }}
+        </div>
 
-          </div>
+        <!-- CTA Button -->
+        <div class="absolute inset-x-0 bottom-5 flex justify-center">
+          <button
+            class="play-btn px-6 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-extrabold rounded-full shadow-lg hover:shadow-cyan-300/40 hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            @click.stop="selectSeason">
+            เข้าเล่นตอนนี้
+          </button>
         </div>
       </div>
-      <div class="bottom-section">
-        <span class="title">season {{ getSeasons.label }}</span>
-        <button class="titlebtn bg-yellow-400  px-3 py-1 rounded text-xs" style="color: black;"
-          @click="rewardDetail">รายละเอียดรางวัล</button>
-        <div class="row row1">
-          <div class="item">
-            <span class="big-text">{{ allPlayer }}</span>
-            <span class="regular-text">เข้าเเข่งขันทั้งหมด</span>
+
+      <!-- Bottom Section -->
+      <div class="p-4 text-center">
+        <button
+          class="mt-1 bg-yellow-400 text-gray-900 px-3 py-1 rounded-lg font-semibold text-xs hover:bg-yellow-300 transition"
+          @click="rewardDetail">
+          🎁 รายละเอียดรางวัล
+        </button>
+
+        <!-- Stats Row -->
+        <div class="grid grid-cols-3 mt-4 text-center divide-x divide-white/10">
+          <div>
+            <p class="text-1xl font-extrabold text-white drop-shadow-md">{{ allPlayer }}</p>
+            <p class="text-xs text-gray-300">ผู้เข้าแข่งขัน</p>
           </div>
-          <div class="item">
-            <span class="big-text">{{ myTeam }} <span class="regular-text">(ทีม)</span></span>
-            <span class="regular-text">ทีมของคุณ</span>
+          <div>
+            <p class="text-1xl font-extrabold text-indigo-200">{{ myTeam }}</p>
+            <p class="text-xs text-gray-300">ทีมของคุณ</p>
           </div>
-          <div class="item">
-            <span class="big-text text-green-500">
-              <NumberDisplay :number="gameWeek.reward2" /> ใบ
-            </span>
-            <span class="regular-text text-green-500">รางวัลตั๋ว</span>
+          <div>
+            <p class="text-1xl font-extrabold text-green-400">
+              <NumberDisplay :number="gameWeek.reward2" />
+            </p>
+            <p class="text-xs text-green-300">เงินรางวัลรวม</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="flex justify-center items-center mt-1">
-      <div v-if="gameWeek.start_date > currentTime" class="flex flex-col items-center">
-        <span class="text-red-900 text-md text-shadow-md">เริ่มจัดทีมได้ในอีก</span>
+    <!-- Countdown Section -->
+    <div class="flex flex-col items-center mt-4 text-center">
+      <template v-if="gameWeek.start_date > currentTime">
+        <span class="text-red-800 text-sm font-semibold">⏰ เริ่มจัดทีมได้ในอีก</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.start_date" @time-up="handleTimeUp"
-          :classadj="'text-red-900'" />
-      </div>
-      <div v-else class="flex flex-col items-center">
-        <span class="text-green-900 text-shadow-md text-md">เหลือเวลาจัดทีมอีก</span>
+          :classadj="'text-red-900 font-bold text-lg'" />
+      </template>
+      <template v-else>
+        <span class="text-green-800 text-sm font-semibold">⏳ เหลือเวลาจัดทีมอีก</span>
         <CountDown :datenow="currentTime" :endtime="gameWeek.end_date" @time-up="handleTimeUp"
-          :classadj="'text-green-900'" />
-      </div>
+          :classadj="'text-green-900 font-bold text-lg'" />
+      </template>
     </div>
-
-  </div>
-  <div v-else class="group duration-500  ">
-    <!-- <div class="flex justify-center">
-      <img :src="commingSoon" class="video-banner2" alt="Animated Banner" />
-    </div> -->
   </div>
 
+  <!-- No GameWeek -->
+  <div v-else class="flex flex-col items-center justify-center text-gray-500 mt-8">
+    <!-- <img :src="commingSoon" alt="Coming soon" class="rounded-xl shadow-lg w-64 opacity-90" /> -->
+    <p class="text-sm mt-3">รอประกาศเกมวีคใหม่เร็ว ๆ นี้</p>
+  </div>
 </template>
 
 <script>
@@ -105,9 +93,8 @@ export default {
       myTeam: 0,
       currentTime: null,
       is_time_up: false,
-      webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/newpromo.jpeg",
-      commingSoon: "https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp"
-      // webpSrc: "https://pudee.sgp1.digitaloceanspaces.com/vdo-pudeeFREE-ezgif.com-video-to-webp-converter.webp",
+      webpSrc: 'https://pudee.sgp1.digitaloceanspaces.com/newpromo.jpeg',
+      commingSoon: 'https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp',
     };
   },
   methods: {
@@ -118,7 +105,7 @@ export default {
       this.is_time_up = true;
     },
     rewardDetail() {
-      this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "N" } });
+      this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: 'N' } });
     },
     selectSeason() {
       if (this.is_time_up) {
@@ -127,47 +114,31 @@ export default {
           text: 'กรุณาเข้าร่วมการแข่งขันในครั้งถัดไป',
           icon: 'error',
           confirmButtonText: 'ตกลง',
-          customClass: {
-            confirmButton: 'btn-confirm',
-            popup: 'popup-custom',
-            title: 'text-custom',
-            htmlContainer: 'text-custom'
-          },
+          customClass: { confirmButton: 'btn-confirm' },
           buttonsStyling: false,
         });
         return;
       }
-
       if (this.myTeam > 0) {
         Swal.fire({
-          text: 'คุณได้ทำการสร้างทีมของสัปดาห์นี้แล้ว',
+          text: 'คุณได้สร้างทีมของสัปดาห์นี้แล้ว',
           showCancelButton: true,
           cancelButtonText: 'ยกเลิก',
           showConfirmButton: false,
-          customClass: {
-            cancelButton: 'btn-cancel',
-            popup: 'popup-custom',
-            title: 'text-custom',
-            htmlContainer: 'text-custom'
-          },
+          customClass: { cancelButton: 'btn-cancel' },
           buttonsStyling: false,
         });
         return;
       }
       let seasonID = this.getSeasons.id;
       let gameWeekID = this.gameWeek.id;
-      this.$router.push({ name: 'pitch-n', params: { seasonID, gameWeekID } })
-    },
-    ruleSeasonChallenge() {
-      // Implement your logic here
+      this.$router.push({ name: 'pitch-n', params: { seasonID, gameWeekID } });
     },
     async getGameWeek() {
       try {
         const access_token = localStorage.getItem('access_token');
         const response = await api.get('/premier-league/v1/game-week-n', {
-          headers: {
-            'Authorization': `Bearer ${access_token}`
-          }
+          headers: { Authorization: `Bearer ${access_token}` },
         });
         if (response.data.ok) {
           this.gameWeek = response.data.gameWeek;
@@ -179,415 +150,70 @@ export default {
         console.log(error);
       }
     },
-    // resetWebP() {
-    //   this.webpSrc = "";
-    //   this.$nextTick(() => {
-    //     this.webpSrc = `https://pudee.sgp1.digitaloceanspaces.com/newpromo.jpeg?${new Date().getTime()}`;
-    //   });
-    // },
-    resetWebPs() {
-      this.commingSoon = "";
-      this.$nextTick(() => {
-        this.commingSoon = `https://pudee.sgp1.digitaloceanspaces.com/commingsoon.webp?${new Date().getTime()}`;
-      });
-    },
-
   },
   computed: {
-    ...mapGetters('season', ['getSeasons'])
+    ...mapGetters('season', ['getSeasons']),
   },
   mounted() {
-    // this.resetWebP();
-    // this.resetWebPs();
-
-    setTimeout(() => {
-      this.showConfetti = false;
-    }, 5000);
+    setTimeout(() => (this.showConfetti = false), 5000);
   },
-
   created() {
     this.updateLoading(true);
-    Promise.all([this.fetchSeasons(), this.getGameWeek()])
-      .then(() => {
-        setTimeout(() => {
-          this.updateLoading(false);
-        }, 50);
-      })
-      .catch((error) => {
-        setTimeout(() => {
-          this.updateLoading(false);
-        }, 50);
-      });
-  }
-
+    Promise.all([this.fetchSeasons(), this.getGameWeek()]).finally(() =>
+      setTimeout(() => this.updateLoading(false), 50)
+    );
+  },
 };
 </script>
 
 <style scoped>
-.bg-color-h {
-  background-color: #532e71;
-  position: relative;
-  /* ต้องการสำหรับการแสดง SVG */
+.play-btn {
+  animation: pulseGlow 2.5s infinite ease-in-out;
 }
 
-.bg-img1 {
-  flex: 1 1 0%;
-  background-image: url('/public/assets/logonew32x32.png'), url('/public/assets/bgChcN.png');
-  background-repeat: no-repeat, no-repeat;
-  background-position: 5px 8px, right bottom;
-  background-size: 35px 35px, 130px 75px;
-  /* ปรับขนาดตามต้องการ */
-}
+@keyframes pulseGlow {
 
-.card {
-
-  border-radius: 20px;
-  background: #1e1037;
-  /* 1e1037 */
-  padding: 5px;
-  overflow: hidden;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-
-.card .top-section {
-  height: 150px;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.video-banner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
-}
-
-.video-banner2 {
-
-
-  border-radius: 5px;
-  box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.5);
-  /* เพื่อให้ครอบคลุมทั้งพื้นที่ */
-
-}
-
-@media (min-width: 410px) {
-  .card .top-section {
-    height: 250px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
-    position: relative;
-    overflow: hidden;
+  0%,
+  100% {
+    box-shadow: 0 0 0px rgba(0, 255, 255, 0.2);
   }
 
-}
-
-@media (min-width: 768px) {
-  .card .top-section {
-    height: 320px;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(45deg, #5f2eb3 0%, #271447 100%);
-    position: relative;
-    overflow: hidden;
+  50% {
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
   }
-}
-
-.card .top-section .border {
-  border-bottom-right-radius: 10px;
-  height: 30px;
-  width: 130px;
-  background: white;
-  background: #1e1037;
-  position: relative;
-  transform: skew(-40deg);
-  box-shadow: -10px -10px 0 0 #1e1037;
-}
-
-
-
-.card .top-section .icons {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 30px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.card .top-section .icons .logo {
-  height: 100%;
-  aspect-ratio: 1;
-  padding: 7px 0 7px 15px;
-  width: 200px;
-}
-
-.card .top-section .icons .logo .top-section {
-  height: 100%;
-}
-
-.card .top-section .icons .social-media {
-  height: 100%;
-  padding: 8px 15px;
-  display: flex;
-  gap: 7px;
-}
-
-.card .top-section .icons .social-media .svg {
-  height: 100%;
-  fill: #1e1037;
-}
-
-
-.card .bottom-section {
-  margin-top: 1px;
-  padding: 10px 5px;
-}
-
-.card .bottom-section .title {
-  display: block;
-  font-size: 17px;
-  font-weight: bolder;
-  color: white;
-  text-align: center;
-  letter-spacing: 2px;
-}
-
-.card .bottom-section .titlebtn {
-  display: block;
-  color: white;
-  text-align: center;
-  letter-spacing: 1px;
-  margin: 10px auto;
-  /* เพิ่ม margin เพื่อให้อยู่ตรงกลาง */
-  width: fit-content;
-  /* ปรับความกว้างให้เหมาะสม */
-}
-
-.card .bottom-section .row {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.card .bottom-section .row .item {
-  flex: 30%;
-  text-align: center;
-  padding: 5px;
-  color: rgba(170, 222, 243, 0.721);
-}
-
-.card .bottom-section .row .item .big-text {
-  font-size: 12px;
-  display: block;
-}
-
-.card .bottom-section .row .item .regular-text {
-  font-size: 9px;
-}
-
-.card .bottom-section .row .item:nth-child(2) {
-  border-left: 1px solid rgba(255, 255, 255, 0.126);
-  border-right: 1px solid rgba(255, 255, 255, 0.126);
-}
-
-.shsojvp {
-  font-weight: bold;
 }
 
 .confetti-piece {
   position: absolute;
-  width: 10px;
-  height: 20px;
-  background-color: hsl(39, 100%, 56%);
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
   top: 0;
   opacity: 0;
-  animation: makeItRain 3000ms infinite ease-in-out;
-}
-
-.confetti-piece:nth-child(1) {
-  left: 7%;
-  transform: rotate(-10deg);
-  animation-delay: 182ms;
-  animation-duration: 2000ms;
-}
-
-.confetti-piece:nth-child(2) {
-  left: 14%;
-  transform: rotate(20deg);
-  animation-delay: 161ms;
-  animation-duration: 2076ms;
-}
-
-.confetti-piece:nth-child(3) {
-  left: 21%;
-  transform: rotate(-51deg);
-  animation-delay: 481ms;
-  animation-duration: 2103ms;
-}
-
-.confetti-piece:nth-child(4) {
-  left: 28%;
-  transform: rotate(61deg);
-  animation-delay: 334ms;
-  animation-duration: 1008ms;
-}
-
-.confetti-piece:nth-child(5) {
-  left: 35%;
-  transform: rotate(-52deg);
-  animation-delay: 302ms;
-  animation-duration: 1776ms;
-}
-
-.confetti-piece:nth-child(6) {
-  left: 42%;
-  transform: rotate(38deg);
-  animation-delay: 180ms;
-  animation-duration: 1168ms;
-}
-
-.confetti-piece:nth-child(7) {
-  left: 49%;
-  transform: rotate(11deg);
-  animation-delay: 395ms;
-  animation-duration: 1200ms;
-}
-
-.confetti-piece:nth-child(8) {
-  left: 56%;
-  transform: rotate(49deg);
-  animation-delay: 14ms;
-  animation-duration: 1887ms;
-}
-
-.confetti-piece:nth-child(9) {
-  left: 63%;
-  transform: rotate(-72deg);
-  animation-delay: 149ms;
-  animation-duration: 1805ms;
-}
-
-.confetti-piece:nth-child(10) {
-  left: 70%;
-  transform: rotate(10deg);
-  animation-delay: 351ms;
-  animation-duration: 2059ms;
-}
-
-.confetti-piece:nth-child(11) {
-  left: 77%;
-  transform: rotate(4deg);
-  animation-delay: 307ms;
-  animation-duration: 1132ms;
-}
-
-.confetti-piece:nth-child(12) {
-  left: 84%;
-  transform: rotate(42deg);
-  animation-delay: 464ms;
-  animation-duration: 1776ms;
-}
-
-.confetti-piece:nth-child(13) {
-  left: 91%;
-  transform: rotate(-72deg);
-  animation-delay: 429ms;
-  animation-duration: 1818ms;
-}
-
-.confetti-piece:nth-child(14) {
-  left: 94%;
-  transform: rotate(-72deg);
-  animation-delay: 429ms;
-  animation-duration: 818ms;
-}
-
-.confetti-piece:nth-child(15) {
-  left: 96%;
-  transform: rotate(-72deg);
-  animation-delay: 429ms;
-  animation-duration: 2818ms;
-}
-
-.confetti-piece:nth-child(16) {
-  left: 98%;
-  transform: rotate(-72deg);
-  animation-delay: 429ms;
-  animation-duration: 2818ms;
-}
-
-.confetti-piece:nth-child(17) {
-  left: 50%;
-  transform: rotate(-72deg);
-  animation-delay: 429ms;
-  animation-duration: 2818ms;
-}
-
-.confetti-piece:nth-child(18) {
-  left: 60%;
-  transform: rotate(-72deg);
-  animation-delay: 429ms;
-  animation-duration: 1818ms;
+  animation: fall 3s infinite ease-in-out;
 }
 
 .confetti-piece:nth-child(odd) {
-  background-color: hsl(0, 100%, 67%);
+  background-color: #4cd9ff;
 }
 
 .confetti-piece:nth-child(even) {
-  z-index: 1;
+  background-color: #00ffbf;
 }
 
-.confetti-piece:nth-child(4n) {
-  width: 6px;
-  height: 14px;
-  animation-duration: 4000ms;
-  background-color: #c33764;
-}
-
-.confetti-piece:nth-child(5n) {
-  width: 3px;
-  height: 10px;
-  animation-duration: 4000ms;
-  background-color: #b06ab3;
-}
-
-.confetti-piece:nth-child(3n) {
-  width: 4px;
-  height: 12px;
-  animation-duration: 2500ms;
-  animation-delay: 3000ms;
-  background-color: #dd2476;
-}
-
-.confetti-piece:nth-child(3n-7) {
-  background-color: hsl(166, 100%, 37%);
-}
-
-@keyframes makeItRain {
-  from {
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
     opacity: 0;
   }
 
-  50% {
+  30% {
     opacity: 1;
   }
 
-  to {
-    transform: translateY(200px);
+  100% {
+    transform: translateY(300px) rotate(360deg);
+    opacity: 0;
   }
 }
 </style>

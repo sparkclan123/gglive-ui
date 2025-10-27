@@ -1,30 +1,12 @@
 <template>
-  <div class="flex flex-col items-center justify-center mt-2" :class="classadj">
-    <div class="" :class="classadj">
-      <div class="flex flex-row gap-4">
-        <div class="text-center">
-          <div class="countdown-number">
-            <span class="top">{{ days }}</span>
-            <span class="bottom">วัน</span>
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="countdown-number">
-            <span class="top">{{ hours }}</span>
-            <span class="bottom">ชั่วโมง</span>
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="countdown-number">
-            <span class="top">{{ minutes }}</span>
-            <span class="bottom">นาที</span>
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="countdown-number">
-            <span class="top">{{ seconds }}</span>
-            <span class="bottom">วินาที</span>
-          </div>
+  <div class="flex flex-col items-center justify-center mt-4 space-y-3" :class="classadj">
+    <div class="flex flex-row gap-3 sm:gap-5 bg-gradient-to-br from-gray-800/80 to-gray-900/90 rounded-2xl p-4 shadow-xl backdrop-blur-md border border-gray-700/40">
+      <div v-for="(label, idx) in ['วัน','ชั่วโมง','นาที','วินาที']" :key="idx" class="text-center">
+        <div class="countdown-box">
+          <span class="digit text-cyan-300 drop-shadow-md">
+            {{ [days, hours, minutes, seconds][idx] }}
+          </span>
+          <span class="label text-gray-300">{{ label }}</span>
         </div>
       </div>
     </div>
@@ -34,18 +16,9 @@
 <script>
 export default {
   props: {
-    datenow: {
-      type: String,
-      required: true,
-    },
-    endtime: {
-      type: String,
-      required: true,
-    },
-    classadj: {
-      type: String,
-      default: '',
-    },
+    datenow: String,
+    endtime: String,
+    classadj: { type: String, default: '' },
   },
   data() {
     return {
@@ -65,19 +38,15 @@ export default {
   },
   methods: {
     updateCountdown() {
-      this.currentTime += 1000; // เพิ่มเวลาปัจจุบันทีละ 1 วินาที
+      this.currentTime += 1000;
       const distance = this.targetTime - this.currentTime;
-
       if (distance > 0) {
         this.days = Math.floor(distance / (1000 * 60 * 60 * 24));
         this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         this.seconds = Math.floor((distance % (1000 * 60)) / 1000);
       } else {
-        this.days = 0;
-        this.hours = 0;
-        this.minutes = 0;
-        this.seconds = 0;
+        this.days = this.hours = this.minutes = this.seconds = 0;
         this.$emit('time-up');
       }
     },
@@ -86,34 +55,39 @@ export default {
 </script>
 
 <style scoped>
-.countdown-number {
-  position: relative;
-  height: 60px;
-  width: 50px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), inset 2px 4px 0 0 rgba(255, 255, 255, 0.08);
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&display=swap');
+
+.countdown-box {
+  width: 70px;
+  height: 80px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #1f2937, #111827);
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.4);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.countdown-box:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.25);
+}
+
+.digit {
   font-family: 'Orbitron', sans-serif;
-  font: bold 2em 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #00e0ff;
 }
 
-.countdown-number .top,
-.countdown-number .bottom {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-}
-
-.countdown-number .top {
-  top: 0;
-}
-
-.countdown-number .bottom {
-  bottom: 0;
-  margin-bottom: 4px;
-  font-size: 12px;
+.label {
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: #ccc;
+  letter-spacing: 0.5px;
 }
 </style>

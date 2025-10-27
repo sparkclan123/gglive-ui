@@ -1,83 +1,85 @@
 <template>
-    <div>
-        <div class=" mx-auto flex gap-4">
-            <div class="w-full mx-auto shadow-2xl p-4 rounded-xl h-fit self-center bg-gray-800/40">
-                <div>
-                    <h1
-                        class="lg:text-xl md:text-2xl sm:text-xl xs:text-xl font-serif font-extrabold mb-2 text-white">
-                        ข้อมูลส่วนตัว ID: {{userinfo.UserID}}
-                    </h1>
-                    <form @submit.prevent="updateProfile">
-                        <div>
-                            <div class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat"
-                                :style="{ backgroundImage: `url(${profile.image_url})` }">
-                                <div class="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
-                                    <input type="file" name="profile" id="upload_profile" hidden @change="onFileChange">
-                                    <label for="upload_profile">
-                                        <svg data-slot="icon" class="w-6 h-5 text-blue-700" fill="none"
-                                            stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z">
-                                            </path>
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z">
-                                            </path>
-                                        </svg>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-center w-full">
-                            <div class="w-full mb-2 mt-4">
-                                <label for="name" class="mb-2 text-gray-300">ชื่อ</label>
-                                <input v-model="profile.name" type="text"
-                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-200 border-gray-600 bg-gray-800"
-                                    placeholder="ชื่อ" id="name">
-                            </div>
-                            <div class="w-full mb-2 mt-4">
-                                <label for="phone" class="text-gray-300">เบอร์โทร<span
-                                        class="text-red-500">*</span></label>
-                                <div class="text-xs text-red-300">
-                                    สำคัญใช้ในการติดต่อกรณีได้รับเงินรางวัล</div>
-                                <input v-model="profile.phone" type="text"
-                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-200 border-gray-600 bg-gray-800"
-                                    placeholder="080xxxxxxx" id="phone">
-                            </div>
-                            <div class="w-full mb-2 mt-4">
-                                <label for="bank_type" class="text-gray-300">ประเภทบัญชี<span
-                                        class="text-red-500">*</span></label>
-                                <div class="text-xs  text-red-300">
-                                    สำคัญใช้ในการติดต่อกรณีได้รับเงินรางวัล</div>
-                                <select v-model="profile.bank_type" id="bank_type"
-                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-100 border-gray-600 bg-gray-800">
-                                    <option value="">เลือกประเภทบัญชี</option>
-                                    <option value="พร้อมเพย์">พร้อมเพย์</option>
-                                    <option value="ธนาคารกสิกร">ธนาคารกสิกร</option>
-                                    <option value="ธนาคารไทยพานิช">ธนาคารไทยพานิช</option>
-                                    <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
-                                    <option value="ธนาคารกรุงศรี">ธนาคารกรุงศรี</option>
-                                    <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
-                                    <option value="ธนาคารออมสิน">ธนาคารออมสิน</option>
-                                    <!-- Add other banks as needed -->
-                                </select>
-                            </div>
-                            <div class="w-full mb-2 mt-4">
-                                <label for="bank_account" class="text-gray-300">เลขบัญชี รับเงินรางวัล<span
-                                        class="text-red-500">*</span></label>
-                                <div class="text-xs  text-red-300">
-                                    สำคัญใช้ในการติดต่อกรณีได้รับเงินรางวัล</div>
-                                <input v-model="profile.bank_account" type="text"
-                                    class="mt-2 p-2 w-full border-2 rounded-lg text-gray-100 border-gray-600 bg-gray-800"
-                                    placeholder="xxxxx-xxxxx-xxx" id="bank_account">
-                            </div>
-                        </div>
-                        <div class="w-full rounded-lg  mt-2 text-white text-lg font-semibold">
-                            <button type="submit" class="w-full button-save">บันทึก</button>
-                        </div>
-                    </form>
+    <div class="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0b0b10] via-[#141421] to-[#1c1c2b] py-10 px-4"
+        v-if="userinfo">
+        <div
+            class="w-full max-w-md rounded-3xl backdrop-blur-2xl bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.4)] p-6 md:p-8">
+
+            <!-- Header -->
+            <h1 class="text-center text-white/90 font-bold text-2xl tracking-tight mb-6">
+                ข้อมูลส่วนตัว
+                <span class="text-gray-400 text-base font-light">ID: {{ userinfo.UserID }}</span>
+            </h1>
+
+            <!-- Avatar -->
+            <div class="relative flex justify-center mb-6">
+                <div class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat"
+                    :style="{ backgroundImage: `url(${profile.image_url})` }">
+                    <div class="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
+                        <input type="file" name="profile" id="upload_profile" hidden @change="onFileChange">
+                        <label for="upload_profile">
+                            <svg data-slot="icon" class="w-6 h-5 text-blue-700" fill="none" stroke-width="1.5"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z">
+                                </path>
+                            </svg>
+                        </label>
+                    </div>
                 </div>
             </div>
+
+            <!-- Form -->
+            <form @submit.prevent="updateProfile" class="space-y-5 text-white/90">
+                <!-- Name -->
+                <div>
+                    <label for="name" class="block text-sm text-gray-300 mb-1">ชื่อ</label>
+                    <input id="name" v-model="profile.name" type="text" placeholder="ชื่อของคุณ" class="input-field" />
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <label for="phone" class="block text-sm text-gray-300 mb-1">เบอร์โทร<span
+                            class="text-red-400">*</span></label>
+                    <p class="text-xs text-red-300 mb-1">ใช้ในการติดต่อกรณีได้รับรางวัล</p>
+                    <input id="phone" v-model="profile.phone" type="text" placeholder="080xxxxxxx"
+                        class="input-field" />
+                </div>
+
+                <!-- Bank Type -->
+                <div>
+                    <label for="bank_type" class="block text-sm text-gray-300 mb-1">ประเภทบัญชี<span
+                            class="text-red-400">*</span></label>
+                    <select id="bank_type" v-model="profile.bank_type" class="input-field">
+                        <option value="">เลือกประเภทบัญชี</option>
+                        <option value="พร้อมเพย์">พร้อมเพย์</option>
+                        <option value="ธนาคารกสิกร">ธนาคารกสิกร</option>
+                        <option value="ธนาคารไทยพานิช">ธนาคารไทยพานิช</option>
+                        <option value="ธนาคารกรุงเทพ">ธนาคารกรุงเทพ</option>
+                        <option value="ธนาคารกรุงศรี">ธนาคารกรุงศรี</option>
+                        <option value="ธนาคารกรุงไทย">ธนาคารกรุงไทย</option>
+                        <option value="ธนาคารออมสิน">ธนาคารออมสิน</option>
+                    </select>
+                </div>
+
+                <!-- Bank Account -->
+                <div>
+                    <label for="bank_account" class="block text-sm text-gray-300 mb-1">เลขบัญชีรับรางวัล<span
+                            class="text-red-400">*</span></label>
+                    <p class="text-xs text-red-300 mb-1">ใช้โอนเงินรางวัลในกรณีชนะ</p>
+                    <input id="bank_account" v-model="profile.bank_account" type="text" placeholder="xxxxx-xxxxx-xxx"
+                        class="input-field" />
+                </div>
+
+                <!-- Save -->
+                <button type="submit"
+                    class="w-full py-3 mt-4 rounded-xl font-semibold text-lg text-white bg-gradient-to-r from-green-400 to-emerald-600 hover:from-green-300 hover:to-emerald-500 active:scale-[0.98] shadow-[0_8px_20px_rgba(0,255,100,0.25)] transition-all">
+                    บันทึกข้อมูล
+                </button>
+            </form>
         </div>
     </div>
 </template>
@@ -291,30 +293,7 @@ export default {
 </script>
 
 <style scoped>
-.button-save {
-  font-size: 18px;
-  display: inline-block;
-  outline: 0;
-  border: 0;
-  cursor: pointer;
-  will-change: box-shadow,transform;
-  background: radial-gradient( 100% 100% at 100% 0%, #6af984 0%, #15720e 100% );
-  box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
-  padding: 0 2em;
-  border-radius: 0.3em;
-  color: #fff;
-  height: 2.6em;
-  text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.button-save {
-  box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #0f580a;
-  transform: translateY(-0.1em);
-}
-
-.button-save:active {
-  box-shadow: inset 0px 0.1em 0.6em #0f580a;
-  transform: translateY(0em);
+.input-field {
+    @apply w-full px-3 py-2 rounded-lg border border-white/10 bg-white/10 text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-gray-500 transition;
 }
 </style>

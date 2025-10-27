@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     SetactiveTab(tab) {
-      this.activeTab = tab;
+      this.activeTab = "tab2";
       localStorage.setItem("point-tab", tab);
     },
     beforeEnter(el) {
@@ -76,7 +76,7 @@ export default {
   },
   created() {
     const tab = localStorage.getItem("point-tab");
-    if (tab) this.activeTab = tab;
+    if (tab) this.activeTab = "tab2";
   },
 };
 </script>

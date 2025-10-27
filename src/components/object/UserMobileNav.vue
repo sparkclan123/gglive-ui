@@ -45,6 +45,19 @@
       </button>
 
       <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
+        :class="isActive('list') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'"
+        @click="setActive('list')">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#360c3a"
+          class="w-6 h-6 mb-1">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+        </svg>
+
+        รายการ
+      </button>
+
+
+      <button class="flex flex-col items-center justify-center text-xs transition-all duration-200"
         :class="isActive('menu') ? 'text-blue-500 scale-110' : 'text-gray-700 hover:text-blue-600'" @click="toggleMenu">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-1" fill="none" viewBox="0 0 24 24"
           stroke="currentColor">
