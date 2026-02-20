@@ -4,6 +4,7 @@
             <img class="w-8 h-8" src="/public/assets/logonew.png" /> <span
                 class="mt-1 font-semibold text-gray-600">เกมวีคปกติ</span>
         </div>
+        
         <div class="mt-2 w-full" v-if="data.datas">
             <div class="cus-bg-card  text-gray-700  flex flex-col rounded-xl shadow-lg p-2 mb-5 mr-5 ml-5 cursor-pointer"
                 v-for="data in data.datas" @click="seeDetailGameWeek(data)">

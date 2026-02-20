@@ -2,32 +2,48 @@
   <div v-if="gameWeek" class="flex flex-col items-center px-3 mt-3">
 
     <div
-      class="w-full max-w-md mb-5 overflow-hidden rounded-3xl bg-[#0f172a] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative">
+      class="w-full max-w-2xl mb-5 overflow-hidden rounded-3xl bg-[#0f172a] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative">
 
       <div class="absolute inset-0 z-0">
         <img src="https://pudee.sgp1.digitaloceanspaces.com/pudeexkapu.webp"
           class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Background" />
         <div class="absolute inset-0 bg-slate-900/90"></div>
       </div>
-      <div class="relative p-5">
-        <div class="flex items-center gap-4 mb-4">
+
+      <div class="relative p-7">
+        <div class="flex items-center gap-5 mb-5">
+
+          <!-- ✅ 1) เปลี่ยนจากโลโก้ใหญ่ -> เป็นรูป capture หน้าจอ -->
           <a href="https://kapu.club/" target="_blank"
-            class="relative w-16 h-16 shrink-0 rounded-2xl overflow-hidden shadow-2xl border-2 border-white/20">
-            <img src="/public/assets/icon.png" alt="App Logo" class="w-full h-full object-cover scale-125" />
+            class="relative w-28 h-58 shrink-0 rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-black/20">
+            <!-- ใส่รูป capture ของจริงตรงนี้ -->
+            <img src="/public/assets/screenkapu.webp" alt="App Screenshot" class="w-full h-full object-cover" />
+            <!-- เงานิดๆให้ดูแพง -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
           </a>
+
           <div class="flex-1">
-            <h6 class="text-lg font-black text-white leading-tight flex items-center gap-2">
-              <span style="color: #8427F5;">PUDEE</span> X <span style="color: #F54927;">KAPU</span>
-              <span class="bg-yellow-400 text-black text-[10px] px-1.5 py-0.5 rounded shadow-sm">FREE!</span>
+            <h6 class="text-xl font-black text-white leading-tight flex items-center gap-2 flex-wrap">
+
+              <!-- ✅ 2) โลโก้เล็กๆ อยู่ด้านหน้า KAPU FANTASY -->
+              <img src="/public/assets/icon.png" alt="KAPU Logo"
+                class="w-6 h-6 rounded-md object-cover shadow border border-white/15" />
+
+              <span style="color: #F54927;">KAPU </span> FANTASY
+
+              <span class="bg-yellow-400 text-black text-[10px] px-2 py-0.5 rounded shadow-sm">
+                แอฟน้อง <span style="color: #8427F5;">PuDee</span>!
+              </span>
             </h6>
-            <p class="text-[11px] text-gray-300 font-medium leading-relaxed mt-1">
+
+            <p class="text-[12px] text-gray-300 font-medium leading-relaxed mt-2">
               ร่วมสนุกฟรี! <span class="text-green-400 font-bold">รับรางวัลเงินสด</span> ทุกรายการแข่งขัน<br>
-              <span class="text-yellow-400 ">**รางวัลเฉพาะ Gameweek ฟรีเท่านั้น**</span>
+              <span class="text-yellow-400">**รางวัลเฉพาะ Gameweek ฟรีเท่านั้น**</span>
             </p>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 mt-2">
+        <div class="grid grid-cols-2 gap-4 mt-3">
           <a href="https://apps.apple.com/th/app/kapu-fantasy/id6756671647" target="_blank"
             class="group relative flex items-center justify-center h-12 bg-black border border-white/10 rounded-xl hover:bg-zinc-900 transition-all active:scale-95 overflow-hidden">
             <img src="/public/assets/apple_download.svg" alt="App Store" class="h-7 relative z-10" />
