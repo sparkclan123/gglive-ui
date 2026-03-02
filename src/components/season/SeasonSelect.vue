@@ -17,7 +17,7 @@
           <a href="https://kapu.club/" target="_blank"
             class="relative w-28 h-58 shrink-0 rounded-2xl overflow-hidden shadow-2xl border border-white/15 bg-black/20">
             <!-- ใส่รูป capture ของจริงตรงนี้ -->
-            <img src="/public/assets/screenkapu.webp" alt="App Screenshot" class="w-full h-full object-cover" />
+            <img src="/public/assets/hjhjhjjh.webp" alt="App Screenshot" class="w-full h-full object-cover" />
             <!-- เงานิดๆให้ดูแพง -->
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
           </a>
@@ -29,16 +29,17 @@
               <img src="/public/assets/icon.png" alt="KAPU Logo"
                 class="w-6 h-6 rounded-md object-cover shadow border border-white/15" />
 
+
               <span style="color: #F54927;">KAPU </span> FANTASY
 
               <span class="bg-yellow-400 text-black text-[10px] px-2 py-0.5 rounded shadow-sm">
-                แอฟน้อง <span style="color: #8427F5;">PuDee</span>!
+                แอฟน้อง <span style="color: #8427F5;">PuDee โหลดเลย</span>!
               </span>
             </h6>
 
             <p class="text-[12px] text-gray-300 font-medium leading-relaxed mt-2">
-              ร่วมสนุกฟรี! <span class="text-green-400 font-bold">รับรางวัลเงินสด</span> ทุกรายการแข่งขัน<br>
-              <span class="text-yellow-400">**รางวัลเฉพาะ Gameweek ฟรีเท่านั้น**</span>
+              ร่วมสนุกฟรี! <span class="text-green-400 font-bold">ที่1 การันตีเงินรางวัล</span> <br>
+              <span class="text-yellow-400">**รางวัลเฉพาะ GameWeek ฟรีเท่านั้น**</span>
             </p>
           </div>
         </div>
