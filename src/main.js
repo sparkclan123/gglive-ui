@@ -9,7 +9,7 @@ import store from './store'
 import Numberformat from './components/object/numberformat.vue';
 import NumberformatValue from './components/object/numberformatforvalue.vue';
 import NumberDisplay from './components/object/numberDisplay.vue';
-import LodingSceen from './components/object/lodingSceen.vue';
+import LodingSceen from './components/object/LodingSceen.vue';
 import Menu from './components/object/menu.vue';
 import Pagination from './components/object/pagenation.vue';
 import PaginationJavascript from './components/object/pagenationjavascript.vue';
