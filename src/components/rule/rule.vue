@@ -1,7 +1,7 @@
 <template>
   <div class="rules-container">
     <div class="rule-title">
-      <strong>กติกา PuDee Fantasy Football</strong>
+      <strong>กติกา PuDee Fantasy FIFA World Cup 2026</strong>
     </div>
 
     <div class="section">
@@ -14,15 +14,33 @@
     <div class="section">
       <div class="section-title"><strong>การนับคะแนน</strong></div>
       <div class="rule">
-        - <strong>EPL</strong> : การให้คะแนนอ้างอิงจากระบบ Fantasy ของ <span class="rule-strong">Fantasy Premier League (FPL)</span>.
+        - <strong>FIFA World Cup 2026</strong> : การให้คะแนนคิดตาม Fantasy ของ <span class="rule-strong">FIFA Official APP</span>.
       </div>
-      <div class="rule">
-        - <strong>UCL</strong> : การให้คะแนนอ้างอิงจากระบบ Fantasy ของ <span class="rule-strong">UEFA Gaming</span>.
+      <div class="rule rule-sub-title">
+        <strong>การคิด Match Day (MD)</strong>
       </div>
+      <div class="rule">- MD.1 : 12 คู่แรกของรอบแรก นัดที่ 1</div>
+      <div class="rule">- MD.2 : 12 คู่หลังของรอบแรก นัดที่ 1</div>
+      <div class="rule">- MD.3 : 12 คู่แรกของรอบแรก นัดที่ 2</div>
+      <div class="rule">- MD.4 : 12 คู่หลังของรอบแรก นัดที่ 2</div>
+      <div class="rule">- MD.5 : 12 คู่แรกของรอบแรก นัดที่ 3</div>
+      <div class="rule">- MD.6 : 12 คู่หลังของรอบแรก นัดที่ 3</div>
+      <div class="rule">- MD.7 : 8 คู่แรกของรอบที่ 2</div>
+      <div class="rule">- MD.8 : 8 คู่หลังของรอบที่ 2</div>
+      <div class="rule">- MD.9 : 8 คู่ของรอบที่ 3</div>
+      <div class="rule">- MD.10 : 4 คู่ของรอบก่อนรองชนะเลิศ</div>
+      <div class="rule">- MD.11 : 2 คู่ของรอบรองชนะเลิศ</div>
+      <div class="rule">- MD.12 : 2 คู่ของนัดชิงที่ 3 และชิงชนะเลิศ</div>
+      <div class="rule rule-sub-title">
+        <strong>รางวัล Match Day ละ 10 รางวัล</strong>
+      </div>
+      <div class="rule">- รางวัลที่ 1 รับ <span class="rule-strong">50%</span> ของค่าสมัคร แต่ไม่ต่ำกว่า <span class="rule-strong">20,000 บาท</span></div>
+      <div class="rule">- รางวัลที่ 2 รับ <span class="rule-strong">10%</span> ของรางวัลที่ 1</div>
+      <div class="rule">- รางวัลที่ 3 รับ <span class="rule-strong">5%</span> ของรางวัลที่ 1</div>
+      <div class="rule">- รางวัลที่ 4 รับ <span class="rule-strong">3%</span> ของรางวัลที่ 1</div>
+      <div class="rule">- รางวัลที่ 5-10 รับ <span class="rule-strong">1%</span> ของรางวัลที่ 1</div>
       <div class="rule">
-        - <strong>FA Cup, FIFA Day และรายการอื่น ๆ</strong> :
-        การให้คะแนนคิดตาม <span class="rule-strong">ตารางการคิดคะแนนที่กำหนดโดย PuDee</span>
-        โดยยึดผลการแข่งขันจากแอปพลิเคชัน <span class="rule-strong">FotMob</span>.
+        <span class="rule-strong-red">* ยกเว้น Match Day พิเศษ (เช่น Match Day 1/2 จะไม่การันตีเงินรางวัล)</span>
       </div>
       <div class="rule">
         - หากมีการเปลี่ยนแปลงคะแนนจากแหล่งอ้างอิงหลังจากที่ PuDee ประกาศผลแล้ว
@@ -96,6 +114,7 @@
 .rule-strong { font-weight: bold; color: #1c8625; }
 .rule-strong-red { font-weight: bold; color: #861c1c; }
 .rule strong { color: #581c86; }
+.rule-sub-title { margin-top: 10px; margin-bottom: 4px; }
 
 .rule-title {
   font-size: 18px;
