@@ -1,52 +1,57 @@
 <template>
   <div class="rules-container">
     <div class="rule-title">
-      <strong>กติกา PuDee Fantasy FIFA World Cup 2026</strong>
+      <strong>กติกา PuDee Fantasy 2026-2027</strong>
     </div>
 
     <div class="section">
       <div class="section-title"><strong>การจัดตัวผู้เล่น</strong></div>
       <div class="rule">
-        - ผู้เล่นสามารถจัดตัวได้ <span class="rule-strong">11 คน</span> ต่อรอบการแข่งขัน (Game Week/Match Day).
+        - สามารถจัดตัวผู้เล่นได้ <span class="rule-strong">11 คน</span> / กัปตันทีม <span class="rule-strong">1 คน</span>
       </div>
     </div>
 
     <div class="section">
       <div class="section-title"><strong>การนับคะแนน</strong></div>
       <div class="rule">
-        - <strong>FIFA World Cup 2026</strong> : การให้คะแนนคิดตาม Fantasy ของ <span class="rule-strong">FIFA Official APP</span>.
-      </div>
-      <div class="rule rule-sub-title">
-        <strong>การคิด Match Day (MD)</strong>
-      </div>
-      <div class="rule">- MD.1 : 12 คู่แรกของรอบแรก นัดที่ 1</div>
-      <div class="rule">- MD.2 : 12 คู่หลังของรอบแรก นัดที่ 1</div>
-      <div class="rule">- MD.3 : 12 คู่แรกของรอบแรก นัดที่ 2</div>
-      <div class="rule">- MD.4 : 12 คู่หลังของรอบแรก นัดที่ 2</div>
-      <div class="rule">- MD.5 : 12 คู่แรกของรอบแรก นัดที่ 3</div>
-      <div class="rule">- MD.6 : 12 คู่หลังของรอบแรก นัดที่ 3</div>
-      <div class="rule">- MD.7 : 8 คู่แรกของรอบที่ 2</div>
-      <div class="rule">- MD.8 : 8 คู่หลังของรอบที่ 2</div>
-      <div class="rule">- MD.9 : 8 คู่ของรอบที่ 3</div>
-      <div class="rule">- MD.10 : 4 คู่ของรอบก่อนรองชนะเลิศ</div>
-      <div class="rule">- MD.11 : 2 คู่ของรอบรองชนะเลิศ</div>
-      <div class="rule">- MD.12 : 2 คู่ของนัดชิงที่ 3 และชิงชนะเลิศ</div>
-      <div class="rule rule-sub-title">
-        <strong>รางวัล Match Day ละ 10 รางวัล</strong>
-      </div>
-      <div class="rule">- รางวัลที่ 1 รับ <span class="rule-strong">50%</span> ของค่าสมัคร แต่ไม่ต่ำกว่า <span class="rule-strong">20,000 บาท</span></div>
-      <div class="rule">- รางวัลที่ 2 รับ <span class="rule-strong">10%</span> ของรางวัลที่ 1</div>
-      <div class="rule">- รางวัลที่ 3 รับ <span class="rule-strong">5%</span> ของรางวัลที่ 1</div>
-      <div class="rule">- รางวัลที่ 4 รับ <span class="rule-strong">3%</span> ของรางวัลที่ 1</div>
-      <div class="rule">- รางวัลที่ 5-10 รับ <span class="rule-strong">1%</span> ของรางวัลที่ 1</div>
-      <div class="rule">
-        <span class="rule-strong-red">* ยกเว้น Match Day พิเศษ (เช่น Match Day 1/2 จะไม่การันตีเงินรางวัล)</span>
+        - รายการ <strong>Premier League</strong> ใช้คะแนนจากแอพพลิเคชั่น <span class="rule-strong">PL 100%</span>
       </div>
       <div class="rule">
-        - หากมีการเปลี่ยนแปลงคะแนนจากแหล่งอ้างอิงหลังจากที่ PuDee ประกาศผลแล้ว
-        <span class="rule-strong-red">จะยึดผลที่ PuDee ประกาศไว้เป็นที่สิ้นสุด</span>.
+        - รายการ <strong>UCL</strong> ใช้คะแนนจากแอพพลิเคชั่น <span class="rule-strong">Champion League 100%</span>
       </div>
-      <div class="rule">- จะไม่มีการแก้ไขคะแนนหรือผลรางวัลย้อนหลังหลังจากการประกาศ.</div>
+      <div class="rule">
+        - รายการอื่นๆ ใช้คะแนนจากตารางการคิดคะแนน <strong>Fantasy PuDee Club</strong>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><strong>รางวัล</strong></div>
+      
+      <div class="rule rule-sub-title">
+        <strong>เกม VIP</strong>
+      </div>
+      <div class="rule">- ที่ 1 การันตีตามการประกาศแต่ละ Game Week</div>
+      <div class="rule">- ที่ 2 รับ <span class="rule-strong">10%</span> ของรางวัลที่ 1</div>
+      <div class="rule">- ที่ 3 รับ <span class="rule-strong">6%</span> ของรางวัลที่ 1</div>
+      <div class="rule">- ที่ 4-5 รับ <span class="rule-strong">1%</span> ของรางวัลที่ 1</div>
+      <div class="rule">- ที่ 6-10 รับ <span class="rule-strong">0.5%</span> ของรางวัลที่ 1</div>
+      <div class="rule">
+        <span class="rule-note">(ทุกรางวัลหากไม่เกิน 100 บาท จะเปลี่ยนเป็นตั๋ว VIP สำหรับเล่นเกม)</span>
+      </div>
+
+      <div class="rule rule-sub-title" style="margin-top: 14px;">
+        <strong>เกมฟรี</strong>
+      </div>
+      <div class="rule"><strong>- Premier League รับตั๋ว VIP</strong></div>
+      <div class="rule rule-indent">~ ที่ 1 รับ 3 ใบ</div>
+      <div class="rule rule-indent">~ ที่ 2 รับ 2 ใบ</div>
+      <div class="rule rule-indent">~ ที่ 3 รับ 1 ใบ</div>
+      <div class="rule"><strong>- รายการอื่น รับตั๋ว VIP</strong></div>
+      <div class="rule rule-indent">~ ที่ 1 รับ 2 ใบ</div>
+      <div class="rule rule-indent">~ ที่ 2 รับ 1 ใบ</div>
+      <div class="rule" style="margin-top: 6px;">
+        <span class="rule-strong-red">(ยกเว้น Game Week…/2 จะไม่การันตีเงินรางวัล และไม่มีรางวัลเกมฟรี)</span>
+      </div>
     </div>
 
     <!-- รูปประกอบกติกา -->
@@ -55,20 +60,8 @@
       <div class="rule-images">
         <img
           class="rule-img"
-          src="https://pudee.sgp1.digitaloceanspaces.com/rule2.jpg"
-          alt="รูปประกอบกติกา 1"
-          loading="lazy"
-        />
-        <img
-          class="rule-img"
           src="https://pudee.sgp1.digitaloceanspaces.com/rule1.jpg"
-          alt="รูปประกอบกติกา 2"
-          loading="lazy"
-        />
-        <img
-          class="rule-img"
-          src="https://pudee.sgp1.digitaloceanspaces.com/rule3.jpg"
-          alt="รูปประกอบกติกา 3"
+          alt="รูปประกอบกติกา"
           loading="lazy"
         />
       </div>
@@ -113,8 +106,10 @@
 
 .rule-strong { font-weight: bold; color: #1c8625; }
 .rule-strong-red { font-weight: bold; color: #861c1c; }
+.rule-note { font-style: italic; color: #6b21a8; }
+.rule-indent { padding-left: 18px; margin-bottom: 6px; }
 .rule strong { color: #581c86; }
-.rule-sub-title { margin-top: 10px; margin-bottom: 4px; }
+.rule-sub-title { margin-top: 10px; margin-bottom: 6px; }
 
 .rule-title {
   font-size: 18px;
