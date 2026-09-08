@@ -319,6 +319,14 @@ export default {
                 "t803": "SPO",
                 "t810": "STU",
                 "t812": "VIL",
+                "t819": "AEK",
+                "t725": "BOD",
+                "t737": "CBR",
+                "t747": "FB",
+                "t841": "LASK",
+                "t856": "SAB",
+                "t801": "SLB",
+                "t863": "VIK",
                 }
 
 
