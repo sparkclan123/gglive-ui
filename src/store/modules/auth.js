@@ -23,7 +23,12 @@ const auth = {
     SET_DATA(state, value) {
       state[value.type] = value.value;
      
-      localStorage.setItem('userinfo', JSON.stringify(userinfo));
+      localStorage.setItem('userinfo', JSON.stringify(state.userinfo));
+    },
+    CLEAR_SESSION(state) {
+      state.access_token = null;
+      state.userinfo = null;
+      state.loading = false;
     },
     SET_LOADING(state, loading) {
       state.loading = loading;
@@ -39,7 +44,7 @@ const auth = {
             headers: { 'Authorization': `Bearer ${access_token}` },
           })
             .then(response => {
-              if (response.data.ok === true) {
+              if (response.data.ok === true && localStorage.getItem('access_token') === access_token) {
                 commit("SET_DATA", { type: "userinfo", value: response.data.data });
               }
             })

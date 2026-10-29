@@ -1,116 +1,35 @@
 <template>
-    <div>
-        <div>
-            <LodingSceen :loading="loading" />
-        </div>
-        <div class="contant_style">
-            <div v-if="selfMatch && gameWeek" class="fixcontant">
-                <div class="card cursor-pointer">
-                    <div class="top-section">
-                        <div class="icons">
-                            <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200"
-                                @click="route_back()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 12"
-                                    class="svg-white mr-1">
-                                    <path
-                                        d="M23.9996,7.4946 C23.9786,7.0416 23.8296,6.5696 23.4816,6.2506 C23.4816,6.2506 23.4806,6.2496 23.4806,6.2496 L18.4596,1.2256 L17.7526,0.5176 C17.4346,0.1986 16.9586,0.0016 16.5096,-0.0004 C16.0766,-0.0004 15.5616,0.1906 15.2656,0.5176 C14.9596,0.8526 14.7296,1.2916 14.7486,1.7616 C14.7686,2.2296 14.9276,2.6676 15.2656,3.0056 L17.9916,5.7336 C17.9916,5.7336 2.6226,5.7246 1.7966,5.7346 L1.7616,5.7346 C1.3076,5.7346 0.8386,5.9316 0.5186,6.2526 C0.2116,6.5586 -0.0164,7.0556 0.0006,7.4966 C0.0216,7.9496 0.1696,8.4226 0.5176,8.7406 C0.8656,9.0596 1.2886,9.2576 1.7616,9.2566 L17.9986,9.2566 L15.2646,11.9936 C14.9456,12.3116 14.7496,12.7866 14.7476,13.2376 C14.7476,13.6686 14.9376,14.1846 15.2646,14.4816 C15.5996,14.7866 16.0376,15.0166 16.5076,14.9986 C16.9736,14.9746 17.4136,14.8186 17.7506,14.4816 L22.7766,9.4516 L23.4856,8.7436 C23.6656,8.5626 23.7936,8.3486 23.8776,8.1186 C23.9576,7.9146 24.0076,7.6996 23.9996,7.4946"
-                                        fill="white" transform="matrix(-1 0 0 1 24 0)"></path>
-                                </svg>
-
-                                <span class="text-gray-200 font-bold text-xs">กลับ</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="bottom-section">
-
-                        <span class="titlesm text-sm text-yellow-300">{{ selfMatch.name }}
-                        </span>
-                        <span class="title text-green-500">
-                            <!-- <NumberDisplay :number="gameWeek.reward" /> บาท -->
-                        </span>
-                        <div class="row row1">
-                            <div class="item">
-                                <span class="big-text text-gray-200">เกมวีค {{ gameWeek.week_name ? gameWeek.week_name :
-                                    gameWeek.week }} </span>
-                                <span class="regular-text text-gray-200">(คะเเนน)</span>
-                            </div>
-                            <div class="item_2">
-                                <button @click="addTeamInMatch"
-                                    class="bg-green-600 text-white px-4 py-1 rounded text-md">เพิ่ม</button>
-                                <!-- <span class="regular-text text-gray-200">เพิ่มทีม</span> -->
-                            </div>
-                            <div class="item">
-                                <span class="big-text text-gray-200">{{ season.label }}</span>
-                                <span class="regular-text text-gray-200">ฤดูกาล</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="p-4 overflow-scroll px-0">
-                    <table class="w-full min-w-max table-auto text-left">
-                        <thead>
-                            <tr>
-                                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
-                                    <div class="flex items-center">
-                                        <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
-                                        <p
-                                            class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                            ชื่อทีม
-                                        </p>
-                                    </div>
-                                </th>
-                                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                    <p
-                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                        คะเเนน</p>
-                                </th>
-                                <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                                    <p
-                                        class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                        วันที่</p>
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="data in games" :key="i">
-                                <td class="p-1 border-b border-blue-gray-50 cursor-pointer" @click="seeDetail(data)">
-                                    <div class="flex items-center gap-3">
-                                        <img :src="data.image_url ? data.image_url : '/public/assets/logo.webp'"
-                                            alt="userimage"
-                                            class="inline-block relative object-center  rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain ">
-                                        <p
-                                            class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
-                                            {{ data.name }}</p> <i class="fas fa-ticket-alt text-yellow-400"
-                                            v-if="data.vip"></i>
-                                    </div>
-                                </td>
-                                <td class="p-1 border-b border-blue-gray-50 pl-4">
-                                    <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
-                                        {{ data.total_point }}</p>
-                                </td>
-                                <td class="p-1 border-b border-blue-gray-50">
-                                    <p
-                                        class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
-                                        <DateFormatted :dateString="data.created_at" />
-                                    </p>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <Pagination :page="page" :pages="pages" @page-change="fetchSelfMatchSubByID" />
+    <section class="member-support member-self-detail">
+        <LodingSceen :loading="loading" />
+        <button type="button" class="member-back" @click="route_back"><MemberIcon name="back" />กลับ</button>
+        <div v-if="selfMatch && gameWeek">
+            <header class="member-self-summary">
+                <p class="member-support-note">การแข่งขันของเพื่อน</p>
+                <h1>{{ selfMatch.name }}</h1>
+                <p>{{ gameWeek.week_name || `Gameweek ${gameWeek.week}` }} · ฤดูกาล {{ season?.label || gameWeek.season_id }}</p>
+                <button type="button" @click="addTeamInMatch" class="member-button">เพิ่มทีมในการแข่งขัน</button>
+            </header>
+            <div v-if="!games.length" class="member-empty"><h2>ยังไม่มีทีมเข้าร่วม</h2><p>เลือกทีมของคุณใน Gameweek นี้เพื่อเข้าร่วมการแข่งขัน</p></div>
+            <div v-else class="member-support-table-wrap">
+                <table class="member-support-table member-self-standings">
+                    <thead><tr><th>ทีม</th><th>คะแนน</th><th>วันที่</th></tr></thead>
+                    <tbody><tr v-for="data in games" :key="`${data.vip}-${data.id}`">
+                        <td><button type="button" class="member-team-link" @click="seeDetail(data)"><img :src="data.image_url || $memberBrand.avatarFallback" alt="" class="member-support-avatar"><span>{{ data.name }} <span v-if="data.vip" class="member-badge">VIP</span></span></button></td>
+                        <td class="member-self-points">{{ data.total_point }}</td>
+                        <td><DateFormatted :dateString="data.created_at" /></td>
+                    </tr></tbody>
+                </table>
             </div>
+            <Pagination :page="page" :pages="pages" @page-change="fetchSelfMatchSubByID" />
         </div>
-    </div>
+        <div v-else-if="!loading" class="member-error"><h2>โหลดการแข่งขันไม่สำเร็จ</h2><button type="button" class="member-button is-secondary" @click="fetchSelfMatchSubByID()">ลองใหม่</button></div>
+    </section>
 </template>
 
 <script>
 import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
+import '../../styles/member-support.css';
 
 export default {
     data() {
@@ -151,36 +70,8 @@ export default {
 
         },
         async addTeamInMatch() {
-            // Swal.fire({
-            //     title: 'เพิ่มทีม',
-            //     text: 'กรอกโค้ดทีมที่ต้องการเพิ่ม',
-            //     input: 'text',
-            //     inputPlaceholder: 'กรอกโค้ดการเเข่งขัน',
-            //     showCancelButton: true,
-            //     confirmButtonText: 'เข้าร่วม',
-            //     cancelButtonText: 'ยกเลิก',
-            //     customClass: {
-            //         input: 'swal-input', // Add custom class for input
-            //         cancelButton: 'btn-cancel',
-            //         confirmButton: 'btn-confirm',
-            //         popup: 'popup-custom',
-            //         title: 'text-custom',
-            //         htmlContainer: 'text-custom'
-            //     },
-            //     buttonsStyling: false,
-            //     preConfirm: (teamCode) => {
-            //         if (!teamCode) {
-            //             Swal.showValidationMessage('กรุณากรอกโค้ดการเเข่งขัน');
-            //         }
-            //         return teamCode;
-            //     }
-            // }).then((result) => {
-            //     if (result.isConfirmed) {
-            //         this.teamCode = result.value;
-            //         this.addTeamCode();
-            //     }
-            // });
-            this.$router.push({ name: 'self-match-detail-pick', params: { id: this.matchID } });
+            const gameWeekID = Number(this.selfMatch.game_week_id || this.gameWeekID);
+            this.$router.push({ name: 'self-match-detail-pick', params: { id: this.matchID }, query: { gameWeekID } });
         },
 
         async addTeamCode() {
@@ -257,6 +148,11 @@ export default {
                     }
                 });
                 if (response.data.ok) {
+                    const canonicalRound = Number(response.data.selfMatch.game_week_id);
+                    if (canonicalRound > 0 && canonicalRound !== Number(this.gameWeekID)) {
+                        this.gameWeekID = canonicalRound;
+                        return this.fetchSelfMatchSubByID(page, limit);
+                    }
                     this.games = response.data.games;
                     this.total = response.data.total;
                     this.page = response.data.page;
@@ -294,127 +190,3 @@ export default {
     }
 };
 </script>
-
-
-<style scoped>
-.contant_style {
-    background-color: white;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.fixcontant {
-    position: relative;
-    background-color: white;
-    padding-bottom: 1px;
-    border-radius: 11px;
-}
-
-.card {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background: linear-gradient(to bottom, #1e1037, #432b6e);
-    padding: 5px;
-    overflow: hidden;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-
-.card .top-section .icons {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card .top-section .icons .logo {
-    height: 100%;
-    aspect-ratio: 1;
-    padding: 7px 0 7px 15px;
-}
-
-.card .top-section .icons .logo .top-section {
-    height: 100%;
-}
-
-.card .top-section .icons .social-media {
-    height: 100%;
-    padding: 8px 15px;
-    display: flex;
-    gap: 7px;
-}
-
-.card .top-section .icons .social-media .svg {
-    height: 100%;
-    fill: #1e1037;
-}
-
-
-.card .bottom-section {
-    margin-top: 1px;
-    padding: 10px 5px;
-}
-
-.card .bottom-section .titlesm {
-    display: block;
-    font-size: 10px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.card .bottom-section .title {
-    display: block;
-    font-size: 18px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.card .bottom-section .row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.card .bottom-section .row .item {
-    flex: 30%;
-    text-align: center;
-    padding: 5px;
-    color: rgba(255, 255, 255, 0.721);
-}
-
-.card .bottom-section .row .item_2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    width: 50px;
-}
-
-.card .bottom-section .row .item_2 .regular-text {
-    font-size: 12px;
-}
-
-
-.card .bottom-section .row .item .big-text {
-    font-size: 15px;
-    display: block;
-}
-
-.card .bottom-section .row .item .regular-text {
-    font-size: 12px;
-}
-
-.card .bottom-section .row .item:nth-child(2) {
-    border-left: 1px solid rgba(255, 255, 255, 0.126);
-    border-right: 1px solid rgba(255, 255, 255, 0.126);
-}
-
-.shsojvp {
-    font-weight: bold;
-}
-</style>

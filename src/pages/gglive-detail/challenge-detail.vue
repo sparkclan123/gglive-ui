@@ -1,31 +1,21 @@
 <template>
-    <div class="dxRBog" v-if="getMain">
-        <div class="card cursor-pointer">
-            <div class="top-section  ">
-                <div class="icons">
-                    <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200 px-1.5 py-1.5  bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-200 shadow-sm"
-                        @click="route_back()">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                        </svg>
-                        <span class="text-white text-xs font-bold tracking-wide">กลับ</span>
-                    </div>
-
-                </div>
-            </div>
-            <div class="bottom-section">
-                <div class="flex items-center justify-center gap-3 text-center">
-                    <img :src="image_url ? image_url : '/public/assets/logo.webp'" alt="userimage"
-                        class="inline-block relative object-center rounded-full w-8 h-8 rounded-lg border border-blue-gray-50 bg-blue-gray-50/50 object-contain">
-                    <span class="title text-gray-200">{{ getMain.name }} </span>
-                </div>
-
-                <span class="title text-green-500 mt-1">{{ getMain.total_point }} คะเเนน</span>
-                <span class="title-fix text-yellow-500">{{ getMain.total_price }}$ งบที่ใช้ไป</span>
-
-            </div>
+    <section class="member-detail">
+        <div v-if="isDetailLoading" class="member-loading" role="status">กำลังโหลดข้อมูลทีม…</div>
+        <div v-else-if="loadError" class="member-error" role="alert">
+            <h2>โหลดข้อมูลทีมไม่สำเร็จ</h2>
+            <p>{{ loadError }}</p>
+            <button class="member-button" @click="fetchGameWeekDetail">ลองอีกครั้ง</button>
         </div>
+    <div class="dxRBog" v-if="getMain">
+        <MemberTeamHeader
+            :team="getMain"
+            :avatar="image_url || $memberBrand.avatarFallback"
+            :stats="[
+                { label: 'คะแนน', value: getMain.total_point },
+                { label: 'งบที่ใช้ไป', value: getMain.total_price, unit: '$' },
+            ]"
+            @back="route_back"
+        />
 
         <div>
             <div class="elHRfu ">
@@ -201,13 +191,16 @@
             </div>
         </div>
     </div>
+    </section>
 </template>
 
 
 <script>
 import { api } from '@axios_inst';
+import MemberTeamHeader from '../../components/member/MemberTeamHeader.vue';
 import { mapActions, mapGetters } from 'vuex';
 export default {
+    components: { MemberTeamHeader },
     data() {
         return {
             id: null,
@@ -216,6 +209,9 @@ export default {
             getMID: [],
             getFWD: [],
             getMain: null,
+            requestVersion: 0,
+            isDetailLoading: false,
+            loadError: '',
             image_url: null,
             isNavigating: false
 
@@ -233,6 +229,14 @@ export default {
             }
         },
         async fetchGameWeekDetail() {
+            const requestVersion = ++this.requestVersion;
+            this.isDetailLoading = true;
+            this.loadError = '';
+            this.getMain = null;
+            this.getGKP = [];
+            this.getDEF = [];
+            this.getMID = [];
+            this.getFWD = [];
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.get(`/premier-league/v1/game-week-challenge-user-detail/${this.id}`, {
@@ -240,6 +244,8 @@ export default {
                         'Authorization': `Bearer ${access_token}`
                     },
                 });
+                if (requestVersion !== this.requestVersion) return;
+                if (!response.data.ok || !response.data.playerGameMain) throw new Error('ไม่พบข้อมูลทีม');
                 if (response.data.ok) {
                     const datas = response.data.playerGame;
                     this.getGKP = datas.filter(player => player.position === 'G').sort((a, b) => a.sort - b.sort);
@@ -249,14 +255,18 @@ export default {
                     this.getMain = response.data.playerGameMain;
                     this.image_url = response.data.imageUrl;
 
-                    this.updateLoading(false);
+
                 }
             } catch (error) {
-                console.log(error);
-                this.updateLoading(false);
+                if (requestVersion !== this.requestVersion) return;
+                this.loadError = error.response?.data?.error || error.message || 'โหลดข้อมูลทีมไม่สำเร็จ';
+            } finally {
+                if (requestVersion === this.requestVersion) {
+                    this.isDetailLoading = false;
+                    this.updateLoading(false);
+                }
             }
         },
-
         getShirtImage(player) {
             const teamCode = this.stripTeamCode(player.team_code);
             const suffix = player.position === 'G' ? '_1-66' : '-66';
@@ -273,6 +283,10 @@ export default {
             }
         },
 
+    },
+    beforeUnmount() {
+        this.requestVersion++;
+        this.updateLoading(false);
     },
     created() {
         this.id = this.$route.params.id;
@@ -414,110 +428,6 @@ export default {
     /* เปลี่ยนสีของ SVG เป็นสีขาว */
 }
 
-.card {
-
-    background: linear-gradient(to bottom, #1e1037, #341c5d);
-    padding: 5px;
-    overflow: hidden;
-    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px; */
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 10px;
-    border-top: 1px solid #503779;
-    /* border-left: 2px solid #503779; */
-    /* ขอบซ้าย */
-    /* border-right: 2px solid #503779; */
-    /* ขอบขวา */
-    border-bottom: 2px solid #503779;
-    /* ขอบล่าง */
-}
-
-
-.card .top-section .icons {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card .top-section .icons .logo {
-    height: 100%;
-    aspect-ratio: 1;
-    padding: 7px 0 7px 15px;
-}
-
-.card .top-section .icons .logo .top-section {
-    height: 100%;
-}
-
-.card .top-section .icons .social-media {
-    height: 100%;
-    padding: 8px 15px;
-    display: flex;
-    gap: 7px;
-}
-
-.card .top-section .icons .social-media .svg {
-    height: 100%;
-    fill: #1e1037;
-}
-
-
-.card .bottom-section {
-    margin-top: 1px;
-    padding: 10px 5px;
-}
-
-.card .bottom-section .title {
-    display: block;
-    font-size: 14px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.card .bottom-section .title-fix {
-    display: block;
-    font-size: 11px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-
-
-.card .bottom-section .row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.card .bottom-section .row .item {
-    flex: 30%;
-    text-align: center;
-    padding: 5px;
-    color: rgba(255, 255, 255, 0.721);
-}
-
-.card .bottom-section .row .item .big-text {
-    font-size: 15px;
-    display: block;
-}
-
-.card .bottom-section .row .item .regular-text {
-    font-size: 12px;
-}
-
-.card .bottom-section .row .item:nth-child(2) {
-    border-left: 1px solid rgba(255, 255, 255, 0.126);
-    border-right: 1px solid rgba(255, 255, 255, 0.126);
-}
-
-.shsojvp {
-    font-weight: bold;
-}
-
 .captain-badge {
     position: absolute;
     top: 0;
@@ -583,7 +493,7 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px 0px;
     background-repeat: no-repeat;
     background-position: right top, 0px center, 0px center;
-    background-image: url(/public/assets/pattern-2-crop-90.0e86ae39.png), linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+    background-image: linear-gradient(135deg, #501a1b, #191313);
 }
 
 .gvQQRY {
@@ -629,7 +539,7 @@ export default {
 .imodPj {
     margin-top: 2.2rem;
     border-radius: 0.8rem;
-    background: url(/public/assets/fantasy.svg) center / 800px no-repeat;
+    background: url(/assets/fantasy.svg) center / 800px no-repeat;
 }
 
 @media (min-width: 43.75em) {
@@ -1143,3 +1053,4 @@ export default {
     }
 }
 </style>
+<style src="../../styles/member-details.css"></style>

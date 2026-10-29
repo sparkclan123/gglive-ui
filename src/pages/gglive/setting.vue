@@ -1,11 +1,11 @@
 <template>
-    <div class="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#1c1c2b] via-[#141421] to-[#1c1c2b] py-10 px-4"
+    <div class="member-support member-account"
         v-if="userinfo">
         <div
-            class="w-full max-w-md rounded-3xl backdrop-blur-2xl bg-white/5 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.4)] p-6 md:p-8">
+            class="member-account-card">
 
             <!-- Header -->
-            <h1 class="text-center text-white/90 font-bold text-md tracking-tight mb-6">
+            <h1 class="member-account-title">
                 ข้อมูลส่วนตัว
                 <span class="text-white/90 text-base font-light">ID:</span>
                 <span class="text-yellow-300 text-base font-bold">{{ userinfo.UserID }}</span>
@@ -14,10 +14,10 @@
             <!-- Avatar -->
             <div class="relative flex justify-center mb-6">
                 <div class="mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat"
-                    :style="{ backgroundImage: `url(${profile.image_url})` }">
-                    <div class="bg-white/90 rounded-full w-6 h-6 text-center ml-28 mt-4">
+                    :style="{ backgroundImage: `url(${profile.image_url || $memberBrand.avatarFallback})` }">
+                    <div class="member-profile-upload-wrap">
                         <input type="file" name="profile" id="upload_profile" hidden @change="onFileChange">
-                        <label for="upload_profile">
+                        <label for="upload_profile" class="member-profile-upload" aria-label="เปลี่ยนรูปโปรไฟล์" tabindex="0" @keydown.enter="$el.querySelector('#upload_profile').click()" @keydown.space.prevent="$el.querySelector('#upload_profile').click()">
                             <svg data-slot="icon" class="w-6 h-5 text-blue-700" fill="none" stroke-width="1.5"
                                 stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                 aria-hidden="true">
@@ -46,7 +46,7 @@
                     <label for="phone" class="block text-sm text-gray-300 mb-1">เบอร์โทร<span
                             class="text-red-400">*</span></label>
                     <p class="text-xs text-red-300 mb-1">ใช้ในการติดต่อกรณีได้รับรางวัล</p>
-                    <input id="phone" v-model="profile.phone" type="text" placeholder="080xxxxxxx"
+                    <input id="phone" v-model="profile.phone" type="tel" autocomplete="tel" placeholder="080xxxxxxx"
                         class="input-field" />
                 </div>
 
@@ -71,13 +71,13 @@
                     <label for="bank_account" class="block text-sm text-gray-300 mb-1">เลขบัญชีรับรางวัล<span
                             class="text-red-400">*</span></label>
                     <p class="text-xs text-red-300 mb-1">ใช้โอนเงินรางวัลในกรณีชนะ</p>
-                    <input id="bank_account" v-model="profile.bank_account" type="text" placeholder="xxxxx-xxxxx-xxx"
+                    <input id="bank_account" v-model="profile.bank_account" type="text" inputmode="numeric" placeholder="xxxxx-xxxxx-xxx"
                         class="input-field" />
                 </div>
 
                 <!-- Save -->
                 <button type="submit"
-                    class="w-full py-3 mt-4 rounded-xl font-semibold text-lg text-white bg-gradient-to-r from-green-400 to-emerald-600 hover:from-green-300 hover:to-emerald-500 active:scale-[0.98] shadow-[0_8px_20px_rgba(0,255,100,0.25)] transition-all">
+                    class="member-button is-full">
                     บันทึกข้อมูล
                 </button>
             </form>
@@ -86,9 +86,9 @@
 </template>
 
 <script>
+import '../../styles/member-support.css';
 import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
-import heic2any from 'heic2any';
 import Swal from 'sweetalert2';
 export default {
     data() {
@@ -113,6 +113,7 @@ export default {
             if (this.selectedFile) {
                 if (this.selectedFile.type === 'image/heic') {
                     try {
+                        const {default: heic2any} = await import('heic2any');
                         const blob = await heic2any({
                             blob: this.selectedFile,
                             toType: 'image/jpeg',
@@ -295,6 +296,6 @@ export default {
 
 <style scoped>
 .input-field {
-    @apply w-full px-3 py-2 rounded-lg border border-white/10 bg-white/10 text-gray-100 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent placeholder-gray-500 transition;
+    @apply w-full px-3 py-2 rounded-lg border border-white/10 bg-white/10 text-gray-100 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent placeholder-gray-500 transition;
 }
 </style>

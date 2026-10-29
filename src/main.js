@@ -1,6 +1,16 @@
 import { createApp } from 'vue'
 // import './style.css'
 import './index.css'
+import './styles/member.css'
+import './styles/member-mobile.css'
+import './styles/member-theme.css'
+import './styles/member-rebrand.css'
+import { initializeMemberTheme } from './utils/memberTheme.js'
+import MemberThemeToggle from './components/member/MemberThemeToggle.vue'
+import { memberDialog, installMemberViewport } from './utils/memberMobile.js'
+import {memberBrand, applyMemberBrand} from './config/memberBrand.js'
+import MemberBrand from './components/member/MemberBrand.vue'
+import MemberIcon from './components/member/MemberIcon.vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -21,7 +31,17 @@ import StarMVPIcon from './components/icon/StarMVPIcon.vue';
 
 
 
+applyMemberBrand()
+const disposeMemberTheme = initializeMemberTheme()
+if (import.meta.hot) import.meta.hot.dispose(disposeMemberTheme)
 const app = createApp(App)
+app.directive('member-dialog', memberDialog)
+const disposeMemberViewport = installMemberViewport()
+if (import.meta.hot) import.meta.hot.dispose(disposeMemberViewport)
+app.config.globalProperties.$memberBrand = memberBrand
+app.component('MemberBrand', MemberBrand)
+app.component('MemberThemeToggle', MemberThemeToggle)
+app.component('MemberIcon', MemberIcon)
 app.component('Numberformat', Numberformat);
 app.component('NumberformatValue', NumberformatValue);
 app.component('NumberDisplay', NumberDisplay);

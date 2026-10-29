@@ -1,7 +1,7 @@
 <template>
-  <div class="rules-container">
+  <div class="member-support member-game-rules rules-container">
     <div class="rule-title">
-      <strong>กติกา PuDee Fantasy 2026-2027</strong>
+      <strong>กติกา {{ $memberBrand.name }} Fantasy 2026-2027</strong>
     </div>
 
     <div class="section">
@@ -20,7 +20,7 @@
         - รายการ <strong>UCL</strong> ใช้คะแนนจากแอพพลิเคชั่น <span class="rule-strong">Champion League 100%</span>
       </div>
       <div class="rule">
-        - รายการอื่นๆ ใช้คะแนนจากตารางการคิดคะแนน <strong>Fantasy PuDee Club</strong>
+        - รายการอื่นๆ ใช้คะแนนจากตารางการคิดคะแนน <strong>Fantasy {{ $memberBrand.name }} Club</strong>
       </div>
     </div>
 
@@ -70,11 +70,13 @@
     <div class="section">
       <div class="section-title"><strong>ข้อกำหนดอื่น ๆ</strong></div>
       <div class="rule">
-        - การตัดสินของทีมงาน <span class="rule-strong-red">PuDee ถือเป็นที่สิ้นสุด</span>ในทุกกรณี.
+        - การตัดสินของทีมงาน <span class="rule-strong-red">{{ $memberBrand.name }} ถือเป็นที่สิ้นสุด</span>ในทุกกรณี.
       </div>
     </div>
   </div>
 </template>
+
+<style src="../../styles/member-support.css"></style>
 
 <style scoped>
 .rules-container {

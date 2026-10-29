@@ -1,0 +1,129 @@
+/* Supporting member flows share the same mobile controls and neutral surfaces. */
+.member-support { color: var(--member-text); min-width: 0; }
+.member-support :is(button, [role="button"], label[for="upload_slip"]) { touch-action: manipulation; }
+.member-support :is(.member-support-note, .member-support-table small) { color: var(--member-muted); font-size: 12px; line-height: 1.7; }
+.member-support-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
+.member-support-heading h2 { font-size: 20px; font-weight: 700; }
+.member-icon-button { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--member-line); border-radius: 12px; background: var(--member-panel); }
+.member-icon-button svg { width: 20px; height: 20px; }
+.member-support-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.member-support-actions > button { flex: 1; }
+.member-self-create { border: 1px solid var(--member-line); border-radius: 20px; background: var(--member-panel); padding: 20px; margin-bottom: 24px; }
+.member-self-create > label { display: block; font-size: 12px; color: var(--member-muted); }
+.member-self-create .member-week-select { margin: 9px 0 15px; background: var(--member-input); }
+.member-self-create .member-support-note { margin-bottom: 15px; }
+.member-support-error { color: #ffaaa4; font-size: 12px; line-height: 1.7; margin-bottom: 15px; }
+.member-support-error button { text-decoration: underline; min-height: 44px; padding: 5px 10px; }
+.member-support-table-wrap { overflow-x: auto; border: 1px solid var(--member-line); border-radius: 18px; background: var(--member-panel); }
+.member-support-table { width: 100%; border-collapse: collapse; text-align: left; }
+.member-support-table th { font-size: 11px; font-weight: 500; color: var(--member-muted); padding: 14px 12px; }
+.member-support-table td { border-top: 1px solid var(--member-line); padding: 15px 12px; font-size: 12px; overflow-wrap: anywhere; }
+.member-support-table td strong, .member-support-table td small { display: block; }
+.member-support-table td small { font-size: 10px; margin-top: 5px; }
+.member-table-button { min-height: 44px; padding: 8px 10px; border: 1px solid var(--member-line); background: var(--member-hover); border-radius: 10px; font-size: 11px; color: var(--member-text); white-space: nowrap; }
+.member-support-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex: none; }
+.member-self-summary { padding: 24px; border: 1px solid var(--member-line); border-radius: 22px; background: linear-gradient(135deg, var(--member-accent-surface), var(--member-panel) 80%); margin-bottom: 22px; }
+.member-self-summary h1 { font-size: 27px; font-weight: 700; line-height: 1.4; margin: 9px 0; overflow-wrap: anywhere; }
+.member-self-summary > p { font-size: 12px; line-height: 1.8; color: var(--member-muted); }
+.member-self-summary .member-button { margin-top: 22px; }
+.member-self-standings th:nth-child(2), .member-self-standings td:nth-child(2) { text-align: right; width: 75px; }
+.member-self-standings th:last-child, .member-self-standings td:last-child { text-align: right; width: 120px; font-size: 10px; color: var(--member-muted); }
+.member-self-standings .member-self-points { font: 600 29px var(--member-display); }
+
+.member-support.member-payment { max-width: 640px; margin: auto; }
+.member-support.member-payment .contant_style { padding: 0; background: transparent; }
+.member-support.member-payment .walletBalanceCard { width: 100%; min-height: 110px; height: auto; display: flex; align-items: center; gap: 14px; padding: 21px; border: 1px solid var(--member-line); border-radius: 20px; background: linear-gradient(125deg, var(--member-accent-strong), var(--member-panel)); box-shadow: none; }
+.member-support.member-payment .svgwrapper { width: 30px; flex: none; color: #ffc1b7; }
+.member-support.member-payment :is(.balancewrapper, .balancewrapper_2) { width: auto; min-width: 0; flex: 1; }
+.member-support.member-payment :is(.balanceHeading, .balanceHeading_2) { font-size: 12px; font-weight: 500; color: #e5c7c1; line-height: 1.6; letter-spacing: 0; }
+.member-support.member-payment .balance { font-size: 26px; font-weight: 700; letter-spacing: 0; }
+.member-support.member-payment .balance_2 { font-size: 14px; color: #f0d39b; line-height: 1.6; }
+.member-support.member-payment .control-buttons { gap: 7px; margin-left: 0; }
+.member-support.member-payment :is(.addmoney, .delmoney, .copyaccount, .copyslip) { min-height: 44px; padding: 10px 13px; border-radius: 11px; background: #ffffff0d; border: 1px solid var(--member-line); }
+.member-support.member-payment .addmoney { background: var(--member-primary); border-color: transparent; }
+.member-support.member-payment .plussign { font-size: 12px; }
+.member-support.member-payment .ticket-input { width: 48px; font-size: 16px; }
+.member-support.member-payment .qr-code-container { gap: 8px; padding: 23px 20px; margin: 20px 0; border: 1px solid var(--member-line); border-radius: 20px; background: var(--member-panel); }
+.member-support.member-payment .qr-code-container h2 { font-size: 14px; line-height: 1.8; text-align: center; }
+.member-support.member-payment .qr-code-container > .font-semibold { width: 100%; }
+.member-support.member-payment .qr-code-container .justify-between { align-items: center; gap: 16px; font-size: 13px; }
+.member-support.member-payment .qr-code { max-width: 260px; margin: 10px 0 0; background: white; border-radius: 12px; }
+.member-support.member-payment .text-red-800 { color: #f3b0a9; line-height: 1.9; }
+.member-slip-actions { display: grid; grid-template-columns: 58px 1fr 1fr; align-items: stretch; gap: 10px; margin: 20px 0; }
+.member-slip-preview { display: grid; place-items: center; width: 58px; min-height: 58px; overflow: hidden; border: 1px solid var(--member-line); border-radius: 12px; background: var(--member-panel); }
+.member-slip-preview > svg { width: 24px; height: 24px; color: var(--member-muted); }
+.member-support.member-payment .button-container2 { display: flex; }
+.member-support.member-payment .button-container2 > :is(button, label) { width: 100%; }
+.member-support.member-payment :is(.cssbuttons-io-button, .cssbuttons-io-button2) { width: 100%; min-height: 52px; height: 100%; justify-content: center; padding: 10px; font-size: 12px; letter-spacing: 0; border-radius: 12px; box-shadow: none; background: var(--member-hover); border: 1px solid var(--member-line); }
+.member-support.member-payment .cssbuttons-io-button2 { background: var(--member-primary); border-color: transparent; }
+
+.member-history .content-container { background: transparent; padding: 0; margin: 0; }
+.member-history .wallet-card { display: flex; width: 100%; align-items: center; gap: 16px; padding: 18px 0; border: 0; border-bottom: 1px solid var(--member-line); border-radius: 0; color: var(--member-text); text-align: left; background: transparent; box-shadow: none; }
+.member-history .icon-wrapper { display: grid; place-items: center; width: 42px; height: 42px; background: var(--member-panel); border-radius: 12px; color: #edb1a8; flex: none; }
+.member-history .icon-wrapper svg { width: 21px; height: 21px; }
+.member-history .balance-section { display: flex; flex: 1; align-items: center; justify-content: space-between; gap: 14px; min-width: 0; }
+.member-history .balance-detail { color: var(--member-muted); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.member-history .balance-detail > span:first-child { display: block; color: var(--member-text); font-size: 13px; }
+.member-history .amount { white-space: nowrap; font-size: 16px; font-weight: 600; }
+
+.member-support.member-account { max-width: 560px; margin: auto; }
+.member-support.member-account .member-account-card { padding: 26px; border: 1px solid var(--member-line); border-radius: 22px; background: var(--member-panel); }
+.member-support.member-account .member-account-title { font-size: 23px; font-weight: 700; margin-bottom: 26px; }
+.member-support.member-account .member-account-title > span { font-size: 12px; color: var(--member-muted); }
+.member-support.member-account .input-field { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid var(--member-line); border-radius: 12px; background: var(--member-input); color: var(--member-text); }
+.member-support.member-account .input-field:focus { outline: 2px solid var(--member-primary); outline-offset: 2px; box-shadow: none; }
+.member-support.member-account .member-profile-upload-wrap { align-self: flex-end; margin: 0 -5px 0 auto; }
+.member-profile-upload { display: grid; place-items: center; width: 44px; height: 44px; border: 3px solid var(--member-panel); border-radius: 50%; background: var(--member-primary); cursor: pointer; }
+.member-profile-upload svg { width: 20px; height: 20px; color: #fff; margin: 0; }
+
+.member-support.member-system-rules { min-height: 0; padding: 0; background: transparent; }
+.member-support.member-system-rules .rule-card { padding: 28px; border: 1px solid var(--member-line); border-radius: 22px; background: var(--member-panel); color: var(--member-text); box-shadow: none; max-width: 800px; }
+.member-support.member-system-rules .rule-card:hover { transform: none; box-shadow: none; }
+.member-support.member-system-rules .rule-title { color: var(--member-text); text-shadow: none; font-size: 25px; text-align: left; letter-spacing: 0; }
+.member-support.member-system-rules .rule-content p { color: var(--member-muted); font-size: 14px; line-height: 1.95; text-align: left; }
+.member-support.member-system-rules :is(.highlight-green, .highlight-blue) { color: var(--member-soft); }
+.member-support.member-system-rules :is(.highlight-red, .policy-title) { color: var(--member-soft); }
+.member-support.member-system-rules .policy-box { background: #e525200d; border-color: #e5252040; padding: 20px; border-radius: 14px; }
+.member-support.member-game-rules { background: var(--member-panel); border: 1px solid var(--member-line); border-radius: 20px; padding: 24px; line-height: 1.85; }
+.member-support.member-game-rules :is(.rule, .rule strong) { color: #d4cbc5; }
+.member-support.member-game-rules :is(.section-title, .rule-title) { color: var(--member-text); text-align: left; }
+.member-support.member-game-rules .rule-title { font-size: 22px; }
+.member-support.member-game-rules .section-title { font-size: 17px; }
+.member-support.member-game-rules .section { border-color: var(--member-line); padding: 13px 0; }
+.member-support.member-game-rules .section:last-child { margin-bottom: 0; padding-bottom: 0; border: 0; }
+.member-support.member-game-rules .rule-strong { color: var(--member-positive); }
+.member-support.member-game-rules .rule-strong-red { color: var(--member-soft); }
+.member-support.member-game-rules .rule-note { color: var(--member-muted); font-style: normal; font-size: 12px; }
+.member-support.member-game-rules .rule-img { box-shadow: none; border-color: var(--member-line); border-radius: 12px; }
+.member-support.member-rewards .contant_style { background: var(--member-panel); color: var(--member-text); padding: 65px 24px 24px; border: 1px solid var(--member-line); border-radius: 22px; }
+.member-support.member-rewards [role="button"] { min-height: 44px; padding: 8px 4px; color: var(--member-muted); }
+.member-support.member-rewards :is(.text-yellow-900, .text-purple-900) { color: var(--member-soft); }
+.member-support.member-rewards .text-green-900 { color: var(--member-positive); }
+.member-support.member-rewards table { border-collapse: collapse; margin-top: 20px; background: transparent; }
+.member-support.member-rewards td { font-size: 13px; padding: 14px; }
+.member-support.member-rewards th { font-size: 11px; padding: 13px 14px; }
+.member-support.member-rewards p { line-height: 1.9; }
+
+@media (max-width: 640px) {
+  .member-self-create, .member-self-summary { padding: 18px; }
+  .member-support-table th, .member-support-table td { padding: 12px 8px; }
+  .member-table-button { font-size: 10px; padding: 8px; }
+  .member-self-standings th:last-child, .member-self-standings td:last-child { display: none; }
+  .member-self-summary h1 { font-size: 24px; }
+  .member-support.member-payment .walletBalanceCard { flex-wrap: wrap; padding: 18px; gap: 13px; }
+  .member-support.member-payment .control-buttons { width: 100%; justify-content: stretch; padding-top: 13px; border-top: 1px solid var(--member-line); }
+  .member-support.member-payment :is(.addmoney, .delmoney) { flex: 1; }
+  .member-support.member-payment .ticket-input { width: 68px; }
+  .member-support.member-payment .qr-code-container { padding: 20px 16px; }
+  .member-slip-actions { grid-template-columns: 48px 1fr 1fr; gap: 8px; }
+  .member-slip-preview { width: 48px; }
+  .member-support.member-payment :is(.cssbuttons-io-button, .cssbuttons-io-button2) { padding: 9px 7px; font-size: 11px; }
+  .member-history .wallet-card { gap: 12px; }
+  .member-history .balance-section { gap: 10px; }
+  .member-history .amount { font-size: 14px; }
+  .member-support.member-account .member-account-card { padding: 22px 19px; }
+  .member-support.member-system-rules .rule-card, .member-support.member-game-rules { padding: 22px 18px; }
+  .member-support.member-system-rules .rule-content p { font-size: 13px; }
+  .member-support.member-system-rules .policy-box { padding: 16px; }
+  .member-support.member-rewards .contant_style { padding: 64px 18px 22px; }
+}

@@ -1,48 +1,28 @@
 <template>
-    <div>
-        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
-            v-for="data in datas">
-            <div class="flex items-center font-semibold justify-between">
-                <div class="flex items-center space-x-1">
-                    <div class=" w-7 h-7  ">
-                        <img class="w-7 h-7 " src="/public/assets/logonew.png" />
-                    </div>
-                    <div class="text-sm ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }} <i
-                            class="fas fa-ticket-alt text-yellow-400"></i>
-                        <DateFormatted :dateString="data.created_at" class="font-thin " />
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4" v-if="data.is_vip">
-                    <div class="text-orange-600 font-bold cursor-pointer">
-                        VIP
-                    </div>
-                </div>
+    <section class="member-support member-self-pick-list">
+        <div v-if="loadError" class="member-error" role="alert"><p>{{ loadError }}</p><button type="button" class="member-button is-secondary" @click="fetchDataMyGameWeek()">ลองใหม่</button></div>
+        <div v-else-if="!loadingEntries && !datas.length" class="member-empty"><h2>ยังไม่มีทีมใน Gameweek นี้</h2><p>ทีมที่ส่งในรอบนี้จะแสดงที่นี่เพื่อให้เลือกเข้าร่วมการแข่งขัน</p></div>
+        <article v-for="data in datas" :key="data.id" class="member-entry-card">
+            <div class="member-entry-meta"><span>ฤดูกาล {{ data.season }} · Gameweek {{ data.week }}</span><span class="member-badge">VIP</span></div>
+            <h3>{{ data.name }}</h3>
+            <div class="member-support-note"><DateFormatted :dateString="data.created_at" /></div>
+            <div class="member-entry-actions">
+                <button type="button" @click="selectSelf(data.id, 'VIP', data.name)" class="member-button">เลือกทีม</button>
+                <button type="button" @click="seeDetailAndEdit(data)" class="member-button is-secondary">รายละเอียดทีม</button>
             </div>
-            <div class="flex items-center justify-between">
-                <div class="mt-4 text-gray-800  text-xs space-x-4">
-                    ชื่อทีม: {{ data.name }}
-                </div>
-
-            </div>
-            <div class="flex items-center justify-between">
-
-                <div class="mt-1 text-gray-800   text-sm space-x-1">
-                    <!-- @click="selectSelf(data.id)" -->
-                    <button @click="selectSelf(data.id, 'VIP', data.name)"
-                        class="bg-green-800 text-white px-2 py-1 rounded text-xs">เลือกทีม</button>
-                    <button @click="seeDetailAndEdit(data)"
-                        class="bg-yellow-800 text-white px-2 py-1 rounded text-xs">รายละเอียด</button>
-                </div>
-            </div>
-        </div>
+        </article>
         <Pagination :page="page" :pages="pages" @page-change="fetchDataMyGameWeek" />
-    </div>
+    </section>
 </template>
 
 <script>
 import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
+import '../../styles/member-support.css';
 export default {
+    props: {
+        gameWeekID: { type: Number, required: true }
+    },
     data() {
         return {
             datas: [],
@@ -50,14 +30,18 @@ export default {
             page: 1,
             limit: 10,
             pages: 1,
-            matchID: null
+            matchID: null,
+            loadingEntries: false,
+            loadError: ''
         };
     },
     computed: {
     },
     methods: {
         async selectSelf(id, type, name) {
-            
+            const entry = this.datas.find(item => Number(item.id) === Number(id));
+            if (!entry || !this.gameWeekID || Number(entry.week_id) !== Number(this.gameWeekID)) return;
+
             const result = await Swal.fire({
                 title: 'เลือกทีม',
                 text: 'คุณต้องการเลือก ทีม: ' + name + ' ใช่หรือไม่?',
@@ -79,7 +63,7 @@ export default {
             }
 
 
-           
+
             try {
                 this.$emit('set-loading', true);
                 const access_token = localStorage.getItem('access_token');
@@ -112,7 +96,7 @@ export default {
                     });
                     this.$emit('set-loading', false);
                     this.$emit('router-back');
-                    
+
                 }
             } catch (error) {
                 Swal.fire({
@@ -133,6 +117,9 @@ export default {
             }
         },
         async fetchDataMyGameWeek(page = 1, limit = 10) {
+            if (!Number.isSafeInteger(this.gameWeekID) || this.gameWeekID <= 0) return;
+            this.loadingEntries = true;
+            this.loadError = '';
             try {
                 this.$emit('set-loading', true);
                 const access_token = localStorage.getItem('access_token');
@@ -142,11 +129,12 @@ export default {
                     },
                     params: {
                         page: page,
-                        limit: limit
+                        limit: limit,
+                        game_week_id: this.gameWeekID
                     }
                 });
                 if (response.data.ok) {
-                    this.datas = response.data.data;
+                    this.datas = response.data.data.filter(entry => Number(entry.week_id) === Number(this.gameWeekID));
                     this.total = response.data.total;
                     this.page = response.data.page;
                     this.limit = response.data.limit;
@@ -154,7 +142,9 @@ export default {
                     this.$emit('set-loading', false);
                 }
             } catch (error) {
-                console.log(error);
+                this.loadError = 'โหลดทีมไม่สำเร็จ กรุณาลองอีกครั้ง';
+            } finally {
+                this.loadingEntries = false;
                 this.$emit('set-loading', false);
             }
         },
@@ -166,6 +156,9 @@ export default {
             this.$router.push({ name: 'pitch-detail', params: { id } });
         },
     },
+    watch: {
+        gameWeekID() { this.fetchDataMyGameWeek(); }
+    },
     created() {
         this.matchID = this.$route.params.id;
         this.fetchDataMyGameWeek();
@@ -173,11 +166,3 @@ export default {
 
 };
 </script>
-
-<style scoped>
-.cus-bg-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px #e8b201;
-}
-</style>

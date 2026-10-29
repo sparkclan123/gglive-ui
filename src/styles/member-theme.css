@@ -1,0 +1,43 @@
+/* Semantic colors shared by both themes, including dialogs outside the app root. */
+:root {
+  --member-input: #111111; --member-hover: #ffffff08; --member-subtle: #ffffff05;
+  --member-nav: #111111f5; --member-accent-surface: #281718; --member-accent-strong: #521b1a;
+  --member-positive: #b7dfc1; --member-warning: #edc87f; --member-negative: #ffaaa4;
+  --member-shadow: 0 10px 32px #00000018; --member-selected-text: #171717;
+}
+html[data-member-theme="light"] {
+  color-scheme: light;
+  --member-bg: #f4f6f8; --member-panel: #ffffff; --member-panel-raised: #edf0f3;
+  --member-text: #17212b; --member-muted: #606a76; --member-line: #dce1e6;
+  --member-soft: #b51d18; --member-input: #ffffff; --member-hover: #17212b08; --member-subtle: #17212b04;
+  --member-nav: #fffffff5; --member-accent-surface: #fff2ef; --member-accent-strong: #ffe6df;
+  --member-positive: #226b3d; --member-warning: #865706; --member-negative: #b42318;
+  --member-shadow: 0 8px 30px #26364a0b; --member-selected-text: #ffffff;
+}
+/* Existing utility-heavy screens and scoped modal styles need explicit theme scope. */
+html[data-member-theme="light"] .member-content :is(.text-white,.text-gray-100,.text-gray-200,.text-gray-300) { color: var(--member-text); }
+html[data-member-theme="light"] :is(.member-sheet,.member-player-picker,.builder-modal) { color: var(--member-text); }
+html[data-member-theme="light"] .member-content :is(input:not([type=checkbox]):not([type=radio]):not([type=file]),select,textarea),
+html[data-member-theme="light"] :is(.member-player-picker,.builder-modal,.swal2-popup) :is(input:not([type=checkbox]):not([type=radio]),select,textarea) { background:var(--member-input)!important;color:var(--member-text)!important;border-color:var(--member-line)!important; }
+html[data-member-theme="light"] .member-content :is(.tab-item.active,.tab-item_2.active) { background:var(--member-text)!important;color:#fff!important; }
+html[data-member-theme="light"] .member-content :is(.bg-blue-500,.bg-blue-600,.bg-purple-500,.bg-purple-600,.bg-green-500,.bg-green-600) { color:#fff!important; }
+html[data-member-theme="light"] .member-player-picker :is(.text-gray-100,.text-gray-200,.text-gray-300,.text-white) { color:var(--member-text)!important; }
+html[data-member-theme="light"] .member-player-picker :is(.text-green-400,.text-yellow-400) { color:var(--member-positive)!important; }
+html[data-member-theme="light"] .member-content :is(.text-green-800,.text-green-700,.text-green-600) { color:var(--member-positive)!important; }
+html[data-member-theme="light"] .member-app .builder-player-table .is-selected { background:#e9f4ec; }
+html[data-member-theme="light"] .member-app .builder-player-info.is-unavailable { background:#fff0ed;color:#b42318; }
+html[data-member-theme="light"] .member-app .builder-add-player.selected { background:#226b3d;color:#fff; }
+html[data-member-theme="light"] .member-app .builder-inline-error { border-color:#eebbb5;color:var(--member-negative); }
+html[data-member-theme="light"] .member-app .builder-captain-name b { color:#80560d;border-color:#bd8a2d; }
+html[data-member-theme="light"] .member-app .builder-mode { color:var(--member-soft);border-color:#e9b6b1; }
+html[data-member-theme="light"] .member-app .builder-player-choice em { color:var(--member-muted); }
+html[data-member-theme="light"] .member-support.member-payment :is(.balanceHeading,.balanceHeading_2,.svgwrapper) { color:var(--member-muted); }
+html[data-member-theme="light"] .member-support.member-payment :is(.balance_2,.text-red-800) { color:var(--member-soft); }
+html[data-member-theme="light"] .member-support.member-payment :is(.addmoney,.cssbuttons-io-button2) { color:#fff; }
+html[data-member-theme="light"] .member-support :is(.icon-wrapper,.highlight-red,.policy-title,.highlight-blue,.highlight-green,.text-yellow-900,.text-purple-900) { color:var(--member-soft); }
+html[data-member-theme="light"] .member-support .text-green-900 { color:var(--member-positive); }
+html[data-member-theme="light"] .member-support :is(.rule-content p,.rule,.rule strong) { color:var(--member-text); }
+html[data-member-theme="light"] .member-support :is(.rule-note,.member-support-note) { color:var(--member-muted); }
+html[data-member-theme="light"] .swal2-cancel { background:var(--member-panel-raised)!important;color:var(--member-text)!important; }
+
+html[data-member-theme="light"] .member-support.member-payment :is(.delmoney,.copyaccount,.copyslip,.cssbuttons-io-button) { color:var(--member-text);background:var(--member-hover); }

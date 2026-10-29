@@ -1,121 +1,47 @@
 <template>
-    <!-- <div class="min-h-screen bg-cover bg-center text-white flex flex-col items-center"
-        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');"> -->
-    <div class="min-h-screen bg-cover bg-center text-white flex flex-col items-center"
-        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp');">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-[#2b0b55]/60 to-transparent pointer-events-none"></div>
-
-        <!-- Header -->
-        <div class="relative w-full max-w-md text-center pt-8 pb-3">
-            <img src="https://pudee.sgp1.digitaloceanspaces.com/1.webp" alt="Pudee Logo"
-                class="w-40 mx-auto drop-shadow-lg" />
-
-            <button @click="SetactiveTab('tab4')"
-                class="absolute top-3 right-3 bg-white/90 text-gray-800 font-semibold text-xs px-3 py-1.5 rounded-lg hover:bg-white transition-all shadow-sm">
-                🧾 กติกา
-            </button>
-        </div>
-
-        <!-- Tabs -->
-        <div class="flex justify-center gap-2 w-full max-w-md mt-2 px-3">
-            <div class="tab-item flex-1 text-center py-2 rounded-t-lg font-semibold cursor-pointer transition-all duration-200"
-                :class="{
-                    'bg-white text-gray-900 shadow-md': activeTab === 'tab1',
-                    'bg-black/40 text-white hover:bg-black/60': activeTab !== 'tab1'
-                }" @click="SetactiveTab('tab1')">
-                เกมวีคปกติ
-            </div>
-
-            <div class="tab-item flex-1 text-center py-2 rounded-t-lg font-semibold cursor-pointer transition-all duration-200"
-                :class="{
-                    'bg-white text-gray-900 shadow-md': activeTab === 'tab2',
-                    'bg-black/40 text-white hover:bg-black/60': activeTab !== 'tab2'
-                }" @click="SetactiveTab('tab2')">
-                เกมวีค VIP <i class="fas fa-ticket-alt text-yellow-400"></i>
-            </div>
-        </div>
-
-        <!-- Content Card -->
-        <div
-            class="w-full max-w-md bg-white/95 text-gray-800 rounded-b-2xl rounded-t-lg shadow-xl backdrop-blur-sm p-4 mt-0">
-            <transition name="fade" mode="out-in">
-                <div :key="activeTab">
-                    <div v-if="activeTab === 'tab1'">
-                        <SeasonSelect />
-
-                    </div>
-
-                    <div v-else-if="activeTab === 'tab2'">
-                        <SeasonSelectVip />
-
-                    </div>
-
-                    <div v-else-if="activeTab === 'tab3'">
-                        <BigMatch />
-                    </div>
-
-                    <div v-else-if="activeTab === 'tab4'">
-                        <Rule />
-                    </div>
-                </div>
-            </transition>
-        </div>
-    </div>
+  <div class="member-season">
+    <MemberHomeBanner />
+    <div class="member-round-controls"><div class="member-mode-switch" aria-label="ประเภทเกม"><button :class="{'is-selected':mode==='normal'}" @click="setMode('normal')">เกมวีคปกติ</button><button :class="{'is-selected':mode==='vip'}" @click="setMode('vip')">VIP ✦</button></div><RouterLink :to="{name:'rule'}" class="member-text-button">กติกาการจัดทีม</RouterLink></div>
+    <div v-if="loading" class="member-loading" role="status">กำลังโหลด Gameweek…</div>
+    <div v-else-if="error" class="member-error" role="alert"><h2>โหลดรอบการแข่งขันไม่สำเร็จ</h2><p>ลองโหลดใหม่อีกครั้งเพื่อดูรอบที่เปิดรับ</p><button class="member-button" @click="load">ลองอีกครั้ง</button></div>
+    <template v-else>
+      <section v-if="rounds.length" class="member-round-grid" aria-label="Gameweek ที่เปิดใช้งาน">
+        <article v-for="round in rounds" :key="round.id" class="member-round-card">
+          <div class="member-round-meta"><span>Gameweek {{round.week}}</span><span class="member-badge" :class="{'is-open':state(round)==='open','is-upcoming':state(round)==='scheduled'}">{{statusLabel(round)}}</span></div>
+          <h2>{{round.week_name || `Gameweek ${round.week}`}}</h2><p class="member-round-season">{{round.season?.label}}<span v-if="round.teams?.length"> · {{round.teams.length}} สโมสร</span></p>
+          <div class="member-club-list"><span v-for="team in round.teams" :key="team.team_id" class="member-club-abbr" :title="team.name">{{team.club_abbr || team.short_name}}</span></div>
+          <div class="member-round-stats"><div><small>รางวัลอันดับ 1</small><strong class="member-reward">{{mode==='vip'?'฿'+format(round.reward):format(round.reward2)+' ตั๋ว'}}</strong></div><div><small>ทีมเข้าแข่งขัน</small><strong>{{format(round[mode]?.allPlayer)}}</strong></div><div><small>ปิดรับ</small><strong class="member-date">{{dateLabel(round.end_date)}}</strong></div></div>
+          <div class="member-round-actions"><button class="member-button" :disabled="state(round)!=='open' || entering===round.id" @click="enter(round)">{{buttonLabel(round)}}<MemberIcon name="arrow"/></button><RouterLink class="member-button is-secondary" :to="{name:'reward-detail',params:{id:round.id,type:mode==='vip'?'VIP':'N'}}" :aria-label="`ดูรางวัล Gameweek ${round.week}`"><MemberIcon name="trophy"/></RouterLink></div>
+          <div class="member-round-footer"><RouterLink :to="{name:'challenge',query:{game_week_id:round.id,mode}}" @click="rememberGameweek(round)">ดูอันดับการแข่งขัน</RouterLink><span>ทีมของฉัน {{format(round[mode]?.myTeam)}}</span></div>
+        </article>
+      </section>
+      <section v-else class="member-empty"><h2>เตรียมทีมสำหรับรอบถัดไป</h2><p>ยังไม่มี Gameweek เปิดรับในขณะนี้<br>ดูคะแนนและอันดับรอบที่ผ่านมาได้ด้านล่าง</p><RouterLink class="member-button is-secondary" :to="{name:'challenge'}">ดูอันดับล่าสุด <MemberIcon name="trophy"/></RouterLink></section>
+    </template>
+    <section v-if="recent.length"><div class="member-section-heading"><h2>รอบที่ผ่านมา</h2><RouterLink :to="{name:'result'}">ดูทั้งหมด</RouterLink></div><article v-for="round in recent" :key="round.id" class="member-recent-row"><div><strong>{{round.week_name || `Gameweek ${round.week}`}}</strong><p>{{dateLabel(round.end_date)}}</p></div><RouterLink class="member-button is-secondary" :to="{name:mode==='vip'?'result-list-gameweek':'result-list-gameweek-n',params:{gameWeekID:round.id}}">ดูอันดับ <MemberIcon name="arrow"/></RouterLink></article></section>
+  </div>
 </template>
-
 <script>
-import SeasonSelect from '../../components/season/SeasonSelect.vue'
-import SeasonSelectVip from '../../components/season/SeasonSelectVip.vue'
-import BigMatch from '../../components/season/BigmatchSelect.vue'
-import Rule from '../../components/rule/rule.vue'
-
+import {mapActions,mapGetters} from 'vuex';
+import Swal from 'sweetalert2';
+import {memberBrand} from '../../config/memberBrand.js';
+import MemberHomeBanner from '../../components/member/MemberHomeBanner.vue';
+import {fetchActiveGameweeks,fetchGameweeks,rememberGameweek} from '../../services/gameweeks.js';
+import {gameweekState,pitchDestination,dateLabel} from '../../utils/gameweeks.js';
 export default {
-    name: 'Season',
-    components: { SeasonSelect, SeasonSelectVip, BigMatch, Rule },
-    data() {
-        return {
-            activeTab: 'tab1',
-            activity: 'https://pudee.sgp1.digitaloceanspaces.com/activity.webp'
-        }
-    },
-    methods: {
-        clickactivity() {
-            this.$router.push({ name: 'activity' })
-        },
-        SetactiveTab(tab) {
-            this.activeTab = tab
-            localStorage.setItem('season-select-tab', tab)
-        },
-        resetWebPs() {
-            this.activity = ''
-            this.$nextTick(() => {
-                this.activity = `https://pudee.sgp1.digitaloceanspaces.com/activity.webp?${Date.now()}`
-            })
-        }
-    },
-    mounted() {
-        this.resetWebPs()
-        const savedTab = localStorage.getItem('season-select-tab')
-        if (savedTab) this.activeTab = savedTab
-    }
-}
+  components:{MemberHomeBanner},
+  data:()=>({brand:memberBrand,mode:localStorage.getItem('season-select-tab')==='tab2'?'vip':'normal',rounds:[],recent:[],loading:true,error:false,entering:null,now:Date.now(),offset:0,clock:null,request:0}),
+  computed:{...mapGetters('ticket',['getTicket'])},
+  methods:{...mapActions('ticket',['facthTicket']),dateLabel,rememberGameweek,
+    setMode(mode){this.mode=mode;localStorage.setItem('season-select-tab',mode==='vip'?'tab2':'tab1')},
+    state(round){return gameweekState(round,this.now)},
+    statusLabel(round){return {open:'เปิดจัดทีม',scheduled:'ยังไม่ถึงเวลาเปิด',closed:'ปิดรับแล้ว',completed:'สรุปผลแล้ว'}[this.state(round)]},
+    buttonLabel(round){if(this.entering===round.id)return 'กำลังตรวจสอบ…';if(this.state(round)==='scheduled')return 'เปิด '+dateLabel(round.start_date);if(this.state(round)!=='open')return 'ปิดรับทีมแล้ว';return this.mode==='normal'&&Number(round.normal?.myTeam)>0?'ดูทีมของฉัน':'จัดทีม'+(this.mode==='vip'?' VIP':'')},
+    format(n){return Number(n||0).toLocaleString('th-TH')},
+    async load(){const request=++this.request;this.loading=true;this.error=false;const [active,history]=await Promise.allSettled([fetchActiveGameweeks(),fetchGameweeks(1,6)]);if(request!==this.request)return;if(active.status==='fulfilled'){this.rounds=active.value.data;this.offset=new Date(active.value.currentTime).getTime()-Date.now();if(!Number.isFinite(this.offset))this.offset=0;this.now=Date.now()+this.offset}else{this.error=true;this.rounds=[]}if(history.status==='fulfilled')this.recent=history.value.data.filter(w=>w.status!=='active').slice(0,3);this.loading=false},
+    async enter(round){if(this.state(round)!=='open')return;rememberGameweek(round);if(this.mode==='normal'&&Number(round.normal?.myTeam)>0){this.$router.push({name:'list',query:{game_week_id:round.id,mode:'normal'}});return}this.entering=round.id;try{if(this.mode==='vip'){await this.facthTicket();if(Number(this.getTicket)<=0){const result=await Swal.fire({title:'ตั๋ว VIP ไม่เพียงพอ',text:'ใช้ 1 ตั๋วสำหรับจัดทีม VIP',showCancelButton:true,confirmButtonText:'สนับสนุนเรา',cancelButtonText:'กลับ'});if(result.isConfirmed)this.$router.push({name:'payments'});return}}const destination=pitchDestination(round,this.mode);if(destination)this.$router.push(destination)}finally{this.entering=null}}
+  },
+  mounted(){this.load();this.clock=setInterval(()=>{this.now=Date.now()+this.offset},1000)},
+  beforeUnmount(){this.request++;clearInterval(this.clock)}
+};
 </script>
-
-<style scoped>
-.video-banner2 {
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    width: 100%;
-    max-width: 350px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-</style>
+<style scoped>.member-round-footer{display:flex;justify-content:space-between;gap:10px;font-size:11px;margin-top:15px;color:var(--member-muted)}.member-round-footer a{color:var(--member-soft);min-height:28px;display:inline-flex;align-items:center}</style>

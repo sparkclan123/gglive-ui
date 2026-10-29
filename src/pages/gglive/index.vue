@@ -1,137 +1,73 @@
 <template>
-    <div class="bg-color-1">
-        <FantasyTeam />
-    </div>
+  <section class="member-builder-page" :aria-busy="loading">
+    <div v-if="loading" class="builder-state" role="status"><span class="builder-loader"></span><h2>กำลังเตรียมสนาม</h2><p>โหลดนักเตะและสโมสรของเกมวีคนี้</p></div>
+    <div v-else-if="error" class="builder-state" role="alert"><h2>ยังโหลดเกมวีคไม่ได้</h2><p>{{ error }}</p><button class="builder-button" @click="loadContext">ลองอีกครั้ง</button></div>
+    <FantasyTeam v-else-if="ready" :key="contextKey" />
+  </section>
 </template>
 <script>
 import { api } from '@axios_inst';
 import FantasyTeam from '../../components/fantasy/FantasyTeam.vue';
-import { mapActions, mapGetters } from 'vuex';
+import { createBuilderLoader } from '../../utils/builderContext.js';
+import Swal from 'sweetalert2';
 export default {
-    data() {
-        return {
-            gameWeek: null,
-            seasonID: null,
-            gameWeekID: null
-        }
+  components: { FantasyTeam },
+  data() { return { loading: true, ready: false, error: '', loadRevision: 0, loader: null }; },
+  computed: {
+    contextKey() { return `${this.$route.params.seasonID}:${this.$route.params.gameWeekID}:vip`; },
+  },
+  watch: { contextKey() { this.loadContext(); } },
+  created() {
+    this.loader = createBuilderLoader({
+      request: async (path, params) => {
+        const { data } = await api.get(path, { params, headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } });
+        return data;
+      },
+      reset: () => {
+        this.ready = false;
+        this.$store.dispatch('GameWeek/setGameWeek', null);
+        this.$store.dispatch('GameWeek/setGameWeekPlayer', []);
+        this.$store.dispatch('GameWeek/setGameWeekPlayerPercent', {});
+        this.$store.dispatch('GameWeek/setGameWeekPlayerPercentN', {});
+        this.$store.dispatch('Teams/setTeams', []);
+        this.$store.dispatch('playerSelect/setFormation', '1-5-5-3');
+      },
+      apply: ({ gameWeek, players, teams, ownership }) => {
+        this.$store.dispatch('GameWeek/setGameWeek', gameWeek);
+        this.$store.dispatch('GameWeek/setGameWeekPlayer', players);
+        this.$store.dispatch('Teams/setTeams', teams);
+        this.$store.dispatch('GameWeek/setGameWeekPlayerPercent', ownership);
+      },
+    });
+    this.loadContext();
+  },
+  beforeUnmount() { this.loadRevision += 1; this.loader.dispose(); },
+  async beforeRouteUpdate(to, from) {
+    if (to.params.gameWeekID !== from.params.gameWeekID || to.params.seasonID !== from.params.seasonID) return this.confirmRoundChange();
+  },
+  async beforeRouteLeave(to) {
+    if (['pitch-detail', 'pitch-detail-n'].includes(to.name)) return true;
+    return this.confirmRoundChange();
+  },
+  methods: {
+    async loadContext() {
+      const revision = ++this.loadRevision;
+      this.loading = true;
+      this.error = '';
+      try {
+        const result = await this.loader.load(this.$route.params, 'vip');
+        if (revision === this.loadRevision) this.ready = Boolean(result);
+      } catch (error) {
+        if (revision === this.loadRevision) this.error = 'ตรวจสอบรอบและฤดูกาลที่เลือก แล้วลองโหลดอีกครั้ง';
+      } finally { if (revision === this.loadRevision) this.loading = false; }
     },
-    components: {
-        FantasyTeam
+    async confirmRoundChange() {
+      const roster = ['getGKP', 'getDEF', 'getMID', 'getFWD'].flatMap(key => this.$store.getters[`playerSelect/${key}`] || []);
+      if (!roster.some(player => player.id)) return true;
+      const result = await Swal.fire({ title: 'ออกจากทีมที่กำลังจัด?', text: 'รายชื่อนักเตะและกัปตันที่ยังไม่บันทึกจะถูกล้าง', showCancelButton: true, confirmButtonText: 'ออกและล้างทีม', cancelButtonText: 'จัดทีมต่อ', customClass: { popup: 'popup-custom', confirmButton: 'btn-confirm', cancelButton: 'btn-cancel' }, buttonsStyling: false });
+      return result.isConfirmed;
     },
-    methods: {
-        ...mapActions('loading', ['updateLoading']),
-        ...mapActions('GameWeek', ['setGameWeek', 'setGameWeekPlayer', 'setGameWeekPlayerPercent']),
-        ...mapActions('Teams', ['setTeams']),
-
-        async fetchData(seasonID, gameWeekID) {
-            try {
-                // แปลง seasonID และ gameWeekID เป็น integer
-                const intSeasonID = parseInt(seasonID, 10);
-                const intGameWeekID = parseInt(gameWeekID, 10);
-
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/game-week-player', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        seasonID: intSeasonID,
-                        gameWeekID: intGameWeekID
-                    }
-                });
-                if (response.data.ok) {
-                    this.setGameWeek(response.data.gameWeek);
-                    this.setGameWeekPlayer(response.data.players);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        async fetchDataPlayerPercent(seasonID, gameWeekID) {
-            try {
-                // แปลง seasonID และ gameWeekID เป็น integer
-                const intSeasonID = parseInt(seasonID, 10);
-                const intGameWeekID = parseInt(gameWeekID, 10);
-
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/game-week-player-percent', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        seasonID: intSeasonID,
-                        gameWeekID: intGameWeekID
-                    }
-                });
-                if (response.data.ok) {
-                    this.setGameWeekPlayerPercent(response.data.players);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        async fetchDataTeams() {
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/teams', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    }
-                });
-                if (response.data.ok) {
-                    this.setTeams(response.data.teams);
-                } else {
-                    console.error('Failed to fetch teams data');
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
-    },
-
-    computed: {
-        ...mapGetters('season', ['getSeasons']),
-        ...mapGetters('selectGameWeek', ['getGameWeek'])
-    },
-    async created() {
-        this.updateLoading(true);
-
-        this.seasonID = this.$route.params.seasonID;
-        this.gameWeekID = this.$route.params.gameWeekID;
-
-        try {
-            await Promise.all([
-                this.fetchData(this.seasonID, this.gameWeekID),
-                this.fetchDataTeams(),
-                this.fetchDataPlayerPercent(this.seasonID, this.gameWeekID),
-            ]);
-        } catch (error) {
-            console.log('Error loading data:', error);
-            setTimeout(() => {
-                this.updateLoading(false);
-            }, 50);
-        } finally {
-            setTimeout(() => {
-                this.updateLoading(false);
-            }, 50);
-        }
-
-    },
-
-}
+  },
+};
 </script>
-
-
-<style scoped>
-.bg-color-1 {
-    background-color: #ffffff;
-    border-radius: 0.5rem;
-}
-
-.field {
-    background-image: url('path-to-football-field-image.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 80vh;
-}
-</style>
+<style src="../../styles/builder.css"></style>

@@ -1,65 +1,66 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from '../store';
+import { clearMemberSession } from '../utils/memberSession.js';
 
 import DefaultLayout from '../layouts/DefaultLayout.vue';
 import LoginLayout from '../layouts/LoginLayout.vue';
 
-import Login from '../pages/login.vue';
-import Register from '../pages/register.vue';
-import ResetPassword from '../pages/resetPassword.vue';
-import Home from '../pages/home.vue';
-import SeasonSelect from '../pages/gglive/season.vue';
-import GgLive from '../pages/gglive/index.vue';
-import GgLiveDetail from '../pages/gglive-detail/gglive-detail.vue';
-import List from '../pages/gglive/list.vue';
-import Challenge from '../pages/gglive/challenge.vue';
-import Result from '../pages/gglive/result.vue';
-import ResultlistGameWeek from '../pages/gglive/result-gameweek-list.vue';
-import ResultlistGameWeekN from '../pages/gglive/result-gameweek-list-n.vue';
-import News from '../pages/gglive/news.vue';
-import Rule from '../pages/gglive/ruleweb.vue';
-import Payments from '../pages/payment/payment.vue';
-import Rank from '../pages/gglive/rank.vue';
-import ExchangeReward from '../pages/gglive/ExchangeReward.vue';
-import History from '../pages/gglive/history.vue';
+const Login = () => import('../pages/login.vue');
+const Register = () => import('../pages/register.vue');
+const ResetPassword = () => import('../pages/resetPassword.vue');
+const Home = () => import('../pages/home.vue');
+const SeasonSelect = () => import('../pages/gglive/season.vue');
+const GgLive = () => import('../pages/gglive/index.vue');
+const GgLiveDetail = () => import('../pages/gglive-detail/gglive-detail.vue');
+const List = () => import('../pages/gglive/list.vue');
+const Challenge = () => import('../pages/gglive/challenge.vue');
+const Result = () => import('../pages/gglive/result.vue');
+const ResultlistGameWeek = () => import('../pages/gglive/result-gameweek-list.vue');
+const ResultlistGameWeekN = () => import('../pages/gglive/result-gameweek-list-n.vue');
+const News = () => import('../pages/gglive/news.vue');
+const Rule = () => import('../pages/gglive/ruleweb.vue');
+const Payments = () => import('../pages/payment/payment.vue');
+const Rank = () => import('../pages/gglive/rank.vue');
+const ExchangeReward = () => import('../pages/gglive/ExchangeReward.vue');
+const History = () => import('../pages/gglive/history.vue');
 
 
-import Game from '../pages/game/index.vue';
-import Plinko from '../pages/gglive/plinko.vue';
+const Game = () => import('../pages/game/index.vue');
+const Plinko = () => import('../pages/gglive/plinko.vue');
 
 
-import SelfMatchDetail from '../pages/gglive/selfMatchDetail.vue';
-import SelfMatchDetailPick from '../pages/gglive/selfMatchDetailPickUp.vue';
+const SelfMatchDetail = () => import('../pages/gglive/selfMatchDetail.vue');
+const SelfMatchDetailPick = () => import('../pages/gglive/selfMatchDetailPickUp.vue');
 
-import Reward from '../pages/gglive/reward-detail.vue';
-
-
-import PlayerPointDetail from '../pages/gglive/player-point-detail.vue';
-import PlayerPointDetailTable from '../pages/gglive-detail/table-player-point.vue';
-
-import Activity from '../pages/activity/index.vue';
+const Reward = () => import('../pages/gglive/reward-detail.vue');
 
 
+const PlayerPointDetail = () => import('../pages/gglive/player-point-detail.vue');
+const PlayerPointDetailTable = () => import('../pages/gglive-detail/table-player-point.vue');
 
-import ChallengeDetail from '../pages/gglive-detail/challenge-detail.vue';
-import ChallengeDetailN from '../pages/gglive-detail/challenge-detail-n.vue';
-
-
-import Setting from '../pages/gglive/setting.vue';
-
-import GgLiveN from '../pages/gglive/indexn.vue';
-import GgLiveDetailN from '../pages/gglive-detail/gglive-detail-n.vue';
-import GgLiveDetailEdit from '../pages/gglive-detail/gglive-detail-edit.vue';
-import GgLiveDetailEditNew from '../pages/gglive-detail/gglive-detail-edit_new.vue';
-
-import BigMatch from '../pages/bigmatch/index.vue';
-
-import Aff from '../pages/aff/index.vue';
+const Activity = () => import('../pages/activity/index.vue');
 
 
-import Download from '../pages/download.vue';
 
-import NotFound from '../pages/NotFound.vue';
+const ChallengeDetail = () => import('../pages/gglive-detail/challenge-detail.vue');
+const ChallengeDetailN = () => import('../pages/gglive-detail/challenge-detail-n.vue');
+
+
+const Setting = () => import('../pages/gglive/setting.vue');
+
+const GgLiveN = () => import('../pages/gglive/indexn.vue');
+const GgLiveDetailN = () => import('../pages/gglive-detail/gglive-detail-n.vue');
+const GgLiveDetailEdit = () => import('../pages/gglive-detail/gglive-detail-edit.vue');
+const GgLiveDetailEditNew = () => import('../pages/gglive-detail/gglive-detail-edit_new.vue');
+
+const BigMatch = () => import('../pages/bigmatch/index.vue');
+
+const Aff = () => import('../pages/aff/index.vue');
+
+
+const Download = () => import('../pages/download.vue');
+
+const NotFound = () => import('../pages/NotFound.vue');
 import { api } from '@axios_inst';
 
 const routes = [
@@ -274,29 +275,32 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+        return savedPosition || { left: 0, top: 0, behavior: 'instant' };
+    },
 });
 
 router.beforeEach(async (to, from, next) => {
-    let params = {};
-    if (window.location.search) {
-        let queryParams = new URLSearchParams(window.location.search);
-        for (let [key, value] of queryParams) {
-            params[key] = value;
-        }
-    }
+    const params = {...to.query};
     if (to.name == 'login') {
         localStorage.setItem('user_params', JSON.stringify(params));
     }
     if (to.matched.some(record => record.meta.requiresAuth)) {
         const access_token = localStorage.getItem('access_token');
         if (access_token) {
+            let valid = false;
             try {
                 await api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } });
-                // await store.dispatch('ticket/facthTicket'); // 
+                valid = true;
+            } catch { /* Handle only the session this request actually checked. */ }
+            const currentToken = localStorage.getItem('access_token');
+            if (currentToken !== access_token) {
+                // Another tab may have signed in, or sign-out may have completed.
+                next(currentToken ? {path: to.path, query: to.query, hash: to.hash, replace: true} : {name: 'login'});
+            } else if (valid) {
                 next();
-                window.scrollTo(0, 0);
-            } catch (error) {
-                localStorage.removeItem('token');
+            } else {
+                clearMemberSession(localStorage, sessionStorage, store);
                 next({ name: 'login' });
             }
         } else {

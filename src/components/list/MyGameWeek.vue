@@ -1,60 +1,16 @@
-<template>
-    <div>
-        <div class="cus-bg-card text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
-            v-for="data in datas" @click="seeDetailAndEdit(data)">
-            <div class="flex items-center font-semibold justify-between">
-                <div class="flex items-center space-x-1">
-                    <div class=" w-7 h-7  ">
-                        <img class="w-7 h-7 " src="/public/assets/logonew.png" />
-                    </div>
-                    <div class="text-xs ">ฤดูกาล {{ data.season }} เกมวีค {{ data.week }}
-                        <span class="flex items-center">
-                            <DateFormatted :dateString="data.created_at" class="font-thin text-[10px]" />
-                            <i class="fas fa-ticket-alt text-yellow-400 ml-1"></i>
-                        </span>
-                    </div>
-
-                </div>
-                <div class="flex items-center">
-                    <button v-if="gameWeek && gameWeek.id == data.week_id"
-                        class="text-gray-600 bg-orange-300 font-bold text-[8px] px-1 py-1 rounded-full shadow-lg hover:bg-orange-500 cursor-pointer mr-1"
-                        @click.stop="edit(data.id)">
-                        แก้ด่วน
-                    </button>
-                    <button v-if="gameWeek && gameWeek.id == data.week_id"
-                        class="text-gray-600 bg-red-300 font-bold text-[8px] px-2 py-1 rounded-full shadow-lg hover:bg-red-500 cursor-pointer"
-                        @click.stop="edit_new(data.id)">
-                        เเก้ละเอียด
-                    </button>
-                </div>
-
-                <div class="flex items-center space-x-4" v-if="data.is_vip">
-                    <div class="text-orange-600 font-bold cursor-pointer">
-                        VIP
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center justify-between">
-                <div class="mt-4 text-gray-800  text-xs space-x-4">
-                    ชื่อทีม: {{ data.name }}
-                </div>
-                <div class="mt-4 text-gray-800   text-sm space-x-4">
-                    คะเเนนรวม: <span class="text-green-800"> {{ data.total_point }} </span>
-                </div>
-            </div>
-        </div>
-        <Pagination :page="page" :pages="pages" @page-change="fetchDataMyGameWeek" />
-    </div>
-</template>
-
+<template><section><div v-if="loading" class="member-loading" role="status">กำลังโหลดทีมของคุณ…</div><div v-else-if="error" class="member-error"><h2>โหลดทีมไม่สำเร็จ</h2><button class="member-button" @click="fetchDataMyGameWeek(page)">ลองอีกครั้ง</button></div><template v-else><article v-for="data in datas" :key="data.id" class="member-entry-card"><div class="member-entry-meta"><span>{{data.season}} · {{data.week || `Gameweek ${data.week_id}`}}</span><span class="member-badge">VIP</span></div><h3>{{data.name}}</h3><div class="member-entry-meta"><span>{{dateLabel(data.created_at)}}<br>งบ {{Number(data.total_price).toFixed(1)}} / 80</span><span class="member-entry-score">{{data.total_point ?? 0}} <small style="font-family:var(--member-body);font-size:10px">คะแนน</small></span></div><div class="member-entry-actions"><button class="member-button is-secondary" @click="seeDetailAndEdit(data)">ดูทีม</button><button v-if="editable(data)" class="member-button is-secondary" @click="edit(data.id)">แก้ไขทันที</button><button v-if="editable(data)" class="member-button" @click="edit_new(data.id)">แก้ไขทั้งทีม</button></div></article><div v-if="!datas.length" class="member-empty"><h2>ยังไม่มีทีมในรายการนี้</h2><p>เลือก Gameweek แล้วส่งทีมของคุณลงสนาม</p><RouterLink class="member-button" :to="{name:'season-select'}">เลือก Gameweek</RouterLink></div><Pagination v-if="pages>1" :page="page" :pages="pages" @page-change="fetchDataMyGameWeek"/></template></section></template>
 <script>
+import {isEntryEditable, dateLabel} from '../../utils/gameweeks.js';
 import { api } from '@axios_inst';
 import { mapActions, mapGetters } from 'vuex';
 export default {
-    props: ['gameWeek'],
+    props: {activeGameweeks: {type: Array, default:()=>[]}, filterGameweekId: {type: Number, default: null}},
     data() {
         return {
             datas: [],
+            loading: true,
+            error: false,
+            requestId: 0,
             total: 0,
             page: 1,
             limit: 50,
@@ -64,6 +20,8 @@ export default {
     computed: {
     },
     methods: {
+        dateLabel,
+        editable(entry){return isEntryEditable(entry,this.activeGameweeks)},
         edit(id) {
             this.$router.push({ name: 'pitch-detail-edit', params: { id: id, type: "VIP" } });
         },
@@ -71,30 +29,17 @@ export default {
             this.$router.push({ name: 'pitch-detail-edit-new', params: { id: id, type: "VIP" } });
         },
         async fetchDataMyGameWeek(page = 1, limit = 50) {
+            const request = ++this.requestId; this.loading = true; this.error = false;
             try {
-                this.$emit('set-loading', true);
-                const access_token = localStorage.getItem('access_token');
                 const response = await api.get('/premier-league/v1/game-week-player-user', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        page: page,
-                        limit: limit
-                    }
+                    headers: {'Authorization': `Bearer ${localStorage.getItem('access_token')}`},
+                    params: {page, limit, ...(this.filterGameweekId ? {game_week_id:this.filterGameweekId} : {})}
                 });
-                if (response.data.ok) {
-                    this.datas = response.data.data;
-                    this.total = response.data.total;
-                    this.page = response.data.page;
-                    this.limit = response.data.limit;
-                    this.pages = response.data.pages;
-                    this.$emit('set-loading', false);
-                }
-            } catch (error) {
-                console.log(error);
-                this.$emit('set-loading', false);
-            }
+                if(request!==this.requestId)return;
+                if(!response.data.ok)throw new Error('Entries unavailable');
+                this.datas=response.data.data||[];this.total=response.data.total;this.page=response.data.page;this.limit=response.data.limit;this.pages=response.data.pages;
+            } catch { if(request===this.requestId)this.error=true; }
+            finally { if(request===this.requestId)this.loading=false; }
         },
         seeDetailAndEdit(data) {
             if (!data) {
@@ -104,6 +49,7 @@ export default {
             this.$router.push({ name: 'pitch-detail', params: { id } });
         },
     },
+    beforeUnmount(){this.requestId++},
     created() {
 
         this.fetchDataMyGameWeek();
@@ -111,11 +57,3 @@ export default {
 
 };
 </script>
-
-<style scoped>
-.cus-bg-card {
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 2px 2px 2px #e8b201;
-}
-</style>

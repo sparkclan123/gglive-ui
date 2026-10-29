@@ -1,8 +1,11 @@
 <template>
-  <div class="rule-container">
+  <div class="member-rules-page">
+    <header class="member-page-header"><h1>กติกาการแข่งขัน</h1><p>การจัดทีม การนับคะแนน รางวัล และนโยบายของระบบ</p></header>
+    <GameRules />
+  <div class="member-support member-system-rules rule-container">
     <div class="rule-card">
       <div class="text-center mb-4">
-        <h1 class="rule-title">📘 กติการะบบ</h1>
+        <h1 class="rule-title">กติการะบบ</h1>
       </div>
 
       <div class="rule-content">
@@ -48,7 +51,13 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
+<script setup>
+import GameRules from "../../components/rule/rule.vue";
+</script>
+
+<style src="../../styles/member-support.css"></style>
 
 <style scoped>
 /* 🔹 โครงสร้างพื้นหลังหลัก */

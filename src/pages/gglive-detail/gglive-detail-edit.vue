@@ -1,42 +1,26 @@
 <template>
+    <section class="member-detail">
+        <div v-if="isDetailLoading" class="member-loading" role="status">กำลังโหลดข้อมูลทีม…</div>
+        <div v-else-if="loadError" class="member-error" role="alert">
+            <h2>โหลดข้อมูลทีมไม่สำเร็จ</h2>
+            <p>{{ loadError }}</p>
+            <button class="member-button" @click="fetchGameWeekDetail">ลองอีกครั้ง</button>
+        </div>
     <div>
         <div>
             <LodingSceen :loading="loading" />
         </div>
         <div class="dxRBog" v-if="getMain">
-            <div class="card cursor-pointer">
-                <div class="top-section  ">
-                    <div class="icons">
-                        <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200 px-1.5 py-1.5  bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-200 shadow-sm"
-                            @click="route_back()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                            </svg>
-                            <span class="text-white text-xs font-bold tracking-wide">กลับ</span>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="bottom-section">
-                    <span class="title text-green-500">{{ getMain.name }} </span>
-                    <div class="row row1">
-                        <div class="item">
-                            <span class="text-xs">งบทั้งหมด </span>
-                            <span class="text-xs text-gray-200">
-                                <NumberDisplay number="80" /> ใช้ไป
-                                <NumberDisplay :number="-priceSum" />
-                            </span>
-                            <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม
-                                <DateFormatted :dateString="getMain.created_at" />
-                            </span>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+            <MemberTeamHeader
+                :team="getMain"
+                :stats="[
+                    { label: 'งบทั้งหมด', value: 80, format: 'budget' },
+                    { label: 'ใช้ไป', value: -priceSum, format: 'budget' },
+                ]"
+                :created-at="getMain.created_at"
+                edit-mode="immediate"
+                @back="route_back"
+            />
             <div>
                 <div class="elHRfu ">
                     <div class="imodPj custom-btn shadow-xl">
@@ -125,11 +109,13 @@
         </div>
     </div>
 
+    </section>
 </template>
 
 
 <script>
 import { api } from '@axios_inst';
+import MemberTeamHeader from '../../components/member/MemberTeamHeader.vue';
 import { mapActions, mapGetters } from 'vuex';
 import ModelEdit from '../../components/object/model_edit.vue';
 import ModelEditSelectPlayer from '../../components/object/model_edit_selectplayer.vue';
@@ -147,6 +133,9 @@ export default {
             getMID: [],
             getFWD: [],
             getMain: null,
+            requestVersion: 0,
+            isDetailLoading: false,
+            loadError: '',
             isNavigating: false,
             is_captan: null,
             players: [],
@@ -156,6 +145,7 @@ export default {
         };
     },
     components: {
+        MemberTeamHeader,
         ModelEdit,
         ModelEditSelectPlayer
     },
@@ -241,14 +231,12 @@ export default {
             this.showAdjustPlayerModal = true;
         },
         ChangePlayer() {
-            document.body.style.overflow = 'hidden';
             this.position = this.detailPlayer.position;
             this.showAdjustPlayerModal = false;
             this.showAdjustPlayerModalSelect = true;
 
         },
         async ChangePlayerSelect(player) {
-            document.body.style.overflow = '';
             this.showAdjustPlayerModalSelect = false;
             // this.position = this.detailPlayer.position;
             // this.showAdjustPlayerModal = false;
@@ -345,25 +333,31 @@ export default {
             }
             // this.$router.push({ name: 'list' });
         },
-        async fetchDataTeams() {
-
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/teams', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    }
-                });
-                if (response.data.ok) {
-                    this.setTeams(response.data.teams);
-                } else {
-                    console.error('Failed to fetch teams data');
-                }
-            } catch (error) {
-                console.log(error);
-            }
+        async fetchDataTeams(gameWeekID) {
+            const access_token = localStorage.getItem('access_token');
+            const response = await api.get('/premier-league/v1/teams', {
+                headers: { 'Authorization': `Bearer ${access_token}` },
+                params: { game_week_id: Number(gameWeekID) }
+            });
+            if (!response.data.ok) throw new Error('โหลดรายชื่อสโมสรไม่สำเร็จ');
+            return response.data.teams || [];
         },
         async fetchGameWeekDetail() {
+            const requestVersion = ++this.requestVersion;
+            this.isDetailLoading = true;
+            this.loadError = '';
+            this.getMain = null;
+            this.getGKP = [];
+            this.getDEF = [];
+            this.getMID = [];
+            this.getFWD = [];
+            this.players = [];
+            this.setTeams([]);
+            this.is_captan = null;
+            this.detailPlayer = null;
+            this.position = null;
+            this.showAdjustPlayerModal = false;
+            this.showAdjustPlayerModalSelect = false;
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.get(`/premier-league/v1/game-week-player-user-detail-edit/${this.id}/${this.type}`, {
@@ -371,7 +365,17 @@ export default {
                         'Authorization': `Bearer ${access_token}`
                     },
                 });
+                if (requestVersion !== this.requestVersion) return;
+                if (!response.data.ok || !response.data.playerGameMain) throw new Error('ไม่พบข้อมูลทีม');
                 if (response.data.ok) {
+                    const entry = response.data.playerGameMain;
+                    const [players, teams] = await Promise.all([
+                        this.fetchData(entry.season_id, entry.week_id),
+                        this.fetchDataTeams(entry.week_id)
+                    ]);
+                    if (requestVersion !== this.requestVersion) return;
+                    this.players = players;
+                    this.setTeams(teams);
                     const datas = response.data.playerGame;
 
                     datas.forEach(element => {
@@ -385,12 +389,17 @@ export default {
                     this.getMID = datas.filter(player => player.position === 'M').sort((a, b) => a.sort - b.sort);
                     this.getFWD = datas.filter(player => player.position === 'F').sort((a, b) => a.sort - b.sort);
                     this.getMain = response.data.playerGameMain;
-                    this.fetchData(response.data.playerGameMain.season_id, response.data.playerGameMain.week_id);
+
 
                 }
             } catch (error) {
-                console.log(error);
-
+                if (requestVersion !== this.requestVersion) return;
+                this.loadError = error.response?.data?.error || error.message || 'โหลดข้อมูลทีมไม่สำเร็จ';
+            } finally {
+                if (requestVersion === this.requestVersion) {
+                    this.isDetailLoading = false;
+                    this.updateLoading(false);
+                }
             }
         },
         getShirtImage(player) {
@@ -409,52 +418,35 @@ export default {
             }
         },
         async fetchData(seasonID, gameWeekID) {
-            console.log('seasonID', seasonID);
-            try {
-                // แปลง seasonID และ gameWeekID เป็น integer
-                const intSeasonID = parseInt(seasonID, 10);
-                const intGameWeekID = parseInt(gameWeekID, 10);
-
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/game-week-player', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        seasonID: intSeasonID,
-                        gameWeekID: intGameWeekID
-                    }
-                });
-                if (response.data.ok) {
-                    // this.setGameWeek(response.data.gameWeek);
-                    this.players = response.data.players;
-                }
-            } catch (error) {
-                console.log(error);
+            const intSeasonID = Number(seasonID);
+            const intGameWeekID = Number(gameWeekID);
+            if (!Number.isInteger(intSeasonID) || intSeasonID < 1 || !Number.isInteger(intGameWeekID) || intGameWeekID < 1) {
+                throw new Error('ไม่พบฤดูกาลหรือเกมวีคของทีม');
             }
+            const access_token = localStorage.getItem('access_token');
+            const response = await api.get('/premier-league/v1/game-week-player', {
+                headers: { 'Authorization': `Bearer ${access_token}` },
+                params: { seasonID: intSeasonID, gameWeekID: intGameWeekID }
+            });
+            const round = response.data.gameWeek;
+            if (!response.data.ok || !round || Number(round.id) !== intGameWeekID || Number(round.season_id) !== intSeasonID) {
+                throw new Error('รายชื่อนักเตะไม่ตรงกับเกมวีคของทีม กรุณาลองใหม่');
+            }
+            return response.data.players || [];
         },
 
 
 
     },
     created() {
-
         this.id = this.$route.params.id;
         this.type = this.$route.params.type;
-
         this.updateLoading(true);
-        Promise.all([this.fetchGameWeekDetail(), this.fetchDataTeams()])
-            .then(() => {
-                this.updateLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error loading data:', error);
-                this.updateLoading(false);
-            });
-
+        this.fetchGameWeekDetail();
     },
-    mounted() {
-
+    beforeUnmount() {
+        this.requestVersion++;
+        this.updateLoading(false);
     }
 
 };
@@ -477,98 +469,6 @@ export default {
 .svg-white {
     fill: #ffffff;
     /* เปลี่ยนสีของ SVG เป็นสีขาว */
-}
-
-.card {
-    background: linear-gradient(to bottom, #1e1037, #341c5d);
-    padding: 5px;
-    overflow: hidden;
-    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px; */
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 10px;
-    border-top: 1px solid #503779;
-    /* border-left: 2px solid #503779; */
-    /* ขอบซ้าย */
-    /* border-right: 2px solid #503779; */
-    /* ขอบขวา */
-    border-bottom: 2px solid #503779;
-    /* ขอบล่าง */
-}
-
-.card .top-section .icons {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card .top-section .icons .logo {
-    height: 100%;
-    aspect-ratio: 1;
-    padding: 7px 0 7px 15px;
-}
-
-.card .top-section .icons .logo .top-section {
-    height: 100%;
-}
-
-.card .top-section .icons .social-media {
-    height: 100%;
-    padding: 8px 15px;
-    display: flex;
-    gap: 7px;
-}
-
-.card .top-section .icons .social-media .svg {
-    height: 100%;
-    fill: #1e1037;
-}
-
-
-.card .bottom-section {
-    margin-top: 1px;
-    /* padding: 10px 5px; */
-}
-
-.card .bottom-section .title {
-    display: block;
-    font-size: 18px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.card .bottom-section .row {
-    display: flex;
-    justify-content: space-between;
-    /* margin-top: 20px; */
-}
-
-.card .bottom-section .row .item {
-    flex: 30%;
-    text-align: center;
-    padding: 5px;
-    color: rgba(255, 255, 255, 0.721);
-}
-
-.card .bottom-section .row .item .big-text {
-
-    display: block;
-}
-
-.card .bottom-section .row .item .regular-text {
-    font-size: 12px;
-}
-
-.card .bottom-section .row .item:nth-child(2) {
-    border-left: 1px solid rgba(255, 255, 255, 0.126);
-    border-right: 1px solid rgba(255, 255, 255, 0.126);
-}
-
-.shsojvp {
-    font-weight: bold;
 }
 
 .captain-badge {
@@ -636,7 +536,7 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px 0px;
     background-repeat: no-repeat;
     background-position: right top, 0px center, 0px center;
-    background-image: url(/public/assets/pattern-2-crop-90.0e86ae39.png), linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+    background-image: linear-gradient(135deg, #501a1b, #191313);
 }
 
 .gvQQRY {
@@ -682,7 +582,7 @@ export default {
 .imodPj {
     margin-top: 2.2rem;
     border-radius: 0.8rem;
-    background: url(/public/assets/fantasy.svg) center / 800px no-repeat;
+    background: url(/assets/fantasy.svg) center / 800px no-repeat;
 }
 
 @media (min-width: 43.75em) {
@@ -1196,3 +1096,4 @@ export default {
     }
 }
 </style>
+<style src="../../styles/member-details.css"></style>

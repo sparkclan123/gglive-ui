@@ -1,96 +1,72 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp')">
-        <LodingSceen :loading="loading" />
-
-        <!-- overlay -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-
-        <!-- card -->
-        <div
-            class="relative z-10 w-[90%] max-w-md mx-auto bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-8 text-white space-y-6">
-            <!-- logo -->
-            <div class="flex justify-center mb-3">
-                <img src="/public/assets/logo.webp" alt="Logo"
-                    class="w-20 h-20 rounded-full border-4 border-white/40 shadow-lg" />
+  <section class="auth-account-panel auth-registration">
+    <LodingSceen :loading="loading" />
+    <header class="auth-ticket-heading auth-ticket-seam">
+      <div>
+        <RouterLink to="/login" class="auth-back-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>กลับเข้าสู่ระบบ</RouterLink>
+        <h1>สมัครสมาชิก</h1>
+        <p class="auth-ticket-description">สร้างทีมของคุณ แล้วลุ้นไปด้วยกัน</p>
+      </div>
+      <svg class="auth-ticket-pitch" viewBox="0 0 72 104" fill="none" aria-hidden="true">
+        <path d="M3 3h66v98H3zM3 52h66M21 3v17h30V3M21 101V84h30v17"/>
+        <circle cx="36" cy="52" r="13"/><circle cx="36" cy="52" r="1.8"/>
+      </svg>
+    </header>
+    <div class="auth-form-panel">
+      <form class="auth-form" @submit.prevent="loginform" :aria-busy="loading || confirming" novalidate>
+        <fieldset class="auth-fieldset">
+          <legend>ยืนยันเบอร์โทรศัพท์</legend>
+          <p class="auth-section-hint">รับรหัส OTP ทาง SMS เพื่อยืนยันว่าเป็นคุณ</p>
+          <div class="auth-field">
+            <label for="phone">เบอร์โทรศัพท์</label>
+            <div class="auth-phone-row">
+              <input id="phone" v-model="phonenum" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="เบอร์โทรศัพท์ 10 หลัก" maxlength="10" :aria-invalid="phoneError" :aria-describedby="phoneError ? 'phone-error' : undefined" />
+              <button type="button" class="auth-otp-button" :disabled="loading || confirming || otpCountdown > 0" @click="callOtp">{{ otpCountdown > 0 ? `รอ ${otpCountdown} วินาที` : 'ขอรหัส OTP' }}</button>
             </div>
-
-            <h2 class="text-2xl font-bold text-center">สมัครสมาชิก Pudee Club</h2>
-            <p class="text-gray-300 text-center text-sm">กรอกข้อมูลด้านล่างเพื่อสร้างบัญชีของคุณ</p>
-
-            <!-- phone -->
-            <div>
-                <label for="phone" class="block text-sm mb-1 text-gray-300">เบอร์โทรศัพท์ (10 หลัก)</label>
-                <input id="phone" v-model="phonenum" type="tel" placeholder="08xxxxxxxx"
-                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-blue-400 focus:outline-none', phoneError ? 'border-red-500' : 'border-gray-400']" />
-                <p v-if="phoneError" class="text-red-400 text-xs mt-1">กรุณากรอกเบอร์โทรให้ถูกต้อง</p>
-            </div>
-
-            <!-- password -->
-            <div>
-                <label for="password" class="block text-sm mb-1 text-gray-300">รหัสผ่าน (อย่างน้อย 4 ตัว)</label>
-                <input id="password" v-model="password" type="password" placeholder="********"
-                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none', passwordError ? 'border-red-500' : 'border-gray-400']" />
-            </div>
-
-            <!-- confirm -->
-            <div>
-                <label for="confirm_password" class="block text-sm mb-1 text-gray-300">ยืนยันรหัสผ่าน</label>
-                <input id="confirm_password" v-model="confirm_password" type="password" placeholder="********"
-                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none', confirmPasswordError ? 'border-red-500' : 'border-gray-400']" />
-                <p v-if="confirmPasswordError" class="text-red-400 text-xs mt-1">รหัสผ่านไม่ตรงกัน</p>
-            </div>
-
-            <!-- name -->
-            <div>
-                <label for="name" class="block text-sm mb-1 text-gray-300">ชื่อ</label>
-                <input id="name" v-model="name" type="text" placeholder="ชื่อของคุณ"
-                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none', nameError ? 'border-red-500' : 'border-gray-400']" />
-            </div>
-
-            <!-- otp -->
-            <div>
-                <label for="otp" class="block text-sm mb-1 text-gray-300">รหัส OTP</label>
-                <input id="otp" v-model="otp" type="tel" placeholder="OTP 6 หลัก"
-                    :class="['w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-blue-400 focus:outline-none', otpError ? 'border-red-500' : 'border-gray-400']" />
-                <p v-if="otpError" class="text-red-400 text-xs mt-1">กรุณากรอก OTP ให้ถูกต้อง</p>
-            </div>
-
-            <!-- otp countdown -->
-            <div v-if="otpCountdown > 0" class="text-center text-xs text-gray-300">
-                โปรดรอ {{ otpCountdown }} วินาทีก่อนขอรหัสใหม่
-            </div>
-
-            <!-- otp button -->
-            <button :disabled="otpCountdown > 0" @click="callOtp"
-                class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-semibold shadow-lg transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
-                ขอรหัส OTP
-            </button>
-
-            <!-- register button -->
-            <button @click="loginform"
-                class="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 font-semibold shadow-lg transition-all hover:scale-[1.02]">
-                สมัครสมาชิก
-            </button>
-
-            <!-- back to login -->
-            <div class="text-center text-sm mt-2">
-                <router-link to="/login" class="text-blue-400 hover:text-blue-300">กลับสู่หน้า Login</router-link>
-            </div>
-        </div>
+            <p v-if="phoneError" id="phone-error" class="auth-field-error">กรุณากรอกเบอร์โทรศัพท์ 10 หลักให้ถูกต้อง</p>
+            <p v-if="otpCountdown > 0" class="auth-field-hint">ส่งรหัสแล้ว ตรวจสอบ SMS ในโทรศัพท์ของคุณ</p>
+          </div>
+          <div class="auth-field">
+            <label for="otp">รหัส OTP</label>
+            <input id="otp" v-model="otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="รหัส 6 หลักจาก SMS" :aria-invalid="otpError" :aria-describedby="otpError ? 'otp-error' : undefined" />
+            <p v-if="otpError" id="otp-error" class="auth-field-error">กรุณากรอกรหัส OTP 6 หลักให้ถูกต้อง</p>
+          </div>
+        </fieldset>
+        <fieldset class="auth-fieldset">
+          <legend>ข้อมูลบัญชี</legend>
+          <div class="auth-field">
+            <label for="name">ชื่อของคุณ</label>
+            <input id="name" v-model="name" name="name" type="text" autocomplete="name" maxlength="50" placeholder="ชื่อที่ใช้ในบัญชี" :aria-invalid="nameError" :aria-describedby="nameError ? 'name-error' : undefined" />
+            <p v-if="nameError" id="name-error" class="auth-field-error">กรุณากรอกชื่อ ไม่เกิน 50 ตัวอักษร</p>
+          </div>
+          <div class="auth-field">
+            <label for="password">รหัสผ่าน</label>
+            <input id="password" v-model="password" name="password" type="password" autocomplete="new-password" placeholder="อย่างน้อย 4 ตัวอักษร" :aria-invalid="passwordError" :aria-describedby="passwordError ? 'password-error' : undefined" />
+            <p v-if="passwordError" id="password-error" class="auth-field-error">กรุณากรอกรหัสผ่านอย่างน้อย 4 ตัวอักษร</p>
+          </div>
+          <div class="auth-field">
+            <label for="confirm_password">ยืนยันรหัสผ่าน</label>
+            <input id="confirm_password" v-model="confirm_password" name="confirm-password" type="password" autocomplete="new-password" placeholder="กรอกรหัสผ่านอีกครั้ง" :aria-invalid="confirmPasswordError" :aria-describedby="confirmPasswordError ? 'confirm-password-error' : undefined" />
+            <p v-if="confirmPasswordError" id="confirm-password-error" class="auth-field-error">รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง</p>
+          </div>
+        </fieldset>
+        <button type="submit" class="auth-submit" :disabled="loading || confirming">{{ loading ? 'กำลังสมัครสมาชิก…' : 'สมัครสมาชิก' }}</button>
+      </form>
+      <p class="auth-register-prompt">มีบัญชีแล้ว? <RouterLink to="/login" class="auth-text-link">เข้าสู่ระบบ</RouterLink></p>
     </div>
+  </section>
 </template>
-
 
 <script>
 import { mapActions } from 'vuex'
 import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
 export default {
-    name: 'Login',
+    name: 'Register',
     data() {
         return {
             loading: false,
+            confirming: false,
             name: '',
             phonenum: '',
             password: '',
@@ -135,6 +111,7 @@ export default {
             this.otpError = this.otp === '' || this.otp.length !== 6;
         },
         startOtpCountdown() {
+            if (this.countdownTimer) clearInterval(this.countdownTimer);
             this.otpCountdown = 300; // 5 minutes in seconds
             this.countdownTimer = setInterval(() => {
                 if (this.otpCountdown > 0) {
@@ -146,10 +123,9 @@ export default {
             }, 1000);
         },
         async callOtp() {
-            this.validateInputs();
+            if (this.loading || this.confirming || this.otpCountdown > 0) return;
+            this.phoneError = this.phonenum.length !== 10;
             if (this.phoneError) return;
-
-            if (this.otpCountdown > 0) return;
 
 
             this.loading = true;
@@ -183,6 +159,7 @@ export default {
 
         },
         async loginform() {
+            if (this.loading || this.confirming) return;
 
             this.validateInputs();
 
@@ -190,21 +167,27 @@ export default {
                 return;
             }
 
-            const result = await Swal.fire({
-                title: 'ยืนยันการสมัครสมาชิก',
-                text: 'คุณต้องการสมัครสมาชิกใช่หรือไม่',
-                showCancelButton: true,
-                confirmButtonText: 'ใช่',
-                cancelButtonText: 'ไม่ใช่',
-                customClass: {
-                    confirmButton: 'btn-confirm',
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
+            this.confirming = true;
+            let result;
+            try {
+                result = await Swal.fire({
+                    title: 'ยืนยันการสมัครสมาชิก',
+                    text: 'คุณต้องการสมัครสมาชิกใช่หรือไม่',
+                    showCancelButton: true,
+                    confirmButtonText: 'ใช่',
+                    cancelButtonText: 'ไม่ใช่',
+                    customClass: {
+                        confirmButton: 'btn-confirm',
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+            } finally {
+                this.confirming = false;
+            }
 
             if (!result.isConfirmed) {
                 return;
@@ -231,7 +214,7 @@ export default {
 
             } catch (error) {
                 Swal.fire({
-                    text: error.response.data.error,
+                    text: error.response?.data?.error || 'ดำเนินการไม่สำเร็จ กรุณาลองอีกครั้ง',
                     showCancelButton: true,
                     cancelButtonText: 'ยกเลิก',
                     showConfirmButton: false,
@@ -246,108 +229,28 @@ export default {
                 this.loading = false;
             }
 
-            // Implement form submission logic here
-            // For example: await this.submitRegistration();
         },
     },
     mounted() {
-        this.loading = true;
-        let access_token = localStorage.getItem('access_token');
-        if (access_token) {
-            console.log('access_token', localStorage.getItem('access_token'));
-            api.get('/premier-league/v1/check-token', { headers: { 'Authorization': `Bearer ${access_token}` } })
-                .then(response => {
-                    window.location.href = '/season-select';
-                })
-                .catch(error => {
-                    localStorage.removeItem('token');
-                });
-        }
-
-        const user_params = JSON.parse(localStorage.getItem('user_params'));
-        const token = user_params['access_token'];
-        if (token) {
-            localStorage.setItem('access_token', token);
-            window.location.href = '/lobby';
-        }
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const ref = urlParams.get('ref');
-
+        try {
+            const accessToken = localStorage.getItem('access_token');
+            if (accessToken) {
+                api.get('/premier-league/v1/check-token', { headers: { Authorization: `Bearer ${accessToken}` } })
+                    .then(() => { window.location.href = '/season-select'; })
+                    .catch(() => { try { localStorage.removeItem('access_token'); } catch {} });
+            }
+            const userParams = JSON.parse(localStorage.getItem('user_params') || 'null');
+            if (userParams?.access_token) {
+                localStorage.setItem('access_token', userParams.access_token);
+                window.location.href = '/lobby';
+            }
+        } catch { /* Missing or invalid saved callback data must not block registration. */ }
+        const ref = new URLSearchParams(window.location.search).get('ref');
         this.referral = isNaN(parseInt(ref)) ? 0 : parseInt(ref);
-
         this.loading = false;
+    },
+    beforeUnmount() {
+        if (this.countdownTimer) clearInterval(this.countdownTimer);
     }
 }
 </script>
-
-
-<style scoped>
-.logo-circle {
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.otp-container input {
-    text-align: center;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.5rem;
-}
-
-.button-save1 {
-    font-size: 15px;
-    display: inline-block;
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-    will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #0e2472 0%, #0e2472 100%);
-    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
-    padding: 0 2em;
-    border-radius: 0.3em;
-    color: #fff;
-    height: 2.6em;
-    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
-    transition: box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.button-save1 {
-    box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #0f580a;
-    transform: translateY(-0.1em);
-}
-
-.button-save1:active {
-    box-shadow: inset 0px 0.1em 0.6em #0a1158;
-    transform: translateY(0em);
-}
-
-.button-save {
-    font-size: 15px;
-    display: inline-block;
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-    will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #15720e 0%, #15720e 100%);
-    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
-    padding: 0 2em;
-    border-radius: 0.3em;
-    color: #fff;
-    height: 2.6em;
-    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
-    transition: box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.button-save {
-    box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #0f580a;
-    transform: translateY(-0.1em);
-}
-
-.button-save:active {
-    box-shadow: inset 0px 0.1em 0.6em #0f580a;
-    transform: translateY(0em);
-}
-</style>

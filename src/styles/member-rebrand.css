@@ -1,0 +1,86 @@
+/* Supplied identity and compact member chrome. */
+.member-brand { display:inline-flex;align-items:center;line-height:1;gap:0; }
+.member-brand-logo { width:94px;height:94px;object-fit:contain;display:block;flex:none; }
+.member-topbar { height:64px; }
+.member-topbar .member-brand-logo { width:64px;height:64px; }
+.member-home-link { gap:10px; }
+.member-desktop-tag { font:500 12px var(--member-body);letter-spacing:0; }
+.member-content { min-height:calc(100dvh - 64px); }
+.member-menu-theme { display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-block:1px solid var(--member-line);margin-bottom:6px; }
+.member-menu-theme strong { font-size:12px;font-weight:600; }
+.member-menu-theme small { display:block;color:var(--member-muted);font-size:10px;margin-top:3px; }
+.member-menu .member-theme-toggle { flex:none; }
+.member-menu-profile .member-brand-logo { width:64px;height:64px; }
+.member-bottom-nav { background:var(--member-nav); }
+.member-bottom-nav button { color:var(--member-muted); }
+.member-bottom-nav .is-current { color:var(--member-soft); }
+.member-bottom-nav .member-pitch-nav svg { box-shadow:0 0 0 5px var(--member-nav); }
+.member-avatar { position:relative; }
+.member-avatar::after { content:'';position:absolute;width:7px;height:7px;border-radius:50%;background:var(--member-primary);right:4px;bottom:5px;border:1.5px solid var(--member-panel); }
+.member-mode-switch button.is-selected { background:var(--member-text);color:var(--member-selected-text); }
+.member-content .member-mode-switch { max-width:100%; }
+@media(max-width:640px) {
+  .member-topbar { height:60px; }
+  .member-topbar .member-brand-logo { width:54px;height:54px; }
+  .member-content { min-height:calc(100dvh - 60px); }
+  .member-bottom-nav { justify-content:space-evenly; }
+  .member-bottom-nav button { max-width:90px; }
+  .member-menu-theme { gap:8px; }
+}
+
+/* Compact match centre: controls first, then as many legible ranks as possible. */
+.member-competition-title { display:flex;align-items:center;justify-content:space-between;gap:12px; }
+.member-competition-title h1 { font-size:24px;font-weight:700;line-height:1.3; }
+.member-competition-title .member-mode-switch { width:174px;flex:none; }
+.member-competition .member-week-select { margin:10px 0 4px; }
+.member-app .member-ranking .member-ranking-heading { margin-top:12px;gap:10px;align-items:center; }
+.member-app .member-ranking .member-ranking-heading h2 { font-size:25px; }
+.member-app .member-ranking .member-ranking-heading p:last-child { margin-top:3px; }
+.member-app .member-ranking .member-ranking-heading.is-compact { margin-top:6px; }
+.member-app .member-ranking .member-kicker { margin-bottom:2px;font-size:10px; }
+.member-app .member-ranking .member-stat-strip { padding:10px 4px;margin:8px 0;border-radius:12px;background:var(--member-panel);border:1px solid var(--member-line); }
+.member-app .member-ranking .member-stat-strip > div + div { border-left:1px solid var(--member-line); }
+.member-app .member-ranking .member-stat-strip strong { font-size:27px;line-height:1.1; }
+.member-app .member-ranking .member-stat-strip small { font-size:10px;color:var(--member-muted); }
+.member-app .member-ranking-table th { padding:8px 7px;font-size:10px; }
+.member-app .member-ranking-table td { padding:5px 7px; }
+.member-app .member-ranking-table .member-rank { font-size:21px!important; }
+.member-app .member-ranking-table .member-points { font-size:24px; }
+.member-app .member-ranking .member-team-link { font-size:12px;gap:8px;min-height:44px; }
+.member-app .member-ranking .member-profile-frame { width:28px;height:28px; }
+.member-ranking-updating { font-size:11px;color:var(--member-muted);padding:6px 0; }
+@media(max-width:640px) {
+  .member-competition-title { gap:8px; }
+  .member-competition-title h1 { font-size:21px; }
+  .member-competition-title .member-mode-switch { width:154px; }
+  .member-competition-title .member-mode-switch button { font-size:11px;padding:8px; }
+  .member-app .member-ranking .member-ranking-heading .member-button { min-height:44px; }
+  .member-app .member-ranking .member-ranking-heading h2 { font-size:22px; }
+  .member-app .fixture-match { margin:6px 0;padding:10px 12px;gap:10px;border-radius:12px; }
+  .member-app .fixture-club,.member-app .fixture-away { flex-direction:row;gap:7px;text-align:left; }
+  .member-app .fixture-away { flex-direction:row-reverse;text-align:right; }
+  .member-app .fixture-initials { width:27px;height:27px;font-size:10px; }
+  .member-app .fixture-club strong { font-size:10px; }
+  .member-app .fixture-date-group { margin:14px 0; }
+  .member-app .fixture-date-group h2 { margin-bottom:7px; }
+  .member-app .result-round-card { padding:13px;border-radius:14px; }
+  .member-app .result-round-title { margin:10px 0;gap:9px; }
+  .member-app .result-round-title h3 { font-size:14px; }
+  .member-app .result-round-bottom { padding-top:9px; }
+  .member-app .round-list-grid { gap:10px; }
+}
+@media(max-width:350px) {
+  .member-competition-title h1 { font-size:19px; }
+  .member-competition-title .member-mode-switch { width:140px; }
+}
+
+.member-club-abbr { color:var(--member-text);background:var(--member-subtle); }
+.member-ticket svg { color:var(--member-warning); }
+
+/* Text makes the menu discoverable; touch target stays generous at 320px. */
+.member-menu-trigger { min-height:44px;min-width:62px;padding:8px 14px;background:var(--member-panel);color:var(--member-text);border:1px solid var(--member-line);border-radius:12px;font-size:13px;font-weight:600; }
+.member-menu-trigger:hover { border-color:var(--member-soft); }
+/* Fine red runs echo a pitch diagram behind the cards without covering player shirts. */
+.member-app.has-pitch-pattern { background-image: repeating-linear-gradient(125deg,transparent 0,transparent 92px,#e5252010 92px,#e5252010 93px,transparent 93px,transparent 200px),radial-gradient(ellipse at 100% 200px,transparent 0,transparent 220px,#e5252017 221px,#e5252017 222px,transparent 223px,transparent 250px,#e525200d 251px,#e525200d 252px,transparent 253px);background-size:100% 100%,100% 750px;background-repeat:repeat,no-repeat; }
+.member-app.has-pitch-pattern .member-builder-page { background:transparent; }
+html[data-member-theme="light"] .member-app.has-pitch-pattern { background-image:repeating-linear-gradient(125deg,transparent 0,transparent 92px,#e525200c 92px,#e525200c 93px,transparent 93px,transparent 200px),radial-gradient(ellipse at 100% 200px,transparent 0,transparent 220px,#e5252014 221px,#e5252014 222px,transparent 223px,transparent 250px,#e525200a 251px,#e525200a 252px,transparent 253px); }

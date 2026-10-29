@@ -4,13 +4,13 @@
 
     <!-- Title -->
     <h1 class="text-3xl md:text-4xl font-extrabold mb-3 text-center">
-      Pudee Club App
+      Kickมันส์ App
     </h1>
 
     <p class="text-gray-300 text-center mb-8 max-w-md">
       ดาวน์โหลดแอปเวอร์ชันล่าสุดสำหรับ Android
       <br />
-      จัดการทีมของคุณได้ทุกที่ทุกเวลา! PuDee Club Fantasy Football
+      จัดการทีมของคุณได้ทุกที่ทุกเวลา! Kickมันส์ Football Fantasy
     </p>
 
     <!-- Download Button -->
@@ -46,7 +46,7 @@
 
     <!-- Footer -->
     <footer class="mt-10 text-gray-500 text-xs text-center">
-      © 2025 Pudee Club. All rights reserved.
+      © Kickมันส์. All rights reserved.
     </footer>
   </div>
 </template>

@@ -1,0 +1,180 @@
+/* Mobile ergonomics shared by member pages and their teleported dialogs. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body[data-member-scroll-lock] { top: var(--member-scroll-top) !important; }
+.member-app, .member-auth { padding-top: env(safe-area-inset-top, 0px); }
+.member-app :is(button, a, [role=button]), .member-auth :is(button, a),
+.member-sheet, .builder-modal, .member-player-picker, .member-player-actions { touch-action: manipulation; }
+.member-app :is(button, a), .member-auth :is(button, a) { -webkit-tap-highlight-color: transparent; }
+.member-app button, .member-sheet button, .builder-modal button { transition: background-color 120ms ease, color 120ms ease, opacity 120ms ease; }
+.member-app button:active:not(:disabled), .member-sheet button:active:not(:disabled), .builder-modal button:active:not(:disabled) { opacity: .78; }
+.member-content { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+body .member-sheet-backdrop, body .builder-modal-backdrop { bottom: var(--member-viewport-bottom, 0px); }
+body .member-sheet, body .builder-modal { max-height: min(90dvh, calc(var(--member-viewport-height, 100dvh) - 16px)); }
+body .member-player-picker main[role=dialog] { bottom: var(--member-viewport-bottom, 0px); max-height: min(90dvh, calc(var(--member-viewport-height, 100dvh) - 12px)); }
+body .member-player-picker .player-selection { min-height: 0; }
+.member-player-picker .member-picker-header { position: relative; flex: none; padding: 14px 16px 4px; }
+.member-player-picker .member-picker-header .member-picker-title { margin: 0; min-height: 44px; padding-bottom: 8px; }
+body .member-player-picker .member-picker-header .close-button { top: 8px; right: 12px; color: var(--member-text); background: var(--member-hover); }
+.member-player-picker .close-button, .member-player-actions .close-button, .member-close, .builder-modal .builder-close { min-width: 44px; min-height: 44px; }
+
+@media (max-width: 850px), (pointer: coarse) {
+  /* Scoped and teleported legacy forms must not override this focus-zoom safeguard. */
+  :is(.member-app, .member-auth, .member-player-picker, .builder-modal, .member-sheet, .swal2-popup)
+  :is(input:not([type=checkbox]):not([type=radio]):not([type=file]), select, textarea) {
+    font-size: 16px !important;
+    scroll-margin-block: 72px;
+  }
+  .member-keyboard-open .member-bottom-nav { visibility: hidden; pointer-events: none; }
+}
+
+@media (max-width: 850px) {
+  .member-app .member-builder-page { padding: 0; }
+  .member-app .builder-heading { gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .member-app .builder-heading > div { min-width: 0; }
+  .member-app .builder-heading h1 { font-size: 24px; margin: 4px 0 6px; }
+  .member-app .builder-heading p:not(.builder-eyebrow) { font-size: 11px; line-height: 1.6; }
+  .member-app .builder-heading .builder-text-button { flex: none; min-height: 44px; font-size: 11px; display: flex; align-items: center; }
+  .member-app .builder-eyebrow { font-size: 10px; letter-spacing: 1.4px; }
+  .member-app .builder-summary { margin-bottom: 12px; border-radius: 13px; }
+  .member-app .builder-summary > div, .member-app .builder-summary > button { padding: 10px; }
+  .member-app .builder-summary span { margin-bottom: 4px; }
+  .member-app .builder-summary strong { font-size: 27px; }
+  .member-app .builder-summary .builder-captain-name { font-size: 10px; line-height: 29px; }
+  .member-app .builder-pitch-panel { border-radius: 16px; }
+  .member-app .builder-pitch-panel .builder-panel-bar { padding: 0 12px; min-height: 44px; }
+  .member-app .builder-panel-bar .builder-text-button { min-height: 44px; }
+  .member-app .builder-pitch { padding: 8px 5px; }
+  .member-app .builder-position-row { min-height: 98px; padding-top: 13px; }
+  .member-app .builder-shirt { width: 50px; height: 52px; }
+  .member-app .builder-shirt-button { min-height: 82px; }
+  .member-app .builder-remove-player { width: 28px; height: 28px; right: -1px; top: 0; }
+  .member-app .builder-remove-player::before { content: ''; position: absolute; inset: -4px; }
+  .member-app .builder-save-bar { padding: 12px 12px 4px; }
+  .member-app .builder-tools { padding: 0 12px 4px; }
+  .member-app .builder-tools .builder-text-button { min-height: 44px; }
+  .member-app .builder-rules { padding: 10px 12px; }
+  .member-app .builder-picker.is-open { bottom: var(--member-viewport-bottom, 0px); max-height: min(92dvh, calc(var(--member-viewport-height, 100dvh) - 12px)); }
+  .member-app .builder-picker-heading { padding: 10px 14px 8px; }
+  .member-app .builder-picker-heading h2 { font-size: 19px; }
+  .member-app .builder-picker .builder-close { width: 44px; height: 44px; }
+  .member-app .builder-picker-filters { padding: 0 12px 10px; gap: 6px 8px; }
+  .member-app .builder-picker-filters label { gap: 2px; }
+  .member-app .builder-picker-filters input:not([type=checkbox]), .member-app .builder-picker-filters select { min-height: 44px; padding: 7px 9px; }
+  .member-app .builder-picker-filters .builder-available { min-height: 44px; font-size: 10px; }
+  .member-app .builder-player-table th:nth-child(1) { width: 36px; }
+  .member-app .builder-player-table th:nth-child(6) { width: 48px; }
+  .member-app .builder-player-table td { height: 58px; padding: 4px 2px; }
+  .member-app .builder-player-info { width: 32px; height: 44px; border: 0; border-radius: 8px; font-size: 13px !important; }
+  .member-app .builder-player-info::before { display: none; }
+  .member-app .builder-player-info.is-unavailable { background: #5a231e66; }
+  .member-app .builder-add-player { width: 44px; height: 44px; border-radius: 10px; }
+  .member-app .builder-player-choice { min-height: 48px; gap: 5px; }
+  .member-app .builder-player-choice strong { white-space: normal; font-size: 11px; line-height: 1.35; overflow-wrap: anywhere; }
+  .member-app .builder-player-choice img { width: 27px; }
+  .member-app .builder-player-choice small { font-size: 9px; }
+  .member-app .builder-pagination { padding: 6px 12px max(6px, env(safe-area-inset-bottom)); }
+  .member-app .builder-pagination button { width: 44px; height: 44px; }
+  .member-player-picker .sticky.top-0 { position: relative; padding: 12px; }
+  .member-player-picker .member-picker-title { font-size: 19px; min-height: 44px; padding-bottom: 10px; }
+  .member-player-picker .close-button { top: 8px; right: 10px; }
+  .member-player-picker .sticky.top-0 > .flex { gap: 8px; margin-bottom: 8px; }
+  .member-player-picker .sticky.top-0 > .flex:last-child { margin-bottom: 0; }
+  .member-player-picker .player-selection > .px-4 { padding-inline: 10px; }
+  .member-player-picker .sticky.bottom-0 { padding: 8px 10px max(8px, env(safe-area-inset-bottom)); }
+  body .member-player-picker .member-pagination { margin: 0; }
+  body :is(.member-app, .member-player-picker) .member-pagination button { height: 44px; }
+  .member-player-picker table td { padding: 7px 5px; }
+  .member-player-picker input, .member-player-picker select { min-width: 0; }
+  html body .member-player-actions.dialog-overlay .styled-dialog { max-height: min(85dvh, calc(var(--member-viewport-height, 100dvh) - 24px)); }
+  body .member-player-actions.dialog-overlay { height: auto; bottom: var(--member-viewport-bottom, 0px); }
+}
+
+@media (max-width: 640px) {
+  .member-topbar { height: 60px; padding: 0 max(14px, env(safe-area-inset-right)) 0 max(14px, env(safe-area-inset-left)); }
+  .member-avatar { width: 44px; height: 44px; padding: 5px; background: transparent; border: 0; }
+  .member-avatar img { border-radius: 50%; }
+  .member-top-actions { gap: 4px; }
+  .member-content { padding: 12px max(12px, env(safe-area-inset-right)) calc(92px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); min-height: calc(100dvh - 60px); }
+  .member-bottom-nav { min-height: 68px; padding: 8px max(6px, env(safe-area-inset-right)) max(7px, env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left)); }
+  .member-bottom-nav button { min-height: 48px; font-size: 10px; gap: 4px; }
+  .member-bottom-nav .is-current::before { top: -9px; }
+  .member-bottom-nav .member-pitch-nav svg { width: 36px; height: 36px; margin-top: -7px; padding: 7px; }
+  .member-hero { min-height: 190px; padding: 18px; border-radius: 19px; }
+  .member-hero-title { font-size: 42px; }
+  .member-hero-label { font-size: 9px; margin-bottom: 10px; }
+  .member-hero-copy p { font-size: 11px; margin-top: 9px; line-height: 1.5; }
+  .member-hero-footer { margin-top: 9px; padding: 4px 8px; font-size: 9px; }
+  .member-hero img { height: 95%; width: 64%; right: -7%; }
+  .member-hero::before { width: 220px; height: 220px; top: -12px; }
+  .member-round-controls { margin: 12px 0; gap: 8px; }
+  .member-mode-switch { width: 220px; padding: 4px; border-radius: 13px; }
+  .member-mode-switch button { min-height: 44px; padding: 8px 10px; font-size: 12px; }
+  .member-round-controls .member-text-button { font-size: 10px; white-space: nowrap; }
+  .member-round-grid { gap: 12px; }
+  .member-round-card { padding: 15px; border-radius: 18px; }
+  .member-round-meta { margin-bottom: 10px; }
+  .member-round-card h2 { font-size: 26px; margin-bottom: 5px; }
+  .member-club-list { margin: 12px 0; gap: 5px; }
+  .member-club-abbr { min-width: 28px; height: 28px; padding: 3px; font-size: 11px; }
+  .member-round-stats { padding: 10px 0 12px; }
+  .member-round-stats strong { font-size: 24px; }
+  .member-round-actions { grid-template-columns: 1fr 44px; }
+  .member-button { min-height: 44px; padding: 10px 14px; border-radius: 10px; }
+  .member-page-header { margin-bottom: 14px; }
+  .member-page-header h1 { font-size: 23px; }
+  .member-page-header p { margin-top: 4px; }
+  .member-kicker { margin-bottom: 4px; font-size: 10px; }
+  .member-section-heading { margin: 18px 0 10px; }
+  .member-section-heading h2 { font-size: 17px; }
+  .member-stat-strip { padding: 16px 10px; margin: 14px 0; border-radius: 16px; }
+  .member-stat-strip strong { font-size: 31px; }
+  .member-stat-strip small { font-size: 10px; }
+  .member-week-select { margin: 12px 0; }
+  .member-ranking-table th, .member-ranking-table td { padding: 10px 6px; }
+  .member-entry-card { padding: 15px; margin: 12px 0; border-radius: 16px; }
+  .member-entry-card h3 { margin: 10px 0; font-size: 16px; }
+  .member-entry-actions { margin-top: 12px; }
+  .member-entry-actions .member-button { min-height: 44px; }
+  .member-back { min-height: 44px; margin-bottom: 8px; }
+  .member-sheet { padding: 10px max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); border-radius: 20px 20px 0 0; }
+  .member-sheet-handle { margin-bottom: 10px; }
+  .member-sheet-header { margin-bottom: 12px; }
+  .member-sheet-header h2 { font-size: 20px; }
+  .member-menu-profile { margin-bottom: 12px; }
+  .member-menu-item { min-height: 50px; padding: 12px 0; }
+  .member-contacts { padding-top: 14px; gap: 5px 16px; }
+  .member-contacts a { display: inline-flex; align-items: center; min-height: 44px; }
+  .member-app .member-detail .card { padding: 14px; border-radius: 17px; }
+  .member-app .member-detail .member-detail-title { font-size: 19px; }
+  .member-app .member-detail .card .top-section { min-height: 42px; }
+  .member-app .member-detail .card .top-section .icons > button { min-height: 44px; top: 8px; left: 8px; }
+  .member-app .member-detail .card .bottom-section .row { margin-top: 10px; }
+  .member-app .member-detail .member-detail-hint { margin: 12px 2px 8px; }
+  .member-app .member-detail .dxRBog .imodPj { margin-top: 12px; padding-top: 15px; padding-bottom: 15px; border-radius: 17px; }
+  .member-app .member-detail .dxRBog .iA-dheQ { gap: 10px; }
+  .member-app .member-score-table .card { min-height: 70px; padding-top: 18px; padding-bottom: 18px; border-radius: 17px; }
+  .member-app .member-score-table .card button { min-height: 44px; top: 12px; left: 8px; }
+  .member-app .member-score-table .overflow-scroll { padding-top: 14px; }
+  .member-support.member-account .member-account-card { padding: 18px 15px; border-radius: 17px; }
+  .member-support.member-account .member-account-title { margin-bottom: 18px; font-size: 21px; }
+  .member-support.member-payment .walletBalanceCard { padding: 15px; }
+  .member-self-create, .member-self-summary { padding: 15px; border-radius: 17px; }
+}
+
+@media (max-width: 350px) {
+  .member-hero-title { font-size: 37px; }
+  .member-hero-footer { display: none; }
+  .member-round-card { padding: 13px; }
+  .member-mode-switch { width: 190px; }
+  .member-round-card h2 { font-size: 25px; }
+  .member-app .builder-summary > div, .member-app .builder-summary > button { padding: 9px 7px; }
+  .member-app .builder-summary .builder-captain-name { font-size: 9px; }
+  .member-app .builder-player-table th:nth-child(4), .member-app .builder-player-table th:nth-child(5) { width: 30px; }
+}
+@media (hover: none) {
+  .member-app .builder-shirt-button:hover .builder-shirt { transform: none; }
+  .member-app .builder-button:hover { filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .member-app button, .member-sheet button, .builder-modal button { transition: none; }
+}

@@ -1,504 +1,70 @@
 <template>
-  <div>
-
-    
-    <div role="presentation" class="fixed inset-0 z-[1000] bg-black/60 duration-300 overflow-hidden"
-      @click.self.prevent="$emit('close-modal')" :class="{
-        '!bg-black/0 pointer-events-none': !showCopyTeamModal,
-      }">
-      <Transition>
-        <main v-if="showCopyTeamModal" class="fixed inset-x-0 bottom-0 max-h-[90dvh] rounded-t-lg flex flex-col">
-          {{ }}
-          <div class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">
-
-            <div class="sticky top-0 bg-[#1e1036] p-4 !rounded-t-xl">
-              <span class="text-xs">คัดลอกทีมเกมวีคปัจุบัญ</span>
-              <button class="close-button" @click="$emit('close-modal')">
-
-                <span class="close-icon">&times;</span>
-              </button>
-
-
-            </div>
-            <div class="cus-bg-card-vip text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
-              v-if="data_vip.length > 0" v-for="vip in data_vip" @click="copy(vip.id, 'vip', vip.name)">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center font-semibold justify-between">
-                  <div class="flex items-center space-x-1">
-                    <div class=" w-7 h-7  ">
-                      <img class="w-7 h-7 " src="/public/assets/logonew.png" />
-                    </div>
-                    <div class="text-xs ">{{ vip.name }}
-                      <span class="flex items-center">
-                        <DateFormatted :dateString="vip.created_at" class="font-thin text-[10px]" />
-                        <i class="fas fa-ticket-alt text-yellow-400 ml-1"></i>
-                      </span>
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-            <div class="cus-bg-card-vip text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
-              v-else>
-              ไม่มีข้อมูลทีมวีค VIP
-            </div>
-            <div class="cus-bg-card-n text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer"
-              v-if="data_n.length > 0" v-for="n in data_n" @click="copy(n.id, 'n', n.name)">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center font-semibold justify-between">
-                  <div class="flex items-center space-x-1">
-                    <div class=" w-7 h-7  ">
-                      <img class="w-7 h-7 " src="/public/assets/logonew.png" />
-                    </div>
-                    <div class="text-xs ">{{ n.name }}
-                      <span class="flex items-center">
-                        <DateFormatted :dateString="n.created_at" class="font-thin text-[10px]" />
-                       
-                      </span>
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <div class="cus-bg-card-n text-gray-800  flex flex-col rounded-xl shadow-lg p-2 m-5 cursor-pointer" v-else>
-              ไม่มีข้อมูลทีมวีคปกติ
-            </div>
-            
-
-          </div>
-
-
-
-        </main>
-      </Transition>
+  <Teleport to="body">
+    <div v-if="showCopyTeamModal" class="builder-modal-backdrop" @click.self="close" @keydown.esc="close">
+      <section v-member-dialog ref="dialog" role="dialog" aria-modal="true" aria-label="คัดลอกทีมในเกมวีคนี้" class="builder-modal builder-copy-modal" :aria-busy="isLoading || copying">
+        <div class="builder-modal-handle" aria-hidden="true"></div>
+        <header class="builder-copy-heading"><div><p class="builder-eyebrow">YOUR TEAMS</p><h2>คัดลอกทีม</h2></div><button ref="close" class="builder-close" @click="close" aria-label="ปิด">×</button></header>
+        <p>เฉพาะทีมในเกมวีคนี้ · เลือกกัปตันใหม่หลังคัดลอก</p>
+        <div v-if="isLoading" class="builder-state" role="status">กำลังโหลดทีมของคุณ…</div>
+        <div v-else-if="error" class="builder-state" role="alert"><p>{{ error }}</p><button class="builder-button" @click="facthAllMyteam">ลองอีกครั้ง</button></div>
+        <div v-else class="builder-copy-groups">
+          <section v-for="group in groups" :key="group.type"><h3>{{ group.label }} <span>{{ group.teams.length }} ทีม</span></h3>
+            <p v-if="!group.teams.length" class="builder-copy-empty">ยังไม่มีทีม{{ group.label }}ในเกมวีคนี้</p>
+            <button v-for="team in group.teams" :key="team.id" class="builder-copy-team" :disabled="copying" @click="copy(team, group.type)"><span class="builder-copy-symbol">XI</span><span><strong>{{ team.name }}</strong><small>{{ formatDate(team.created_at) }}</small></span><b>↗</b></button>
+          </section>
+        </div>
+      </section>
     </div>
-  </div>
+  </Teleport>
 </template>
-
 <script>
 import { api } from '@axios_inst';
-import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 export default {
-  props: ['showCopyTeamModal'],
-  data() {
-    return {
-      isLoading: false,
-      data_vip: [],
-      data_n: [],
-    }
-  },
-
+  props: { showCopyTeamModal: Boolean, gameWeekId: { type: [Number, String], required: true } },
+  emits: ['close-modal', 'copy-player'],
+  data() { return { isLoading: false, copying: false, error: '', data_vip: [], data_n: [], revision: 0 }; },
+  computed: { groups() { return [{ type: 'vip', label: 'VIP', teams: this.data_vip }, { type: 'n', label: 'ปกติ', teams: this.data_n }]; } },
   watch: {
-    showCopyTeamModal(newVal) {
-
-      if (!newVal) {
-        document.body.style.overflow = '';
-
-      }
-      if (newVal) {
+    showCopyTeamModal: { immediate: true, handler(open) {
+      if (open) {
         this.facthAllMyteam();
-      }
-    },
-
+      } else { this.revision += 1; this.copying = false; }
+    } },
+    gameWeekId() { this.revision += 1; this.data_vip = []; this.data_n = []; if (this.showCopyTeamModal) this.facthAllMyteam(); },
   },
-  computed: {
-
-  },
+  beforeUnmount() { this.revision += 1; },
   methods: {
-    ...mapActions('loading', ['updateLoading']),
-    async copy(id, type, name) {
-      // ยืนยันที่จะคัดลอกทีมนี้
-      const result = await Swal.fire({
-        title: `ทีม ${name}`,
-        text: `คุณต้องการคัดลอกทีม ใช่หรือไม่?`,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'ใช่',
-        cancelButtonText: 'ไม่ใช่',
-        customClass: {
-          cancelButton: 'btn-cancel',
-          popup: 'popup-custom',
-          title: 'text-custom',
-          htmlContainer: 'text-custom'
-        }
-      });
-
-      if (result.isConfirmed) {
-        this.updateLoading(true);
-        try {
-          const access_token = localStorage.getItem('access_token');
-          const response = await api.post(`/premier-league/v1/copy-my-team`, {
-            main_id: id,
-            type: type
-          }, {
-            headers: { Authorization: `Bearer ${access_token}` }
-          });
-
-          if (response.data.ok) {
-            
-            this.$emit('copy-player', response.data.data);
-            
-          }
-          this.updateLoading(false);
-        } catch (error) {
-          console.error('Error fetching matches:', error);
-          this.updateLoading(false);
-        }
-       
-      }
-    },
-
-    fadeOut() {
-      const overlay = document.querySelector('.dialog-overlay');
-      if (overlay) {
-        overlay.classList.add('fade-out');
-        setTimeout(() => {
-          this.$emit('close-modal');
-        }, 300);
-      }
-    },
+    close() { this.$emit('close-modal'); },
+    formatDate(date) { return new Date(date).toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' }); },
     async facthAllMyteam() {
-      this.updateLoading(true);
+      const revision = ++this.revision, week = Number(this.gameWeekId);
+      this.isLoading = true; this.error = ''; this.data_vip = []; this.data_n = [];
       try {
-        const access_token = localStorage.getItem('access_token');
-        const response = await api.get(`/premier-league/v1/get-all-my-teams`, {
-          headers: { Authorization: `Bearer ${access_token}` }
-        });
-        if (response.data.ok) {
-          this.data_vip = response.data.mygamemain;
-          this.data_n = response.data.mygamemainN;
-        }
-        this.updateLoading(false);
-      } catch (error) {
-        console.error('Error fetching matches:', error);
-        this.updateLoading(false);
-      }
+        if (!Number.isSafeInteger(week) || week <= 0) throw new Error('Invalid gameweek');
+        const { data } = await api.get('/premier-league/v1/get-all-my-teams', { params: { game_week_id: week }, headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } });
+        if (revision !== this.revision || !this.showCopyTeamModal) return;
+        if (!data.ok || Number(data.gameWeek?.id) !== week) throw new Error('Gameweek does not match');
+        this.data_vip = (data.mygamemain || []).filter(team => Number(team.week_id) === week);
+        this.data_n = (data.mygamemainN || []).filter(team => Number(team.week_id) === week);
+      } catch (error) { if (revision === this.revision) this.error = 'โหลดทีมในเกมวีคนี้ไม่ได้ กรุณาลองอีกครั้ง'; }
+      finally { if (revision === this.revision) this.isLoading = false; }
     },
-  },
-  async mounted() {
-    console.log('mounted');
+    async copy(team, type) {
+      if (this.copying || Number(team.week_id) !== Number(this.gameWeekId)) return;
+      const week = Number(this.gameWeekId), revision = this.revision;
+      const result = await Swal.fire({ title: `ทีม ${team.name}`, text: 'แทนที่รายชื่อนักเตะปัจจุบันด้วยทีมนี้?', showCancelButton: true, confirmButtonText: 'คัดลอกทีม', cancelButtonText: 'ยกเลิก', customClass: { popup: 'popup-custom', confirmButton: 'btn-confirm', cancelButton: 'btn-cancel' }, buttonsStyling: false });
+      if (!result.isConfirmed || revision !== this.revision || !this.showCopyTeamModal) return;
+      this.copying = true; this.error = '';
+      try {
+        const { data } = await api.post('/premier-league/v1/copy-my-team', { main_id: team.id, type, game_week_id: week }, { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } });
+        if (revision !== this.revision || !this.showCopyTeamModal) return;
+        if (!data.ok || !Array.isArray(data.data) || !data.data.length || data.data.some(player => Number(player.game_week_id) !== week)) throw new Error('Copy gameweek does not match');
+        this.$emit('copy-player', data.data);
+      } catch (error) { if (revision === this.revision) this.error = 'คัดลอกทีมไม่ได้ กรุณาลองอีกครั้ง'; }
+      finally { if (revision === this.revision) this.copying = false; }
+    },
   },
 };
 </script>
-
-<style scoped>
-.cus-bg-card-n {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px #8341ca;
-  transition: box-shadow 0.3s ease;
-}
-
-.cus-bg-card-vip {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 2px 2px 2px #e8b201;
-}
-
-.swal2-top {
-  z-index: 2000 !important;
-}
-
-/* we will explain what these classes do next! */
-.v-enter-active,
-.v-leave-active {
-  transition: all 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  transform: translateY(100%);
-}
-
-.dialog-overlay {
-  position: fixed;
-  z-index: 110;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.styled-dialog {
-  z-index: 120;
-  max-width: 90%;
-  max-height: 90%;
-  padding: 0;
-  border: 0;
-  border-radius: 8px;
-  width: 640px;
-  color: currentcolor;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px;
-}
-
-.dialog-header {
-  position: relative;
-  text-align: center;
-  margin-bottom: 2rem;
-  padding-top: 2.4rem;
-}
-
-.dialog-heading {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.close-button {
-  position: absolute;
-  /* ใช้ absolute เพื่อให้ปุ่มอยู่ตามที่ต้องการ */
-  top: -5px;
-  /* ระยะจากขอบบน */
-  right: 10px;
-  /* ระยะจากขอบขวา */
-  background-color: transparent;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: white;
-  z-index: 1100;
-  padding: 5px;
-  line-height: 1;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.close-button:hover {
-  transform: scale(1.2);
-  color: #ff0000;
-}
-
-.close-icon {
-  font-weight: bold;
-}
-
-.close-label {
-  border: 0;
-  clip: rect(0px, 0px, 0px, 0px);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.close-icon {
-  width: 16px;
-  height: 16px;
-}
-
-.dialog-body {
-  max-height: calc(90vh - 61px);
-  overflow-y: auto;
-  margin: 2rem 1.5rem;
-}
-
-.dialog-button-item {
-  margin-bottom: 1rem;
-}
-
-.remove-player-button,
-.set-captan-info-button,
-.player-info-button {
-  display: block;
-  padding: 0.9rem;
-  border: 0;
-  border-radius: 3px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 8px;
-  width: 100%;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.remove-player-button {
-  background: rgb(31, 37, 158);
-  color: white;
-}
-
-.set-captan-info-button {
-  background: rgb(30, 122, 25);
-  color: white;
-}
-
-.player-info-button {
-  background: rgb(239, 239, 239);
-  color: black;
-}
-
-.remove-player-button:hover,
-.set-captan-info-button:hover,
-.player-info-button:hover {
-  transform: translateY(-2px);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-
-.fade-in {
-  animation: fadeIn 0.2s ease-in-out;
-}
-
-.bg-color-2 {
-  background-color: #261442;
-}
-
-.bg-color-1 {
-  background-color: #261442;
-}
-
-.player-selection {
-  height: calc(100vh - 100px);
-  /* ตั้งค่า height ให้เต็มที่ */
-  overflow-y: auto;
-  /* เปิดการเลื่อนในแนวตั้ง */
-}
-
-main {
-  max-height: calc(100dvh - 50px);
-  /* เพื่อให้มั่นใจว่าเนื้อหาจะไม่ล้น */
-  overflow-y: auto;
-  /* ให้เนื้อหาที่ล้นสามารถเลื่อนดูได้ */
-}
-
-.checkbox-wrapper-35 .switch+label .switch-x-text {
-  display: block;
-  margin-right: .3em;
-}
-
-.checkbox-wrapper-35 .switch {
-  display: none;
-}
-
-.checkbox-wrapper-35 .switch+label {
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #78768d;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  line-height: 15px;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.checkbox-wrapper-35 .switch+label::before,
-.checkbox-wrapper-35 .switch+label::after {
-  content: '';
-  display: block;
-}
-
-.checkbox-wrapper-35 .switch+label::before {
-  background-color: #7c77ae;
-  border-radius: 500px;
-  height: 15px;
-  margin-right: 8px;
-  -webkit-transition: background-color 0.125s ease-out;
-  transition: background-color 0.125s ease-out;
-  width: 25px;
-}
-
-.checkbox-wrapper-35 .switch+label::after {
-  background-color: #fff;
-  border-radius: 13px;
-  box-shadow: 0 3px 1px 0 rgba(37, 34, 71, 0.05), 0 2px 2px 0 rgba(37, 34, 71, 0.1), 0 3px 3px 0 rgba(37, 34, 71, 0.05);
-  height: 13px;
-  left: 1px;
-  position: absolute;
-  top: 1px;
-  -webkit-transition: -webkit-transform 0.125s ease-out;
-  transition: -webkit-transform 0.125s ease-out;
-  transition: transform 0.125s ease-out;
-  transition: transform 0.125s ease-out, -webkit-transform 0.125s ease-out;
-  width: 13px;
-}
-
-
-
-.checkbox-wrapper-35 .switch+label .switch-x-toggletext {
-  display: block;
-  height: 15px;
-  overflow: hidden;
-  position: relative;
-  width: 25px;
-}
-
-.checkbox-wrapper-35 .switch+label .switch-x-unchecked,
-.checkbox-wrapper-35 .switch+label .switch-x-checked {
-  left: 0;
-  position: absolute;
-  top: 0;
-  -webkit-transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
-  transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
-  transition: transform 0.125s ease-out, opacity 0.125s ease-out;
-  transition: transform 0.125s ease-out, opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
-}
-
-.checkbox-wrapper-35 .switch+label .switch-x-unchecked {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-}
-
-.checkbox-wrapper-35 .switch+label .switch-x-checked {
-  opacity: 0;
-  -webkit-transform: translate3d(0, 100%, 0);
-  transform: translate3d(0, 100%, 0);
-}
-
-.checkbox-wrapper-35 .switch+label .switch-x-hiddenlabel {
-  position: absolute;
-  visibility: hidden;
-}
-
-.checkbox-wrapper-35 .switch:checked+label::before {
-  background-color: #08c224;
-}
-
-.checkbox-wrapper-35 .switch:checked+label::after {
-  -webkit-transform: translate3d(10px, 0, 0);
-  transform: translate3d(10px, 0, 0);
-}
-
-.checkbox-wrapper-35 .switch:checked+label .switch-x-unchecked {
-  opacity: 0;
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-}
-
-.checkbox-wrapper-35 .switch:checked+label .switch-x-checked {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-}
-</style>
+<style src="../../styles/builder.css"></style>

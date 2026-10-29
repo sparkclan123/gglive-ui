@@ -1,16 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="https://image-lobby.sgp1.digitaloceanspaces.com/logonew.webp" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#080808" />
+  <script>
+    try { document.documentElement.dataset.memberTheme = localStorage.getItem('kickmun-theme') === 'light' ? 'light' : 'dark'; }
+    catch { document.documentElement.dataset.memberTheme = 'dark'; }
+    document.querySelector('meta[name="theme-color"]').content = document.documentElement.dataset.memberTheme === 'light' ? '#F4F6F8' : '#080808';
+  </script>
+  <style>
+    html { background: #080808; color: #f7f4f1; color-scheme: dark; }
+    html[data-member-theme="light"] { background: #f4f6f8; color: #17212b; color-scheme: light; }
+  </style>
+  <link rel="icon" type="image/png" href="/assets/member/kickmun-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <meta name="description" content="PuDee - จัดทีมแฟนตาซี, จัดทีมฟุตบอล, จัดทีมพรีเมียดลีก, จัดทีมฟุตบอลไทย, Fantasy Premier League ไทย, แพลตฟอร์มจัดการทีมฟุตบอลสำหรับแฟนบอลตัวจริง, Pudee Club, จัดทีมชิงรางวัล"> 
+  <meta name="description" content="Kickมันส์ ฟุตบอลแฟนตาซี เลือกเกมวีค จัด 11 ตัวจริง เลือกกัปตัน และติดตามอันดับทีมของคุณ">
    <!-- <link rel="stylesheet" href="/src/style.css"> -->
-  <title>PuDee</title>
+  <title>Kickมันส์ · Football Fantasy</title>
   <style>
     html,
     body,

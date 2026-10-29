@@ -1,98 +1,42 @@
 <template>
-    <div>
-
-        <div class="flex items-center m-2">
-            <button @click="toggleModel" class="bg-green-700 text-white px-3 py-1 rounded ml-1 text-xs">สร้าง</button>
-            <button @click="toggleModelJoin"
-                class="bg-yellow-700 text-white px-3 py-1 rounded ml-1 text-xs">เข้าร่วม</button>
-
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" id="info" class="ml-2" width="24" height="24"
-                @click="showinformation">
-                <g>
-                    <circle cx="260" cy="260" r="230" fill="#f04d3d"></circle>
-                    <path fill="#b43a2e"
-                        d="M353.89257,164.16667,160.16991,349.62733,297.45829,486.91572A230.12211,230.12211,0,0,0,486.95608,297.23017Z">
-                    </path>
-                    <circle cx="260" cy="260" r="134.167" fill="#fff"></circle>
-                    <path fill="#d4dde0"
-                        d="M145,260A134.0751,134.0751,0,0,1,269.58333,126.31706c-3.17787-.22519-6.34814-.48373-9.58333-.48373a134.16667,134.16667,0,0,0,0,268.33334c3.23519,0,6.40546-.25854,9.58333-.48373A134.0751,134.0751,0,0,1,145,260Z">
-                    </path>
-                    <rect width="38.333" height="115" x="240.833" y="231.25" fill="#fbae04" rx="19.167" ry="19.167">
-                    </rect>
-                    <path fill="#fe9c0f"
-                        d="M250.41667,327.08333V250.41667a19.12154,19.12154,0,0,1,14.375-18.48875,18.93344,18.93344,0,0,0-23.95834,18.48875v76.66666a18.93344,18.93344,0,0,0,23.95834,18.48875A19.12154,19.12154,0,0,1,250.41667,327.08333Z">
-                    </path>
-                    <circle cx="260" cy="183.333" r="19.167" fill="#fbae04"></circle>
-                    <path fill="#fe9c0f"
-                        d="M250.41667,183.33333a19.12153,19.12153,0,0,1,14.375-18.48874,19.16854,19.16854,0,1,0,0,36.97749A19.12154,19.12154,0,0,1,250.41667,183.33333Z">
-                    </path>
-                </g>
-            </svg>
+    <section class="member-support member-self-list">
+        <div class="member-support-heading"><h2>การแข่งขันของเพื่อน</h2><button type="button" class="member-icon-button" aria-label="ข้อมูลการแข่งขัน" @click="showinformation"><MemberIcon name="book" /></button></div>
+        <div class="member-self-create">
+            <label for="self-match-gameweek">Gameweek สำหรับสร้างการแข่งขัน</label>
+            <select id="self-match-gameweek" v-model="selectedGameweekID" class="member-week-select" @change="rememberSelection">
+                <option :value="null" disabled>เลือก Gameweek</option>
+                <option v-for="week in gameweeks" :key="week.id" :value="week.id" :disabled="roundState(week) !== 'open'">
+                    {{ week.week_name || `Gameweek ${week.week}` }} · ฤดูกาล {{ week.season?.label || week.season_id }} · {{ roundState(week) === 'open' ? 'เปิดรับทีม' : 'ยังไม่เปิดรับทีม' }}
+                </option>
+            </select>
+            <p v-if="gameweeksError" class="member-support-error" role="alert">{{ gameweeksError }} <button type="button" @click="loadGameweeks">ลองใหม่</button></p>
+            <p v-else-if="!gameweeksLoading && !gameweeks.length" class="member-support-note">ยังไม่มี Gameweek ที่เปิดให้สร้างการแข่งขัน</p>
+            <div class="member-support-actions">
+                <button type="button" @click="toggleModel" :disabled="gameweeksLoading || !selectedGameweek || roundState(selectedGameweek) !== 'open'" class="member-button">สร้างการแข่งขัน</button>
+                <button type="button" @click="toggleModelJoin" class="member-button is-secondary">เข้าร่วมด้วยโค้ด</button>
+            </div>
         </div>
-
-
-        <div class="p-1 overflow-scroll px-0">
-            <table class="w-full min-w-max table-auto text-left">
-                <thead>
-                    <tr>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
-                            <div class="flex items-center">
-                                <img class="w-4 h-4" src="/public/assets/logonew32x32.png" />
-                                <p
-                                    class="ml-2 block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                    ชื่อเเข่งขัน
-                                </p>
-                            </div>
-                        </th>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-center">
-                            <p
-                                class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                code</p>
-                        </th>
-                        <th class="border-y border-blue-gray-100 bg-blue-gray-50/50 p-2 text-left">
-                            <p
-                                class="block antialiased font-sans text-xs text-blue-gray-900 font-normal leading-none opacity-70">
-                                รายละเอียด</p>
-                        </th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="match in selfMatchs" :key="match.id">
-                        <td class="p-1 border-b border-blue-gray-50 cursor-pointer">
-                            <div class="flex items-center gap-3">
-
-                                <p
-                                    class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-bold">
-                                    {{ match.name }}
-                                </p>
-                            </div>
-                        </td>
-                        <td class="p-1 border-b border-blue-gray-50 pl-4 text-center">
-                            <p class="block antialiased text-xs leading-normal text-green-800  font-bold">
-                                <button @click="copyToClipboard(match.code_generated)"
-                                    class="bg-blue-500 text-white px-3 py-1 rounded text-xs">คัดลอก Code</button>
-                            </p>
-                        </td>
-                        <td class="p-1 border-b border-blue-gray-50 text-left">
-                            <p
-                                class="block antialiased font-sans text-xs leading-normal text-blue-gray-900 font-normal">
-                                <button @click="seeMatchDetail(match.id, match.game_week_id)"
-                                    class="bg-yellow-800 text-white px-3 py-1 rounded text-xs">รายละเอียด</button>
-                            </p>
-                        </td>
-
-                    </tr>
-                </tbody>
+        <div v-if="!selfMatchs.length" class="member-empty"><h2>ยังไม่มีการแข่งขัน</h2><p>สร้างการแข่งขันของคุณ หรือเข้าร่วมด้วยโค้ดจากเพื่อน</p></div>
+        <div v-else class="member-support-table-wrap">
+            <table class="member-support-table">
+                <thead><tr><th>การแข่งขัน</th><th>โค้ด</th><th>รายละเอียด</th></tr></thead>
+                <tbody><tr v-for="match in selfMatchs" :key="match.id">
+                    <td><strong>{{ match.name }}</strong><small>Gameweek {{ match.game_week_id }}</small></td>
+                    <td><button type="button" @click="copyToClipboard(match.code_generated)" class="member-table-button">คัดลอกโค้ด</button></td>
+                    <td><button type="button" @click="seeMatchDetail(match.id, match.game_week_id)" class="member-table-button">ดูการแข่งขัน</button></td>
+                </tr></tbody>
             </table>
         </div>
         <Pagination :page="page" :pages="pages" @page-change="facthAllSelfMatch" />
-    </div>
+    </section>
 </template>
 
 <script>
 import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
+import { fetchActiveGameweeks, rememberedGameweek, rememberGameweek } from '../../services/gameweeks.js';
+import { gameweekState } from '../../utils/gameweeks.js';
+import '../../styles/member-support.css';
 
 export default {
     data() {
@@ -103,11 +47,45 @@ export default {
             limit: 10,
             pages: 1,
             teamName: '',
-            joinCode: ''
+            joinCode: '',
+            gameweeks: [],
+            selectedGameweekID: null,
+            gameweeksLoading: false,
+            gameweeksError: '',
+            serverClockOffset: 0
 
         };
     },
+    computed: {
+        selectedGameweek() {
+            return this.gameweeks.find(week => Number(week.id) === Number(this.selectedGameweekID)) || null;
+        }
+    },
     methods: {
+        roundState(week) {
+            return gameweekState(week, Date.now() + this.serverClockOffset);
+        },
+        rememberSelection() {
+            rememberGameweek(this.selectedGameweek);
+        },
+        async loadGameweeks() {
+            this.gameweeksLoading = true;
+            this.gameweeksError = '';
+            try {
+                const response = await fetchActiveGameweeks();
+                this.gameweeks = response.data;
+                const serverTime = new Date(response.currentTime).getTime();
+                this.serverClockOffset = Number.isFinite(serverTime) ? serverTime - Date.now() : 0;
+                const preferred = this.selectedGameweekID || rememberedGameweek();
+                const chosen = this.gameweeks.find(week => Number(week.id) === Number(preferred) && this.roundState(week) === 'open')
+                    || this.gameweeks.find(week => this.roundState(week) === 'open');
+                this.selectedGameweekID = chosen?.id || null;
+            } catch (error) {
+                this.gameweeksError = 'โหลด Gameweek ไม่สำเร็จ';
+            } finally {
+                this.gameweeksLoading = false;
+            }
+        },
         showinformation() {
             Swal.fire({
                 icon: 'info',
@@ -196,10 +174,11 @@ export default {
             });
         },
         async toggleModel() {
+            if (!this.selectedGameweek || this.roundState(this.selectedGameweek) !== 'open') return;
 
             Swal.fire({
                 title: 'สร้างการเเข่งขัน',
-                text: 'สร้างการเเข่งขันของคุณเเละเพื่อนๆของคุณ',
+                text: `สร้างการแข่งขันใน ${this.selectedGameweek.week_name || 'Gameweek ' + this.selectedGameweek.week}`,
                 input: 'text',
                 inputPlaceholder: 'ตั้งชื่อการเเข่งของคุณ',
                 showCancelButton: true,
@@ -285,12 +264,14 @@ export default {
         },
 
         async confirmCreateMatch() {
+            if (!this.selectedGameweek || this.roundState(this.selectedGameweek) !== 'open') return;
             try {
                 this.$emit('set-loading', true);
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.post(`/premier-league/v1/create-self_match`,
                     {
                         teamName: this.teamName,
+                        game_week_id: Number(this.selectedGameweekID),
                     },
                     {
                         headers: {
@@ -343,46 +324,7 @@ export default {
     },
     created() {
         this.facthAllSelfMatch();
+        this.loadGameweeks();
     }
 };
 </script>
-
-<style scoped>
-/* Custom SweetAlert2 styles */
-.swal2-popup {
-    font-size: 1.2rem !important;
-}
-
-.swal2-input {
-    color: white !important;
-    /* Change input text color to white */
-}
-
-.btn-cancel {
-    background-color: #f27474 !important;
-    color: white !important;
-    border: none !important;
-    padding: 10px 20px !important;
-    border-radius: 5px !important;
-    font-size: 1rem !important;
-}
-
-.btn-confirm {
-    background-color: #3085d6 !important;
-    color: white !important;
-    border: none !important;
-    padding: 10px 20px !important;
-    border-radius: 5px !important;
-    font-size: 1rem !important;
-}
-
-.popup-custom {
-    background: #f7f9fc !important;
-    border-radius: 10px !important;
-    padding: 20px !important;
-}
-
-.text-custom {
-    color: #333 !important;
-}
-</style>

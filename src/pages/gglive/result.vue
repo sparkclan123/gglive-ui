@@ -1,216 +1,82 @@
 <template>
-    <div >
-        <div class="tabs rounded-t-lg ml-3 text-white flex">
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab1' }" @click="SetactiveTab('tab1')">โปรเเกรม
-            </div>
-            <div class="tab-item" :class="{ 'active': activeTab === 'tab2' }" @click="SetactiveTab('tab2')">รายการ(ปกติ)</div>
-            <div style="padding: 10px 10px 10px 10px;" class="tab-item" :class="{ 'active': activeTab === 'tab3' }" @click="SetactiveTab('tab3')">รายการ(VIP) <i class="fas fa-ticket-alt text-yellow-400"></i></div>
-        </div>
-        <div class="rounded-xl shadow-lg min-h-screen bg-fixcolor-p tab-container  ">
-            <transition name="slide" mode="out-in" @before-enter="beforeEnter" @leave="leave">
-                <component :is="currentTabComponent" :key="activeTab" v-bind="currentTabProps"></component>
-            </transition>
-        </div>
+  <section class="results-page">
+    <header class="member-page-header"><div class="member-kicker">MATCHDAY & RESULTS</div><h1>โปรแกรมและผลการแข่งขัน</h1><p>ติดตามคู่แข่งขัน ดูอันดับ และย้อนดูผลงานของแต่ละเกมวีค</p></header>
+    <div class="member-mode-switch results-tabs" role="tablist" aria-label="รายการผลการแข่งขัน">
+      <button v-for="tab in tabs" :key="tab.id" :id="`result-${tab.id}`" role="tab" :aria-selected="activeTab === tab.id" :class="{ 'is-selected': activeTab === tab.id }" @click="SetactiveTab(tab.id)"><MemberIcon :name="tab.icon" />{{ tab.label }}</button>
     </div>
+    <div role="tabpanel" :aria-labelledby="`result-${activeTab}`" class="results-panel"><component :is="currentTabComponent" :key="activeTab" v-bind="currentTabProps" /></div>
+  </section>
 </template>
-
 <script>
 import Result from '../../components/result/result.vue';
 import ResultGameweek from '../../components/result/gameweek.vue';
 import ResultGameweekVip from '../../components/result/gameweekVip.vue';
-
 import { api } from '@axios_inst';
-import { mapActions } from 'vuex';
-
+import { fetchGameweeks, memberHeaders } from '../../services/gameweeks.js';
 export default {
-    name: 'challenge',
-    data() {
-        return {
-            activeTab: 'tab1',
-            resultData: { /* your data for Result component */ },
-            gameweekData: {
-                datas: [],
-                total: 0,
-                page: 1,
-                limit: 10,
-                pages: 1,
-            },
-            matches: []
-        };
+  name: 'MemberResults',
+  components: { Result, ResultGameweek, ResultGameweekVip },
+  data() { return {
+    activeTab: 'tab1',
+    tabs: [{ id: 'tab1', label: 'โปรแกรม', icon: 'clock' }, { id: 'tab2', label: 'รายการปกติ', icon: 'list' }, { id: 'tab3', label: 'รายการ VIP', icon: 'ticket' }],
+    gameweekData: { datas: [], total: 0, page: 1, limit: 10, pages: 1 },
+    weeksRequestedPage: 1, matches: [], selectedGameWeekId: '', matchesLoading: false, matchesError: '', weeksLoading: false, weeksError: '', matchesRevision: 0, weeksRevision: 0,
+    fixtureWeeks: [], fixtureWeeksPage: 0, fixtureWeeksPages: 1, fixtureWeeksLoading: false, fixtureWeeksError: '', disposed: false,
+  }; },
+  computed: {
+    currentTabComponent() { return this.activeTab === 'tab2' ? 'ResultGameweek' : this.activeTab === 'tab3' ? 'ResultGameweekVip' : 'Result'; },
+    currentTabProps() {
+      return this.activeTab === 'tab1'
+        ? { matches: this.matches, selectedGameWeekId: this.selectedGameWeekId, loading: this.matchesLoading, error: this.matchesError, fetchMatches: this.fetchMatches, weeks: this.fixtureWeeks, weeksLoading: this.fixtureWeeksLoading, weeksError: this.fixtureWeeksError, hasMoreWeeks: this.fixtureWeeksPage < this.fixtureWeeksPages, loadMoreWeeks: this.fetchFixtureWeeks }
+        : { data: this.gameweekData, loading: this.weeksLoading, error: this.weeksError, fetchGameWeeks: this.fetchGameWeeks };
     },
-    components: {
-        Result,
-        ResultGameweek,
-        ResultGameweekVip
+  },
+  methods: {
+    SetactiveTab(tab) { if (this.tabs.some(item => item.id === tab)) { this.activeTab = tab; localStorage.setItem('result-tab', tab); } },
+    async fetchGameWeeks(page = this.weeksRequestedPage, limit = 10) {
+      const revision = ++this.weeksRevision;
+      this.weeksLoading = true; this.weeksError = ''; this.weeksRequestedPage = page;
+      try {
+        const data = await fetchGameweeks(page, limit);
+        if (this.disposed || revision !== this.weeksRevision) return;
+        this.gameweekData = { datas: data.data, total: data.total, page: data.page, limit: data.limit, pages: data.pages };
+      } catch (error) { if (!this.disposed && revision === this.weeksRevision) this.weeksError = 'โหลดรายการเกมวีคไม่ได้ กรุณาลองอีกครั้ง'; }
+      finally { if (!this.disposed && revision === this.weeksRevision) this.weeksLoading = false; }
     },
-    computed: {
-        currentTabComponent() {
-            switch (this.activeTab) {
-                case 'tab1':
-                    return 'Result';
-                case 'tab2':
-                    return 'ResultGameweek';
-                case 'tab3':
-                    return 'ResultGameweekVip';
-                default:
-                    return 'Result';
-            }
-        },
-        currentTabProps() {
-            switch (this.activeTab) {
-                case 'tab1':
-                    return { data: this.resultData, matches: this.matches, fetchMatches: this.fetchMatches };
-                case 'tab2':
-                case 'tab3':
-                    return { data: this.gameweekData, fetchGameWeeks: this.fetchGameWeeks };
-                default:
-                    return {};
-            }
-        }
+    async fetchFixtureWeeks() {
+      if (this.fixtureWeeksLoading || this.fixtureWeeksPage >= this.fixtureWeeksPages) return;
+      this.fixtureWeeksLoading = true; this.fixtureWeeksError = '';
+      try {
+        const data = await fetchGameweeks(this.fixtureWeeksPage + 1, 25);
+        if (this.disposed) return;
+        this.fixtureWeeks = [...this.fixtureWeeks, ...data.data.filter(week => !this.fixtureWeeks.some(current => current.id === week.id))];
+        this.fixtureWeeksPage = Number(data.page) || 1; this.fixtureWeeksPages = Number(data.pages) || 1;
+      } catch (error) { if (!this.disposed) this.fixtureWeeksError = 'โหลดตัวเลือกเกมวีคไม่ได้'; }
+      finally { if (!this.disposed) this.fixtureWeeksLoading = false; }
     },
-    methods: {
-        ...mapActions('loading', ['updateLoading']),
-        SetactiveTab(tab) {
-            this.activeTab = tab;
-            localStorage.setItem('result-tab', tab);
-        },
-        beforeEnter(el) {
-            el.style.transform = 'translateX(100%)';
-            el.style.opacity = 0;
-            requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-                el.style.transform = 'translateX(0)';
-                el.style.opacity = 1;
-            });
-        },
-        leave(el, done) {
-            el.style.transform = 'translateX(0)';
-            el.style.opacity = 1;
-            requestAnimationFrame(() => {
-                el.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-                el.style.transform = 'translateX(-100%)';
-                el.style.opacity = 0;
-                setTimeout(done, 500);
-            });
-        },
-        async fetchGameWeeks(page = 1, limit = 10) {
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get(`/premier-league/v1/game-week-all`, {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        page: page,
-                        limit: limit
-                    }
-                });
-                if (response.data.ok) {
-                    this.gameweekData.datas = response.data.data;
-                    this.gameweekData.total = response.data.total;
-                    this.gameweekData.page = response.data.page;
-                    this.gameweekData.limit = response.data.limit;
-                    this.gameweekData.pages = response.data.pages;
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        async fetchMatches() {
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/result', {
-                    headers: { Authorization: `Bearer ${access_token}` }
-                });
-                if (response.data.ok) {
-                    this.matches = response.data.matches.map(match => ({
-                        id: match.ID,
-                        date: match.DateVs,
-                        team1: match.Team1Name,
-                        score1: match.Score1,
-                        score2: match.Score2,
-                        team2: match.Team2Name,
-                        alt_ids_opta_1: match.Team1Code,
-                        alt_ids_opta_2: match.Team2Code
-                    }));
-                }
-            } catch (error) {
-                console.error('Error fetching matches:', error);
-            }
-        },
+    async fetchMatches(gameWeekId = this.selectedGameWeekId) {
+      const revision = ++this.matchesRevision;
+      this.selectedGameWeekId = gameWeekId; this.matches = []; this.matchesLoading = true; this.matchesError = '';
+      try {
+        const selected = gameWeekId === '' || gameWeekId == null ? null : Number(gameWeekId);
+        if (selected !== null && (!Number.isSafeInteger(selected) || selected <= 0)) throw new Error('Invalid gameweek');
+        const path = selected === null ? '/premier-league/v1/result' : `/premier-league/v1/result-game-week/${selected}`;
+        const { data } = await api.get(path, { headers: memberHeaders() });
+        if (this.disposed || revision !== this.matchesRevision) return;
+        if (!data.ok || !Array.isArray(data.matches)) throw new Error('Unable to load fixtures');
+        this.matches = data.matches.map(match => ({ id: match.ID, date: match.DateVs, team1: match.Team1Name, team2: match.Team2Name, score1: match.Score1, score2: match.Score2 }));
+      } catch (error) { if (!this.disposed && revision === this.matchesRevision) this.matchesError = 'โหลดโปรแกรมการแข่งขันไม่ได้ กรุณาลองอีกครั้ง'; }
+      finally { if (!this.disposed && revision === this.matchesRevision) this.matchesLoading = false; }
     },
-    created() {
-        this.updateLoading(true);
-        let has_result_tab = localStorage.getItem('result-tab');
-        if (has_result_tab) {
-            this.activeTab = has_result_tab;
-        }
-        Promise.all([this.fetchGameWeeks(), this.fetchMatches()])
-            .then(() => {
-                setTimeout(() => {
-                    this.updateLoading(false);
-                }, 50);
-            })
-            .catch((error) => {
-                setTimeout(() => {
-                    this.updateLoading(false);
-                }, 50);
-            });
-    },
+  },
+  created() {
+    const stored = localStorage.getItem('result-tab');
+    if (this.tabs.some(tab => tab.id === stored)) this.activeTab = stored;
+    this.fetchGameWeeks(); this.fetchFixtureWeeks(); this.fetchMatches();
+  },
+  beforeUnmount() { this.disposed = true; this.matchesRevision += 1; this.weeksRevision += 1; },
 };
 </script>
-
 <style scoped>
-
-.bg-fixcolor-p {
-    background-color: #f6f6f8;
-}
-.tabs {
-    display: flex;
-    font-size: 0.7rem;
-}
-
-.tab-item {
-    margin-right: 3px;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #37003c;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.tab-item.active {
-    background-color: #f6f6f8;
-    color: rgb(0, 0, 0);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.tab-container {
-    position: relative;
-    overflow: hidden;
-}
-
-.slide-enter-active,
-.slide-leave-active {
-    transition: all 0.3s ease;
-}
-
-.slide-enter, 
-.slide-leave-to {
-    opacity: 0;
-}
-
-.slide-enter {
-    transform: translateX(100%);
-}
-
-.slide-leave-active {
-    transform: translateX(-100%);
-}
-
-.slide-enter-to {
-    transform: translateX(0);
-    opacity: 1;
-}
+.results-tabs{width:100%;max-width:480px}.results-tabs button{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px}.results-tabs svg{height:17px;width:17px}.results-panel{margin-top:24px;min-height:260px}@media(max-width:430px){.results-tabs button{font-size:11px;padding:9px 7px}.results-tabs svg{height:15px;width:15px}}
 </style>

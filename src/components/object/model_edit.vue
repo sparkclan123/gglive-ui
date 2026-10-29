@@ -1,13 +1,13 @@
 <template>
-    <div v-if="showAdjustPlayerModal" role="presentation" class="dialog-overlay fade-in" @click.self="$emit('close-modal')">
-      <dialog role="dialog" aria-labelledby="dialog-title" class="styled-dialog" open>
+    <div v-if="showAdjustPlayerModal" role="presentation" class="member-player-actions dialog-overlay fade-in" @click.self="$emit('close-modal')">
+      <dialog v-member-dialog role="dialog" aria-labelledby="dialog-title" aria-modal="true" @keydown.esc="$emit('close-modal')" class="styled-dialog" open>
         <div role="document">
           <div class="dialog-header">
-            
+
             <h2 id="dialog-title" class="dialog-heading">{{ playerName }}</h2>
             <div class="close-button-wrap">
-              <button class="close-button" @click="$emit('close-modal')">
-                <span class="close-label">close</span>
+              <button class="close-button" ref="closeButton" @click="$emit('close-modal')">
+                <span class="close-label">ปิด</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" class="close-icon">
                   <polygon fill-rule="evenodd"
                     points="16 13.56 10.441 8 16 2.44 13.56 0 8.001 5.56 2.441 0 .001 2.44 5.561 8 0 13.56 2.44 16 8.001 10.44 13.56 16">
@@ -19,7 +19,7 @@
           <div class="dialog-body">
             <ul>
               <li class="dialog-button-item">
-                <button @click="setCaptain" type="button" class="set-captan-info-button">ตั้งเป็นกับตันทีม</button>
+                <button @click="setCaptain" type="button" class="set-captan-info-button">เลือกเป็นกัปตันทีม</button>
               </li>
               <li class="dialog-button-item">
                 <button @click="change_player" type="button" class="remove-player-button">เปลี่ยนตัวนักเตะ</button>
@@ -30,7 +30,7 @@
       </dialog>
     </div>
   </template>
-  
+
   <script>
   export default {
     props: {
@@ -44,13 +44,6 @@
       }
     },
 
-    watch: {
-      showAdjustPlayerModal(newVal) {
-        if (!newVal) {
-          this.fadeOut();
-        }
-      }
-    },
     methods: {
       setCaptain() {
         this.$emit('set-captain');
@@ -58,19 +51,11 @@
       change_player() {
         this.$emit('change-player');
       },
-      fadeOut() {
-        const overlay = document.querySelector('.dialog-overlay');
-        if (overlay) {
-          overlay.classList.add('fade-out');
-          setTimeout(() => {
-            this.$emit('close-modal');
-          }, 300);
-        }
-      }
+
     }
   };
   </script>
-  
+
   <style scoped>
   .dialog-overlay {
     position: fixed;
@@ -85,7 +70,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.3s ease-in-out;
   }
-  
+
   .styled-dialog {
     z-index: 120;
     max-width: 90%;
@@ -97,26 +82,26 @@
     color: currentcolor;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px;
   }
-  
+
   .dialog-header {
     position: relative;
     text-align: center;
     margin-bottom: 2rem;
     padding-top: 2.4rem;
   }
-  
+
   .dialog-heading {
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0;
   }
-  
+
   .close-button-wrap {
     position: absolute;
     right: 0.5rem;
     top: 0.5rem;
   }
-  
+
   .close-button {
     padding: 0.5rem 0.8rem;
     border: 0;
@@ -125,7 +110,7 @@
     line-height: 0;
     cursor: pointer;
   }
-  
+
   .close-label {
     border: 0;
     clip: rect(0px, 0px, 0px, 0px);
@@ -137,22 +122,22 @@
     white-space: nowrap;
     width: 1px;
   }
-  
+
   .close-icon {
     width: 16px;
     height: 16px;
   }
-  
+
   .dialog-body {
     max-height: calc(90vh - 61px);
     overflow-y: auto;
     margin: 2rem 1.5rem;
   }
-  
+
   .dialog-button-item {
     margin-bottom: 1rem;
   }
-  
+
   .remove-player-button,
   .set-captan-info-button,
   .player-info-button {
@@ -166,28 +151,28 @@
     width: 100%;
     transition: background 0.3s ease, transform 0.3s ease;
   }
-  
+
   .remove-player-button {
     background: rgb(31, 37, 158);
     color: white;
   }
-  
+
   .set-captan-info-button {
     background: rgb(30, 122, 25);
     color: white;
   }
-  
+
   .player-info-button {
     background: rgb(239, 239, 239);
     color: black;
   }
-  
+
   .remove-player-button:hover,
   .set-captan-info-button:hover,
   .player-info-button:hover {
     transform: translateY(-2px);
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -196,12 +181,13 @@
       opacity: 1;
     }
   }
-  
-  
+
+
   .fade-in {
     animation: fadeIn 0.2s ease-in-out;
   }
-  
-  
+
+
   </style>
-  
+
+<style src="../../styles/member-details.css"></style>

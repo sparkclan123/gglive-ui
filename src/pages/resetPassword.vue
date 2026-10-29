@@ -1,99 +1,49 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-        style="background-image: url('https://pudee.sgp1.digitaloceanspaces.com/bgnew1.webp')">
-        <LodingSceen :loading="loading" />
-
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-
-        <!-- Card -->
-        <div
-            class="relative z-10 w-[90%] max-w-md mx-auto bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-8 text-white space-y-6">
-            <!-- Logo -->
-            <div class="flex justify-center mb-3">
-                <img src="/public/assets/logo.webp" alt="Logo"
-                    class="w-20 h-20 rounded-full border-4 border-white/40 shadow-lg" />
-            </div>
-
-            <h2 class="text-2xl font-bold text-center">รีเซ็ตรหัสผ่าน</h2>
-            <p class="text-gray-300 text-center text-sm">
-                กรอกข้อมูลด้านล่างเพื่อรีเซ็ตรหัสผ่านของคุณ
-            </p>
-
-            <!-- เบอร์โทร -->
-            <div>
-                <label for="phone" class="block text-sm mb-1 text-gray-300">เบอร์โทรศัพท์</label>
-                <input id="phone" v-model="phonenum" type="tel" placeholder="08xxxxxxxx" :class="[
-                    'w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-blue-400 focus:outline-none',
-                    phoneError ? 'border-red-500' : 'border-gray-400'
-                ]" />
-                <p v-if="phoneError" class="text-red-400 text-xs mt-1">
-                    กรุณากรอกเบอร์โทร 10 หลักให้ถูกต้อง
-                </p>
-            </div>
-
-            <!-- ปุ่มขอ OTP -->
-            <div class="mt-2">
-                <p v-if="otpCountdown > 0" class="text-center text-xs text-gray-300 mb-2">
-                    โปรดรอ {{ otpCountdown }} วินาทีก่อนขอรหัสใหม่
-                </p>
-                <button :disabled="otpCountdown > 0" @click="callOtp"
-                    class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-semibold shadow-lg transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed">
-                    ขอรหัส OTP
-                </button>
-            </div>
-
-            <!-- ช่องกรอก OTP -->
-            <div>
-                <label for="otp" class="block text-sm mb-1 text-gray-300">OTP</label>
-                <input id="otp" v-model="otp" type="tel" placeholder="รหัส OTP 6 หลัก" :class="[
-                    'w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-blue-400 focus:outline-none',
-                    otpError ? 'border-red-500' : 'border-gray-400'
-                ]" />
-                <p v-if="otpError" class="text-red-400 text-xs mt-1">
-                    กรุณากรอก OTP ให้ถูกต้อง
-                </p>
-            </div>
-
-            <!-- รหัสผ่านใหม่ -->
-            <div>
-                <label for="new_password" class="block text-sm mb-1 text-gray-300">รหัสผ่านใหม่</label>
-                <input id="new_password" v-model="newPassword" type="password" placeholder="********" :class="[
-                    'w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none',
-                    newPasswordError ? 'border-red-500' : 'border-gray-400'
-                ]" />
-                <p v-if="newPasswordError" class="text-red-400 text-xs mt-1">
-                    กรุณากรอกรหัสผ่านใหม่ให้ถูกต้อง
-                </p>
-            </div>
-
-            <!-- ยืนยันรหัสผ่านใหม่ -->
-            <div>
-                <label for="confirm_new_password" class="block text-sm mb-1 text-gray-300">ยืนยันรหัสผ่านใหม่</label>
-                <input id="confirm_new_password" v-model="confirmNewPassword" type="password" placeholder="********"
-                    :class="[
-                        'w-full px-4 py-2 rounded-lg bg-white/20 border focus:ring-2 focus:ring-green-400 focus:outline-none',
-                        confirmNewPasswordError ? 'border-red-500' : 'border-gray-400'
-                    ]" />
-                <p v-if="confirmNewPasswordError" class="text-red-400 text-xs mt-1">
-                    รหัสผ่านและการยืนยันไม่ตรงกัน
-                </p>
-            </div>
-
-            <!-- ปุ่มรีเซ็ตรหัส -->
-            <button @click="resetPassword"
-                class="w-full py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 font-semibold shadow-lg transition-all hover:scale-[1.02]">
-                ยืนยันรหัสผ่านใหม่
-            </button>
-
-            <!-- กลับหน้า Login -->
-            <div class="text-center text-sm mt-2">
-                <router-link to="/login" class="text-blue-400 hover:text-blue-300">กลับสู่หน้า Login</router-link>
-            </div>
+  <section class="auth-account-panel auth-recovery">
+    <LodingSceen :loading="loading" />
+    <header class="auth-ticket-heading auth-ticket-seam">
+      <div>
+        <RouterLink to="/login" class="auth-back-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>กลับเข้าสู่ระบบ</RouterLink>
+        <h1>ตั้งรหัสผ่านใหม่</h1>
+        <p class="auth-ticket-description">ยืนยันเบอร์โทรศัพท์ เพื่อกลับเข้าสู่ทีมของคุณ</p>
+      </div>
+      <svg class="auth-ticket-pitch" viewBox="0 0 72 104" fill="none" aria-hidden="true">
+        <path d="M3 3h66v98H3zM3 52h66M21 3v17h30V3M21 101V84h30v17"/>
+        <circle cx="36" cy="52" r="13"/><circle cx="36" cy="52" r="1.8"/>
+      </svg>
+    </header>
+    <div class="auth-form-panel">
+      <form class="auth-form" @submit.prevent="resetPassword" :aria-busy="loading || confirming" novalidate>
+        <div class="auth-field">
+          <label for="phone">เบอร์โทรศัพท์</label>
+          <div class="auth-phone-row">
+            <input id="phone" v-model="phonenum" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="เบอร์โทรศัพท์ 10 หลัก" maxlength="10" :aria-invalid="phoneError" :aria-describedby="phoneError ? 'phone-error' : undefined" />
+            <button type="button" class="auth-otp-button" :disabled="loading || confirming || otpCountdown > 0" @click="callOtp">{{ otpCountdown > 0 ? `รอ ${otpCountdown} วินาที` : 'ขอรหัส OTP' }}</button>
+          </div>
+          <p v-if="phoneError" id="phone-error" class="auth-field-error">กรุณากรอกเบอร์โทรศัพท์ 10 หลักให้ถูกต้อง</p>
+          <p v-if="otpCountdown > 0" class="auth-field-hint">ส่งรหัสแล้ว ตรวจสอบ SMS ในโทรศัพท์ของคุณ</p>
         </div>
+        <div class="auth-field">
+          <label for="otp">รหัส OTP</label>
+          <input id="otp" v-model="otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="รหัส 6 หลักจาก SMS" :aria-invalid="otpError" :aria-describedby="otpError ? 'otp-error' : undefined" />
+          <p v-if="otpError" id="otp-error" class="auth-field-error">กรุณากรอกรหัส OTP 6 หลักให้ถูกต้อง</p>
+        </div>
+        <div class="auth-field">
+          <label for="new_password">รหัสผ่านใหม่</label>
+          <input id="new_password" v-model="newPassword" name="password" type="password" autocomplete="new-password" placeholder="อย่างน้อย 4 ตัวอักษร" :aria-invalid="newPasswordError" :aria-describedby="newPasswordError ? 'password-error' : undefined" />
+          <p v-if="newPasswordError" id="password-error" class="auth-field-error">กรุณากรอกรหัสผ่านอย่างน้อย 4 ตัวอักษร</p>
+        </div>
+        <div class="auth-field">
+          <label for="confirm_new_password">ยืนยันรหัสผ่านใหม่</label>
+          <input id="confirm_new_password" v-model="confirmNewPassword" name="confirm-password" type="password" autocomplete="new-password" placeholder="กรอกรหัสผ่านใหม่อีกครั้ง" :aria-invalid="confirmNewPasswordError" :aria-describedby="confirmNewPasswordError ? 'confirm-password-error' : undefined" />
+          <p v-if="confirmNewPasswordError" id="confirm-password-error" class="auth-field-error">รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง</p>
+        </div>
+        <button type="submit" class="auth-submit" :disabled="loading || confirming">{{ loading ? 'กำลังบันทึกรหัสผ่าน…' : 'ยืนยันรหัสผ่านใหม่' }}</button>
+      </form>
+      <p class="auth-register-prompt"><RouterLink to="/login" class="auth-text-link">กลับเข้าสู่ระบบ</RouterLink></p>
     </div>
+  </section>
 </template>
-
 
 <script>
 import { mapActions } from 'vuex'
@@ -105,6 +55,7 @@ export default {
     data() {
         return {
             loading: false,
+            confirming: false,
             phonenum: '',
             otpDigits: ['', '', '', '', '', ''],
             otp: '',
@@ -142,6 +93,7 @@ export default {
             this.confirmNewPasswordError = this.newPassword !== this.confirmNewPassword;
         },
         startOtpCountdown() {
+            if (this.countdownTimer) clearInterval(this.countdownTimer);
             this.otpCountdown = 300; // 5 minutes in seconds
             this.countdownTimer = setInterval(() => {
                 if (this.otpCountdown > 0) {
@@ -153,10 +105,9 @@ export default {
             }, 1000);
         },
         async callOtp() {
-            this.validateInputs();
+            if (this.loading || this.confirming || this.otpCountdown > 0) return;
+            this.phoneError = this.phonenum.length !== 10;
             if (this.phoneError) return;
-
-            if (this.otpCountdown > 0) return;
 
             this.loading = true;
             try {
@@ -188,29 +139,34 @@ export default {
             }
         },
         async resetPassword() {
+            if (this.loading || this.confirming) return;
             this.validateInputs();
 
             if (this.phoneError || this.otpError || this.newPasswordError || this.confirmNewPasswordError) {
                 return;
             }
 
-            // Swal confirm 
-
-            const result = await Swal.fire({
-                title: 'ยืนยันการเปลี่ยนรหัสผ่าน',
-                text: 'คุณต้องการเปลี่ยนรหัสผ่านใช่หรือไม่',
-                showCancelButton: true,
-                confirmButtonText: 'ใช่',
-                cancelButtonText: 'ไม่ใช่',
-                customClass: {
-                    confirmButton: 'btn-confirm',
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            });
+            this.confirming = true;
+            let result;
+            try {
+                result = await Swal.fire({
+                    title: 'ยืนยันการเปลี่ยนรหัสผ่าน',
+                    text: 'คุณต้องการเปลี่ยนรหัสผ่านใช่หรือไม่',
+                    showCancelButton: true,
+                    confirmButtonText: 'ใช่',
+                    cancelButtonText: 'ไม่ใช่',
+                    customClass: {
+                        confirmButton: 'btn-confirm',
+                        cancelButton: 'btn-cancel',
+                        popup: 'popup-custom',
+                        title: 'text-custom',
+                        htmlContainer: 'text-custom'
+                    },
+                    buttonsStyling: false,
+                });
+            } finally {
+                this.confirming = false;
+            }
 
             if (!result.isConfirmed) {
                 return;
@@ -240,7 +196,7 @@ export default {
 
             } catch (error) {
                 Swal.fire({
-                    text: error.response.data.error,
+                    text: error.response?.data?.error || 'ดำเนินการไม่สำเร็จ กรุณาลองอีกครั้ง',
                     showCancelButton: true,
                     cancelButtonText: 'ยกเลิก',
                     showConfirmButton: false,
@@ -255,66 +211,9 @@ export default {
                 this.loading = false;
             }
         }
+    },
+    beforeUnmount() {
+        if (this.countdownTimer) clearInterval(this.countdownTimer);
     }
 }
 </script>
-
-<style scoped>
-.logo-circle {
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.otp-container input {
-    text-align: center;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.5rem;
-}
-
-.button-save1 {
-    font-size: 15px;
-    display: inline-block;
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-    will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #0e2472 0%, #0e2472 100%);
-    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
-    padding: 0 2em;
-    border-radius: 0.3em;
-    color: #fff;
-    height: 2.6em;
-    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
-    transition: box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.button-save1:active {
-    box-shadow: inset 0px 0.1em 0.6em #0a1158;
-    transform: translateY(0em);
-}
-
-.button-save {
-    font-size: 15px;
-    display: inline-block;
-    outline: 0;
-    border: 0;
-    cursor: pointer;
-    will-change: box-shadow, transform;
-    background: radial-gradient(100% 100% at 100% 0%, #15720e 0%, #15720e 100%);
-    box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
-    padding: 0 2em;
-    border-radius: 0.3em;
-    color: #fff;
-    height: 2.6em;
-    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
-    transition: box-shadow 0.15s ease, transform 0.15s ease;
-}
-
-.button-save:active {
-    box-shadow: inset 0px 0.1em 0.6em #0f580a;
-    transform: translateY(0em);
-}
-</style>

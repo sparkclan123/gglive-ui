@@ -1,18 +1,21 @@
 <template>
-  <div role="presentation" class="fixed inset-0 z-[1000] bg-black/60 duration-300 overflow-hidden"
+  <div role="presentation" class="member-player-picker fixed inset-0 z-[1000] bg-black/60 duration-300 overflow-hidden"
     @click.self.prevent="$emit('close-modal')" :class="{
       '!bg-black/0 pointer-events-none': !showAdjustPlayerModal,
     }">
     <Transition>
-      <main v-if="showAdjustPlayerModal" class="fixed inset-x-0 bottom-0 max-h-[90dvh] rounded-t-lg flex flex-col">
+      <main v-member-dialog="showAdjustPlayerModal" v-if="showAdjustPlayerModal" role="dialog" aria-modal="true" aria-label="เลือกนักเตะ" @keydown.esc="$emit('close-modal')" class="fixed inset-x-0 bottom-0 max-h-[90dvh] rounded-t-lg flex flex-col">
 
+        <header class="member-picker-header">
+            <h2 class="member-picker-title">เลือกนักเตะ</h2>
+            <button class="close-button" ref="closeButton" aria-label="ปิดรายชื่อนักเตะ" @click="$emit('close-modal')">
+              <span class="close-icon">&times;</span>
+            </button>
+
+        </header>
         <div class="player-selection bg-color-2 shadow-lg h-full text-gray-200  rounded-lg shadow-xl overflow-y-auto">
 
           <div class="sticky top-0 bg-[#1e1036] p-4 !rounded-t-xl">
-
-            <button class="close-button" @click="$emit('close-modal')">
-              <span class="close-icon">&times;</span>
-            </button>
 
             <div class="flex flex-wrap gap-4 mb-4  ">
 
@@ -64,12 +67,12 @@
             <div class="flex flex-wrap gap-4">
               <div class="flex-1 min-w-[100px] ">
                 <label class="block mb-1 text-gray-100 text-xs">ค้นหา..</label>
-                <input type="text" placeholder="Search for player..." v-model="searchTerm" @input="filterPlayers"
+                <input type="search" enterkeyhint="search" autocomplete="off" placeholder="ค้นหาชื่อนักเตะ" v-model="searchTerm" @input="filterPlayers"
                   class="p-1 border rounded w-full text-gray-600 text-sm">
               </div>
               <div class="flex-1 min-w-[100px]">
                 <label class="block mb-1 text-gray-100 text-xs">งบไม่เกิน</label>
-                <input type="number" placeholder="Max cost" v-model="maxCost" @input="filterPlayers"
+                <input type="number" inputmode="decimal" placeholder="ไม่จำกัด" v-model="maxCost" @input="filterPlayers"
                   class="p-1 border rounded w-full text-gray-600 text-sm">
               </div>
 
@@ -90,11 +93,11 @@
                 </tr>
               </thead>
               <tbody>
+                <tr v-if="!paginatedPlayers.length"><td colspan="4" class="member-table-empty">ไม่พบนักเตะที่ตรงกับตัวกรอง</td></tr>
                 <tr v-for="player in paginatedPlayers" :key="player.id" class="bg-gray-50">
-                  <td class="w-1/3 py-1 px-2 border-b border-r border-gray-400 text-gray-900 cursor-pointer"
-                    @click="selectPlayer(player)">
-                    <div class="flex items-center">
-                      <img :src="getShirtImage(player)" alt="team logo" class="w-6 h-8 mr-2">
+                  <td class="w-1/3 py-1 px-2 border-b border-r border-gray-400 text-gray-900">
+                    <button type="button" class="member-player-choice" @click="selectPlayer(player)">
+                      <img :src="getShirtImage(player)" alt="เสื้อนักเตะ" class="w-6 h-8 mr-2">
                       <div class="truncate">
                         <div>{{ truncateText(player.name) }}</div>
                         <div class="text-xs text-gray-600">{{ player.position }}
@@ -103,13 +106,8 @@
                           <span style="font-size: 9px;">{{ player.team_vs }}</span>
                         </div>
                       </div>
-                    </div>
+                    </button>
                   </td>
-                  <!-- <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">
-                        <div class="flex items-center">
-                            <img :src="`/public/assets/team/${player.team_code}.png`" alt="team logo" class="w-4 h-4 mr-1">
-                        </div>
-                    </td> -->
                   <td class=" py-1 px-2 border-b border-gray-400 text-gray-900">
                     <Numberformat :value="player.price" :decimal="1" />
                   </td>
@@ -285,13 +283,11 @@ export default {
   },
 
   watch: {
-    showAdjustPlayerModal(newVal) {
-      if (!newVal) {
-        document.body.style.overflow = '';
-        this.fadeOut();
-
-      }
+    getTeams: {
+      handler() { this.updateTeamOptions(); },
+      immediate: true
     },
+    is_check_player() { this.filterPlayers(); },
     position(newPosition) {
       this.selectedPosition = newPosition;
 
@@ -300,7 +296,6 @@ export default {
   computed: {
     ...mapGetters('Teams', ['getTeams']),
     filteredPlayers() {
-      console.log(this.selectedPosition)
       if (this.maxCost < 1) {
         this.maxCost = null;
       }
@@ -430,15 +425,7 @@ export default {
       const suffix = player.position === 'G' ? '_1-66' : '-66';
       return `https://pudee.sgp1.digitaloceanspaces.com/shirt_${teamCode}${suffix}.webp`;
     },
-    fadeOut() {
-      const overlay = document.querySelector('.dialog-overlay');
-      if (overlay) {
-        overlay.classList.add('fade-out');
-        setTimeout(() => {
-          this.$emit('close-modal');
-        }, 300);
-      }
-    },
+
     updateTeamOptions() {
       const teams = this.getTeams;
       if (teams && Array.isArray(teams)) {
@@ -764,3 +751,4 @@ main {
   transform: none;
 }
 </style>
+<style src="../../styles/member-details.css"></style>

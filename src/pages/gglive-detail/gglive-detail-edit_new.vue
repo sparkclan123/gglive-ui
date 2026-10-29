@@ -1,53 +1,28 @@
 <template>
+    <section class="member-detail">
+        <div v-if="isDetailLoading" class="member-loading" role="status">กำลังโหลดข้อมูลทีม…</div>
+        <div v-else-if="loadError" class="member-error" role="alert">
+            <h2>โหลดข้อมูลทีมไม่สำเร็จ</h2>
+            <p>{{ loadError }}</p>
+            <button class="member-button" @click="fetchGameWeekDetail">ลองอีกครั้ง</button>
+        </div>
     <div>
         <div>
             <LodingSceen :loading="loading" />
         </div>
         <div class="dxRBog" v-if="getMain">
-            <div class="card cursor-pointer">
-                <div class="top-section  ">
-                    <div class="icons">
-                        <div class="absolute top-0 left-0 m-3 flex items-center cursor-pointer shsojvp text-gray-200 px-1.5 py-1.5  bg-white/10 backdrop-blur-md border border-white/20 rounded-full cursor-pointer hover:bg-white/20 hover:scale-105 transition-all duration-200 shadow-sm"
-                            @click="route_back()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                            </svg>
-                            <span class="text-white text-xs font-bold tracking-wide">กลับ</span>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="bottom-section">
-                    <span class="title text-green-500">{{ getMain.name }} </span>
-                    <div class="row row1">
-                        <div class="item">
-                            <span class="text-xs">งบทั้งหมด </span>
-                            <span class="text-xs text-gray-200">
-                                <NumberDisplay number="80" /> ใช้ไป
-                                <NumberDisplay :number="-priceSum" />
-                            </span>
-                            <span class="big-text text-xs text-yellow-200">**เวลาสร้างทีม
-                                <DateFormatted :dateString="getMain.created_at" />
-                            </span>
-
-                            <button
-                                class="text-gray-200 bg-green-700 font-bold text-[11px] px-2 py-1 rounded-full shadow-lg hover:bg-green-500 cursor-pointer m-2"
-                                @click.stop="saveTeamEdit">
-                                บันทึกเเก้ไขทีม
-                            </button>
-                            <button
-                                class="text-gray-200 bg-yellow-700 font-bold text-[11px] px-2 py-1 rounded-full shadow-lg hover:bg-yellow-500 cursor-pointer"
-                                @click.stop="resetTeamEdit">
-                                รีเซ็ต
-                            </button>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+            <MemberTeamHeader
+                :team="getMain"
+                :stats="[
+                    { label: 'งบทั้งหมด', value: 80, format: 'budget' },
+                    { label: 'ใช้ไป', value: -priceSum, format: 'budget' },
+                ]"
+                :created-at="getMain.created_at"
+                edit-mode="staged"
+                @back="route_back"
+                @save="saveTeamEdit"
+                @reset="resetTeamEdit"
+            />
             <div>
                 <div class="elHRfu ">
                     <div class="imodPj custom-btn shadow-xl">
@@ -55,6 +30,7 @@
 
                             <div class="gRFNix">
                                 <div class="hWtxro" v-for="(GKP, i) in getGKP" :key="i">
+                                    <div class="member-staged-player">
                                     <button type="button"
                                         @click="GKP.player_id === null || GKP.remove ? toggleClass('G') : adjustPlayer(GKP)"
                                         class="fBGUqJ">
@@ -67,20 +43,9 @@
                                                 class="flTOZR" :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="GKP.player_id == is_captan" class="captain-badge">C</span>
 
-                                            <svg v-if="GKP.player_id && !GKP.remove" @click.stop="removePlayer(GKP)"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
-                                                class="captain-badge-close">
-                                                <path fill="#F94646"
-                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
-                                                </path>
-                                                <path fill="#E2E2E2"
-                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
-                                                </path>
-                                            </svg>
 
-                                            <span @click.stop="revestPlayer(GKP)" v-if="GKP.player_id && GKP.remove"
-                                                class="captain-badge-close"
-                                                style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
+
+
                                         </picture>
                                         <div class=" gTayAP" v-if="GKP.player_id === null">
                                             <div class="gvQQRY "
@@ -93,11 +58,28 @@
                                             <div class=" fQREvA_fix" v-if="GKP.team_vs != ''">{{ GKP.team_vs }}</div>
                                         </div>
                                     </button>
+                                    <button v-if="GKP.player_id && !GKP.remove" type="button"
+                                        class="captain-badge-close" @click.stop="removePlayer(GKP)"
+                                        :aria-label="'นำ ' + GKP.name + ' ออกจากทีม'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                        </svg>
+                                    </button>
+                                    <button v-if="GKP.player_id && GKP.remove" type="button"
+                                        class="captain-badge-close member-staged-undo" @click.stop="revestPlayer(GKP)"
+                                        :aria-label="'คืน ' + GKP.name + ' เข้าทีม'">⟳</button>
+                                    </div>
                                 </div>
 
                             </div>
                             <div class="gRFNix">
                                 <div class="hWtxro" v-for="(DEF, i) in getDEF" :key="i">
+                                    <div class="member-staged-player">
                                     <button type="button"
                                         @click="DEF.player_id === null || DEF.remove ? toggleClass('D') : adjustPlayer(DEF)"
                                         class="fBGUqJ">
@@ -110,21 +92,10 @@
                                                 class="flTOZR" :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="DEF.player_id == is_captan" class="captain-badge">C</span>
 
-                                            <svg v-if="DEF.player_id && !DEF.remove" @click.stop="removePlayer(DEF)"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
-                                                class="captain-badge-close">
-                                                <path fill="#F94646"
-                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
-                                                </path>
-                                                <path fill="#E2E2E2"
-                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
-                                                </path>
-                                            </svg>
 
 
-                                            <span @click.stop="revestPlayer(DEF)" v-if="DEF.player_id && DEF.remove"
-                                                class="captain-badge-close"
-                                                style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
+
+
                                         </picture>
                                         <div class=" gTayAP" v-if="DEF.player_id === null">
                                             <div class="gvQQRY "
@@ -137,11 +108,28 @@
                                             <div class=" fQREvA_fix" v-if="DEF.team_vs != ''">{{ DEF.team_vs }}</div>
                                         </div>
                                     </button>
+                                    <button v-if="DEF.player_id && !DEF.remove" type="button"
+                                        class="captain-badge-close" @click.stop="removePlayer(DEF)"
+                                        :aria-label="'นำ ' + DEF.name + ' ออกจากทีม'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                        </svg>
+                                    </button>
+                                    <button v-if="DEF.player_id && DEF.remove" type="button"
+                                        class="captain-badge-close member-staged-undo" @click.stop="revestPlayer(DEF)"
+                                        :aria-label="'คืน ' + DEF.name + ' เข้าทีม'">⟳</button>
+                                    </div>
                                 </div>
 
                             </div>
                             <div class="gRFNix">
                                 <div class="hWtxro" v-for="(MID, i) in getMID" :key="i">
+                                    <div class="member-staged-player">
                                     <button type="button"
                                         @click="MID.player_id === null || MID.remove ? toggleClass('M') : adjustPlayer(MID)"
                                         class="fBGUqJ">
@@ -155,19 +143,8 @@
                                             <span v-if="MID.player_id == is_captan" class="captain-badge">C</span>
 
 
-                                            <svg v-if="MID.player_id && !MID.remove" @click.stop="removePlayer(MID)"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
-                                                class="captain-badge-close">
-                                                <path fill="#F94646"
-                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
-                                                </path>
-                                                <path fill="#E2E2E2"
-                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
-                                                </path>
-                                            </svg>
-                                            <span @click.stop="revestPlayer(MID)" v-if="MID.player_id && MID.remove"
-                                                class="captain-badge-close"
-                                                style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
+
+
                                         </picture>
                                         <div class=" gTayAP" v-if="MID.player_id === null">
                                             <div class="gvQQRY "
@@ -180,10 +157,27 @@
                                             <div class=" fQREvA_fix" v-if="MID.team_vs != ''">{{ MID.team_vs }}</div>
                                         </div>
                                     </button>
+                                    <button v-if="MID.player_id && !MID.remove" type="button"
+                                        class="captain-badge-close" @click.stop="removePlayer(MID)"
+                                        :aria-label="'นำ ' + MID.name + ' ออกจากทีม'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                        </svg>
+                                    </button>
+                                    <button v-if="MID.player_id && MID.remove" type="button"
+                                        class="captain-badge-close member-staged-undo" @click.stop="revestPlayer(MID)"
+                                        :aria-label="'คืน ' + MID.name + ' เข้าทีม'">⟳</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="gRFNix">
                                 <div class="hWtxro" v-for="(FWD, i) in getFWD" :key="i">
+                                    <div class="member-staged-player">
                                     <button type="button"
                                         @click="FWD.player_id === null || FWD.remove ? toggleClass('F') : adjustPlayer(FWD)"
                                         class="fBGUqJ">
@@ -196,20 +190,9 @@
                                                 class="flTOZR" :style="{ opacity: totalPlayerCount >= 11 ? 0.7 : 1 }">
                                             <span v-if="FWD.player_id == is_captan" class="captain-badge">C</span>
 
-                                            <svg v-if="FWD.player_id && !FWD.remove" @click.stop="removePlayer(FWD)"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
-                                                class="captain-badge-close">
-                                                <path fill="#F94646"
-                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
-                                                </path>
-                                                <path fill="#E2E2E2"
-                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
-                                                </path>
-                                            </svg>
 
-                                            <span @click.stop="revestPlayer(FWD)" v-if="FWD.player_id && FWD.remove"
-                                                class="captain-badge-close"
-                                                style="background-color: aquamarine; font-size: 16px;color:black;padding: 0px 0px 2px 1px;">⟳</span>
+
+
 
 
                                         </picture>
@@ -224,6 +207,22 @@
                                             <div class=" fQREvA_fix" v-if="FWD.team_vs != ''">{{ FWD.team_vs }}</div>
                                         </div>
                                     </button>
+                                    <button v-if="FWD.player_id && !FWD.remove" type="button"
+                                        class="captain-badge-close" @click.stop="removePlayer(FWD)"
+                                        :aria-label="'นำ ' + FWD.name + ' ออกจากทีม'">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+                                                <path fill="#F94646"
+                                                    d="M40 3H24C12.4 3 3 12.4 3 24v16c0 11.6 9.4 21 21 21h16c11.6 0 21-9.4 21-21V24c0-11.6-9.4-21-21-21z">
+                                                </path>
+                                                <path fill="#E2E2E2"
+                                                    d="M36.8 32 48 20.8c.6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4-1.3-1.3-3.5-1.3-4.8 0L32 27.2 20.8 16c-1.3-1.3-3.5-1.3-4.8 0-.6.6-1 1.5-1 2.4 0 .9.4 1.8 1 2.4L27.2 32 16 43.2c-.6.6-1 1.5-1 2.4s.4 1.8 1 2.4c.6.6 1.5 1 2.4 1 .9 0 1.8-.4 2.4-1L32 36.8 43.2 48c1.3 1.3 3.5 1.3 4.8 0 .6-.6 1-1.5 1-2.4 0-.9-.4-1.8-1-2.4L36.8 32z">
+                                                </path>
+                                        </svg>
+                                    </button>
+                                    <button v-if="FWD.player_id && FWD.remove" type="button"
+                                        class="captain-badge-close member-staged-undo" @click.stop="revestPlayer(FWD)"
+                                        :aria-label="'คืน ' + FWD.name + ' เข้าทีม'">⟳</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -241,11 +240,13 @@
         </div>
     </div>
 
+    </section>
 </template>
 
 
 <script>
 import { api } from '@axios_inst';
+import MemberTeamHeader from '../../components/member/MemberTeamHeader.vue';
 import { mapActions, mapGetters } from 'vuex';
 import ModelEdit from '../../components/object/model_edit.vue';
 import ModelEditSelectPlayerNew from '../../components/object/model_edit_selectplayer_new.vue';
@@ -264,6 +265,9 @@ export default {
             getMID: [],
             getFWD: [],
             getMain: null,
+            requestVersion: 0,
+            isDetailLoading: false,
+            loadError: '',
             isNavigating: false,
             is_captan: null,
             players: [],
@@ -279,6 +283,7 @@ export default {
         };
     },
     components: {
+        MemberTeamHeader,
         ModelEdit,
         ModelEditSelectPlayerNew
     },
@@ -400,7 +405,6 @@ export default {
                 return;
             }
 
-            document.body.style.overflow = 'hidden';
             this.position = position;
             this.showAdjustPlayerModalSelect = true;
 
@@ -424,7 +428,6 @@ export default {
                 return;
             }
 
-            document.body.style.overflow = 'hidden';
             this.position = this.detailPlayer.position;
             this.showAdjustPlayerModal = false;
             this.showAdjustPlayerModalSelect = true;
@@ -433,7 +436,6 @@ export default {
         async ChangePlayerSelect(player) {
 
 
-            document.body.style.overflow = '';
             this.showAdjustPlayerModalSelect = false;
 
             const totalPlayersInTeam = [
@@ -854,25 +856,36 @@ export default {
             const isCaptainValid = allPlayers.some(player => player.player_id === this.is_captan);
             return isCaptainValid;
         },
-        async fetchDataTeams() {
-
-            try {
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/teams', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    }
-                });
-                if (response.data.ok) {
-                    this.setTeams(response.data.teams);
-                } else {
-                    console.error('Failed to fetch teams data');
-                }
-            } catch (error) {
-                console.log(error);
-            }
+        async fetchDataTeams(gameWeekID) {
+            const access_token = localStorage.getItem('access_token');
+            const response = await api.get('/premier-league/v1/teams', {
+                headers: { 'Authorization': `Bearer ${access_token}` },
+                params: { game_week_id: Number(gameWeekID) }
+            });
+            if (!response.data.ok) throw new Error('โหลดรายชื่อสโมสรไม่สำเร็จ');
+            return response.data.teams || [];
         },
         async fetchGameWeekDetail() {
+            const requestVersion = ++this.requestVersion;
+            this.isDetailLoading = true;
+            this.loadError = '';
+            this.getMain = null;
+            this.getGKP = [];
+            this.getDEF = [];
+            this.getMID = [];
+            this.getFWD = [];
+            this.delGKP = [];
+            this.delDEF = [];
+            this.delMID = [];
+            this.delFWD = [];
+            this.delAllIds = [];
+            this.players = [];
+            this.setTeams([]);
+            this.is_captan = null;
+            this.detailPlayer = null;
+            this.position = null;
+            this.showAdjustPlayerModal = false;
+            this.showAdjustPlayerModalSelect = false;
             try {
                 const access_token = localStorage.getItem('access_token');
                 const response = await api.get(`/premier-league/v1/game-week-player-user-detail-edit/${this.id}/${this.type}`, {
@@ -880,7 +893,17 @@ export default {
                         'Authorization': `Bearer ${access_token}`
                     },
                 });
+                if (requestVersion !== this.requestVersion) return;
+                if (!response.data.ok || !response.data.playerGameMain) throw new Error('ไม่พบข้อมูลทีม');
                 if (response.data.ok) {
+                    const entry = response.data.playerGameMain;
+                    const [players, teams] = await Promise.all([
+                        this.fetchData(entry.season_id, entry.week_id),
+                        this.fetchDataTeams(entry.week_id)
+                    ]);
+                    if (requestVersion !== this.requestVersion) return;
+                    this.players = players;
+                    this.setTeams(teams);
                     const datas = response.data.playerGame;
 
                     datas.forEach(element => {
@@ -911,12 +934,17 @@ export default {
                     this.getFWD = getFWD;
 
                     this.getMain = response.data.playerGameMain;
-                    this.fetchData(response.data.playerGameMain.season_id, response.data.playerGameMain.week_id);
+
 
                 }
             } catch (error) {
-                console.log(error);
-
+                if (requestVersion !== this.requestVersion) return;
+                this.loadError = error.response?.data?.error || error.message || 'โหลดข้อมูลทีมไม่สำเร็จ';
+            } finally {
+                if (requestVersion === this.requestVersion) {
+                    this.isDetailLoading = false;
+                    this.updateLoading(false);
+                }
             }
         },
         getShirtImage(player) {
@@ -935,29 +963,21 @@ export default {
             }
         },
         async fetchData(seasonID, gameWeekID) {
-            console.log('seasonID', seasonID);
-            try {
-                // แปลง seasonID และ gameWeekID เป็น integer
-                const intSeasonID = parseInt(seasonID, 10);
-                const intGameWeekID = parseInt(gameWeekID, 10);
-
-                const access_token = localStorage.getItem('access_token');
-                const response = await api.get('/premier-league/v1/game-week-player', {
-                    headers: {
-                        'Authorization': `Bearer ${access_token}`
-                    },
-                    params: {
-                        seasonID: intSeasonID,
-                        gameWeekID: intGameWeekID
-                    }
-                });
-                if (response.data.ok) {
-                    // this.setGameWeek(response.data.gameWeek);
-                    this.players = response.data.players;
-                }
-            } catch (error) {
-                console.log(error);
+            const intSeasonID = Number(seasonID);
+            const intGameWeekID = Number(gameWeekID);
+            if (!Number.isInteger(intSeasonID) || intSeasonID < 1 || !Number.isInteger(intGameWeekID) || intGameWeekID < 1) {
+                throw new Error('ไม่พบฤดูกาลหรือเกมวีคของทีม');
             }
+            const access_token = localStorage.getItem('access_token');
+            const response = await api.get('/premier-league/v1/game-week-player', {
+                headers: { 'Authorization': `Bearer ${access_token}` },
+                params: { seasonID: intSeasonID, gameWeekID: intGameWeekID }
+            });
+            const round = response.data.gameWeek;
+            if (!response.data.ok || !round || Number(round.id) !== intGameWeekID || Number(round.season_id) !== intSeasonID) {
+                throw new Error('รายชื่อนักเตะไม่ตรงกับเกมวีคของทีม กรุณาลองใหม่');
+            }
+            return response.data.players || [];
         },
         async resetTeamEdit() {
 
@@ -1005,29 +1025,42 @@ export default {
 
     },
     created() {
-
         this.id = this.$route.params.id;
         this.type = this.$route.params.type;
-
         this.updateLoading(true);
-        Promise.all([this.fetchGameWeekDetail(), this.fetchDataTeams()])
-            .then(() => {
-                this.updateLoading(false);
-            })
-            .catch((error) => {
-                console.error('Error loading data:', error);
-                this.updateLoading(false);
-            });
-
+        this.fetchGameWeekDetail();
     },
-    mounted() {
-
+    beforeUnmount() {
+        this.requestVersion++;
+        this.updateLoading(false);
     }
 
 };
 </script>
 
 <style scoped>
+.member-staged-player {
+    position: relative;
+    width: 100%;
+    max-width: 96px;
+}
+.member-detail .member-staged-player > button.captain-badge-close {
+    position: absolute;
+    left: calc(50% - 30px);
+    top: -3px;
+    padding: 0;
+    border: 0;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    line-height: 1;
+}
+.member-detail .member-staged-player > button.member-staged-undo {
+    background: #b7dfc1;
+    color: #14261c;
+    font-size: 16px;
+}
+
 .btn-fix {
     padding: 1px 15px;
     border-radius: 20px;
@@ -1044,98 +1077,6 @@ export default {
 .svg-white {
     fill: #ffffff;
     /* เปลี่ยนสีของ SVG เป็นสีขาว */
-}
-
-.card {
-    background: linear-gradient(to bottom, #1e1037, #341c5d);
-    padding: 5px;
-    overflow: hidden;
-    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 20px 0px; */
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 10px;
-    border-top: 1px solid #503779;
-    /* border-left: 2px solid #503779; */
-    /* ขอบซ้าย */
-    /* border-right: 2px solid #503779; */
-    /* ขอบขวา */
-    border-bottom: 2px solid #503779;
-    /* ขอบล่าง */
-}
-
-.card .top-section .icons {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card .top-section .icons .logo {
-    height: 100%;
-    aspect-ratio: 1;
-    padding: 7px 0 7px 15px;
-}
-
-.card .top-section .icons .logo .top-section {
-    height: 100%;
-}
-
-.card .top-section .icons .social-media {
-    height: 100%;
-    padding: 8px 15px;
-    display: flex;
-    gap: 7px;
-}
-
-.card .top-section .icons .social-media .svg {
-    height: 100%;
-    fill: #1e1037;
-}
-
-
-.card .bottom-section {
-    margin-top: 1px;
-    /* padding: 10px 5px; */
-}
-
-.card .bottom-section .title {
-    display: block;
-    font-size: 18px;
-    font-weight: bolder;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-.card .bottom-section .row {
-    display: flex;
-    justify-content: space-between;
-    /* margin-top: 20px; */
-}
-
-.card .bottom-section .row .item {
-    flex: 30%;
-    text-align: center;
-    padding: 5px;
-    color: rgba(255, 255, 255, 0.721);
-}
-
-.card .bottom-section .row .item .big-text {
-
-    display: block;
-}
-
-.card .bottom-section .row .item .regular-text {
-    font-size: 12px;
-}
-
-.card .bottom-section .row .item:nth-child(2) {
-    border-left: 1px solid rgba(255, 255, 255, 0.126);
-    border-right: 1px solid rgba(255, 255, 255, 0.126);
-}
-
-.shsojvp {
-    font-weight: bold;
 }
 
 .captain-badge {
@@ -1221,7 +1162,7 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 12px 24px 0px;
     background-repeat: no-repeat;
     background-position: right top, 0px center, 0px center;
-    background-image: url(/public/assets/pattern-2-crop-90.0e86ae39.png), linear-gradient(rgba(255, 255, 255, 0) 10px, rgba(255, 255, 255, 0.2) 30px, white 60px), linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+    background-image: linear-gradient(135deg, #501a1b, #191313);
 }
 
 .gvQQRY {
@@ -1267,7 +1208,7 @@ export default {
 .imodPj {
     margin-top: 2.2rem;
     border-radius: 0.8rem;
-    background: url(/public/assets/fantasy.svg) center / 800px no-repeat;
+    background: url(/assets/fantasy.svg) center / 800px no-repeat;
 }
 
 @media (min-width: 43.75em) {
@@ -1781,3 +1722,4 @@ export default {
     }
 }
 </style>
+<style src="../../styles/member-details.css"></style>
