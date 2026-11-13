@@ -10,7 +10,7 @@
       </header>
       <div class="rules-layout">
         <aside class="rules-aside">
-          <nav aria-label="หัวข้อกติกา" class="rules-nav"><h2>ในหน้านี้</h2><a v-for="(section, index) in rules.sections" :key="index" :href="`#rule-section-${index}`">{{ section.heading }}</a><a v-if="rules.images.length" href="#rule-images">รูปประกอบกติกา</a></nav>
+          <nav aria-label="หัวข้อกติกา" class="rules-nav"><h2>ในหน้านี้</h2><a v-for="(section, index) in rules.sections" :key="index" :href="`#rule-section-${index}`" @click.prevent="jumpToSection(`rule-section-${index}`)">{{ section.heading }}</a><a v-if="rules.images.length" href="#rule-images" @click.prevent="jumpToSection('rule-images')">รูปประกอบกติกา</a></nav>
           <div class="rules-help"><p>มีคำถามเกี่ยวกับกติกา?</p><a :href="memberBrand.lineUrl" target="_blank" rel="noopener noreferrer">ติดต่อทีมงานทาง LINE</a></div>
         </aside>
         <div class="rules-document">
@@ -35,6 +35,7 @@ import { rulesResponse } from '../../lib/memberRules.js';
 export default {
   data: () => ({ rules: null, loading: false, error: '', imageErrors: {}, memberBrand }),
   methods: {
+    jumpToSection(id) { document.getElementById(id)?.scrollIntoView({ block: 'start', behavior: 'instant' }); },
     formatDate(value) { return new Date(value).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }); },
     async loadRules() {
       if (this.loading) return;
