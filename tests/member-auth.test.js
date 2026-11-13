@@ -149,3 +149,15 @@ test('unmount cancels proof work', () => {
   page.vm.proofController = { abort: () => { cancelled = true; } };
   page.component.beforeUnmount.call(page.vm); assert.equal(cancelled, true);
 });
+
+test('leaving registration during confirmation cannot create an account later', async () => {
+  let confirm; let proofs = 0; let posts = 0;
+  const page = loadPage('register', {
+    Swal: { fire: () => new Promise(resolve => { confirm = resolve; }), close() {} },
+    solveProof: async () => { proofs++; return { challenge_id: 'proof', nonce: '0' }; },
+    api: { post: async () => { posts++; return { data: { ok: true } }; } }
+  });
+  fillRegistration(page); const pending = page.vm.loginform();
+  page.component.beforeUnmount.call(page.vm); confirm({ isConfirmed: true }); await pending;
+  assert.equal(proofs, 0); assert.equal(posts, 0);
+});

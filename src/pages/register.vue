@@ -57,7 +57,7 @@ import { solveRegistrationProof } from '../security/registrationProof.js';
 export default {
     name: 'Register',
     data() {
-        return { loading: false, confirming: false, verifying: false, proofController: null,
+        return { loading: false, confirming: false, verifying: false, proofController: null, disposed: false,
             name: '', phonenum: '', password: '', confirm_password: '', referral: 0,
             phoneError: false, passwordError: false, confirmPasswordError: false, nameError: false };
     },
@@ -80,7 +80,7 @@ export default {
                     showCancelButton: true, confirmButtonText: 'สมัครสมาชิก', cancelButtonText: 'ยกเลิก',
                     customClass: { confirmButton: 'btn-confirm', cancelButton: 'btn-cancel', popup: 'popup-custom', title: 'text-custom', htmlContainer: 'text-custom' }, buttonsStyling: false });
             } finally { this.confirming = false; }
-            if (!result.isConfirmed) return;
+            if (this.disposed || !result?.isConfirmed) return;
             this.loading = true;
             this.verifying = true;
             const controller = new AbortController();
@@ -124,6 +124,10 @@ export default {
         this.referral = Number.isSafeInteger(referral) && referral > 0 && referral <= 2147483647 ? referral : 0;
         this.loading = false;
     },
-    beforeUnmount() { this.proofController?.abort(); }
+    beforeUnmount() {
+        this.disposed = true;
+        this.proofController?.abort();
+        if (this.confirming) Swal.close();
+    }
 };
 </script>
