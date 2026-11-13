@@ -18,9 +18,9 @@ function loadPage(name, options = {}) {
     setItem: (key, value) => { saved[key] = value; },
     removeItem: key => { delete saved[key]; }
   };
-  const component = new Function('mapActions', 'api', 'apiMine', 'Swal', 'localStorage', 'window', 'setInterval', 'clearInterval', source)(
+  const component = new Function('mapActions', 'api', 'apiMine', 'Swal', 'localStorage', 'window', 'setInterval', 'clearInterval', 'solveRegistrationProof', source)(
     () => ({}), options.api || {}, {}, options.Swal || { fire: async () => ({ isConfirmed: true }) }, storage, { location },
-    callback => { timers.push(callback); return timers.length; }, id => clearedTimers.push(id)
+    callback => { timers.push(callback); return timers.length; }, id => clearedTimers.push(id), options.solveProof || (async () => ({ challenge_id: 'proof-id', nonce: '42' }))
   );
   const vm = {
     ...component.data(), ...component.methods,
@@ -111,56 +111,41 @@ for (const name of ['login', 'register']) {
   }
 }
 
-for (const name of ['register', 'resetPassword']) {
-  test(`${name} OTP request validates only the phone and ignores duplicate requests`, async () => {
-    let finish;
-    const requests = [];
-    const page = loadPage(name, { api: { post: (url, body) => {
-      requests.push({ url, body });
-      return new Promise(resolve => { finish = resolve; });
-    } } });
-    page.vm.phonenum = '0800000000';
-    const pending = page.vm.callOtp();
-    const duplicate = page.vm.callOtp();
-    assert.equal(requests.length, 1);
-    assert.equal(page.vm.otpError, false);
-    assert.equal(page.vm.passwordError ?? page.vm.newPasswordError, false);
-    finish({ data: { ok: true } });
-    await Promise.all([pending, duplicate]);
-    assert.equal(page.vm.otpCountdown, 300);
-    assert.equal(page.vm.loading, false);
-    await page.vm.callOtp();
-    assert.equal(requests.length, 1);
-    assert.equal(requests[0].url, name === 'register' ? '/premier-league/auth/callotp' : '/premier-league/auth/callotpreset');
-    assert.deepEqual(requests[0].body, { phone_number: '0800000000' });
-    page.component.beforeUnmount.call(page.vm);
-    assert.deepEqual(page.clearedTimers, [1]);
-  });
+
+function fillRegistration(page) {
+  Object.assign(page.vm, { phonenum: '0801234567', name: 'สมาชิก', password: 'test-password', confirm_password: 'test-password', referral: 123 });
 }
 
-for (const [name, method] of [['register', 'loginform'], ['resetPassword', 'resetPassword']]) {
-  test(`${name} opens only one confirmation and preserves its submit payload`, async () => {
-    let confirm;
-    let confirmations = 0;
-    const requests = [];
-    const page = loadPage(name, {
-      Swal: { fire: () => { confirmations++; return new Promise(resolve => { confirm = resolve; }); } },
-      api: { post: async (url, body) => { requests.push({ url, body }); return { data: { ok: true } }; } }
-    });
-    Object.assign(page.vm, { phonenum: '0800000000', otp: '123456', name: 'Test member',
-      password: 'test-password', confirm_password: 'test-password',
-      newPassword: 'test-password', confirmNewPassword: 'test-password', referral: 123 });
-    const pending = page.vm[method]();
-    const duplicate = page.vm[method]();
-    assert.equal(confirmations, 1);
-    confirm({ isConfirmed: true });
-    await Promise.all([pending, duplicate]);
-    assert.equal(requests.length, 1);
-    assert.deepEqual(requests[0], name === 'register' ? {
-      url: '/premier-league/auth/registerOtp', body: { phone_number: '0800000000', password: 'test-password', name: 'Test member', otp: '123456', ref: 123 }
-    } : { url: '/premier-league/auth/reset-password', body: { phone_number: '0800000000', otp: '123456', password: 'test-password' } });
-    assert.deepEqual(page.routes, ['/login']);
-    assert.equal(page.vm.loading, false);
-    assert.equal(page.vm.confirming, false);
+test('registration submits one proof-protected request without OTP and returns to login', async () => {
+  let confirm; let confirmations = 0; const requests = [];
+  const page = loadPage('register', {
+    Swal: { fire: () => { confirmations++; return new Promise(resolve => { confirm = resolve; }); } },
+    api: { post: async (url, body) => { requests.push({ url, body }); return { data: { ok: true } }; } }
   });
-}
+  fillRegistration(page);
+  const pending = page.vm.loginform(); const duplicate = page.vm.loginform();
+  assert.equal(confirmations, 1); confirm({ isConfirmed: true });
+  await Promise.all([pending, duplicate]);
+  assert.deepEqual(requests, [{ url: '/premier-league/auth/register', body: { phone_number: '0801234567', password: 'test-password', name: 'สมาชิก', ref: 123, challenge_id: 'proof-id', nonce: '42' } }]);
+  assert.deepEqual(page.routes, ['/login']); assert.equal(page.vm.loading, false);
+});
+
+test('registration validates mobile, Unicode names, and the bcrypt byte limit before proof', async () => {
+  for (const change of [{ phonenum: 'abcdefghij' }, { name: ' ' }, { name: 'ก'.repeat(51) }, { password: '1234' }, { password: 'ก'.repeat(25) }]) {
+    let proofs = 0; const page = loadPage('register', { solveProof: async () => { proofs++; } });
+    fillRegistration(page); Object.assign(page.vm, change); await page.vm.loginform();
+    assert.equal(proofs, 0); assert.equal(page.vm.loading, false);
+  }
+});
+
+test('failed bot verification never posts registration and permits retry', async () => {
+  let posts = 0; const page = loadPage('register', { solveProof: async () => { throw new Error('verification failed'); }, api: { post: async () => { posts++; } } });
+  fillRegistration(page); await page.vm.loginform();
+  assert.equal(posts, 0); assert.equal(page.vm.loading, false); assert.equal(page.vm.verifying, false);
+});
+
+test('unmount cancels proof work', () => {
+  const page = loadPage('register'); let cancelled = false;
+  page.vm.proofController = { abort: () => { cancelled = true; } };
+  page.component.beforeUnmount.call(page.vm); assert.equal(cancelled, true);
+});

@@ -1,0 +1,42 @@
+name: Test and deploy to DigitalOcean
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: droplet-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build-deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Test and build production image
+        env:
+          REVISION: ${{ github.sha }}
+        run: docker build --pull -f .deploy/Dockerfile -t "pudee-member:$REVISION" .
+      - name: Deploy healthy image to Droplet
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DROPLET_DEPLOY_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DROPLET_KNOWN_HOSTS }}
+          DEPLOY_HOST: ${{ secrets.DROPLET_HOST }}
+          REVISION: ${{ github.sha }}
+          RUN_NUMBER: ${{ github.run_number }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          umask 077
+          task_ssh_dir=$(mktemp -d "$RUNNER_TEMP/pudee-ssh.XXXXXX")
+          trap 'rm -rf "$task_ssh_dir"' EXIT
+          printf '%s\n' "$SSH_PRIVATE_KEY" > "$task_ssh_dir/key"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$task_ssh_dir/known_hosts"
+          docker tag "pudee-member:$REVISION" "pudee-member:$REVISION-$RUN_NUMBER-$RUN_ATTEMPT"
+          docker save "pudee-member:$REVISION-$RUN_NUMBER-$RUN_ATTEMPT" | gzip -1 |             ssh -i "$task_ssh_dir/key" -o BatchMode=yes -o IdentitiesOnly=yes               -o StrictHostKeyChecking=yes -o UserKnownHostsFile="$task_ssh_dir/known_hosts"               -o ConnectTimeout=15 -o ServerAliveInterval=15 -o ServerAliveCountMax=4               "root@$DEPLOY_HOST" "deploy $REVISION $RUN_NUMBER $RUN_ATTEMPT"
