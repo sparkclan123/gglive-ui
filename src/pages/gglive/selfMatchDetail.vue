@@ -12,8 +12,9 @@
             <div v-if="!games.length" class="member-empty"><h2>ยังไม่มีทีมเข้าร่วม</h2><p>เลือกทีมของคุณใน Gameweek นี้เพื่อเข้าร่วมการแข่งขัน</p></div>
             <div v-else class="member-support-table-wrap">
                 <table class="member-support-table member-self-standings">
-                    <thead><tr><th>ทีม</th><th>คะแนน</th><th>วันที่</th></tr></thead>
-                    <tbody><tr v-for="data in games" :key="`${data.vip}-${data.id}`">
+                    <thead><tr><th scope="col" class="member-self-rank">อันดับ</th><th scope="col">ทีม</th><th scope="col">คะแนน</th><th scope="col">วันที่</th></tr></thead>
+                    <tbody><tr v-for="data in rankedGames" :key="`${data.vip}-${data.id}`">
+                        <td class="member-self-rank">{{ data.position }}</td>
                         <td><button type="button" class="member-team-link" @click="seeDetail(data)"><img :src="data.image_url || $memberBrand.avatarFallback" alt="" class="member-support-avatar"><span>{{ data.name }} <span v-if="data.vip" class="member-badge">VIP</span></span></button></td>
                         <td class="member-self-points">{{ data.total_point }}</td>
                         <td><DateFormatted :dateString="data.created_at" /></td>
@@ -29,6 +30,7 @@
 <script>
 import { api } from '@axios_inst';
 import Swal from 'sweetalert2';
+import { rankingRows } from '../../utils/gameweeks.js';
 import '../../styles/member-support.css';
 
 export default {
@@ -48,6 +50,11 @@ export default {
             season: null,
             teamCode: null
         };
+    },
+    computed: {
+        rankedGames() {
+            return rankingRows(this.games, this.page, this.limit);
+        }
     },
     methods: {
         seeDetail(data) {

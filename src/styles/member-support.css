@@ -26,7 +26,9 @@
 .member-self-summary h1 { font-size: 27px; font-weight: 700; line-height: 1.4; margin: 9px 0; overflow-wrap: anywhere; }
 .member-self-summary > p { font-size: 12px; line-height: 1.8; color: var(--member-muted); }
 .member-self-summary .member-button { margin-top: 22px; }
-.member-self-standings th:nth-child(2), .member-self-standings td:nth-child(2) { text-align: right; width: 75px; }
+.member-self-standings .member-self-rank { width: 58px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.member-self-standings td.member-self-rank { font: 600 22px var(--member-display); color: var(--member-text); }
+.member-self-standings th:nth-child(3), .member-self-standings td:nth-child(3) { text-align: right; width: 75px; }
 .member-self-standings th:last-child, .member-self-standings td:last-child { text-align: right; width: 120px; font-size: 10px; color: var(--member-muted); }
 .member-self-standings .member-self-points { font: 600 29px var(--member-display); }
 
