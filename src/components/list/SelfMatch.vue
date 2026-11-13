@@ -301,24 +301,65 @@ export default {
                 });
             }
         },
-        copyToClipboard(code) {
-            navigator.clipboard.writeText(code).then(() => {
-                Swal.fire({
+        async copyToClipboard(code) {
+            const text = code == null ? '' : String(code);
+            const customClass = {
+                cancelButton: 'btn-cancel', confirmButton: 'btn-confirm',
+                popup: 'popup-custom', title: 'text-custom', htmlContainer: 'text-custom'
+            };
+            if (!text) {
+                return Swal.fire({ icon: 'error', text: 'ไม่พบโค้ดการแข่งขัน กรุณาโหลดรายการใหม่', customClass });
+            }
+
+            let copied = false;
+            if (navigator.clipboard?.writeText) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    copied = true;
+                } catch {
+                    // Some browsers expose the API but deny clipboard permission.
+                }
+            }
+            if (!copied) {
+                // The temporary HTTP deployment has no Async Clipboard API.
+                // Run the selection-based copy during the user's click instead.
+                const previousFocus = document.activeElement;
+                const field = document.createElement('textarea');
+                field.value = text;
+                field.readOnly = true;
+                field.style.cssText = 'position:fixed;top:0;left:-9999px;font-size:16px;';
+                field.setAttribute('tabindex', '-1');
+                field.setAttribute('aria-hidden', 'true');
+                try {
+                    document.body.appendChild(field);
+                    field.focus({ preventScroll: true });
+                    field.select();
+                    field.setSelectionRange(0, text.length);
+                    copied = document.execCommand('copy');
+                } catch {
+                    copied = false;
+                } finally {
+                    field.remove();
+                    previousFocus?.focus({ preventScroll: true });
+                }
+            }
+
+            if (copied) {
+                return Swal.fire({
                     icon: 'success',
                     title: 'คัดลอก!',
                     text: 'คัดลอกโค้ดเรียบร้อย',
                     timer: 1500,
                     showConfirmButton: false,
-                    customClass: {
-                        cancelButton: 'btn-cancel',
-                        confirmButton: 'btn-confirm',
-                        popup: 'popup-custom',
-                        title: 'text-custom',
-                        htmlContainer: 'text-custom'
-                    },
+                    customClass,
                 });
-            }).catch(err => {
-                console.log('Something went wrong', err);
+            }
+            return Swal.fire({
+                icon: 'info', title: 'คัดลอกอัตโนมัติไม่ได้',
+                text: 'เลือกหรือแตะค้างที่โค้ดด้านล่างเพื่อคัดลอก',
+                input: 'text', inputValue: text,
+                inputAttributes: { readonly: 'readonly', 'aria-label': 'โค้ดการแข่งขัน' },
+                confirmButtonText: 'ปิด', customClass,
             });
         }
     },
