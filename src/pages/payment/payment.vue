@@ -87,7 +87,7 @@
 
                 <div class="balancewrapper_2">
                     <span class="balanceHeading_2" v-if="payment.payment_method === 'promptpay'">ตั๋ว {{ payment?.value
-                        }}ใบ {{ payment?.amount / 100 }}฿ </span>
+                        }}ใบ {{ payment?.amount / 150 }}฿ </span>
                     <span class="balanceHeading_2" v-if="payment.payment_method === 'own_pay'">ตั๋ว {{ payment?.value
                         }}ใบ {{ payment?.amount }}฿
                         <span v-if="isRefreshing"> (รอ {{ countdown }} วินาที)</span>
@@ -125,7 +125,7 @@ export default {
     },
     computed: {
         sumValue() {
-            return this.value * 100.00;
+            return this.value * 150.00;
         }
     },
     methods: {
