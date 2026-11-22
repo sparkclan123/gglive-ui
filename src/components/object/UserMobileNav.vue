@@ -10,7 +10,6 @@
       <div class="member-menu-theme"><div><strong>ธีมหน้าจอ</strong><small>จำไว้ในเครื่องนี้</small></div><MemberThemeToggle /></div>
       <button v-for="item in menuItems" :key="item.name" class="member-menu-item" @click="sideMenu(item.name)"><MemberIcon :name="item.icon"/><span>{{item.label}}</span><MemberIcon name="arrow"/></button>
       <button class="member-menu-item" :disabled="loggingOut" @click="logout"><MemberIcon name="back"/><span>ออกจากระบบ</span><MemberIcon name="arrow"/></button>
-      <div class="member-contacts"><span>ติดต่อทีมงาน</span><a :href="brand.lineUrl" target="_blank" rel="noopener noreferrer">LINE {{brand.lineLabel}}</a><a :href="brand.facebookUrl" target="_blank" rel="noopener noreferrer">Facebook</a></div>
     </section>
   </div></Teleport>
 </template>

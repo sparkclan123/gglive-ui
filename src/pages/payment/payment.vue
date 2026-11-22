@@ -75,9 +75,7 @@
                 แอดมินขอสงวนสิทธิ์ User ที่โอนเงินและส่งสลิปมาให้ช่วงหลัง <span class="text-green-700"> 24.00 น. </span>
                 แอดมินจะอนุมัติตั๋วให้อีกครั้ง <span class="text-green-700"> 08.00
                     น. </span> ของวันต่อไป ยกเว้นวันปิดรับส่งทีม จะอนุมัติตั๋วให้จนถึง 75 นาทีก่อนคู่แรกลงสนาม
-            </span><br>
-            <span class="text-xs mb-2 text-red-800 font-semibold">*สอบถามข้อมูลเพิ่มเติม LINE <span
-                    class="text-green-700"><a :href="$memberBrand.lineUrl" target="_blank" rel="noopener noreferrer">{{ $memberBrand.lineLabel }}</a></span> </span>
+            </span>
 
 
             <div class="walletBalanceCard mb-2 mt-2" v-if="payment" @click="refresh" role="button" tabindex="0" @keydown.enter="refresh" @keydown.space.prevent="refresh">

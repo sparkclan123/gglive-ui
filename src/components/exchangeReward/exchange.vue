@@ -166,7 +166,6 @@ export default {
                     this.getPoint();
                     Swal.fire({
                         title: '<h2 style="font-size: 14px;">แลกคะแนนสำเร็จ</h2> ',
-                        text: 'คุณได้ทำการแลกของรางวัลสำเร็จ กรุณาติดตามข้อมูลการจัดส่งของรางวัลทาง Line ของเรา หรือ facebook messenger ของเรา',
                         customClass: {
                             confirmButton: 'btn-confirm',
                             popup: 'popup-custom',

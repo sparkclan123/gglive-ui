@@ -256,7 +256,7 @@ export default {
         async toggleModelExchange() {
             Swal.fire({
                 title: 'กรอกคะเเนนเพื่อเเลกรางวัล',
-                text: 'ขั้นต่ำ 100 คะเเนนเมื่อกรอกเสร็จกรุณาติดต่อทีมงาน ผ่าน Line หรือ Facebook Fanpage',
+                text: 'ขั้นต่ำ 100 คะแนน',
                 input: 'text',
                 inputPlaceholder: 'กรอกเเต้มที่ต้องการเเลก',
                 showCancelButton: true,

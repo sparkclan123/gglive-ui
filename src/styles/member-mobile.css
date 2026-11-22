@@ -142,8 +142,6 @@ body .member-player-picker .member-picker-header .close-button { top: 8px; right
   .member-sheet-header h2 { font-size: 20px; }
   .member-menu-profile { margin-bottom: 12px; }
   .member-menu-item { min-height: 50px; padding: 12px 0; }
-  .member-contacts { padding-top: 14px; gap: 5px 16px; }
-  .member-contacts a { display: inline-flex; align-items: center; min-height: 44px; }
   .member-app .member-detail .card { padding: 14px; border-radius: 17px; }
   .member-app .member-detail .member-detail-title { font-size: 19px; }
   .member-app .member-detail .card .top-section { min-height: 42px; }

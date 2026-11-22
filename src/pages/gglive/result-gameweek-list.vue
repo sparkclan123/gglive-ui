@@ -26,24 +26,6 @@ export default {
     },
     methods: {
         ...mapActions('loading', ['updateLoading']),
-        downloadExcel() {
-            Swal.fire({
-                text: "ดูรายละเอียดได้ที่ Facebook ของ Kickมันส์",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'ตกลง!',
-                customClass: {
-                    confirmButton: 'btn-confirm',
-                    cancelButton: 'btn-cancel',
-                    popup: 'popup-custom',
-                    title: 'text-custom',
-                    htmlContainer: 'text-custom'
-                },
-                buttonsStyling: false,
-            })
-        },
         rewardDetail() {
             this.$router.push({ name: 'reward-detail', params: { id: this.gameWeek.id, type: "VIP" } });
         },

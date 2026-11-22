@@ -5,8 +5,6 @@ export const memberBrand = Object.freeze({
   logo: '/assets/member/kickmun-logo-512.png', logoSmall: '/assets/member/kickmun-logo-160.png', logoLarge: '/assets/member/kickmun-logo-768.png',
   hero: '/assets/member/footballer.png',
   avatarFallback: '/assets/member/avatar.svg',
-  lineLabel: 'ติดต่อทีมงาน', lineUrl: 'https://lin.ee/bltN2Lk',
-  facebookUrl: 'https://www.facebook.com/profile.php?id=61563548004280',
   appDownloadUrl: 'https://pudee.sgp1.digitaloceanspaces.com/app-pudee.apk',
 });
 export function applyMemberBrand() {

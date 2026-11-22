@@ -36,9 +36,7 @@
             <div class="rule">
                 <strong>-</strong> เมื่อสะสมครบ <span class="rule-strong">100 แต้มขึ้นไป</span> สามารถแลกเปลี่ยนเป็นตั๋ว
                 VIP ได้ หรือสามารถสอบถามข้อมูลเพิ่มเติมเกี่ยวกับของรางวัลอื่น ๆ ที่มีมูลค่าเทียบเท่ากับจำนวนแต้ม
-                โดยไม่จำกัดประเภทของรางวัล โดยติดต่อทีมงานผ่านทาง <span class="rule-strong">Line</span> หรือ <span
-                    class="rule-strong">Facebook Fanpage</span>
-              
+                โดยไม่จำกัดประเภทของรางวัล
             </div>
 
             <div class="rule">
