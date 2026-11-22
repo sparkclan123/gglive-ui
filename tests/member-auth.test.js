@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import axios from 'axios';
 
 function loadPage(name, options = {}) {
   const source = readFileSync(new URL(`../src/pages/${name}.vue`, import.meta.url), 'utf8')
@@ -64,18 +65,25 @@ test('login reports a network failure without leaving loading active', async () 
 });
 
 for (const [method, endpoint] of [
-  ['loginWithGoogle', 'https://api-service.pudee-club.com/api/premier-league/auth/login'],
-  ['loginWithLine', 'https://api-service.pudee-club.com/api/premier-league/auth/line/login']
+  ['loginWithGoogle', '/premier-league/auth/login'],
+  ['loginWithLine', '/premier-league/auth/line/login']
 ]) {
-  test(`${method} preserves the OAuth destination and guards an active sign-in`, () => {
-    const page = loadPage('login');
+  test(`${method} uses the Member API and guards an active sign-in`, () => {
+    const page = loadPage('login', { api: axios.create({ baseURL: '/api' }) });
     page.vm.loading = true;
     page.vm[method]();
     assert.equal(page.location.href, '');
     page.vm.loading = false;
     page.vm[method]();
-    assert.equal(page.location.href, endpoint);
+    assert.equal(page.location.href, `/api${endpoint}`);
     assert.equal(page.vm.loading, true);
+  });
+
+  test(`${method} honors an absolute Member API base URL`, () => {
+    const baseURL = 'https://member-api.example.test/api';
+    const page = loadPage('login', { api: axios.create({ baseURL: `${baseURL}/` }) });
+    page.vm[method]();
+    assert.equal(page.location.href, `${baseURL}${endpoint}`);
   });
 }
 

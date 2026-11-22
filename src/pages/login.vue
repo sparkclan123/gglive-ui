@@ -93,12 +93,12 @@ export default {
     loginWithGoogle() {
       if (this.loading) return;
       this.loading = true;
-      window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/login';
+      window.location.href = api.getUri({ url: '/premier-league/auth/login' });
     },
     loginWithLine() {
       if (this.loading) return;
       this.loading = true;
-      window.location.href = 'https://api-service.pudee-club.com/api/premier-league/auth/line/login';
+      window.location.href = api.getUri({ url: '/premier-league/auth/line/login' });
     },
     async loginuuid(uuid, username) {
       if (this.loading) return;
