@@ -136,6 +136,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
+import { teamFilterOptions } from '../../utils/teamFilterOptions.js';
 export default {
     props: ['position','remainingAmount'],
     name: 'PlayerSelection',
@@ -530,10 +531,7 @@ export default {
         updateTeamOptions() {
             const teams = this.getTeams;
             if (teams && Array.isArray(teams)) {
-                this.options.find(option => option.label === 'Teams').options = teams.map(team => ({
-                    name: team.name,
-                    value: team.team_id
-                }));
+                this.options.find(option => option.label === 'Teams').options = teamFilterOptions(teams);
             } else {
                 console.error('getTeams is null or not an array');
             }

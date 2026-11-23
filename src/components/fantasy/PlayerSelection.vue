@@ -27,6 +27,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import Swal from 'sweetalert2';
 import { originalShirtImage } from '../../utils/builderContext.js';
+import { teamFilterOptions } from '../../utils/teamFilterOptions.js';
 export default {
     props: { position: { type: String, default: 'all' }, remainingAmount: [String, Number], condition: Number, mode: { type: String, default: 'vip' } },
     name: 'PlayerSelection',
@@ -413,7 +414,7 @@ export default {
         getShirtImage: originalShirtImage,
         filterPlayers() { this.currentPage = 1; },
         updateTeamOptions() {
-            this.options.find(option => option.label === 'Teams').options = (this.getTeams || []).map(team => ({ name: team.name, value: team.team_id }));
+            this.options.find(option => option.label === 'Teams').options = teamFilterOptions(this.getTeams || []);
             if (this.selectedTeam !== 'view' && !(this.getTeams || []).some(team => Number(team.team_id) === Number(this.selectedTeam))) this.selectedTeam = 'view';
         },
         isSelected(playerId) {
